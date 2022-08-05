@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+}
+
+.content {
+  flex: 1;
+}
+
+.content-wrapper {
+  padding: 20px;
+}

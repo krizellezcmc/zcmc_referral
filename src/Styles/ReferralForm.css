@@ -1,0 +1,183 @@
+.referral-form {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 40px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.block {
+  margin-bottom: 40px;
+}
+
+.block h1 {
+  font-weight: 500;
+  font-size: 18px;
+  color: #272727;
+  margin-bottom: 20px;
+}
+
+.block label {
+  font-size: 14px;
+  color: #272727;
+  font-weight: 400;
+}
+
+.block label span {
+  color: red;
+}
+
+.inline-block-2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-container {
+  width: 100%;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.input-container-1 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-container-2 {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  margin-bottom: 20px;
+}
+
+.input-container-4 {
+  display: flex;
+  flex-direction: column;
+  width: 24%;
+  margin-bottom: 20px;
+}
+
+.input-container-5 {
+  display: flex;
+  flex-direction: column;
+  width: 19%;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.input-container-3 {
+  display: flex;
+  flex-direction: column;
+  width: 32.5%;
+  margin-bottom: 20px;
+}
+
+.input-container-4 input,
+.input-container-4 select,
+.input-container-3 input,
+.input-container-3 select,
+.input-container-2 select,
+.input-container-2 input,
+.input-container-5 input,
+.input-container-5 select,
+.input-container-1 select {
+  margin-top: 5px;
+}
+
+input.firstname,
+input.middlename,
+input.lastname {
+  width: 28%;
+}
+
+.referral-form input:hover,
+.referral-form input:focus,
+.referral-form select:focus,
+.referral-form select:hover {
+  border: 1px solid rgb(26, 143, 26);
+  border-bottom: 2px solid rgb(26, 143, 26);
+  transition: 0.1s ease-in-out;
+}
+
+.referral-form input,
+.referral-form select {
+  font-size: 14px;
+  outline: none;
+  border: 1px solid #d3d3d3;
+  border-bottom: 2px solid #d3d3d3;
+  transition: 0.1s ease-in-out;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+.referral-form input::placeholder,
+.referral-form select::placeholder {
+  font-size: 13px;
+  font-style: italic;
+}
+
+.referral-form textarea {
+  width: 100%;
+  border: 1px solid #d3d3d3;
+  border-bottom: 2px solid #d3d3d3;
+  transition: 0.1s ease-in-out;
+  border-radius: 8px;
+  height: 100px;
+  outline: none;
+  padding: 10px;
+  min-height: 50px;
+  min-width: 300px;
+}
+
+.referral-form textarea:hover,
+.referral-form textarea:focus {
+  border: 1px solid rgb(26, 143, 26);
+  border-bottom: 2px solid rgb(26, 143, 26);
+  transition: 0.1s ease-in-out;
+}
+
+input.suffix {
+  width: 12%;
+}
+
+.referral-btns {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+button {
+  cursor: pointer;
+  padding: 10px;
+  min-width: 90px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  transition: 0.1s ease-in-out;
+  font-weight: 500;
+}
+
+button.primary-cta {
+  color: #fff;
+  background: #1cb45d;
+}
+
+button.primary-cta-disable {
+  color: #fff;
+  background: #1cb45d;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+button.primary-cta:hover {
+  background: #189e52;
+}
