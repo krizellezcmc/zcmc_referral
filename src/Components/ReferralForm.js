@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "../Styles/ReferralForm.css";
 
 const ReferralForm = () => {
-  const [timeStamp, setTimeStamp] = useState("2022/01/01");
+  const date = new Date().toLocaleString();
+  const [timeStamp, setTimeStamp] = useState(date);
   const [username, setUserName] = useState("username");
   const [referringFacility, setReferringFacility] = useState("Hospital name");
   const [lastname, setLastName] = useState("");
@@ -36,9 +37,9 @@ const ReferralForm = () => {
   const [reason, setReason] = useState("");
 
   const url =
-    "https://script.google.com/macros/s/AKfycbx4ujI9wCE1PY6OM-dM18SB9HyVjM1JtJEa4UPSacpFA5SWpIp1SFQ8m5bFxeEvYn9-ZQ/exec";
+    "https://script.google.com/macros/s/AKfycbwvzoeZyFYiTSVh-m-RGAncO_WjGsytBuHnRkxYWLYSrzPWja8jOD5ScugywahrvT2DJg/exec?action=postData";
 
-  const postData = () => {
+  const postData = async () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -75,7 +76,7 @@ const ReferralForm = () => {
         userContact,
         reason,
       }),
-    }).then((response) => {
+    }).then(async (response) => {
       console.log(response);
     });
   };
