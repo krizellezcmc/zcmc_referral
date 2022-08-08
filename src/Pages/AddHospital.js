@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const AddHospital = () => {
-  return (
-    <div>AddHospital</div>
-  )
-}
+  return <div>AddHospital</div>;
+};
 
-export default AddHospital
+export default AddHospital;
