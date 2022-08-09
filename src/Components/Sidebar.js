@@ -9,6 +9,8 @@ import {
   HiOfficeBuilding,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
+import { Link } from "@chakra-ui/react";
+import { Link as ReachLink } from "";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -28,10 +30,20 @@ const Sidebar = () => {
           <span>Refer Patient</span>
         </li>
         <li>
-          <p>
-            <HiOutlineOfficeBuilding />
-          </p>
-          <span>Add Hospital</span>
+          <Link as={ReachLink} to="/addhospital">
+            <p>
+              <HiOutlineOfficeBuilding />
+            </p>
+            <span>Add Hospital</span>
+          </Link>
+        </li>
+        <li>
+          <Link as={ReachLink} to="/addhospital">
+            <p>
+              <HiOutlineOfficeBuilding />
+            </p>
+            <span>Verify Users</span>
+          </Link>
         </li>
       </ul>
 
