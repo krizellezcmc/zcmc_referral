@@ -417,8 +417,10 @@ const ReferralForm = () => {
         </div>
       </div>
 
-      <div className="referral-btns" onClick={postData}>
-        <button className="primary-cta">Submit</button>
+      <div className="referral-btns">
+        <button className="primary-cta" onClick={postData}>
+          Submit
+        </button>
       </div>
     </div>
   );

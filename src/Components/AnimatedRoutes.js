@@ -6,6 +6,7 @@ import Layout from "../Components/Layout";
 import Home from "../Pages/Home";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
+import AddHospital from "../Pages/AddHospital";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="addhospital" element={<AddHospital />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
         </Route>

@@ -1,5 +1,5 @@
 import React from "react";
-import "../Styles/Home.css"
+import "../Styles/Home.css";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import ReferralForm from "../Components/ReferralForm";
