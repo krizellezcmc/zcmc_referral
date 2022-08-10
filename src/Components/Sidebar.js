@@ -7,13 +7,15 @@ import {
   HiOutlineDocumentText,
   HiOutlineOfficeBuilding,
   HiOfficeBuilding,
+  HiUserAdd,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
-import { Link } from "@chakra-ui/react";
-import { Link as ReachLink } from "";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  let navigate = useNavigate();
+
   return (
     <div className={open ? "sidebar" : "sidebar close"}>
       <div className="sidebar-header">
@@ -23,27 +25,23 @@ const Sidebar = () => {
       </div>
 
       <ul className="navlinks">
-        <li className="active">
+        <li className="active" onClick={() => navigate("/home")}>
           <p>
             <HiDocumentText />
           </p>
           <span>Refer Patient</span>
         </li>
-        <li>
-          <Link as={ReachLink} to="/addhospital">
-            <p>
-              <HiOutlineOfficeBuilding />
-            </p>
-            <span>Add Hospital</span>
-          </Link>
+        <li onClick={() => navigate("/addhospital")}>
+          <p>
+            <HiOutlineOfficeBuilding />
+          </p>
+          <span>Add Hospital</span>
         </li>
-        <li>
-          <Link as={ReachLink} to="/addhospital">
-            <p>
-              <HiOutlineOfficeBuilding />
-            </p>
-            <span>Verify Users</span>
-          </Link>
+        <li onClick={() => navigate("/verifyuser")}>
+          <p>
+            <HiUserAdd />
+          </p>
+          <span>Verify Users</span>
         </li>
       </ul>
 

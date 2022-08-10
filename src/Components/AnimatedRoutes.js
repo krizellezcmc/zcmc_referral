@@ -7,6 +7,7 @@ import Home from "../Pages/Home";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 import AddHospital from "../Pages/AddHospital";
+import VerifyUser from "../Pages/VerifyUser";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -15,7 +16,8 @@ const AnimatedRoutes = () => {
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="verifyuser" element={<VerifyUser />} />
           <Route path="addhospital" element={<AddHospital />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />

@@ -16,7 +16,7 @@ const AddHospiForm = () => {
 
   const sendHospiData = () => {
     axios
-      .post("http://localhost/referral_api/api/addHospi.php/", addHospi)
+      .post("http://localhost/referral_api/api/add_hospi.php/", addHospi)
       .then((response) => {
         console.log(response.data);
       });
@@ -32,7 +32,6 @@ const AddHospiForm = () => {
               Hospital Name <span>*</span>
             </label>
             <input
-              style={{ width: "100%" }}
               type="text"
               value={hospiName}
               onChange={(e) => setHospiName(e.target.value)}

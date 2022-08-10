@@ -1,0 +1,30 @@
+.table-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  margin-top: 40px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 20px;
+  border-radius: 8px;
+}
+.side-container {
+  width: 100%;
+  margin-top: 40px;
+  height: auto;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 8px;
+  padding: 10px;
+}
+.border {
+  border-width: 1px;
+  border-color: #aaaaaa;
+  border-style: solid;
+  padding: 10px;
+  font-size: 13px;
+}
+.block h1 {
+  font-weight: 500;
+  font-size: 18px;
+  color: #272727;
+  margin-bottom: 20px;
+}

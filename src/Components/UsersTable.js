@@ -1,0 +1,257 @@
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Button,
+  Grid,
+  GridItem,
+  Box,
+  Stack,
+  HStack,
+  VStack,
+  StackDivider,
+  Spacer,
+  Badge,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  FormControl,
+  FormLabel,
+  Input,
+  Flex,
+} from "@chakra-ui/react";
+import "../Styles/Table.css";
+import axios from "axios";
+
+const UsersTable = () => {
+  const [userData, setUserData] = useState([]);
+  const [userVerify, setUserVerify] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  //get user data
+  const [userId, setUserId] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
+  const [hospital, setHospital] = useState("");
+  const [code, setCode] = useState("");
+
+  const getUserData = (Id) => {
+    let params = {
+      Id: Id,
+    };
+    axios
+      .get("http://localhost/referral_api/api/get_user_data.php", { params })
+      .then((response) => {
+        setUserId(response.data[0].userId);
+        setLastName(response.data[0].lastName);
+        setFirstName(response.data[0].firstName);
+        setContact(response.data[0].contact);
+        setEmail(response.data[0].email);
+        setCode(response.data[0].code);
+        setHospital(response.data[0].name);
+        console.log(response.data);
+      });
+  };
+
+  const handleVerifyuser = (userId) => {
+    axios
+      .post("http://localhost/referral_api/api/verify_user.php", {
+        userId: userId,
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+    onClose(true);
+  };
+  useEffect(() => {
+    axios
+      .get("http://localhost/referral_api/api/get_verified_users.php")
+      .then(function (response) {
+        setUserData(response.data);
+      });
+    axios
+      .get("http://localhost/referral_api/api/get_users.php")
+      .then(function (response) {
+        setUserVerify(response.data);
+      });
+  });
+
+  return (
+    <div>
+      <Grid templateColumns="repeat(7,1fr)" gap={6}>
+        <GridItem colSpan={5} bg="white">
+          <div className="table-container">
+            <div className="block">
+              <h1>Users</h1>
+            </div>
+            <TableContainer>
+              <Table cellSpacing={0}>
+                <Thead>
+                  <Tr>
+                    <Th className="border" width="30%">
+                      Name
+                    </Th>
+                    <Th className="border" width="20%">
+                      Email
+                    </Th>
+                    <Th className="border" width="15%">
+                      Phone No.
+                    </Th>
+                    <Th className="border" width="25%">
+                      Hospital
+                    </Th>
+                    <Th className="border" width="5%">
+                      Status
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {userData.length != 0 ? (
+                    userData.map((index) => {
+                      return (
+                        <>
+                          <Tr>
+                            <Td className="border">
+                              {index.lastName + ", " + index.firstName}
+                            </Td>
+                            <Td className="border">{index.email}</Td>
+                            <Td className="border">{index.contact}</Td>
+                            <Td className="border">{index.name}</Td>
+                            <Td className="border">
+                              <Badge colorScheme="green">Verified</Badge>
+                            </Td>
+                          </Tr>
+                        </>
+                      );
+                    })
+                  ) : (
+                    <Tr>
+                      <Td colSpan={5}>Nothing to show</Td>
+                    </Tr>
+                  )}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </div>
+        </GridItem>
+
+        <GridItem colSpan={2}>
+          <div className="side-container">
+            <h1 style={{ marginBottom: "10px" }}>
+              <b>For Verification</b>
+            </h1>
+
+            <VStack spacing={2}>
+              {userVerify.length != 0 ? (
+                userVerify.map((user) => {
+                  return (
+                    <>
+                      <Box
+                        width="100%"
+                        borderWidth="1px"
+                        borderRadius="xs"
+                        padding={1}
+                      >
+                        <HStack>
+                          <p style={{ fontSize: "14px" }}>
+                            <b>{user.firstName + " " + user.lastName}</b>{" "}
+                            <Badge colorScheme="purple" ml="1" size="xs">
+                              New
+                            </Badge>
+                            <br />
+                            {user.name}
+                          </p>
+
+                          <Spacer></Spacer>
+                          <Button
+                            size="sm"
+                            variant="solid"
+                            colorScheme="red"
+                            onClick={() => {
+                              getUserData(user.userId);
+                              onOpen(true);
+                            }}
+                          >
+                            Verify
+                          </Button>
+                        </HStack>
+                      </Box>
+                    </>
+                  );
+                })
+              ) : (
+                <p>Nothing to show</p>
+              )}
+            </VStack>
+          </div>
+        </GridItem>
+      </Grid>
+
+      <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>User Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Flex direction="column">
+              <FormControl mb={4}>
+                <FormLabel>Name</FormLabel>
+                <Input value={firstName + " " + lastName} />
+              </FormControl>
+              <HStack mb={5}>
+                <FormControl>
+                  <FormLabel>Phone #</FormLabel>
+                  <Input value={contact} />
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel>Email</FormLabel>
+                  <Input value={email} />
+                </FormControl>
+              </HStack>
+              <HStack>
+                <FormControl>
+                  <FormLabel>Hospital</FormLabel>
+                  <Input value={hospital} />
+                </FormControl>
+
+                <FormControl width="50%">
+                  <FormLabel>Access Code</FormLabel>
+                  <Input value={code} />
+                </FormControl>
+              </HStack>
+            </Flex>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              mr={3}
+              colorScheme="green"
+              onClick={() => {
+                handleVerifyuser(userId);
+              }}
+            >
+              Verify
+            </Button>
+            <Button onClick={onClose} variant="ghost">
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </div>
+  );
+};
+
+export default UsersTable;
