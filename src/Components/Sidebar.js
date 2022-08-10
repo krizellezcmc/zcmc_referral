@@ -8,6 +8,7 @@ import {
   HiOutlineOfficeBuilding,
   HiOfficeBuilding,
   HiUserAdd,
+  HiUsers,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +26,7 @@ const Sidebar = () => {
       </div>
 
       <ul className="navlinks">
-        <li className="active" onClick={() => navigate("/home")}>
+        <li className="active" onClick={() => navigate("/")}>
           <p>
             <HiDocumentText />
           </p>
@@ -42,6 +43,12 @@ const Sidebar = () => {
             <HiUserAdd />
           </p>
           <span>Verify Users</span>
+        </li>
+        <li onClick={() => navigate("/patientlist")}>
+          <p>
+            <HiUsers />
+          </p>
+          <span>Patient List</span>
         </li>
       </ul>
 
