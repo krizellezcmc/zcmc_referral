@@ -9,6 +9,8 @@ import {
   HiOfficeBuilding,
   HiUserAdd,
   HiUsers,
+  HiOutlineUserAdd
+
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   let navigate = useNavigate();
+
+  const path = window.location.pathname;
 
   return (
     <div className={open ? "sidebar" : "sidebar close"}>
@@ -26,21 +30,26 @@ const Sidebar = () => {
       </div>
 
       <ul className="navlinks">
+
         <li className="active" onClick={() => navigate("/")}>
+
+        <li className={path.includes("home") ? "active" : ""} onClick={() => navigate("/home")}>
+
           <p>
-            <HiDocumentText />
+            {path.includes("home") ? <HiDocumentText /> : <HiOutlineDocumentText />}
           </p>
           <span>Refer Patient</span>
         </li>
-        <li onClick={() => navigate("/addhospital")}>
+        <li className={path.includes("addhospital") ? "active" : ""} onClick={() => navigate("/addhospital")}>
           <p>
-            <HiOutlineOfficeBuilding />
+           
+            {path.includes("addhospital") ?  <HiOfficeBuilding /> :  <HiOutlineOfficeBuilding />}
           </p>
           <span>Add Hospital</span>
         </li>
-        <li onClick={() => navigate("/verifyuser")}>
+        <li className={path.includes("verifyuser") ? "active" : ""} onClick={() => navigate("/verifyuser")}>
           <p>
-            <HiUserAdd />
+          {path.includes("verifyuser") ?  <HiUserAdd /> :  <HiOutlineUserAdd />}
           </p>
           <span>Verify Users</span>
         </li>
