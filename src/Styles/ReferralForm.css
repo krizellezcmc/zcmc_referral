@@ -1,6 +1,6 @@
 .referral-form {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   margin-top: 40px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -163,6 +163,7 @@ button {
   outline: none;
   border: none;
   transition: 0.1s ease-in-out;
+  font-size: 12px;
   font-weight: 500;
 }
 

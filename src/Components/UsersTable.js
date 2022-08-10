@@ -29,7 +29,11 @@ import {
   FormLabel,
   Input,
   Flex,
+  InputGroup,
+  InputLeftElement,
+  Text,
 } from "@chakra-ui/react";
+import { BiUser, BiPhone, BiMailSend, BiLock, BiClinic } from "react-icons/bi";
 import "../Styles/Table.css";
 import axios from "axios";
 
@@ -208,28 +212,42 @@ const UsersTable = () => {
             <Flex direction="column">
               <FormControl mb={4}>
                 <FormLabel>Name</FormLabel>
-                <Input value={firstName + " " + lastName} />
+                <div style={{ display: "flex" }}>
+                  <BiUser color="#058e46" fontSize="20px" />
+                  <Text ml={2}>{firstName + " " + lastName}</Text>
+                </div>
               </FormControl>
               <HStack mb={5}>
                 <FormControl>
                   <FormLabel>Phone #</FormLabel>
-                  <Input value={contact} />
+                  <div style={{ display: "flex" }}>
+                    <BiPhone color="#058e46" fontSize="20px" />
+                    <Text ml={2}>{contact} </Text>
+                  </div>
                 </FormControl>
-
                 <FormControl>
                   <FormLabel>Email</FormLabel>
-                  <Input value={email} />
+                  <div style={{ display: "flex" }}>
+                    <BiMailSend color="#058e46" fontSize="20px" />
+                    <Text ml={2}>{email}</Text>
+                  </div>
                 </FormControl>
               </HStack>
               <HStack>
                 <FormControl>
                   <FormLabel>Hospital</FormLabel>
-                  <Input value={hospital} />
+                  <div style={{ display: "flex" }}>
+                    <BiClinic color="#058e46" fontSize="20px" />
+                    <Text ml={2}>{hospital} </Text>
+                  </div>
                 </FormControl>
 
-                <FormControl width="50%">
+                <FormControl>
                   <FormLabel>Access Code</FormLabel>
-                  <Input value={code} />
+                  <div style={{ display: "flex" }}>
+                    <BiLock color="#058e46" fontSize="20px" />
+                    <Text ml={2}>{code}</Text>
+                  </div>
                 </FormControl>
               </HStack>
             </Flex>

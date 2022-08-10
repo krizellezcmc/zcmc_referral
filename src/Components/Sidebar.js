@@ -9,8 +9,7 @@ import {
   HiOfficeBuilding,
   HiUserAdd,
   HiUsers,
-  HiOutlineUserAdd
-
+  HiOutlineUserAdd,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -30,33 +29,46 @@ const Sidebar = () => {
       </div>
 
       <ul className="navlinks">
-
-        <li className="active" onClick={() => navigate("/")}>
-
-        <li className={path.includes("home") ? "active" : ""} onClick={() => navigate("/home")}>
-
+        <li
+          className={path.includes("home") ? "active" : ""}
+          onClick={() => navigate("/home")}
+        >
           <p>
-            {path.includes("home") ? <HiDocumentText /> : <HiOutlineDocumentText />}
+            {path.includes("home") ? (
+              <HiDocumentText />
+            ) : (
+              <HiOutlineDocumentText />
+            )}
           </p>
           <span>Refer Patient</span>
         </li>
-        <li className={path.includes("addhospital") ? "active" : ""} onClick={() => navigate("/addhospital")}>
+        <li
+          className={path.includes("addhospital") ? "active" : ""}
+          onClick={() => navigate("/addhospital")}
+        >
           <p>
-           
-            {path.includes("addhospital") ?  <HiOfficeBuilding /> :  <HiOutlineOfficeBuilding />}
+            {path.includes("addhospital") ? (
+              <HiOfficeBuilding />
+            ) : (
+              <HiOutlineOfficeBuilding />
+            )}
           </p>
           <span>Add Hospital</span>
         </li>
-        <li className={path.includes("verifyuser") ? "active" : ""} onClick={() => navigate("/verifyuser")}>
+        <li
+          className={path.includes("verifyuser") ? "active" : ""}
+          onClick={() => navigate("/verifyuser")}
+        >
           <p>
-          {path.includes("verifyuser") ?  <HiUserAdd /> :  <HiOutlineUserAdd />}
+            {path.includes("verifyuser") ? <HiUserAdd /> : <HiOutlineUserAdd />}
           </p>
           <span>Verify Users</span>
         </li>
-        <li onClick={() => navigate("/patientlist")}>
-          <p>
-            <HiUsers />
-          </p>
+        <li
+          className={path.includes("patientlist") ? "active" : ""}
+          onClick={() => navigate("/patientlist")}
+        >
+          <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
           <span>Patient List</span>
         </li>
       </ul>
