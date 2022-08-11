@@ -12,22 +12,21 @@ import {
   Button,
   Input,
   Box,
-  HStack,
   useToast,
   Flex,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Spacer,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
 import { MdOutlineAdd } from "react-icons/md";
-import { BiSave } from "react-icons/bi";
+import { BiSave, BiSearch } from "react-icons/bi";
 
 const AddHospiForm = () => {
   const [hospiName, setHospiName] = useState("");
@@ -51,54 +50,85 @@ const AddHospiForm = () => {
   }, [code, hospiName]);
 
   const sendHospiData = () => {
-    axios
-      .post(
-        "http://192.168.3.135/zcmc_referral_api/api/add_hospi.php/",
-        addHospi
-      )
-      .then((response) => {
-        if (response.data.status === 1) {
-          toast({
-            position: "top",
-            title: "Record successfully.",
-            description: "New hospital added.",
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-          });
-          setHospiName("");
-          setCode(0);
-        } else {
-          toast({
-            position: "top",
-            title: "Error.",
-            description: "Please try again.",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-          });
-        }
+    if (!hospiName || !code || code === 0) {
+      toast({
+        position: "top",
+        title: "Warning",
+        description: "Kindly input all fields.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
       });
+    } else {
+      axios
+        .post(
+          "http://192.168.3.135/zcmc_referral_api/api/add_hospi.php/",
+          addHospi
+        )
+        .then((response) => {
+          if (response.data.status === 1) {
+            toast({
+              position: "top",
+              title: "Record successfully.",
+              description: "New hospital added.",
+              status: "success",
+              variant: "subtle",
+              duration: 2000,
+              isClosable: true,
+            });
+            setHospiName("");
+            setCode(0);
+          } else if (response.data.status === 3) {
+            toast({
+              position: "top",
+              title: "Hospital or code exist.",
+              description: "Please try again.",
+              status: "warning",
+              duration: 3000,
+              isClosable: true,
+            });
+          } else {
+            toast({
+              position: "top",
+              title: "Error.",
+              description: "Please try again.",
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+            });
+          }
+        });
+    }
   };
 
+  const [search, setSearch] = useState("");
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "40px",
-        }}
-      ></div>
-      <Button
-        variant="solid"
-        colorScheme="blue"
-        leftIcon={<MdOutlineAdd />}
-        onClick={onOpen}
-      >
-        Add new hospital
-      </Button>
-      <div className="table-hospital">
+      <div className="table-hospital-container ">
+        <div className="add-hospital-btn">
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<BiSearch color="gray.300" />}
+            />
+            <Input
+              type="text"
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search hospital"
+              width="400px"
+            />
+          </InputGroup>
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            leftIcon={<MdOutlineAdd />}
+            onClick={onOpen}
+            style={{ padding: "0 25px 0 25px" }}
+          >
+            Add new hospital
+          </Button>
+        </div>
+
         <TableContainer>
           <Table cellSpacing={0}>
             <Thead>
@@ -111,18 +141,28 @@ const AddHospiForm = () => {
             </Thead>
             <Tbody>
               {hospitals.length != 0 ? (
-                hospitals.map((index) => {
-                  return (
-                    <>
-                      <Tr>
-                        <Td className="border">
-                          <b>{index.code}</b>
-                        </Td>
-                        <Td className="border">{index.label}</Td>
-                      </Tr>
-                    </>
-                  );
-                })
+                hospitals
+                  .filter((val) => {
+                    if (search === "") {
+                      return val;
+                    } else if (
+                      val.label.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  })
+                  .map((index) => {
+                    return (
+                      <>
+                        <Tr>
+                          <Td className="border">
+                            <b>{index.code}</b>
+                          </Td>
+                          <Td className="border">{index.label}</Td>
+                        </Tr>
+                      </>
+                    );
+                  })
               ) : (
                 <Tr>
                   <Td colSpan={2}>Nothing to show</Td>
@@ -133,7 +173,7 @@ const AddHospiForm = () => {
         </TableContainer>
       </div>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="3xl">
+      <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>New Hospital</ModalHeader>
@@ -161,16 +201,13 @@ const AddHospiForm = () => {
             <Button
               variant="solid"
               colorScheme="green"
-              onClick={() => {
-                sendHospiData();
-              }}
-              style={{ float: "right", margin: "30px 20px 0px" }}
+              onClick={sendHospiData}
+              style={{ float: "right", margin: "30px 0px 20px" }}
               leftIcon={<BiSave />}
             >
               Save record
             </Button>
           </ModalBody>
-          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>
