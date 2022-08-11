@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useToast } from "@chakra-ui/react";
 import "../Styles/ReferralForm.css";
+import { Button } from "@chakra-ui/react";
 
 const ReferralForm = () => {
   const date = new Date().toLocaleString();
   const [timeStamp, setTimeStamp] = useState(date);
-  const [username, setUserName] = useState("username");
-  const [referringFacility, setReferringFacility] = useState("Hospital name");
+  const [username, setUserName] = useState("");
+  const [referringFacility, setReferringFacility] = useState("");
   const [lastname, setLastName] = useState("");
   const [firstname, setFirstName] = useState("");
   const [middlename, setMiddleName] = useState("");
@@ -35,6 +37,8 @@ const ReferralForm = () => {
   const [diagnosis, setDiagnosis] = useState("");
   const [endorsement, setEndorsement] = useState("");
   const [reason, setReason] = useState("");
+
+  const toast = useToast();
 
   const url =
     "https://script.google.com/macros/s/AKfycbwvzoeZyFYiTSVh-m-RGAncO_WjGsytBuHnRkxYWLYSrzPWja8jOD5ScugywahrvT2DJg/exec?action=postData";
@@ -77,57 +81,113 @@ const ReferralForm = () => {
         reason,
       }),
     }).then(async (response) => {
-      console.log(response);
+      if (response) {
+        setLastName("");
+        setFirstName("");
+        setMiddleName("");
+        setExtendedName("");
+        setSex("");
+        setBirthdate("");
+        setAge("");
+        setCivilStatus("");
+        setNationality("");
+        setReligion("");
+        setOccupation("");
+        setPhilhealth("");
+        setAddress("");
+        setNextOfKin("");
+        setContact("");
+        setDateAdmitted("");
+        setReferralType("");
+        setDisposition("");
+        setTemperature("");
+        setBloodPressure("");
+        setRespiRate("");
+        setPulseRate("");
+        setOxygen("");
+        setGlasgow("");
+        setChiefComplaints("");
+        setDiagnosis("");
+        setEndorsement("");
+        setUserContact("");
+        setReason("");
+        toast({
+          position: "top",
+          title: "Record successfully.",
+          description: "Patient succesfully added.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
     });
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setReferringFacility(user.name.toUpperCase());
+    setUserName(user.firstName + "  " + user.lastName);
+  });
 
   return (
     <div className="referral-form">
       <div className="block">
         <h1>Patient Information</h1>
+
         <div className="inline-block">
           <label>
             Full name <span>*</span>
           </label>
           <div className="input-container">
             <input
+              style={{ textTransform: "uppercase" }}
               type="text"
+              value={lastname}
               className="lastname"
               placeholder="Last name"
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => setLastName(e.target.value.toUpperCase())}
               required
             />
             <input
+              style={{ textTransform: "uppercase" }}
               type="text"
+              value={firstname}
               className="firstname"
               placeholder="First name"
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value.toUpperCase())}
               required
             />
             <input
+              style={{ textTransform: "uppercase" }}
               type="text"
               className="middlename"
               placeholder="Middle name"
-              onChange={(e) => setMiddleName(e.target.value)}
+              value={middlename}
+              onChange={(e) => setMiddleName(e.target.value.toUpperCase())}
             />
             <input
+              style={{ textTransform: "uppercase" }}
               type="text"
+              value={extendedName}
               className="suffix"
               placeholder="Suffix"
-              onChange={(e) => setExtendedName(e.target.value)}
+              onChange={(e) => setExtendedName(e.target.value.toUpperCase())}
             />
           </div>
         </div>
-
         <div className="inline-block-2">
           <div className="input-container-4">
             <label>Birthday</label>
-            <input type="date" onChange={(e) => setBirthdate(e.target.value)} />
+            <input
+              value={birthdate}
+              type="date"
+              onChange={(e) => setBirthdate(e.target.value)}
+            />
           </div>
 
           <div className="input-container-4">
             <label>Sex</label>
-            <select onChange={(e) => setSex(e.target.value)}>
+            <select value={sex} onChange={(e) => setSex(e.target.value)}>
               <option value="" selected disabled>
                 Please Select
               </option>
@@ -139,7 +199,10 @@ const ReferralForm = () => {
 
           <div className="input-container-4">
             <label>Civil Status</label>
-            <select onChange={(e) => setCivilStatus(e.target.value)}>
+            <select
+              value={civilStatus}
+              onChange={(e) => setCivilStatus(e.target.value)}
+            >
               <option value="" selected disabled>
                 Please Select
               </option>
@@ -154,16 +217,19 @@ const ReferralForm = () => {
           <div className="input-container-4">
             <label>Nationality</label>
             <input
+              value={nationality}
               type="text"
               onChange={(e) => setNationality(e.target.value)}
             />
           </div>
         </div>
-
         <div className="inline-block-2">
           <div className="input-container-3">
             <label>Religion</label>
-            <select onChange={(e) => setReligion(e.target.value)}>
+            <select
+              value={religion}
+              onChange={(e) => setReligion(e.target.value)}
+            >
               <option value="" selected disabled>
                 Please Select
               </option>
@@ -177,6 +243,7 @@ const ReferralForm = () => {
           <div className="input-container-3">
             <label>Occupation</label>
             <input
+              value={occupation}
               type="text"
               onChange={(e) => setOccupation(e.target.value)}
             />
@@ -185,16 +252,17 @@ const ReferralForm = () => {
           <div className="input-container-3">
             <label>PhilHealth MDR</label>
             <input
+              value={philhealth}
               type="text"
               onChange={(e) => setPhilhealth(e.target.value)}
             />
           </div>
         </div>
-
         <div className="inline-block">
           <label>Address</label>
           <div className="input-container">
             <textarea
+              value={address}
               placeholder="Complete full address"
               onChange={(e) => setAddress(e.target.value)}
             ></textarea>
@@ -208,12 +276,20 @@ const ReferralForm = () => {
         <div className="inline-block-2">
           <div className="input-container-2">
             <label>Next of Kin</label>
-            <input type="text" onChange={(e) => setNextOfKin(e.target.value)} />
+            <input
+              value={nextOfKin}
+              type="text"
+              onChange={(e) => setNextOfKin(e.target.value)}
+            />
           </div>
 
           <div className="input-container-2">
             <label>Landline/Mobile/Email</label>
-            <input type="text" onChange={(e) => setContact(e.target.value)} />
+            <input
+              value={contact}
+              type="text"
+              onChange={(e) => setContact(e.target.value)}
+            />
           </div>
         </div>
 
@@ -245,6 +321,7 @@ const ReferralForm = () => {
               Date Admitted <span>*</span>
             </label>
             <input
+              value={dateAdmitted}
               type="date"
               onChange={(e) => setDateAdmitted(e.target.value)}
               required
@@ -255,9 +332,13 @@ const ReferralForm = () => {
             <label>
               Referral Type <span>*</span>
             </label>
-            <select onChange={(e) => setReferralType(e.target.value)} required>
+            <select
+              value={referralType}
+              onChange={(e) => setReferralType(e.target.value)}
+              required
+            >
               <option value="" disabled selected>
-                - Please Select -
+                Please Select
               </option>
               <option value="COVID">COVID</option>
               <option value="NON-COVID">NON-COVID</option>
@@ -269,7 +350,11 @@ const ReferralForm = () => {
             <label>
               Disposition <span>*</span>
             </label>
-            <select onChange={(e) => setDisposition(e.target.value)} required>
+            <select
+              value={disposition}
+              onChange={(e) => setDisposition(e.target.value)}
+              required
+            >
               <option value="" disabled selected>
                 - Please Select -
               </option>
@@ -287,6 +372,7 @@ const ReferralForm = () => {
               Latest V/S-Temperature <span>*</span>
             </label>
             <input
+              value={temperature}
               type="text"
               onChange={(e) => setTemperature(e.target.value)}
               required
@@ -298,6 +384,7 @@ const ReferralForm = () => {
               Latest V/S-Blood Pressure <span>*</span>
             </label>
             <input
+              value={bloodPressure}
               type="text"
               onChange={(e) => setBloodPressure(e.target.value)}
               required
@@ -309,6 +396,7 @@ const ReferralForm = () => {
               Latest V/S-Respiration Rate <span>*</span>
             </label>
             <input
+              value={respiRate}
               type="text"
               onChange={(e) => setRespiRate(e.target.value)}
               required
@@ -320,6 +408,7 @@ const ReferralForm = () => {
               Latest V/S Pulse Rate <span>*</span>
             </label>
             <input
+              value={pulseRate}
               type="text"
               onChange={(e) => setPulseRate(e.target.value)}
               required
@@ -331,6 +420,7 @@ const ReferralForm = () => {
               Latest V/S-Oxygen Saturation <span>*</span>
             </label>
             <input
+              value={oxygen}
               type="text"
               onChange={(e) => setOxygen(e.target.value)}
               required
@@ -344,6 +434,7 @@ const ReferralForm = () => {
               Glasgow Coma Scale <span>*</span>
             </label>
             <input
+              value={glasgow}
               type="text"
               onChange={(e) => setGlasgow(e.target.value)}
               required
@@ -353,6 +444,7 @@ const ReferralForm = () => {
           <div className="input-container-3">
             <label>Endorsement/Initial Care</label>
             <input
+              value={endorsement}
               type="text"
               onChange={(e) => setEndorsement(e.target.value)}
             />
@@ -361,6 +453,7 @@ const ReferralForm = () => {
           <div className="input-container-3">
             <label>Resident on Duty/Contact #</label>
             <input
+              value={userContact}
               type="text"
               onChange={(e) => setUserContact(e.target.value)}
             />
@@ -371,6 +464,7 @@ const ReferralForm = () => {
           <div className="input-container-2">
             <label>Chief Complaints</label>
             <textarea
+              value={chiefComplaints}
               onChange={(e) => setChiefComplaints(e.target.value)}
               style={{
                 marginTop: "5px",
@@ -384,6 +478,7 @@ const ReferralForm = () => {
           <div className="input-container-2">
             <label>Diagnosis</label>
             <textarea
+              value={diagnosis}
               onChange={(e) => setDiagnosis(e.target.value)}
               style={{
                 marginTop: "5px",
@@ -398,7 +493,7 @@ const ReferralForm = () => {
         <div className="inline-block-2">
           <div className="input-container-1">
             <label>Reason for Referral</label>
-            <select onChange={(e) => setReason(e.target.value)}>
+            <select value={reason} onChange={(e) => setReason(e.target.value)}>
               <option value="" disabled selected>
                 - Please Select -
               </option>
@@ -417,10 +512,10 @@ const ReferralForm = () => {
         </div>
       </div>
 
-      <div className="referral-btns">
-        <button className="primary-cta" onClick={postData}>
+      <div className="resferral-btns">
+        <Button variant="solid" colorScheme="green" onClick={postData}>
           Submit
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -11,10 +11,8 @@ import {
   Grid,
   GridItem,
   Box,
-  Stack,
   HStack,
   VStack,
-  StackDivider,
   Spacer,
   Badge,
   Modal,
@@ -27,13 +25,18 @@ import {
   useDisclosure,
   FormControl,
   FormLabel,
-  Input,
+  IconButton,
   Flex,
-  InputGroup,
-  InputLeftElement,
   Text,
 } from "@chakra-ui/react";
-import { BiUser, BiPhone, BiMailSend, BiLock, BiClinic } from "react-icons/bi";
+import {
+  BiUser,
+  BiPhone,
+  BiMailSend,
+  BiLock,
+  BiClinic,
+  BiUserCheck,
+} from "react-icons/bi";
 import "../Styles/Table.css";
 import axios from "axios";
 
@@ -56,7 +59,9 @@ const UsersTable = () => {
       Id: Id,
     };
     axios
-      .get("http://localhost/referral_api/api/get_user_data.php", { params })
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_user_data.php", {
+        params,
+      })
       .then((response) => {
         setUserId(response.data[0].userId);
         setLastName(response.data[0].lastName);
@@ -71,7 +76,7 @@ const UsersTable = () => {
 
   const handleVerifyuser = (userId) => {
     axios
-      .post("http://localhost/referral_api/api/verify_user.php", {
+      .post("http://192.168.3.135/zcmc_referral_api/api/verify_user.php", {
         userId: userId,
       })
       .then((response) => {
@@ -81,12 +86,12 @@ const UsersTable = () => {
   };
   useEffect(() => {
     axios
-      .get("http://localhost/referral_api/api/get_verified_users.php")
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_verified_users.php")
       .then(function (response) {
         setUserData(response.data);
       });
     axios
-      .get("http://localhost/referral_api/api/get_users.php")
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_users.php")
       .then(function (response) {
         setUserVerify(response.data);
       });
@@ -94,7 +99,7 @@ const UsersTable = () => {
 
   return (
     <div>
-      <Grid templateColumns="repeat(7,1fr)" gap={6}>
+      <Grid templateColumns="repeat(7,1fr)" gap={4}>
         <GridItem colSpan={5} bg="white">
           <div className="table-container">
             <div className="block">
@@ -152,7 +157,7 @@ const UsersTable = () => {
         </GridItem>
 
         <GridItem colSpan={2}>
-          <div className="side-container">
+          <div className="side-container" style={{ padding: "15px" }}>
             <h1 style={{ marginBottom: "10px" }}>
               <b>For Verification</b>
             </h1>
@@ -166,7 +171,7 @@ const UsersTable = () => {
                         width="100%"
                         borderWidth="1px"
                         borderRadius="xs"
-                        padding={1}
+                        padding={3}
                       >
                         <HStack>
                           <p style={{ fontSize: "14px" }}>
@@ -179,17 +184,16 @@ const UsersTable = () => {
                           </p>
 
                           <Spacer></Spacer>
-                          <Button
+                          <IconButton
                             size="sm"
-                            variant="solid"
-                            colorScheme="red"
+                            variant="outline"
+                            colorScheme="teal"
                             onClick={() => {
                               getUserData(user.userId);
                               onOpen(true);
                             }}
-                          >
-                            Verify
-                          </Button>
+                            icon={<BiUserCheck fontSize="17px" />}
+                          />
                         </HStack>
                       </Box>
                     </>
@@ -210,16 +214,16 @@ const UsersTable = () => {
           <ModalCloseButton />
           <ModalBody>
             <Flex direction="column">
-              <FormControl mb={4}>
+              <FormControl mb={8}>
                 <FormLabel>Name</FormLabel>
                 <div style={{ display: "flex" }}>
                   <BiUser color="#058e46" fontSize="20px" />
                   <Text ml={2}>{firstName + " " + lastName}</Text>
                 </div>
               </FormControl>
-              <HStack mb={5}>
+              <HStack mb={8}>
                 <FormControl>
-                  <FormLabel>Phone #</FormLabel>
+                  <FormLabel>Contact #</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiPhone color="#058e46" fontSize="20px" />
                     <Text ml={2}>{contact} </Text>

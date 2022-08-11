@@ -6,6 +6,7 @@ nav {
   top: 0;
   padding: 0px 20px;
   display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid #dde0e6;
 }
 

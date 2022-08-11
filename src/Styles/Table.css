@@ -28,3 +28,11 @@
   color: #272727;
   margin-bottom: 20px;
 }
+
+.table-hospital {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: 40px;
+  padding: 30px;
+}

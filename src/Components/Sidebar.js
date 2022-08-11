@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Styles/Sidebar.css";
 import {
   HiChevronDoubleRight,
@@ -14,11 +14,22 @@ import {
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
 
+import { IconButton, useToast } from "@chakra-ui/react";
+
 const Sidebar = () => {
+  const [username, setUserName] = useState("");
+  const [referringFacility, setReferringFacility] = useState("");
   const [open, setOpen] = useState(true);
   let navigate = useNavigate();
 
   const path = window.location.pathname;
+  const toast = useToast();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setReferringFacility(user.name);
+    setUserName(user.firstName + "  " + user.lastName);
+  });
 
   return (
     <div className={open ? "sidebar" : "sidebar close"}>
@@ -76,8 +87,8 @@ const Sidebar = () => {
       <div className="sidebar-user">
         <img src={Nouser} alt="User Avatar" />
         <div className="user">
-          <h1>Juan Dela Cruz</h1>
-          <p>User</p>
+          <h1>{username}</h1>
+          <small>{referringFacility}</small>
         </div>
       </div>
     </div>

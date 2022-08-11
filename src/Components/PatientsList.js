@@ -17,7 +17,7 @@ const PatientsList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost/referral_api/api/get_patients.php")
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
       .then(function (response) {
         setPatients(response.data);
       });
