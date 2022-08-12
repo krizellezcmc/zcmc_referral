@@ -41,6 +41,9 @@ import {
   BiUserCheck,
   BiTrash,
   BiSearch,
+  BiStop,
+  BiX,
+  BiCheck,
 } from "react-icons/bi";
 import "../Styles/Table.css";
 import axios from "axios";
@@ -78,7 +81,6 @@ const UsersTable = () => {
         setEmail(response.data[0].email);
         setCode(response.data[0].code);
         setHospital(response.data[0].name);
-        console.log(response.data);
       });
   };
 
@@ -88,7 +90,11 @@ const UsersTable = () => {
         userId: userId,
       })
       .then((response) => {
-        console.log(response.data);
+        if (response.data.status === 1) {
+          Swal.fire("User Verified!", "The user is now verified.", "success");
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       });
     onClose(true);
   };
@@ -117,6 +123,37 @@ const UsersTable = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  };
+
+  const declineUser = (id) => {
+    onClose(true);
+    Swal.fire({
+      text: "Are you sure you want to decline?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Decline",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post("http://192.168.3.135/zcmc_referral_api/api/decline_user.php", {
+            userId: id,
+          })
+          .then((response) => {
+            if (response.data.status === 1) {
+              Swal.fire(
+                "Declined!",
+                "You successfully declined the user.",
+                "success"
+              );
+            } else {
+              Swal.fire("Error!", "Something went wrong.", "error");
+            }
+            console.log(response.data);
+          });
       }
     });
   };
@@ -335,17 +372,28 @@ const UsersTable = () => {
               </HStack>
             </Flex>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter my={6}>
             <Button
               mr={3}
               colorScheme="green"
               onClick={() => {
                 handleVerifyuser(userId);
               }}
+              leftIcon={<BiCheck fontSize="20px" />}
             >
               Verify
             </Button>
-            <Button onClick={onClose} variant="ghost">
+            <Button
+              mr={3}
+              colorScheme="pink"
+              onClick={() => {
+                declineUser(userId);
+              }}
+              leftIcon={<BiX fontSize="20px" />}
+            >
+              Decline
+            </Button>
+            <Button onClick={onClose} variant="solid">
               Cancel
             </Button>
           </ModalFooter>

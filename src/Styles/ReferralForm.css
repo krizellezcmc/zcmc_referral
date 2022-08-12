@@ -5,7 +5,7 @@
   margin-top: 40px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 .block {
@@ -120,7 +120,7 @@ input.lastname {
 
 .referral-form input::placeholder,
 .referral-form select::placeholder {
-  font-size: 13px;
+  font-size: 14px;
   font-style: italic;
 }
 
@@ -129,12 +129,13 @@ input.lastname {
   border: 1px solid #d3d3d3;
   border-bottom: 2px solid #d3d3d3;
   transition: 0.1s ease-in-out;
-  border-radius: 8px;
+  border-radius: 5px;
   height: 100px;
   outline: none;
   padding: 10px;
   min-height: 50px;
   min-width: 300px;
+  font-size: 14px;
 }
 
 .referral-form textarea:hover,
