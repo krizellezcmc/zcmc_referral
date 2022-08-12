@@ -140,7 +140,7 @@ const AddHospiForm = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {hospitals.length != 0 ? (
+              {hospitals.length !== 0 ? (
                 hospitals
                   .filter((val) => {
                     if (search === "") {

@@ -14,8 +14,6 @@ import {
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
 
-import { IconButton, useToast } from "@chakra-ui/react";
-
 const Sidebar = () => {
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
@@ -23,13 +21,12 @@ const Sidebar = () => {
   let navigate = useNavigate();
 
   const path = window.location.pathname;
-  const toast = useToast();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setReferringFacility(user.name);
     setUserName(user.firstName + "  " + user.lastName);
-  });
+  }, [username, referringFacility]);
 
   return (
     <div className={open ? "sidebar" : "sidebar close"}>

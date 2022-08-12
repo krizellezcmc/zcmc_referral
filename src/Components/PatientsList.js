@@ -14,8 +14,12 @@ import "../Styles/Patients.css";
 
 const PatientsList = () => {
   const [patients, setPatients] = useState([]);
+  const [hospital, setHospital] = useState("");
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setHospital(user.name);
+
     axios
       .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
       .then(function (response) {
@@ -61,9 +65,15 @@ const PatientsList = () => {
                     <Td className="border">{pat.patientName}</Td>
                     <Td className="border">{pat.referredDate}</Td>
                     <Td className="border">{pat.referredFrom}</Td>
-                    <Td className="border">{pat.dischDate}</Td>
                     <Td className="border">
-                      <Badge colorScheme="green">Verified</Badge>
+                      {pat.dischDate == null ? (
+                        <Badge colorScheme="yellow"> Not applicable</Badge>
+                      ) : (
+                        pat.dischDate
+                      )}
+                    </Td>
+                    <Td className="border">
+                      <Badge colorScheme="blue">+ Admitted</Badge>
                     </Td>
                   </Tr>
                 </>

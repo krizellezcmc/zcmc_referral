@@ -127,7 +127,7 @@ const UsersTable = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {userData.length != 0 ? (
+                  {userData.length !== 0 ? (
                     userData.map((index) => {
                       return (
                         <>
@@ -163,7 +163,7 @@ const UsersTable = () => {
             </h1>
 
             <VStack spacing={2}>
-              {userVerify.length != 0 ? (
+              {userVerify.length !== 0 ? (
                 userVerify.map((user) => {
                   return (
                     <>
