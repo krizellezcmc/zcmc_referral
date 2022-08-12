@@ -102,9 +102,7 @@ const UsersTable = () => {
       <Grid templateColumns="repeat(7,1fr)" gap={4}>
         <GridItem colSpan={5} bg="white">
           <div className="table-container">
-            <div className="block">
-              <h1>Users</h1>
-            </div>
+            <div className="block">Users</div>
             <TableContainer>
               <Table cellSpacing={0}>
                 <Thead>
