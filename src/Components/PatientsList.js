@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   Thead,
@@ -8,17 +9,22 @@ import {
   Td,
   TableContainer,
   Badge,
+  Button,
+  InputLeftElement,
+  InputGroup,
+  Input,
 } from "@chakra-ui/react";
 import axios from "axios";
 import "../Styles/Patients.css";
+import { BiSearch } from "react-icons/bi";
 
 const PatientsList = () => {
+  let navigate = useNavigate();
   const [patients, setPatients] = useState([]);
-  const [hospital, setHospital] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    setHospital(user.name);
 
     axios
       .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
@@ -29,9 +35,37 @@ const PatientsList = () => {
 
   return (
     <div className="table-container">
-      <div className="block">
-        <h1>Referred Patients</h1>
+      <h1 className="block">Referred Patients</h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: 10,
+        }}
+      >
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<BiSearch color="gray.300" />}
+          />
+          <Input
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search patient"
+            width="400px"
+          />
+        </InputGroup>
+        <Button
+          variant="solid"
+          colorScheme="green"
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
+          + Refer patient
+        </Button>
       </div>
+
       <TableContainer>
         <Table cellSpacing={0}>
           <Thead>

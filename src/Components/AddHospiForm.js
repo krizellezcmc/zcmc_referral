@@ -104,7 +104,8 @@ const AddHospiForm = () => {
   const [search, setSearch] = useState("");
   return (
     <>
-      <div className="table-hospital-container ">
+      <div className="table-container ">
+        <h1 className="block">List of Hospitals</h1>
         <div className="add-hospital-btn">
           <InputGroup>
             <InputLeftElement
