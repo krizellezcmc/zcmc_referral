@@ -37,7 +37,7 @@ const ReferredPatients = () => {
         <Table cellSpacing={0}>
           <Thead>
             <Tr>
-              <Th className="border" width="30%">
+              <Th className="border" width="15%">
                 Referred Date
               </Th>
               <Th className="border" width="30%">
@@ -48,7 +48,13 @@ const ReferredPatients = () => {
                 Date Admitted
               </Th>
               <Th className="border" width="15%">
-                Other Details
+                Referral Type
+              </Th>
+              <Th className="border" width="15%">
+                Disposition
+              </Th>
+              <Th className="border" width="20%">
+                Resident on Duty
               </Th>
               <Th className="border" width="15%">
                 Status
@@ -70,9 +76,11 @@ const ReferredPatients = () => {
                     </Td>
 
                     <Td className="border">{ref.DateAdmitted}</Td>
+                    <Td className="border">{ref.ReferralType}</Td>
                     <Td className="border">
-                      <Button>View</Button>
+                      <Badge colorScheme="purple">{ref.Disposition}</Badge>
                     </Td>
+                    <Td className="border">{ref.UserContactNo}</Td>
                     <Td className="border">
                       <Badge colorScheme="red">Pending</Badge>
                     </Td>
