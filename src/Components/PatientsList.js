@@ -56,15 +56,6 @@ const PatientsList = () => {
             width="400px"
           />
         </InputGroup>
-        <Button
-          variant="solid"
-          colorScheme="green"
-          onClick={() => {
-            navigate("/home");
-          }}
-        >
-          + Refer patient
-        </Button>
       </div>
 
       <TableContainer>
@@ -92,32 +83,48 @@ const PatientsList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {patients.map((pat) => {
-              return (
-                <>
-                  <Tr>
-                    <Td className="border">
-                      <b>{pat.patId}</b>
-                    </Td>
-                    <Td className="border">{pat.patientName}</Td>
-                    <Td className="border">
-                      {moment(pat.referredDate).format("LLL")}
-                    </Td>
-                    <Td className="border">{pat.referredFrom}</Td>
-                    <Td className="border">
-                      {pat.dischDate == null ? (
-                        <Badge colorScheme="yellow"> Not applicable</Badge>
-                      ) : (
-                        moment(pat.dischDate).format("LLL")
-                      )}
-                    </Td>
-                    <Td className="border">
-                      <Badge colorScheme="blue">+ Admitted</Badge>
-                    </Td>
-                  </Tr>
-                </>
-              );
-            })}
+            {patients.length !== 0 ? (
+              patients
+                .filter((val) => {
+                  if (search === "") {
+                    return val;
+                  } else if (
+                    val.patientName.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((pat) => {
+                  return (
+                    <>
+                      <Tr>
+                        <Td className="border">
+                          <b>{pat.patId}</b>
+                        </Td>
+                        <Td className="border">{pat.patientName}</Td>
+                        <Td className="border">
+                          {moment(pat.referredDate).format("LLL")}
+                        </Td>
+                        <Td className="border">{pat.referredFrom}</Td>
+                        <Td className="border">
+                          {pat.dischDate == null ? (
+                            <Badge colorScheme="yellow"> Not applicable</Badge>
+                          ) : (
+                            moment(pat.dischDate).format("LLL")
+                          )}
+                        </Td>
+                        <Td className="border">
+                          <Badge colorScheme="blue">+ Admitted</Badge>
+                        </Td>
+                      </Tr>
+                    </>
+                  );
+                })
+            ) : (
+              <Tr>
+                <Td colSpan={2}>Nothing to show</Td>
+              </Tr>
+            )}
           </Tbody>
         </Table>
       </TableContainer>

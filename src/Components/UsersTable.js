@@ -28,6 +28,9 @@ import {
   IconButton,
   Flex,
   Text,
+  InputGroup,
+  InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
 import {
   BiUser,
@@ -37,6 +40,7 @@ import {
   BiClinic,
   BiUserCheck,
   BiTrash,
+  BiSearch,
 } from "react-icons/bi";
 import "../Styles/Table.css";
 import axios from "axios";
@@ -55,6 +59,8 @@ const UsersTable = () => {
   const [email, setEmail] = useState("");
   const [hospital, setHospital] = useState("");
   const [code, setCode] = useState("");
+
+  const [search, setSearch] = useState("");
 
   const getUserData = (Id) => {
     let params = {
@@ -120,7 +126,27 @@ const UsersTable = () => {
       <Grid templateColumns="repeat(7,1fr)" gap={4}>
         <GridItem colSpan={5} bg="white">
           <div className="table-container">
-            <div className="block">Users</div>
+            <h1 className="block">Users</h1>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 10,
+              }}
+            >
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<BiSearch color="gray.300" />}
+                />
+                <Input
+                  type="text"
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search User"
+                  width="400px"
+                />
+              </InputGroup>
+            </div>
             <TableContainer>
               <Table cellSpacing={0}>
                 <Thead>
@@ -147,35 +173,57 @@ const UsersTable = () => {
                 </Thead>
                 <Tbody>
                   {userData.length !== 0 ? (
-                    userData.map((index) => {
-                      return (
-                        <>
-                          <Tr>
-                            <Td className="border">
-                              {index.lastName + ", " + index.firstName}
-                            </Td>
-                            <Td className="border">{index.email}</Td>
-                            <Td className="border">{index.contact}</Td>
-                            <Td className="border">{index.name}</Td>
-                            <Td className="border">
-                              <Badge colorScheme="green">Verified</Badge>
-                            </Td>
-                            <Td className="border">
-                              <IconButton
-                                style={{ margin: 0, padding: 0 }}
-                                size="sm"
-                                variant="outline"
-                                colorScheme="red"
-                                onClick={() => {
-                                  deleteUser(index.firstName);
-                                }}
-                                icon={<BiTrash fontSize="15px" />}
-                              />
-                            </Td>
-                          </Tr>
-                        </>
-                      );
-                    })
+                    userData
+                      .filter((val) => {
+                        if (search === "") {
+                          return val;
+                        } else if (
+                          val.lastName
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) ||
+                          val.firstName
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) ||
+                          val.email
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) ||
+                          val.contact
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) ||
+                          val.name.toLowerCase().includes(search.toLowerCase())
+                        ) {
+                          return val;
+                        }
+                      })
+                      .map((index) => {
+                        return (
+                          <>
+                            <Tr>
+                              <Td className="border">
+                                {index.lastName + ", " + index.firstName}
+                              </Td>
+                              <Td className="border">{index.email}</Td>
+                              <Td className="border">{index.contact}</Td>
+                              <Td className="border">{index.name}</Td>
+                              <Td className="border">
+                                <Badge colorScheme="green">Verified</Badge>
+                              </Td>
+                              <Td className="border">
+                                <IconButton
+                                  style={{ margin: 0, padding: 0 }}
+                                  size="sm"
+                                  variant="outline"
+                                  colorScheme="red"
+                                  onClick={() => {
+                                    deleteUser(index.firstName);
+                                  }}
+                                  icon={<BiTrash fontSize="15px" />}
+                                />
+                              </Td>
+                            </Tr>
+                          </>
+                        );
+                      })
                   ) : (
                     <Tr>
                       <Td colSpan={5}>Nothing to show</Td>
