@@ -130,7 +130,9 @@ const ReferredPatients = () => {
                           ref.Lastname}
                       </Td>
 
-                      <Td className="border">{ref.DateAdmitted}</Td>
+                      <Td className="border">
+                        {moment(ref.DateAdmitted).format("LL")}
+                      </Td>
                       <Td className="border">{ref.ReferralType}</Td>
                       <Td className="border">
                         <Badge colorScheme="purple">{ref.Disposition}</Badge>

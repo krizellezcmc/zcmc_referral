@@ -125,37 +125,6 @@ const PatientsList = () => {
                 <Td colSpan={2}>Nothing to show</Td>
               </Tr>
             )}
-            =======
-            {patients.map((pat) => {
-              return (
-                <>
-                  <Tr>
-                    <Td className="border">
-                      <b>{pat.patId}</b>
-                    </Td>
-                    <Td className="border">{pat.patientName}</Td>
-                    <Td className="border">
-                      {moment(pat.referredDate).format("LLL")}
-                    </Td>
-                    <Td className="border">{pat.referredFrom}</Td>
-                    <Td className="border">
-                      {pat.dischDate == null ? (
-                        <Badge colorScheme="yellow"> Not applicable</Badge>
-                      ) : (
-                        moment(pat.dischDate).format("LLL")
-                      )}
-                    </Td>
-                    <Td className="border">
-                      {pat.dischDate == null ? (
-                        <Badge colorScheme="blue">+ Admitted</Badge>
-                      ) : (
-                        <Badge colorScheme="red"> Discharged</Badge>
-                      )}
-                    </Td>
-                  </Tr>
-                </>
-              );
-            })}
           </Tbody>
         </Table>
       </TableContainer>

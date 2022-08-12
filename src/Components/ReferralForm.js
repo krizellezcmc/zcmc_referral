@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import "../Styles/ReferralForm.css";
 import { Button } from "@chakra-ui/react";
-import { moment } from "moment";
+import moment from "moment";
 
 const ReferralForm = () => {
-  const date = new Date();
-  const newDate = moment(date).format("LLL");
+  const newDate = moment().format("LLL");
   const [timeStamp, setTimeStamp] = useState(newDate);
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
