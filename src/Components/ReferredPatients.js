@@ -8,12 +8,13 @@ import {
   Td,
   TableContainer,
   Badge,
+  Button,
 } from "@chakra-ui/react";
 import axios from "axios";
 import "../Styles/Patients.css";
 
 const ReferredPatients = () => {
-  const [refpatients, setRefPatients] = useState("");
+  const [refpatients, setRefPatients] = useState([]);
   const [hospital, setHospital] = useState("");
 
   useEffect(() => {
@@ -37,13 +38,20 @@ const ReferredPatients = () => {
           <Thead>
             <Tr>
               <Th className="border" width="30%">
-                Name
+                Referred Date
               </Th>
               <Th className="border" width="30%">
-                Timestamp
+                Name
               </Th>
+
               <Th className="border" width="15%">
                 Date Admitted
+              </Th>
+              <Th className="border" width="15%">
+                Other Details
+              </Th>
+              <Th className="border" width="15%">
+                Status
               </Th>
             </Tr>
           </Thead>
@@ -52,6 +60,7 @@ const ReferredPatients = () => {
               return ref.ReferringFacility === hospital.toUpperCase() ? (
                 <>
                   <Tr>
+                    <Td className="border">{ref.Timestamp.toLocaleString()}</Td>
                     <Td className="border">
                       {ref.Firstname +
                         " " +
@@ -59,8 +68,14 @@ const ReferredPatients = () => {
                         " " +
                         ref.Lastname}
                     </Td>
-                    <Td className="border">{ref.Timestamp.toLocaleString()}</Td>
+
                     <Td className="border">{ref.DateAdmitted}</Td>
+                    <Td className="border">
+                      <Button>View</Button>
+                    </Td>
+                    <Td className="border">
+                      <Badge colorScheme="red">Pending</Badge>
+                    </Td>
                   </Tr>
                 </>
               ) : (
