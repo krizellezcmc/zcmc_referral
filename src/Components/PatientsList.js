@@ -114,7 +114,11 @@ const PatientsList = () => {
                           )}
                         </Td>
                         <Td className="border">
-                          <Badge colorScheme="blue">+ Admitted</Badge>
+                          {pat.dischDate === null ? (
+                            <Badge colorScheme="blue">+ Admitted</Badge>
+                          ) : (
+                            <Badge colorScheme="red">- Discharged</Badge>
+                          )}
                         </Td>
                       </Tr>
                     </>
