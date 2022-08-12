@@ -10,6 +10,7 @@ import {
   HiUserAdd,
   HiUsers,
   HiOutlineUserAdd,
+  HiUserGroup
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -40,6 +41,7 @@ const Sidebar = () => {
       </div>
 
       <ul className="navlinks">
+
         <li
           className={path.includes("home") ? "active" : ""}
           onClick={() => navigate("/home")}
@@ -53,6 +55,7 @@ const Sidebar = () => {
           </p>
           <span>Refer Patient</span>
         </li>
+
         <li
           className={path.includes("addhospital") ? "active" : ""}
           onClick={() => navigate("/addhospital")}
@@ -66,6 +69,7 @@ const Sidebar = () => {
           </p>
           <span>Add Hospital</span>
         </li>
+
         <li
           className={path.includes("verifyuser") ? "active" : ""}
           onClick={() => navigate("/verifyuser")}
@@ -75,6 +79,7 @@ const Sidebar = () => {
           </p>
           <span>Verify Users</span>
         </li>
+
         <li
           className={path.includes("patientlist") ? "active" : ""}
           onClick={() => navigate("/patientlist")}
@@ -82,6 +87,15 @@ const Sidebar = () => {
           <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
           <span>Patient List</span>
         </li>
+
+        <li
+          className={path.includes("referredpatient") ? "active" : ""}
+          onClick={() => navigate("/referredpatient")}
+        >
+          <p>{path.includes("verifyuser") ? <HiUserGroup /> : <HiUserGroup />}</p>
+          <span>Referred Patients</span>
+        </li>
+
       </ul>
 
       <div className="sidebar-user">
