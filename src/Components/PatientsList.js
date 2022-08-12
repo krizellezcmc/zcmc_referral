@@ -14,6 +14,7 @@ import {
   InputGroup,
   Input,
 } from "@chakra-ui/react";
+import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
 import { BiSearch } from "react-icons/bi";
@@ -70,22 +71,22 @@ const PatientsList = () => {
         <Table cellSpacing={0}>
           <Thead>
             <Tr>
-              <Th className="border" width="30%">
-                Patient
+              <Th className="border" width="10%">
+                Patient ID
               </Th>
               <Th className="border" width="30%">
-                Name
+                Full name
               </Th>
-              <Th className="border" width="20%">
+              <Th className="border" width="10%">
                 Referred Date
               </Th>
-              <Th className="border" width="15%">
+              <Th className="border" width="30%">
                 Referred From
               </Th>
-              <Th className="border" width="25%">
+              <Th className="border" width="10%">
                 Discharge Date
               </Th>
-              <Th className="border" width="5%">
+              <Th className="border" width="10%">
                 Status
               </Th>
             </Tr>
@@ -95,15 +96,19 @@ const PatientsList = () => {
               return (
                 <>
                   <Tr>
-                    <Td className="border">{pat.patId}</Td>
+                    <Td className="border">
+                      <b>{pat.patId}</b>
+                    </Td>
                     <Td className="border">{pat.patientName}</Td>
-                    <Td className="border">{pat.referredDate}</Td>
+                    <Td className="border">
+                      {moment(pat.referredDate).format("LLL")}
+                    </Td>
                     <Td className="border">{pat.referredFrom}</Td>
                     <Td className="border">
                       {pat.dischDate == null ? (
                         <Badge colorScheme="yellow"> Not applicable</Badge>
                       ) : (
-                        pat.dischDate
+                        moment(pat.dischDate).format("LLL")
                       )}
                     </Td>
                     <Td className="border">

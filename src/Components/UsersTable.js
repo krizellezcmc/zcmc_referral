@@ -36,9 +36,11 @@ import {
   BiLock,
   BiClinic,
   BiUserCheck,
+  BiTrash,
 } from "react-icons/bi";
 import "../Styles/Table.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const UsersTable = () => {
   const [userData, setUserData] = useState([]);
@@ -97,6 +99,22 @@ const UsersTable = () => {
       });
   });
 
+  const deleteUser = (name) => {
+    Swal.fire({
+      title: "Are you sure you?",
+      text: "This will remove " + name,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  };
+
   return (
     <div>
       <Grid templateColumns="repeat(7,1fr)" gap={4}>
@@ -122,6 +140,9 @@ const UsersTable = () => {
                     <Th className="border" width="5%">
                       Status
                     </Th>
+                    <Th className="border" width="5%">
+                      Action
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -138,6 +159,18 @@ const UsersTable = () => {
                             <Td className="border">{index.name}</Td>
                             <Td className="border">
                               <Badge colorScheme="green">Verified</Badge>
+                            </Td>
+                            <Td className="border">
+                              <IconButton
+                                style={{ margin: 0, padding: 0 }}
+                                size="sm"
+                                variant="outline"
+                                colorScheme="red"
+                                onClick={() => {
+                                  deleteUser(index.firstName);
+                                }}
+                                icon={<BiTrash fontSize="15px" />}
+                              />
                             </Td>
                           </Tr>
                         </>
