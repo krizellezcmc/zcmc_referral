@@ -5,8 +5,9 @@ import { Button } from "@chakra-ui/react";
 import { moment } from "moment";
 
 const ReferralForm = () => {
-  const date = moment.format("LLL");
-  const [timeStamp, setTimeStamp] = useState(date);
+  const date = new Date();
+  const newDate = moment(date).format("LLL");
+  const [timeStamp, setTimeStamp] = useState(newDate);
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
   const [lastname, setLastName] = useState("");
