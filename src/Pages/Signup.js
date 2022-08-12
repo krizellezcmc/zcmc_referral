@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
   useToast,
   Text,
@@ -46,7 +46,7 @@ function Signup() {
 
   // Toast and navigate
   const toast = useToast();
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const register = (event) => {
     event.preventDefault();
