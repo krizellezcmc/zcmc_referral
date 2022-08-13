@@ -106,7 +106,7 @@ const AddHospiForm = () => {
     <>
       <div className="table-container ">
         <h1 className="block">List of Hospitals</h1>
-        <div className="add-hospital-btn">
+        <div className="add-hospital-btn" style={{ marginBottom: "25px" }}>
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
@@ -129,20 +129,21 @@ const AddHospiForm = () => {
             Add new hospital
           </Button>
         </div>
-
-        <TableContainer>
-          <Table cellSpacing={0}>
-            <Thead>
-              <Tr>
-                <Th className="border" width="30%">
-                  Access Code
-                </Th>
-                <Th className="border">Hospital name</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {hospitals.length !== 0 ? (
-                hospitals
+        {!hospitals ? (
+          <i style={{ alignContent: "center" }}>---No data found---</i>
+        ) : (
+          <TableContainer>
+            <Table cellSpacing={0}>
+              <Thead>
+                <Tr>
+                  <Th className="border" width="30%">
+                    Access Code
+                  </Th>
+                  <Th className="border">Hospital name</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {hospitals
                   .filter((val) => {
                     if (search === "") {
                       return val;
@@ -163,15 +164,11 @@ const AddHospiForm = () => {
                         </Tr>
                       </>
                     );
-                  })
-              ) : (
-                <Tr>
-                  <Td colSpan={2}>Nothing to show</Td>
-                </Tr>
-              )}
-            </Tbody>
-          </Table>
-        </TableContainer>
+                  })}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        )}
       </div>
 
       <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>

@@ -168,7 +168,7 @@ const UsersTable = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginBottom: 10,
+                marginBottom: "25px",
               }}
             >
               <InputGroup>
@@ -184,33 +184,35 @@ const UsersTable = () => {
                 />
               </InputGroup>
             </div>
-            <TableContainer>
-              <Table cellSpacing={0}>
-                <Thead>
-                  <Tr>
-                    <Th className="border" width="30%">
-                      Name
-                    </Th>
-                    <Th className="border" width="20%">
-                      Email
-                    </Th>
-                    <Th className="border" width="15%">
-                      Phone No.
-                    </Th>
-                    <Th className="border" width="25%">
-                      Hospital
-                    </Th>
-                    <Th className="border" width="5%">
-                      Status
-                    </Th>
-                    <Th className="border" width="5%">
-                      Action
-                    </Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {userData.length !== 0 ? (
-                    userData
+            {!userData ? (
+              <i style={{ alignContent: "center" }}>---No data found---</i>
+            ) : (
+              <TableContainer>
+                <Table cellSpacing={0}>
+                  <Thead>
+                    <Tr>
+                      <Th className="border" width="30%">
+                        Name
+                      </Th>
+                      <Th className="border" width="20%">
+                        Email
+                      </Th>
+                      <Th className="border" width="15%">
+                        Phone No.
+                      </Th>
+                      <Th className="border" width="25%">
+                        Hospital
+                      </Th>
+                      <Th className="border" width="5%">
+                        Status
+                      </Th>
+                      <Th className="border" width="5%">
+                        Action
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {userData
                       .filter((val) => {
                         if (search === "") {
                           return val;
@@ -260,15 +262,11 @@ const UsersTable = () => {
                             </Tr>
                           </>
                         );
-                      })
-                  ) : (
-                    <Tr>
-                      <Td colSpan={5}>Nothing to show</Td>
-                    </Tr>
-                  )}
-                </Tbody>
-              </Table>
-            </TableContainer>
+                      })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            )}
           </div>
         </GridItem>
 

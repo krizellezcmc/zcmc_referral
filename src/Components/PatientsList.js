@@ -41,7 +41,7 @@ const PatientsList = () => {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          marginBottom: 10,
+          marginBottom: "25px",
         }}
       >
         <InputGroup>
@@ -58,33 +58,35 @@ const PatientsList = () => {
         </InputGroup>
       </div>
 
-      <TableContainer>
-        <Table cellSpacing={0}>
-          <Thead>
-            <Tr>
-              <Th className="border" width="10%">
-                Patient ID
-              </Th>
-              <Th className="border" width="30%">
-                Full name
-              </Th>
-              <Th className="border" width="10%">
-                Referred Date
-              </Th>
-              <Th className="border" width="30%">
-                Referred From
-              </Th>
-              <Th className="border" width="10%">
-                Discharge Date
-              </Th>
-              <Th className="border" width="10%">
-                Status
-              </Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {patients.length !== 0 ? (
-              patients
+      {!patients ? (
+        <i style={{ alignContent: "center" }}>---No data found---</i>
+      ) : (
+        <TableContainer>
+          <Table cellSpacing={0}>
+            <Thead>
+              <Tr>
+                <Th className="border" width="10%">
+                  Patient ID
+                </Th>
+                <Th className="border" width="30%">
+                  Full name
+                </Th>
+                <Th className="border" width="10%">
+                  Referred Date
+                </Th>
+                <Th className="border" width="30%">
+                  Referred From
+                </Th>
+                <Th className="border" width="10%">
+                  Discharge Date
+                </Th>
+                <Th className="border" width="10%">
+                  Status
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {patients
                 .filter((val) => {
                   if (search === "") {
                     return val;
@@ -119,15 +121,11 @@ const PatientsList = () => {
                       </Tr>
                     </>
                   );
-                })
-            ) : (
-              <Tr>
-                <Td colSpan={2}>Nothing to show</Td>
-              </Tr>
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
+                })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
     </div>
   );
 };
