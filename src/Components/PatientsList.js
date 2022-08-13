@@ -217,7 +217,7 @@ const PatientsList = () => {
                     </GridItem>
                   </Grid>
 
-                  <Grid templateColumns="repeat(2, 1fr)" mt={6}>
+                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
                     <GridItem>
                       <small style={{ display: "flex", marginBottom: 6 }}>
                         <TbBuildingHospital
@@ -240,7 +240,7 @@ const PatientsList = () => {
                     </GridItem>
                   </Grid>
 
-                  <Box mt={6}>
+                  <Box mt={10}>
                     <small style={{ display: "flex", marginBottom: 6 }}>
                       <TbCheckupList
                         style={{ marginRight: "5px", marginTop: 2 }}
@@ -263,7 +263,7 @@ const PatientsList = () => {
                     </Box>
                   </Box>
 
-                  <Box mt={6}>
+                  <Box mt={10}>
                     <small style={{ display: "flex", marginBottom: 6 }}>
                       <TbCheckupList
                         style={{ marginRight: "5px", marginTop: 2 }}
@@ -286,7 +286,7 @@ const PatientsList = () => {
                     </Box>
                   </Box>
 
-                  <Box mt={6}>
+                  <Box mt={10}>
                     <small style={{ display: "flex", marginBottom: 6 }}>
                       <BiCalendarEvent
                         style={{ marginRight: "5px", marginTop: 2 }}
