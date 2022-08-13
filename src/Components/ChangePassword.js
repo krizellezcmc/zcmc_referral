@@ -9,10 +9,12 @@ import {
   InputRightElement,
   Button,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import axios from "axios";
+import { BiWrench } from "react-icons/bi";
 
 function ChangePassword(props) {
   const [isError, setIsError] = useState(false);
@@ -96,8 +98,18 @@ function ChangePassword(props) {
 
   return (
     <div>
-      <Box width="2xl" padding={10} className="table-container">
-        <h1 className="block">Change password</h1>
+      <Box width="2xl" padding={8} className="table-container">
+        <h1
+          style={{
+            display: "flex",
+            fontSize: "20px",
+            margin: "0px 0px 30px 0",
+            fontWeight: "600",
+          }}
+        >
+          <BiWrench style={{ margin: "3px 8px 0px 0" }} />
+          <Text>Change password</Text>
+        </h1>
         <form onSubmit={change}>
           <FormControl mb={6}>
             <FormLabel fontSize="14px" fontWeight="regular">
@@ -215,7 +227,13 @@ function ChangePassword(props) {
             )}
           </FormControl>
 
-          <div style={{ marginTop: "30px" }}>
+          <div
+            style={{
+              marginTop: "35px",
+              display: "flex",
+              justifyContent: "end",
+            }}
+          >
             <Button type="submit" variant="solid" colorScheme="green">
               Change password
             </Button>
