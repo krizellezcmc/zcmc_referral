@@ -21,6 +21,7 @@ function Header() {
         localStorage.removeItem("user");
         localStorage.removeItem("logStat");
         navigate("/");
+        window.location.reload();
       }
     });
   };

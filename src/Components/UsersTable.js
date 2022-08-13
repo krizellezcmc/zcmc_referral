@@ -177,9 +177,10 @@ const UsersTable = () => {
                   children={<BiSearch color="gray.300" />}
                 />
                 <Input
+                  fontSize="13px"
                   type="text"
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search User"
+                  placeholder="Search user"
                   width="400px"
                 />
               </InputGroup>
@@ -197,15 +198,12 @@ const UsersTable = () => {
                     <Th className="border" width="15%">
                       Phone No.
                     </Th>
-                    <Th className="border" width="25%">
+                    <Th className="border" width="30%">
                       Hospital
                     </Th>
-                    <Th className="border" width="5%">
+                    {/* <Th className="border" width="5%">
                       Status
-                    </Th>
-                    <Th className="border" width="5%">
-                      Action
-                    </Th>
+                    </Th> */}
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -242,14 +240,14 @@ const UsersTable = () => {
                               <Td className="border">{index.email}</Td>
                               <Td className="border">{index.contact}</Td>
                               <Td className="border">{index.name}</Td>
-                              <Td className="border">
+                              {/* <Td className="border">
                                 <Badge colorScheme="green">Verified</Badge>
-                              </Td>
-                              <Td className="border">
+                              </Td> */}
+                              <Td border="0">
                                 <IconButton
                                   style={{ margin: 0, padding: 0 }}
                                   size="sm"
-                                  variant="outline"
+                                  variant="solid"
                                   colorScheme="red"
                                   onClick={() => {
                                     deleteUser(index.firstName);
@@ -316,7 +314,7 @@ const UsersTable = () => {
                   );
                 })
               ) : (
-                <p>Nothing to show</p>
+                <Text mt={3}>Nothing to show</Text>
               )}
             </VStack>
           </div>
