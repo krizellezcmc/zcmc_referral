@@ -163,7 +163,7 @@ const UsersTable = () => {
       <Grid templateColumns="repeat(7,1fr)" gap={4}>
         <GridItem colSpan={5} bg="white">
           <div className="table-container">
-            <h1 className="block">Users</h1>
+            <h1 className="block">Verified Users</h1>
             <div
               style={{
                 display: "flex",
@@ -203,12 +203,6 @@ const UsersTable = () => {
                       </Th>
                       <Th className="border" width="25%">
                         Hospital
-                      </Th>
-                      <Th className="border" width="5%">
-                        Status
-                      </Th>
-                      <Th className="border" width="5%">
-                        Action
                       </Th>
                     </Tr>
                   </Thead>

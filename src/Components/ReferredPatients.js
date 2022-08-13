@@ -105,30 +105,32 @@ const ReferredPatients = () => {
           + Refer patient
         </Button>
       </div>
-      <TableContainer>
-        <Table cellSpacing={0}>
-          <Thead>
-            <Tr>
-              <Th className="border" width="10%">
-                Patient ID
-              </Th>
-              <Th className="border" width="30%">
-                Full name
-              </Th>
-              <Th className="border" width="20%">
-                Referred Date
-              </Th>
+      {!patients ? (
+        <i style={{ alignContent: "center" }}>---No data found---</i>
+      ) : (
+        <TableContainer>
+          <Table cellSpacing={0}>
+            <Thead>
+              <Tr>
+                <Th className="border" width="10%">
+                  Patient ID
+                </Th>
+                <Th className="border" width="30%">
+                  Full name
+                </Th>
+                <Th className="border" width="20%">
+                  Referred Date
+                </Th>
 
-              <Th className="border" width="20%">
-                Discharge Date
-              </Th>
-              <Th className="border">Status</Th>
-              <Th className="border">Action</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {patients.length !== 0 ? (
-              patients
+                <Th className="border" width="20%">
+                  Discharge Date
+                </Th>
+                <Th className="border">Status</Th>
+                <Th className="border">Action</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {patients
                 .filter((val) => {
                   if (search === "") {
                     return val;
@@ -184,17 +186,11 @@ const ReferredPatients = () => {
                   ) : (
                     ""
                   );
-                })
-            ) : (
-              <Tr>
-                <Td className="border" colSpan={7}>
-                  <i>No data available</i>
-                </Td>
-              </Tr>
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
+                })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
       {/* MODAL VIEW DETAILS */}
       <Modal isOpen={isOpen} onClose={onClose} size="2xl">
         <ModalOverlay />
