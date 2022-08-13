@@ -14,6 +14,7 @@ import {
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
+import { BiWrench } from "react-icons/bi";
 
 const Sidebar = () => {
   const [username, setUserName] = useState("");
@@ -77,6 +78,13 @@ const Sidebar = () => {
               <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
               <span>Patient List</span>
             </li>
+            <li
+              className={path.includes("changepass") ? "active" : ""}
+              onClick={() => navigate("/changepass")}
+            >
+              <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
+              <span>Settings</span>
+            </li>
           </>
         ) : (
           <>
@@ -105,6 +113,13 @@ const Sidebar = () => {
                 )}
               </p>
               <span>Referred Patients</span>
+            </li>
+            <li
+              className={path.includes("changepass") ? "active" : ""}
+              onClick={() => navigate("/changepass")}
+            >
+              <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
+              <span>Settings</span>
             </li>
           </>
         )}

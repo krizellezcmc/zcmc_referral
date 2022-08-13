@@ -10,6 +10,7 @@ import AddHospital from "../Pages/AddHospital";
 import VerifyUser from "../Pages/VerifyUser";
 import Patient from "../Pages/Patient";
 import ReferredPatient from "../Pages/ReferredPatient";
+import ChangePassword from "../Pages/ChangePass";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -26,6 +27,7 @@ const AnimatedRoutes = () => {
           <Route path="/verifyuser" element={<VerifyUser />} />
           <Route path="/patientlist" element={<Patient />} />
           <Route path="/referredpatient" element={<ReferredPatient />} />
+          <Route path="/changepass" element={<ChangePassword />} />
         </Route>
       </Routes>
     </AnimatePresence>
