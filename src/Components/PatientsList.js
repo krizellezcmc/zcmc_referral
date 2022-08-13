@@ -58,7 +58,7 @@ const PatientsList = () => {
         </InputGroup>
       </div>
 
-      {!patients ? (
+      {patients ? (
         <i style={{ alignContent: "center" }}>---No data found---</i>
       ) : (
         <TableContainer>

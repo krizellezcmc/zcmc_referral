@@ -113,6 +113,7 @@ const AddHospiForm = () => {
               children={<BiSearch color="gray.300" />}
             />
             <Input
+              fontSize="13px"
               type="text"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search hospital"

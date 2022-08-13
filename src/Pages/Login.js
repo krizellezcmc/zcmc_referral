@@ -72,8 +72,6 @@ function Login() {
             isClosable: true,
           });
         }
-
-        console.log(response.data);
       });
   };
 
