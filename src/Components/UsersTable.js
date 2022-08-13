@@ -42,9 +42,8 @@ import {
   BiTrash,
   BiSearch,
   BiStop,
-  BiX,
-  BiCheck,
 } from "react-icons/bi";
+import { GoCheck, GoX } from "react-icons/go";
 import "../Styles/Table.css";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -163,12 +162,12 @@ const UsersTable = () => {
       <Grid templateColumns="repeat(7,1fr)" gap={4}>
         <GridItem colSpan={5} bg="white">
           <div className="table-container">
-            <h1 className="block">Users</h1>
+            <h1 className="block">Verified Users</h1>
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginBottom: 10,
+                marginBottom: "25px",
               }}
             >
               <InputGroup>
@@ -185,30 +184,29 @@ const UsersTable = () => {
                 />
               </InputGroup>
             </div>
-            <TableContainer>
-              <Table cellSpacing={0}>
-                <Thead>
-                  <Tr>
-                    <Th className="border" width="30%">
-                      Name
-                    </Th>
-                    <Th className="border" width="20%">
-                      Email
-                    </Th>
-                    <Th className="border" width="15%">
-                      Phone No.
-                    </Th>
-                    <Th className="border" width="30%">
-                      Hospital
-                    </Th>
-                    {/* <Th className="border" width="5%">
-                      Status
-                    </Th> */}
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {userData.length !== 0 ? (
-                    userData
+            {!userData ? (
+              <i style={{ alignContent: "center" }}>---No data found---</i>
+            ) : (
+              <TableContainer>
+                <Table cellSpacing={0}>
+                  <Thead>
+                    <Tr>
+                      <Th className="border" width="30%">
+                        Name
+                      </Th>
+                      <Th className="border" width="20%">
+                        Email
+                      </Th>
+                      <Th className="border" width="15%">
+                        Phone No.
+                      </Th>
+                      <Th className="border" width="25%">
+                        Hospital
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {userData
                       .filter((val) => {
                         if (search === "") {
                           return val;
@@ -258,15 +256,11 @@ const UsersTable = () => {
                             </Tr>
                           </>
                         );
-                      })
-                  ) : (
-                    <Tr>
-                      <Td colSpan={5}>Nothing to show</Td>
-                    </Tr>
-                  )}
-                </Tbody>
-              </Table>
-            </TableContainer>
+                      })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            )}
           </div>
         </GridItem>
 
@@ -323,75 +317,100 @@ const UsersTable = () => {
 
       <Modal isOpen={isOpen} onClose={onClose} size="2xl">
         <ModalOverlay />
+
         <ModalContent>
           <ModalHeader>User Details</ModalHeader>
           <ModalCloseButton />
+
           <ModalBody>
             <Flex direction="column">
               <FormControl mb={8}>
-                <FormLabel>Name</FormLabel>
                 <div style={{ display: "flex" }}>
-                  <BiUser color="#058e46" fontSize="20px" />
-                  <Text ml={2}>{firstName + " " + lastName}</Text>
+                  <BiUser color="#058e46" fontSize="15px" />
+                  <FormLabel fontSize="12px" ml={2}>
+                    FULL NAME
+                  </FormLabel>
                 </div>
+                <Text fontWeight={500}>{firstName + " " + lastName}</Text>
               </FormControl>
+
               <HStack mb={8}>
                 <FormControl>
-                  <FormLabel>Contact #</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiPhone color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{contact} </Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      CONTACT NO
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {contact}{" "}
+                  </Text>
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Email</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiMailSend color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{email}</Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      EMAIL
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {email}
+                  </Text>
                 </FormControl>
               </HStack>
+
               <HStack>
                 <FormControl>
-                  <FormLabel>Hospital</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiClinic color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{hospital} </Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      HOSPITAL
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {hospital}{" "}
+                  </Text>
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Access Code</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiLock color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{code}</Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      ACCESS CODE
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {code}
+                  </Text>
                 </FormControl>
               </HStack>
             </Flex>
           </ModalBody>
+
           <ModalFooter my={6}>
             <Button
+              size="sm"
               mr={3}
               colorScheme="green"
               onClick={() => {
                 handleVerifyuser(userId);
               }}
-              leftIcon={<BiCheck fontSize="20px" />}
+              leftIcon={<GoCheck fontSize="20px" />}
             >
               Verify
             </Button>
             <Button
+              size="sm"
               mr={3}
               colorScheme="pink"
               onClick={() => {
                 declineUser(userId);
               }}
-              leftIcon={<BiX fontSize="20px" />}
+              leftIcon={<GoX fontSize="20px" />}
             >
               Decline
             </Button>
-            <Button onClick={onClose} variant="solid">
+            <Button onClick={onClose} variant="solid" size="sm">
               Cancel
             </Button>
           </ModalFooter>
