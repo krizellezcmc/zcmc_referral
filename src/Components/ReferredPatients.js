@@ -206,7 +206,7 @@ const ReferredPatients = () => {
                       <small
                         style={{
                           display: "flex",
-                          marginBottom: 4,
+                          marginBottom: "4px",
                         }}
                       >
                         <BiUser style={{ marginRight: "5px", marginTop: 2 }} />
@@ -219,7 +219,7 @@ const ReferredPatients = () => {
                       <small
                         style={{
                           display: "flex",
-                          marginBottom: 4,
+                          marginBottom: "4px",
                         }}
                       >
                         <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
@@ -343,7 +343,6 @@ const ReferredPatients = () => {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

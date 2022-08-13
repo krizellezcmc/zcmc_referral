@@ -42,9 +42,8 @@ import {
   BiTrash,
   BiSearch,
   BiStop,
-  BiX,
-  BiCheck,
 } from "react-icons/bi";
+import { GoCheck, GoX } from "react-icons/go";
 import "../Styles/Table.css";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -318,75 +317,100 @@ const UsersTable = () => {
 
       <Modal isOpen={isOpen} onClose={onClose} size="2xl">
         <ModalOverlay />
+
         <ModalContent>
           <ModalHeader>User Details</ModalHeader>
           <ModalCloseButton />
+
           <ModalBody>
             <Flex direction="column">
               <FormControl mb={8}>
-                <FormLabel>Name</FormLabel>
                 <div style={{ display: "flex" }}>
-                  <BiUser color="#058e46" fontSize="20px" />
-                  <Text ml={2}>{firstName + " " + lastName}</Text>
+                  <BiUser color="#058e46" fontSize="15px" />
+                  <FormLabel fontSize="12px" ml={2}>
+                    FULL NAME
+                  </FormLabel>
                 </div>
+                <Text fontWeight={500}>{firstName + " " + lastName}</Text>
               </FormControl>
+
               <HStack mb={8}>
                 <FormControl>
-                  <FormLabel>Contact #</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiPhone color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{contact} </Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      CONTACT NO
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {contact}{" "}
+                  </Text>
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Email</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiMailSend color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{email}</Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      EMAIL
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {email}
+                  </Text>
                 </FormControl>
               </HStack>
+
               <HStack>
                 <FormControl>
-                  <FormLabel>Hospital</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiClinic color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{hospital} </Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      HOSPITAL
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {hospital}{" "}
+                  </Text>
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Access Code</FormLabel>
                   <div style={{ display: "flex" }}>
                     <BiLock color="#058e46" fontSize="20px" />
-                    <Text ml={2}>{code}</Text>
+                    <FormLabel fontSize="12px" ml={2}>
+                      ACCESS CODE
+                    </FormLabel>
                   </div>
+                  <Text ml={2} fontWeight={500}>
+                    {code}
+                  </Text>
                 </FormControl>
               </HStack>
             </Flex>
           </ModalBody>
+
           <ModalFooter my={6}>
             <Button
+              size="sm"
               mr={3}
               colorScheme="green"
               onClick={() => {
                 handleVerifyuser(userId);
               }}
-              leftIcon={<BiCheck fontSize="20px" />}
+              leftIcon={<GoCheck fontSize="20px" />}
             >
               Verify
             </Button>
             <Button
+              size="sm"
               mr={3}
               colorScheme="pink"
               onClick={() => {
                 declineUser(userId);
               }}
-              leftIcon={<BiX fontSize="20px" />}
+              leftIcon={<GoX fontSize="20px" />}
             >
               Decline
             </Button>
-            <Button onClick={onClose} variant="solid">
+            <Button onClick={onClose} variant="solid" size="sm">
               Cancel
             </Button>
           </ModalFooter>
