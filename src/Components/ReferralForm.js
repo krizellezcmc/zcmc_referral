@@ -45,83 +45,107 @@ const ReferralForm = () => {
     "https://script.google.com/macros/s/AKfycbwvzoeZyFYiTSVh-m-RGAncO_WjGsytBuHnRkxYWLYSrzPWja8jOD5ScugywahrvT2DJg/exec?action=postData";
 
   const postData = async () => {
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        timeStamp,
-        username,
-        referringFacility,
-        lastname,
-        firstname,
-        middlename,
-        extendedName,
-        sex,
-        birthdate,
-        age,
-        civilStatus,
-        nationality,
-        religion,
-        occupation,
-        philhealth,
-        address,
-        nextOfKin,
-        contact,
-        dateAdmitted,
-        referralType,
-        disposition,
-        temperature,
-        bloodPressure,
-        respiRate,
-        pulseRate,
-        oxygen,
-        glasgow,
-        chiefComplaints,
-        diagnosis,
-        endorsement,
-        userContact,
-        reason,
-      }),
-    }).then(async (response) => {
-      if (response) {
-        setLastName("");
-        setFirstName("");
-        setMiddleName("");
-        setExtendedName("");
-        setSex("");
-        setBirthdate("");
-        setAge("");
-        setCivilStatus("");
-        setNationality("");
-        setReligion("");
-        setOccupation("");
-        setPhilhealth("");
-        setAddress("");
-        setNextOfKin("");
-        setContact("");
-        setDateAdmitted("");
-        setReferralType("");
-        setDisposition("");
-        setTemperature("");
-        setBloodPressure("");
-        setRespiRate("");
-        setPulseRate("");
-        setOxygen("");
-        setGlasgow("");
-        setChiefComplaints("");
-        setDiagnosis("");
-        setEndorsement("");
-        setUserContact("");
-        setReason("");
-        toast({
-          position: "top",
-          title: "Record successfully.",
-          description: "Patient succesfully added.",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-      }
-    });
+    if (
+      !lastname ||
+      !firstname ||
+      !dateAdmitted ||
+      !referralType ||
+      !disposition ||
+      !temperature ||
+      !bloodPressure ||
+      !respiRate ||
+      !pulseRate ||
+      !oxygen ||
+      !glasgow ||
+      !reason
+    ) {
+      toast({
+        position: "top",
+        title: "Input all fields.",
+        description: "Kindly input all required fields.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          timeStamp,
+          username,
+          referringFacility,
+          lastname,
+          firstname,
+          middlename,
+          extendedName,
+          sex,
+          birthdate,
+          age,
+          civilStatus,
+          nationality,
+          religion,
+          occupation,
+          philhealth,
+          address,
+          nextOfKin,
+          contact,
+          dateAdmitted,
+          referralType,
+          disposition,
+          temperature,
+          bloodPressure,
+          respiRate,
+          pulseRate,
+          oxygen,
+          glasgow,
+          chiefComplaints,
+          diagnosis,
+          endorsement,
+          userContact,
+          reason,
+        }),
+      }).then(async (response) => {
+        if (response) {
+          setLastName("");
+          setFirstName("");
+          setMiddleName("");
+          setExtendedName("");
+          setSex("");
+          setBirthdate("");
+          setAge("");
+          setCivilStatus("");
+          setNationality("");
+          setReligion("");
+          setOccupation("");
+          setPhilhealth("");
+          setAddress("");
+          setNextOfKin("");
+          setContact("");
+          setDateAdmitted("");
+          setReferralType("");
+          setDisposition("");
+          setTemperature("");
+          setBloodPressure("");
+          setRespiRate("");
+          setPulseRate("");
+          setOxygen("");
+          setGlasgow("");
+          setChiefComplaints("");
+          setDiagnosis("");
+          setEndorsement("");
+          setUserContact("");
+          setReason("");
+          toast({
+            position: "top",
+            title: "Record successfully.",
+            description: "Patient succesfully added.",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      });
+    }
   };
 
   useEffect(() => {
