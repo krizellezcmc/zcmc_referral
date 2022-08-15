@@ -1,13 +1,15 @@
 nav {
   width: 100%;
   height: 50px;
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.75);
   position: sticky;
   top: 0;
   padding: 0px 20px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #dde0e6;
+  z-index: 3;
+  backdrop-filter: blur(2px);
 }
 
 .brand {

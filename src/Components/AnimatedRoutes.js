@@ -11,6 +11,7 @@ import VerifyUser from "../Pages/VerifyUser";
 import Patient from "../Pages/Patient";
 import ReferredPatient from "../Pages/ReferredPatient";
 import ChangePassword from "../Pages/ChangePass";
+import ProtectedRoutes from "./ProtectedRoute";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -22,12 +23,22 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<AdminHome />} />
-          <Route path="/addhospital" element={<AddHospital />} />
-          <Route path="/verifyuser" element={<VerifyUser />} />
-          <Route path="/patientlist" element={<Patient />} />
-          <Route path="/referredpatient" element={<ReferredPatient />} />
+
+          {/* User Routes */}
+          <Route element={<ProtectedRoutes user={user} role="user" />}>
+            <Route path="/home" element={<AdminHome />} />
+            <Route path="/referredpatient" element={<ReferredPatient />} />
+          </Route>
+
+          {/* Universal */}
           <Route path="/changepass" element={<ChangePassword />} />
+
+          {/* Admin Routes */}
+          <Route element={<ProtectedRoutes user={user} role="admin" />}>
+            <Route path="/addhospital" element={<AddHospital />} />
+            <Route path="/verifyuser" element={<VerifyUser />} />
+            <Route path="/patientlist" element={<Patient />} />
+          </Route>
         </Route>
       </Routes>
     </AnimatePresence>

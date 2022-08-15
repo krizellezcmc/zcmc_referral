@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Styles/Header.css";
 import Logo from "../Assets/zcmc.png";
 import { IconButton } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 function Header() {
   let navigate = useNavigate();
@@ -20,7 +21,7 @@ function Header() {
       if (result.isConfirmed) {
         localStorage.removeItem("user");
         localStorage.removeItem("logStat");
-        navigate("/");
+        // navigate("/");
         window.location.reload();
       }
     });

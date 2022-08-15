@@ -18,7 +18,8 @@ import { BiUser, BiLockAlt, BiRightArrowAlt } from "react-icons/bi";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -44,7 +45,8 @@ function Login() {
       .post("http://192.168.3.135/zcmc_referral_api/api/login.php", data)
       .then(function (response) {
         if (response.data.status === 1) {
-          navigate("/home");
+          // navigate("/");
+          window.location.reload();
           localStorage.setItem("logStat", true);
           localStorage.setItem("user", JSON.stringify(response.data.user));
         } else if (response.data.status === 2) {
@@ -76,116 +78,128 @@ function Login() {
   };
 
   const toast = useToast();
+  const { user } = useAuth();
 
-  return (
-    <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
-      <Center>
-        <Flex
-          alignItems="center"
-          justify="center"
-          height="480px"
-          width="500px"
-          boxShadow="lg"
-          rounded="lg"
-          background="white"
-        >
-          <Flex direction="column" p="5" rounded="md" width="460px">
-            <Box bgColor="white"></Box>
-            <Text fontSize="3xl" fontWeight="500">
-              Sign in
-            </Text>
-            <Text
-              fontSize="sm"
-              fontWeight="300"
-              mt={2}
-              mb={5}
-              textTransform="uppercase"
-            >
-              Zamboanga City Medical Center
-            </Text>
-            <Box padding="" bg="white" mt={7}>
-              <form onSubmit={handleSubmit}>
-                <InputGroup mb={3}>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<BiUser color="#058e46" />}
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    focusBorderColor="#058e46"
-                    fontSize="15px"
-                    name="email"
-                    onChange={handleInput}
-                    required
-                  />
-                </InputGroup>
+  if (user?.role === "user") {
+    return <Navigate to="/home" />;
+  } else if (user?.role === "admin") {
+    return <Navigate to="/addhospital" />;
+  } else {
+    return (
+      <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
+        <Center>
+          <Flex
+            alignItems="center"
+            justify="center"
+            height="480px"
+            width="500px"
+            boxShadow="lg"
+            rounded="lg"
+            background="white"
+          >
+            <Flex direction="column" p="5" rounded="md" width="460px">
+              <Box bgColor="white"></Box>
+              <Text fontSize="3xl" fontWeight="500">
+                Sign in
+              </Text>
+              <Text
+                fontSize="sm"
+                fontWeight="300"
+                mt={2}
+                mb={5}
+                textTransform="uppercase"
+              >
+                Zamboanga City Medical Center
+              </Text>
+              <Box padding="" bg="white" mt={7}>
+                <form onSubmit={handleSubmit}>
+                  <InputGroup mb={3}>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<BiUser color="#058e46" />}
+                    />
+                    <InputGroup
+                      type="email"
+                      placeholder="Email"
+                      focusBorderColor="#058e46"
+                      fontSize="15px"
+                      name="email"
+                      onChange={handleInput}
+                      required
+                    />
+                  </InputGroup>
 
-                <InputGroup size="md">
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<BiLockAlt color="#058e46" />}
-                  />
-                  <Input
-                    pr="4.5rem"
-                    type={show ? "text" : "password"}
-                    placeholder="Password"
-                    focusBorderColor="#058e46"
-                    color="gray.600"
-                    fontSize="15px"
-                    name="password"
-                    onChange={handleInput}
-                    required
-                  />
-                  <InputRightElement>
-                    <Button
-                      h="1.75rem"
-                      size="sm"
-                      bgColor="white"
-                      onClick={handleClick}
-                      p="0"
-                      _hover={{ bgColor: "white" }}
-                    >
-                      {show ? (
-                        <VscEye color="gray.400" />
-                      ) : (
-                        <VscEyeClosed color="gray.400" />
-                      )}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
+                  <InputGroup size="md">
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<BiLockAlt color="#058e46" />}
+                    />
+                    <Input
+                      pr="4.5rem"
+                      type={show ? "text" : "password"}
+                      placeholder="Password"
+                      focusBorderColor="#058e46"
+                      color="gray.600"
+                      fontSize="15px"
+                      name="password"
+                      onChange={handleInput}
+                      required
+                    />
+                    <InputRightElement>
+                      <Button
+                        h="1.75rem"
+                        size="sm"
+                        bgColor="white"
+                        onClick={handleClick}
+                        p="0"
+                        _hover={{ bgColor: "white" }}
+                      >
+                        {show ? (
+                          <VscEye color="gray.400" />
+                        ) : (
+                          <VscEyeClosed color="gray.400" />
+                        )}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
 
-                <Button
-                  type="submit"
-                  h="2.7rem"
-                  size="sm"
-                  bgColor="#058e43"
-                  width="100%"
-                  color="white"
-                  mt="10"
-                  p="4"
-                  rounded="lg"
-                  _hover={{
-                    bgColor: "green.600",
-                  }}
-                  fontWeight="400"
-                  rightIcon={<BiRightArrowAlt />}
-                >
-                  Sign in
-                </Button>
-              </form>
+                  <Button
+                    type="submit"
+                    h="2.7rem"
+                    size="sm"
+                    bgColor="#058e43"
+                    width="100%"
+                    color="white"
+                    mt="10"
+                    p="4"
+                    rounded="lg"
+                    _hover={{
+                      bgColor: "green.600",
+                    }}
+                    fontWeight="400"
+                    rightIcon={<BiRightArrowAlt />}
+                  >
+                    Sign in
+                  </Button>
+                </form>
 
-              <Center>
-                <Link color="teal.600" href="/register" fontSize="14px" mt={5}>
-                  Register
-                </Link>
-              </Center>
-            </Box>
+                <Center>
+                  <Link
+                    color="teal.600"
+                    href="/register"
+                    fontSize="14px"
+                    mt={5}
+                  >
+                    Register
+                  </Link>
+                </Center>
+              </Box>
+            </Flex>
           </Flex>
-        </Flex>
-      </Center>
-    </div>
-  );
+        </Center>
+      </div>
+    );
+  }
 }
 
 export default Login;

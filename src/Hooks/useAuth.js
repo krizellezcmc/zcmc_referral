@@ -1,7 +1,10 @@
-import React from "react";
+import { useContext } from 'react'
+import DataContext from "../Context/DataContext";
 
+
+//Custom hooks to use context data globally
 const useAuth = () => {
-  return <div>useAuth</div>;
-};
+  return useContext(DataContext);
+}
 
-export default useAuth;
+export default useAuth

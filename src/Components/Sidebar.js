@@ -15,6 +15,7 @@ import {
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
 import { BiWrench } from "react-icons/bi";
+import useAuth from "../Hooks/useAuth";
 
 const Sidebar = () => {
   const [username, setUserName] = useState("");
@@ -31,6 +32,7 @@ const Sidebar = () => {
     setUserName(user.firstName + "  " + user.lastName);
     setRole(user.role);
   }, [username, referringFacility, role]);
+  const { user } = useAuth();
 
   return (
     <div className={open ? "sidebar" : "sidebar close"}>
