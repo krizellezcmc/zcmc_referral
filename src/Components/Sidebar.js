@@ -83,7 +83,7 @@ const Sidebar = () => {
               onClick={() => navigate("/changepass")}
             >
               <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
-              <span>Settings</span>
+              <span>Account Settings</span>
             </li>
           </>
         ) : (
@@ -119,7 +119,7 @@ const Sidebar = () => {
               onClick={() => navigate("/changepass")}
             >
               <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
-              <span>Settings</span>
+              <span>Account Settings</span>
             </li>
           </>
         )}
