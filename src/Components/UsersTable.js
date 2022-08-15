@@ -84,18 +84,34 @@ const UsersTable = () => {
   };
 
   const handleVerifyuser = (userId) => {
-    axios
-      .post("http://192.168.3.135/zcmc_referral_api/api/verify_user.php", {
-        userId: userId,
-      })
-      .then((response) => {
-        if (response.data.status === 1) {
-          Swal.fire("User Verified!", "The user is now verified.", "success");
-        } else {
-          Swal.fire("Error!", "Something went wrong.", "error");
-        }
-      });
     onClose(true);
+    Swal.fire({
+      text: "Are you sure you want to verify this user?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Verify",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post("http://192.168.3.135/zcmc_referral_api/api/accept_user.php", {
+            userId: userId,
+          })
+          .then((response) => {
+            if (response.data.status === 1) {
+              Swal.fire(
+                "User verified!",
+                "You successfully verified the user.",
+                "success"
+              );
+            } else {
+              Swal.fire("Error!", "Something went wrong.", "error");
+            }
+            console.log(response.data);
+          });
+      }
+    });
   };
   useEffect(() => {
     axios
