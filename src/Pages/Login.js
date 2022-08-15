@@ -80,126 +80,125 @@ function Login() {
   const toast = useToast();
   const { user } = useAuth();
 
+  if (user?.role === "admin") {
+    return <Navigate to="/addhospital" />;
+  }
+
   if (user?.role === "user") {
     return <Navigate to="/home" />;
-  } else if (user?.role === "admin") {
-    return <Navigate to="/addhospital" />;
-  } else {
-    return (
-      <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
-        <Center>
-          <Flex
-            alignItems="center"
-            justify="center"
-            height="480px"
-            width="500px"
-            boxShadow="lg"
-            rounded="lg"
-            background="white"
-          >
-            <Flex direction="column" p="5" rounded="md" width="460px">
-              <Box bgColor="white"></Box>
-              <Text fontSize="3xl" fontWeight="500">
-                Sign in
-              </Text>
-              <Text
-                fontSize="sm"
-                fontWeight="300"
-                mt={2}
-                mb={5}
-                textTransform="uppercase"
-              >
-                Zamboanga City Medical Center
-              </Text>
-              <Box padding="" bg="white" mt={7}>
-                <form onSubmit={handleSubmit}>
-                  <InputGroup mb={3}>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<BiUser color="#058e46" />}
-                    />
-                    <InputGroup
-                      type="email"
-                      placeholder="Email"
-                      focusBorderColor="#058e46"
-                      fontSize="15px"
-                      name="email"
-                      onChange={handleInput}
-                      required
-                    />
-                  </InputGroup>
-
-                  <InputGroup size="md">
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<BiLockAlt color="#058e46" />}
-                    />
-                    <Input
-                      pr="4.5rem"
-                      type={show ? "text" : "password"}
-                      placeholder="Password"
-                      focusBorderColor="#058e46"
-                      color="gray.600"
-                      fontSize="15px"
-                      name="password"
-                      onChange={handleInput}
-                      required
-                    />
-                    <InputRightElement>
-                      <Button
-                        h="1.75rem"
-                        size="sm"
-                        bgColor="white"
-                        onClick={handleClick}
-                        p="0"
-                        _hover={{ bgColor: "white" }}
-                      >
-                        {show ? (
-                          <VscEye color="gray.400" />
-                        ) : (
-                          <VscEyeClosed color="gray.400" />
-                        )}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-
-                  <Button
-                    type="submit"
-                    h="2.7rem"
-                    size="sm"
-                    bgColor="#058e43"
-                    width="100%"
-                    color="white"
-                    mt="10"
-                    p="4"
-                    rounded="lg"
-                    _hover={{
-                      bgColor: "green.600",
-                    }}
-                    fontWeight="400"
-                    rightIcon={<BiRightArrowAlt />}
-                  >
-                    Sign in
-                  </Button>
-                </form>
-
-                <Center>
-                  <Link
-                    color="teal.600"
-                    href="/register"
-                    fontSize="14px"
-                    mt={5}
-                  >
-                    Register
-                  </Link>
-                </Center>
-              </Box>
-            </Flex>
-          </Flex>
-        </Center>
-      </div>
-    );
   }
+
+  return (
+    <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
+      <Center>
+        <Flex
+          alignItems="center"
+          justify="center"
+          height="480px"
+          width="500px"
+          boxShadow="lg"
+          rounded="lg"
+          background="white"
+        >
+          <Flex direction="column" p="5" rounded="md" width="460px">
+            <Box bgColor="white"></Box>
+            <Text fontSize="3xl" fontWeight="500">
+              Sign in
+            </Text>
+            <Text
+              fontSize="sm"
+              fontWeight="300"
+              mt={2}
+              mb={5}
+              textTransform="uppercase"
+            >
+              Zamboanga City Medical Center
+            </Text>
+            <Box padding="" bg="white" mt={7}>
+              <form onSubmit={handleSubmit}>
+                <InputGroup size="md" mb={3}>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<BiUser color="#058e46" />}
+                  />
+                  <Input
+                    pr="4.5rem"
+                    type="text"
+                    placeholder="Email"
+                    focusBorderColor="#058e46"
+                    color="gray.600"
+                    fontSize="15px"
+                    name="email"
+                    onChange={handleInput}
+                    required
+                  />
+                </InputGroup>
+
+                <InputGroup size="md">
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<BiLockAlt color="#058e46" />}
+                  />
+                  <Input
+                    pr="4.5rem"
+                    type={show ? "text" : "password"}
+                    placeholder="Password"
+                    focusBorderColor="#058e46"
+                    color="gray.600"
+                    fontSize="15px"
+                    name="password"
+                    onChange={handleInput}
+                    required
+                  />
+                  <InputRightElement>
+                    <Button
+                      h="1.75rem"
+                      size="sm"
+                      bgColor="white"
+                      onClick={handleClick}
+                      p="0"
+                      _hover={{ bgColor: "white" }}
+                    >
+                      {show ? (
+                        <VscEye color="gray.400" />
+                      ) : (
+                        <VscEyeClosed color="gray.400" />
+                      )}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+
+                <Button
+                  type="submit"
+                  h="2.7rem"
+                  size="sm"
+                  bgColor="#058e43"
+                  width="100%"
+                  color="white"
+                  mt="10"
+                  p="4"
+                  rounded="lg"
+                  _hover={{
+                    bgColor: "green.600",
+                  }}
+                  fontWeight="400"
+                  rightIcon={<BiRightArrowAlt />}
+                >
+                  Sign in
+                </Button>
+              </form>
+
+              <Center>
+                <Link color="teal.600" href="/register" fontSize="14px" mt={5}>
+                  Register
+                </Link>
+              </Center>
+            </Box>
+          </Flex>
+        </Flex>
+      </Center>
+    </div>
+  );
 }
 
 export default Login;

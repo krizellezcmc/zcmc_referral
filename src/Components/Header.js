@@ -21,7 +21,7 @@ function Header() {
       if (result.isConfirmed) {
         localStorage.removeItem("user");
         localStorage.removeItem("logStat");
-        // navigate("/");
+        navigate("/");
         window.location.reload();
       }
     });
