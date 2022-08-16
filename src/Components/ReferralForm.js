@@ -3,6 +3,7 @@ import { useToast } from "@chakra-ui/react";
 import "../Styles/ReferralForm.css";
 import { Button } from "@chakra-ui/react";
 import moment from "moment";
+import uniqid from "uniqid";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");
@@ -11,40 +12,41 @@ const ReferralForm = () => {
   const [referringFacility, setReferringFacility] = useState("");
   const [lastname, setLastName] = useState("");
   const [firstname, setFirstName] = useState("");
-  const [middlename, setMiddleName] = useState("");
-  const [extendedName, setExtendedName] = useState("");
-  const [sex, setSex] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [age, setAge] = useState("");
-  const [civilStatus, setCivilStatus] = useState("");
-  const [nationality, setNationality] = useState("");
-  const [religion, setReligion] = useState("");
-  const [occupation, setOccupation] = useState("");
-  const [philhealth, setPhilhealth] = useState("");
-  const [address, setAddress] = useState("");
-  const [nextOfKin, setNextOfKin] = useState("");
-  const [contact, setContact] = useState("");
-  const [userContact, setUserContact] = useState("");
-  const [dateAdmitted, setDateAdmitted] = useState("");
-  const [referralType, setReferralType] = useState("");
-  const [disposition, setDisposition] = useState("");
-  const [temperature, setTemperature] = useState("");
-  const [bloodPressure, setBloodPressure] = useState("");
-  const [respiRate, setRespiRate] = useState("");
-  const [pulseRate, setPulseRate] = useState("");
-  const [oxygen, setOxygen] = useState("");
-  const [glasgow, setGlasgow] = useState("");
-  const [chiefComplaints, setChiefComplaints] = useState("");
-  const [diagnosis, setDiagnosis] = useState("");
-  const [endorsement, setEndorsement] = useState("");
-  const [reason, setReason] = useState("");
+  const [middlename, setMiddleName] = useState("N/A");
+  const [extendedName, setExtendedName] = useState("N/A");
+  const [sex, setSex] = useState("N/A");
+  const [birthdate, setBirthdate] = useState("N/A");
+  const [age, setAge] = useState("N/A");
+  const [civilStatus, setCivilStatus] = useState("N/A");
+  const [nationality, setNationality] = useState("N/A");
+  const [religion, setReligion] = useState("N/A");
+  const [occupation, setOccupation] = useState("N/A");
+  const [philhealth, setPhilhealth] = useState("N/A");
+  const [address, setAddress] = useState("N/A");
+  const [nextOfKin, setNextOfKin] = useState("N/A");
+  const [contact, setContact] = useState("N/A");
+  const [userContact, setUserContact] = useState("N/A");
+  const [dateAdmitted, setDateAdmitted] = useState("N/A");
+  const [referralType, setReferralType] = useState("N/A");
+  const [disposition, setDisposition] = useState("N/A");
+  const [temperature, setTemperature] = useState("N/A");
+  const [bloodPressure, setBloodPressure] = useState("N/A");
+  const [respiRate, setRespiRate] = useState("N/A");
+  const [pulseRate, setPulseRate] = useState("N/A");
+  const [oxygen, setOxygen] = useState("N/A");
+  const [glasgow, setGlasgow] = useState("N/A");
+  const [chiefComplaints, setChiefComplaints] = useState("N/A");
+  const [diagnosis, setDiagnosis] = useState("N/A");
+  const [endorsement, setEndorsement] = useState("N/A");
+  const [reason, setReason] = useState("N/A");
 
   const toast = useToast();
 
   const url =
-    "https://script.google.com/macros/s/AKfycbwvzoeZyFYiTSVh-m-RGAncO_WjGsytBuHnRkxYWLYSrzPWja8jOD5ScugywahrvT2DJg/exec?action=postData";
+    "https://script.google.com/macros/s/AKfycbyDuFLupqdcyp7z3lbGbfwNX79SZlbm9d84n2uPDijo6cXuO_fw_7PwYSL1tOkxhL-I5g/exec?action=postData";
 
   const postData = async () => {
+    const patientId = uniqid(lastname.toLowerCase() + "_");
     if (
       !lastname ||
       !firstname ||
@@ -72,6 +74,7 @@ const ReferralForm = () => {
         method: "POST",
         body: JSON.stringify({
           timeStamp,
+          patientId,
           username,
           referringFacility,
           lastname,

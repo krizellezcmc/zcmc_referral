@@ -84,12 +84,22 @@ function Signup() {
               duration: 2000,
               isClosable: true,
             });
-          } else {
+          } else if (response.data.status === 2) {
             toast({
               position: "top",
               title: "Email exists.",
               description: "Try to use another email",
               status: "warning",
+              variant: "solid",
+              duration: 2000,
+              isClosable: true,
+            });
+          } else {
+            toast({
+              position: "top",
+              title: "Error.",
+              description: "Error ocurred. Please try again!",
+              status: "error",
               variant: "solid",
               duration: 2000,
               isClosable: true,

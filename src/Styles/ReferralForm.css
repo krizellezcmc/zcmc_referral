@@ -8,6 +8,16 @@
   border-radius: 5px;
 }
 
+.referral-form-search {
+  width: 100%;
+  max-width: 1000px;
+
+  margin-top: 20px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 30px;
+  border-radius: 5px;
+}
+
 .block {
   margin-bottom: 40px;
 }
@@ -181,4 +191,51 @@ button.primary-cta-disable {
 
 button.primary-cta:hover {
   background: #189e52;
+}
+
+.referral-form-search input:hover,
+.referral-form-search input:focus,
+.referral-form-search select:focus,
+.referral-form-search select:hover {
+  border: 1px solid rgb(26, 143, 26);
+  border-bottom: 2px solid rgb(26, 143, 26);
+  transition: 0.1s ease-in-out;
+}
+
+.referral-form-search input,
+.referral-form-search select {
+  font-size: 14px;
+  outline: none;
+  border: 1px solid #d3d3d3;
+  border-bottom: 2px solid #d3d3d3;
+  transition: 0.1s ease-in-out;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+.referral-form-search input::placeholder,
+.referral-form-search select::placeholder {
+  font-size: 14px;
+}
+
+.referral-form-search textarea {
+  width: 100%;
+  border: 1px solid #d3d3d3;
+  border-bottom: 2px solid #d3d3d3;
+  transition: 0.1s ease-in-out;
+  border-radius: 5px;
+  height: 100px;
+  outline: none;
+  padding: 10px;
+  min-height: 50px;
+  min-width: 300px;
+  font-size: 14px;
+}
+
+.referral-form-search textarea:hover,
+.referral-form-search textarea:focus {
+  border: 1px solid rgb(26, 143, 26);
+  border-bottom: 2px solid rgb(26, 143, 26);
+  transition: 0.1s ease-in-out;
 }
