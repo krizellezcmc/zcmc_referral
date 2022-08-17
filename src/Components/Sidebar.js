@@ -56,7 +56,7 @@ const Sidebar = () => {
                   <HiOutlineOfficeBuilding />
                 )}
               </p>
-              <span>Add Hospital</span>
+              <span>Hospitals</span>
             </li>
 
             <li

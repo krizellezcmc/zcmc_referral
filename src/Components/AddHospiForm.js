@@ -120,7 +120,7 @@ const AddHospiForm = () => {
               width="400px"
             />
           </InputGroup>
-          <Button
+          {/* <Button
             variant="solid"
             colorScheme="blue"
             leftIcon={<MdOutlineAdd />}
@@ -128,7 +128,7 @@ const AddHospiForm = () => {
             style={{ padding: "0 25px 0 25px" }}
           >
             Add new hospital
-          </Button>
+          </Button> */}
         </div>
         {!hospitals ? (
           <i style={{ alignContent: "center" }}>---No data found---</i>

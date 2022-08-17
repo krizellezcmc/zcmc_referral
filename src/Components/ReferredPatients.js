@@ -74,7 +74,7 @@ const ReferredPatients = () => {
   };
   return (
     <div className="table-container">
-      <h1 className="block">Users</h1>
+      <h1 className="block">Referred Patients</h1>
       <div
         style={{
           display: "flex",

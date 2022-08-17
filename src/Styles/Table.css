@@ -15,6 +15,7 @@
   border-radius: 5px;
   padding: 10px;
 }
+
 .border {
   border-width: 1px;
   border-color: #aaaaaa;
@@ -22,6 +23,7 @@
   padding: 10px;
   font-size: 13px;
 }
+
 .block h1 {
   font-weight: 500;
   font-size: 18px;

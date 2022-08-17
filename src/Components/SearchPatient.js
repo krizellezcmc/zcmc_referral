@@ -92,13 +92,13 @@ function SearchPatient(props) {
         />
       </div>
 
-      <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
         {patient
           .filter((pat) => pat.patientId == id)
           .map((i, k) => {
             return (
               <>
-                <GridItem>
+                <GridItem colSpan={2}>
                   <div className="referral-form-search">
                     <div className="block">
                       <Flex>
@@ -407,7 +407,7 @@ function SearchPatient(props) {
                   style={{
                     width: "100%",
                     marginTop: "20px",
-                    height: "800px  ",
+                    height: "auto",
                     boxShadow:
                       "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                     borderRadius: "5px",

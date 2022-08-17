@@ -175,7 +175,7 @@ const UsersTable = () => {
 
   return (
     <div>
-      <Grid templateColumns="repeat(7,1fr)" gap={4}>
+      <Grid templateColumns="repeat(8,1fr)" gap={4}>
         <GridItem colSpan={5} bg="white">
           <div className="table-container">
             <h1 className="block">Verified Users</h1>
@@ -210,15 +210,13 @@ const UsersTable = () => {
                       <Th className="border" width="30%">
                         Name
                       </Th>
-                      <Th className="border" width="20%">
+                      {/* <Th className="border" width="20%">
                         Email
                       </Th>
                       <Th className="border" width="15%">
                         Phone No.
-                      </Th>
-                      <Th className="border" width="25%">
-                        Hospital
-                      </Th>
+                      </Th> */}
+                      <Th className="border">Hospital</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -233,12 +231,6 @@ const UsersTable = () => {
                           val.firstName
                             .toLowerCase()
                             .includes(search.toLowerCase()) ||
-                          val.email
-                            .toLowerCase()
-                            .includes(search.toLowerCase()) ||
-                          val.contact
-                            .toLowerCase()
-                            .includes(search.toLowerCase()) ||
                           val.name.toLowerCase().includes(search.toLowerCase())
                         ) {
                           return val;
@@ -251,8 +243,8 @@ const UsersTable = () => {
                               <Td className="border">
                                 {index.lastName + ", " + index.firstName}
                               </Td>
-                              <Td className="border">{index.email}</Td>
-                              <Td className="border">{index.contact}</Td>
+                              {/* <Td className="border">{index.email}</Td>
+                              <Td className="border">{index.contact}</Td> */}
                               <Td className="border">{index.name}</Td>
                               {/* <Td className="border">
                                 <Badge colorScheme="green">Verified</Badge>
@@ -280,7 +272,7 @@ const UsersTable = () => {
           </div>
         </GridItem>
 
-        <GridItem colSpan={2}>
+        <GridItem colSpan={3}>
           <div className="side-container" style={{ padding: "15px" }}>
             <h1 style={{ marginBottom: "10px" }}>
               <b>For Verification</b>
