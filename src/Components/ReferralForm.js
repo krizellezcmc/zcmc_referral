@@ -12,33 +12,33 @@ const ReferralForm = () => {
   const [referringFacility, setReferringFacility] = useState("");
   const [lastname, setLastName] = useState("");
   const [firstname, setFirstName] = useState("");
-  const [middlename, setMiddleName] = useState("N/A");
-  const [extendedName, setExtendedName] = useState("N/A");
-  const [sex, setSex] = useState("N/A");
-  const [birthdate, setBirthdate] = useState("N/A");
-  const [age, setAge] = useState("N/A");
-  const [civilStatus, setCivilStatus] = useState("N/A");
-  const [nationality, setNationality] = useState("N/A");
-  const [religion, setReligion] = useState("N/A");
-  const [occupation, setOccupation] = useState("N/A");
-  const [philhealth, setPhilhealth] = useState("N/A");
-  const [address, setAddress] = useState("N/A");
-  const [nextOfKin, setNextOfKin] = useState("N/A");
-  const [contact, setContact] = useState("N/A");
-  const [userContact, setUserContact] = useState("N/A");
-  const [dateAdmitted, setDateAdmitted] = useState("N/A");
-  const [referralType, setReferralType] = useState("N/A");
-  const [disposition, setDisposition] = useState("N/A");
-  const [temperature, setTemperature] = useState("N/A");
-  const [bloodPressure, setBloodPressure] = useState("N/A");
-  const [respiRate, setRespiRate] = useState("N/A");
-  const [pulseRate, setPulseRate] = useState("N/A");
-  const [oxygen, setOxygen] = useState("N/A");
-  const [glasgow, setGlasgow] = useState("N/A");
-  const [chiefComplaints, setChiefComplaints] = useState("N/A");
-  const [diagnosis, setDiagnosis] = useState("N/A");
-  const [endorsement, setEndorsement] = useState("N/A");
-  const [reason, setReason] = useState("N/A");
+  const [middlename, setMiddleName] = useState("");
+  const [extendedName, setExtendedName] = useState("");
+  const [sex, setSex] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [age, setAge] = useState("");
+  const [civilStatus, setCivilStatus] = useState("");
+  const [nationality, setNationality] = useState("");
+  const [religion, setReligion] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [philhealth, setPhilhealth] = useState("");
+  const [address, setAddress] = useState("");
+  const [nextOfKin, setNextOfKin] = useState("");
+  const [contact, setContact] = useState("");
+  const [userContact, setUserContact] = useState("");
+  const [dateAdmitted, setDateAdmitted] = useState("");
+  const [referralType, setReferralType] = useState("");
+  const [disposition, setDisposition] = useState("");
+  const [temperature, setTemperature] = useState("");
+  const [bloodPressure, setBloodPressure] = useState("");
+  const [respiRate, setRespiRate] = useState("");
+  const [pulseRate, setPulseRate] = useState("");
+  const [oxygen, setOxygen] = useState("");
+  const [glasgow, setGlasgow] = useState("");
+  const [chiefComplaints, setChiefComplaints] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
+  const [endorsement, setEndorsement] = useState("");
+  const [reason, setReason] = useState("");
 
   const toast = useToast();
 
@@ -349,7 +349,6 @@ const ReferralForm = () => {
               Date Admitted <span>*</span>
             </label>
             <input
-              value={dateAdmitted}
               type="date"
               onChange={(e) => setDateAdmitted(e.target.value)}
               required
@@ -360,11 +359,7 @@ const ReferralForm = () => {
             <label>
               Referral Type <span>*</span>
             </label>
-            <select
-              value={referralType}
-              onChange={(e) => setReferralType(e.target.value)}
-              required
-            >
+            <select onChange={(e) => setReferralType(e.target.value)} required>
               <option value="" disabled selected>
                 Please Select
               </option>
@@ -378,11 +373,7 @@ const ReferralForm = () => {
             <label>
               Disposition <span>*</span>
             </label>
-            <select
-              value={disposition}
-              onChange={(e) => setDisposition(e.target.value)}
-              required
-            >
+            <select onChange={(e) => setDisposition(e.target.value)} required>
               <option value="" disabled selected>
                 - Please Select -
               </option>
@@ -400,7 +391,6 @@ const ReferralForm = () => {
               Latest V/S-Temperature <span>*</span>
             </label>
             <input
-              value={temperature}
               type="text"
               onChange={(e) => setTemperature(e.target.value)}
               required
@@ -412,7 +402,6 @@ const ReferralForm = () => {
               Latest V/S-Blood Pressure <span>*</span>
             </label>
             <input
-              value={bloodPressure}
               type="text"
               onChange={(e) => setBloodPressure(e.target.value)}
               required
@@ -424,7 +413,6 @@ const ReferralForm = () => {
               Latest V/S-Respiration Rate <span>*</span>
             </label>
             <input
-              value={respiRate}
               type="text"
               onChange={(e) => setRespiRate(e.target.value)}
               required
@@ -436,7 +424,6 @@ const ReferralForm = () => {
               Latest V/S Pulse Rate <span>*</span>
             </label>
             <input
-              value={pulseRate}
               type="text"
               onChange={(e) => setPulseRate(e.target.value)}
               required
@@ -448,7 +435,6 @@ const ReferralForm = () => {
               Latest V/S-Oxygen Saturation <span>*</span>
             </label>
             <input
-              value={oxygen}
               type="text"
               onChange={(e) => setOxygen(e.target.value)}
               required
@@ -462,7 +448,6 @@ const ReferralForm = () => {
               Glasgow Coma Scale <span>*</span>
             </label>
             <input
-              value={glasgow}
               type="text"
               onChange={(e) => setGlasgow(e.target.value)}
               required
@@ -472,7 +457,6 @@ const ReferralForm = () => {
           <div className="input-container-3">
             <label>Endorsement/Initial Care</label>
             <input
-              value={endorsement}
               type="text"
               onChange={(e) => setEndorsement(e.target.value)}
             />
@@ -481,7 +465,6 @@ const ReferralForm = () => {
           <div className="input-container-3">
             <label>Resident on Duty/Contact #</label>
             <input
-              value={userContact}
               type="text"
               onChange={(e) => setUserContact(e.target.value)}
             />
@@ -492,7 +475,6 @@ const ReferralForm = () => {
           <div className="input-container-2">
             <label>Chief Complaints</label>
             <textarea
-              value={chiefComplaints}
               onChange={(e) => setChiefComplaints(e.target.value)}
               style={{
                 marginTop: "5px",
@@ -506,7 +488,6 @@ const ReferralForm = () => {
           <div className="input-container-2">
             <label>Diagnosis</label>
             <textarea
-              value={diagnosis}
               onChange={(e) => setDiagnosis(e.target.value)}
               style={{
                 marginTop: "5px",
@@ -521,7 +502,7 @@ const ReferralForm = () => {
         <div className="inline-block-2">
           <div className="input-container-1">
             <label>Reason for Referral</label>
-            <select value={reason} onChange={(e) => setReason(e.target.value)}>
+            <select onChange={(e) => setReason(e.target.value)}>
               <option value="" disabled selected>
                 - Please Select -
               </option>

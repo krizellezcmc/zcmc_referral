@@ -5,13 +5,17 @@ import Sidebar from "../Components/Sidebar";
 import ReferralForm from "../Components/ReferralForm";
 import SearchPatient from "../Components/SearchPatient";
 import { Button, Flex } from "@chakra-ui/react";
-import { BiSearch } from "react-icons/bi";
+import { BiRefresh, BiSearch } from "react-icons/bi";
 
 function Home() {
   const [stat, setStat] = useState("old");
 
   const addNew = () => {
     setStat("new");
+  };
+
+  const refreshPage = () => {
+    window.location.reload(false);
   };
 
   const old = () => {
@@ -35,6 +39,10 @@ function Home() {
                 onClick={addNew}
               >
                 + Refer new patient
+              </Button>
+
+              <Button onClick={refreshPage} leftIcon={<BiRefresh />}>
+                Refresh
               </Button>
               <SearchPatient />
             </>

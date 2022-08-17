@@ -407,7 +407,7 @@ function SearchPatient(props) {
                   style={{
                     width: "100%",
                     marginTop: "20px",
-                    height: "700px  ",
+                    height: "800px  ",
                     boxShadow:
                       "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                     borderRadius: "5px",
