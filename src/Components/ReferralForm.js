@@ -176,6 +176,7 @@ const ReferralForm = () => {
               onChange={(e) => setLastName(e.target.value.toUpperCase())}
               required
             />
+
             <input
               style={{ textTransform: "uppercase" }}
               type="text"
@@ -185,6 +186,7 @@ const ReferralForm = () => {
               onChange={(e) => setFirstName(e.target.value.toUpperCase())}
               required
             />
+
             <input
               style={{ textTransform: "uppercase" }}
               type="text"
@@ -193,6 +195,7 @@ const ReferralForm = () => {
               value={middlename}
               onChange={(e) => setMiddleName(e.target.value.toUpperCase())}
             />
+
             <input
               style={{ textTransform: "uppercase" }}
               type="text"
@@ -501,7 +504,10 @@ const ReferralForm = () => {
 
         <div className="inline-block-2">
           <div className="input-container-1">
-            <label>Reason for Referral</label>
+            <label>
+              Reason for Referral <span>*</span>
+            </label>
+
             <select onChange={(e) => setReason(e.target.value)}>
               <option value="" disabled selected>
                 - Please Select -

@@ -12,6 +12,7 @@ import Patient from "../Pages/Patient";
 import ReferredPatient from "../Pages/ReferredPatient";
 import ChangePassword from "../Pages/ChangePass";
 import ProtectedRoutes from "./ProtectedRoute";
+import TagubilinForm from "./TagubilinForm";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Login />} />
+          <Route path="/tagubilin" element={<TagubilinForm />} />
           <Route path="/register" element={<Register />} />
 
           {/* User Routes */}

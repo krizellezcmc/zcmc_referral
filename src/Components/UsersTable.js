@@ -126,10 +126,9 @@ const UsersTable = () => {
       });
   });
 
-  const deleteUser = (name) => {
+  const deleteUser = (id) => {
     Swal.fire({
-      title: "Are you sure you?",
-      text: "This will remove " + name,
+      text: "Are you sure you want to remove this user? ",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -137,7 +136,17 @@ const UsersTable = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        axios
+          .post("http://192.168.3.135/zcmc_referral_api/api/remove_user.php", {
+            userId: id,
+          })
+          .then((response) => {
+            if (response.data.status === 1) {
+              Swal.fire("Deleted!", "The user has been removed.", "success");
+            } else {
+              Swal.fire("Error!", "Something went wrong.", "error");
+            }
+          });
       }
     });
   };
@@ -256,7 +265,7 @@ const UsersTable = () => {
                                   variant="solid"
                                   colorScheme="red"
                                   onClick={() => {
-                                    deleteUser(index.firstName);
+                                    deleteUser(index.userId);
                                   }}
                                   icon={<BiTrash fontSize="15px" />}
                                 />
