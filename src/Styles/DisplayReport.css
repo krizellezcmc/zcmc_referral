@@ -1,0 +1,240 @@
+.report-form {
+  font-family: "Times New Roman", Times, serif;
+  width: 100%;
+  max-width: 800px;
+  /* margin: 0 auto; */
+  margin: 40px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 30px;
+  border-radius: 5px;
+}
+.logo1 {
+  float: left;
+  width: 60px;
+  margin-left: 30px;
+}
+.logo2 {
+  float: right;
+  width: 80px;
+  margin-right: 30px;
+}
+.dhead-data {
+  float: left;
+  width: 500px;
+  margin-left: 25px;
+}
+.dheader p {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  font-size: 10px;
+  line-height: 11px;
+}
+.dh2 {
+  text-align: center;
+  margin-top: 5px;
+  font-weight: bolder;
+  color: black;
+  font-size: 25px;
+  font-family: "Times New Roman", Times, serif;
+  letter-spacing: 0.5;
+}
+.dtable {
+  font-family: "Times New Roman", Times, serif;
+  border-collapse: collapse;
+  max-width: 700px;
+  margin-top: 10px;
+}
+.dcell {
+  font-family: "Times New Roman", Times, serif;
+  border: 1px solid black;
+  text-align: left;
+  font-size: 13px;
+  padding: 0px 0px 5px 5px;
+  font-weight: bolder;
+}
+.dcell p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+  font-weight: 300;
+}
+.ddiagnosis {
+  font-family: "Times New Roman", Times, serif;
+  border: 1px solid black;
+  text-align: left;
+  font-size: 13px;
+  padding: 0px 0px 5px 5px;
+}
+.diagnosis-con {
+  font-family: "Times New Roman", Times, serif;
+  display: inline-block;
+  font-weight: bolder;
+}
+/* .dmajor-label {
+  font-family: "Times New Roman", Times, serif;
+  text-align: left;
+  font-size: 13px;
+  padding: 0px 0px 5px 5px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  margin-bottom: 30px;
+} */
+.dmed-header {
+  font-family: "Times New Roman", Times, serif;
+  border: 1px solid black;
+  text-align: left;
+  font-size: 13px;
+}
+.dmed-box {
+  display: flex;
+  margin-right: 50px;
+  padding: 0;
+}
+.dmed-data {
+  margin-top: 10px;
+}
+.dcheckbox {
+  width: 1px;
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  margin-left: 3px;
+}
+.dmed-label {
+  font-family: "Times New Roman", Times, serif;
+}
+.dmed-label p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
+  margin-top: 10px;
+  color: black;
+  text-align: left;
+  margin-left: 3px;
+  font-weight: bolder;
+}
+.dmed {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border: 1px solid black;
+  font-size: 12px;
+  padding: 0px 0px 10px 0px;
+}
+.dmed-cell {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  border: 1px solid black;
+  font-size: 12px;
+  padding: 0px 0px 10px 0px;
+}
+#dpara {
+  font-family: "Times New Roman", Times, serif;
+  text-align: justify;
+  display: inline;
+}
+#demail {
+  font-family: "Times New Roman", Times, serif;
+  text-decoration: underline;
+  color: blue;
+  display: inline;
+  margin-left: 3px;
+}
+.db {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 30px;
+  margin-left: 3px;
+}
+.dfloat-container {
+  margin-left: 100px;
+  font-size: 13px;
+}
+
+.dfloat-child1 {
+  width: 50%;
+  float: left;
+}
+.dfloat-child1 label {
+  font-family: "Times New Roman", Times, serif;
+}
+.dname {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.dfloat-child2 {
+  width: 50%;
+  float: right;
+}
+.dfloat-child2 label {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.dlabel {
+  display: inline-block;
+  line-height: 1;
+}
+.dhr-sign {
+  font-family: "Times New Roman", Times, serif;
+  border-top: 1px solid black;
+  width: 200px;
+  margin-left: 20px 10px;
+  font-size: 13px;
+  text-align: center;
+}
+.dhr-followup {
+  font-family: "Times New Roman", Times, serif;
+  border-top: 1px solid black;
+  width: 200px;
+  margin-left: 20px 10px;
+  font-size: 13px;
+}
+.dhr-date {
+  font-family: "Times New Roman", Times, serif;
+  border-top: 1px solid black;
+  width: 250px;
+  margin-left: 20px;
+  font-size: 13px;
+  text-align: center;
+}
+.dhr-watcher {
+  font-family: "Times New Roman", Times, serif;
+  border-top: 1px solid black;
+  width: 250px;
+  margin-top: 50px;
+  margin-left: 230px;
+  font-size: 13px;
+  padding-bottom: 10px;
+}
+.dborder1 {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.dborder2 {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+}
+.dborder2 p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 13px;
+  margin-right: 20px;
+  font-weight: 400;
+}
+.dborders {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  font-size: 13px;
+  /* margin-top: 30px; */
+}
+/* .followup-d{
+
+} */
+.dfooter p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10px;
+  display: inline;
+  margin-left: 80px;
+  position: static;
+}

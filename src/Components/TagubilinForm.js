@@ -95,7 +95,7 @@ function TagubilinForm() {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log({
+    localStorage.setItem("refpatient", JSON.stringify({
       patientName: patientName,
       age: age,
       ward: ward,
@@ -115,9 +115,10 @@ function TagubilinForm() {
       time: time,
       healthOthers: healthOthers,
       medications: medications,
-      diet,
-    });
+      }))
+      window.location.href="/tagubilinreport"
   };
+  
 
   const dietList = [
     {
@@ -626,15 +627,16 @@ function TagubilinForm() {
                     <GridItem>
                       <VStack>
                         <Box mb={10}>
-                          <Input
-                            type="time"
-                            size="sm"
-                            width="250px"
-                            border="none "
-                            textAlign="center"
-                            required
-                            onChange={(e) => setTime(e.target.value)}
-                          />
+                        <Input
+                          type="text"
+                          size="sm"
+                          width="250px"
+                          border="none "
+                          textAlign="center"
+                          placeholder="Click to enter text"
+                          onChange={(e) => setTime(e.target.value)}
+                          required
+                        />
                           <hr
                             style={{
                               border: "1px solid black",
@@ -776,6 +778,7 @@ function TagubilinForm() {
               width="250px"
               rightIcon={<BiSend />}
               type="submit"
+              onClick={()=>submit()}
             >
               Submit
             </Button>
