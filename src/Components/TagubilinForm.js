@@ -23,6 +23,8 @@ import "../Styles/Tagubilin.css";
 import { BiMinus, BiSend } from "react-icons/bi";
 import axios from "axios";
 import moment from "moment";
+import cbc from "../Assets/cbc2.png";
+import { Center } from "chakra-ui";
 
 function TagubilinForm() {
   const [patientName, setPatient] = useState("");
@@ -207,27 +209,33 @@ function TagubilinForm() {
           <Table variant="unstyled" cellSpacing={0}>
             <Tbody>
               <Tr>
-                <Td className="border" width="10%">
+                <Td className="border" width="60%" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Name/Pangalan:
                   </Text>
-                </Td>
-                <Td className="border" py={2} width="33%">
                   <Text fontSize="14px">{patientName}</Text>
                 </Td>
-                <Td className="border" py={2} width="16%">
+
+                <Td className="border" width="10%" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Age/Edad:{" "}
                   </Text>
                   <Text fontSize="14px">{age}</Text>
                 </Td>
-                <Td className="border" py={2} width="15%">
+                <Td className="border" width="10%" py={1.5}>
+                  <Text fontSize="12px" fontWeight="600">
+                    Sex:
+                  </Text>
+
+                  <Text fontSize="14px">Female</Text>
+                </Td>
+                <Td className="border" width="40%" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Ward:
                   </Text>
                   <Text fontSize="14px">{ward}</Text>
                 </Td>
-                <Td className="border" py={2}>
+                <Td className="border" width="40%" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Hospital Record No.:
                   </Text>
@@ -235,36 +243,28 @@ function TagubilinForm() {
                 </Td>
               </Tr>
               <Tr>
-                <Td className="border" py={2} colSpan="2">
+                <Td className="border" py={1.5} colSpan="2">
+                  <Text fontSize="12px" fontWeight="600">
+                    Address:
+                  </Text>
+                  <Text fontSize="14px">{admissionDate}</Text>
+                </Td>
+                <Td className="border" py={1.5} colSpan="2">
                   <Text fontSize="12px" fontWeight="600">
                     Admission Date:
                   </Text>
                   <Text fontSize="14px">{admissionDate}</Text>
                 </Td>
 
-                <Td className="border" py={2} colSpan="3">
+                <Td className="border" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Discharge Date:
                   </Text>
-                  <Text fontSize="14px">
-                    Date
-                    {/* {dischDate === "" ? (
-                      <Input
-                        type="date"
-                        size="sm"
-                        width="250px"
-                        border="none "
-                        textAlign="center"
-                        onChange={(e) => setDischDate(e.target.value)}
-                      />
-                    ) : (
-                      dischDate
-                    )} */}
-                  </Text>
+                  <Text fontSize="14px">Date</Text>
                 </Td>
               </Tr>
               <Tr>
-                <Td className="border" py={2} colSpan="5">
+                <Td className="border" py={1.5} colSpan="5">
                   <Text fontSize="12px" fontWeight="600">
                     Diagnosis:
                   </Text>
@@ -280,19 +280,19 @@ function TagubilinForm() {
                 </Td>
               </Tr>
               <Tr>
-                <Td className="border" py={2} colSpan="2">
+                <Td className="border" py={1.5} colSpan="2">
                   <Text fontSize="12px" fontWeight="600">
                     Operation/Operasyon:
                   </Text>
                   <Text fontSize="14px">Operation</Text>
                 </Td>
-                <Td className="border" py={2} colSpan="2">
+                <Td className="border" py={1.5} colSpan="2">
                   <Text fontSize="12px" fontWeight="600">
                     Surgeon:
                   </Text>
                   <Text fontSize="14px">Surgeon</Text>
                 </Td>
-                <Td className="border" py={2} colSpan="1">
+                <Td className="border" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Petsa ng Operasyon:
                   </Text>
@@ -307,95 +307,89 @@ function TagubilinForm() {
                 </Td>
               </Tr>
               <Tr>
-                <Td className="border" colSpan="1" py={2}>
-                  <Text fontSize="12px" fontWeight="600">
-                    Laboratory
-                  </Text>
+                <Td className="border" width="40%" py={1.5}>
+                  <Box height="150px">
+                    <Text fontSize="12px" textAlign="center" fontWeight="600">
+                      Laboratory
+                    </Text>
+
+                    <Center mt={5}>
+                      <img
+                        src={cbc}
+                        style={{ height: "80px", width: "160px" }}
+                      />
+                    </Center>
+                  </Box>
                 </Td>
-                <Td className="border" colSpan="4" p={0}>
-                  <Textarea
-                    placeholder="Click to enter text"
-                    m={0}
-                    borderRadius="0"
-                    border="none"
-                    rows={2}
-                    fontSize="14px"
-                    onChange={(e) => setLaboratory(e.target.value)}
-                  ></Textarea>
+
+                <Td className="border" width="30%" py={0} px={0}>
+                  <Box height="142px">
+                    <Text fontSize="12px" textAlign="center" fontWeight="600">
+                      X-Ray
+                    </Text>
+                    <Textarea
+                      m={0}
+                      textAlign="center"
+                      borderRadius="0"
+                      border="none"
+                      rows={6}
+                      fontSize="14px"
+                      onChange={(e) => setXray(e.target.value)}
+                    ></Textarea>
+                  </Box>
                 </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" colSpan="1" py={0}>
-                  <Text fontSize="12px" fontWeight="600">
-                    X-Ray
-                  </Text>
+
+                <Td className="border" width="30%" py={0} px={0}>
+                  <Box height="142px">
+                    <Text fontSize="12px" textAlign="center" fontWeight="600">
+                      CT-Scan
+                    </Text>
+                    <Textarea
+                      m={0}
+                      textAlign="center"
+                      borderRadius="0"
+                      border="none"
+                      rows={6}
+                      fontSize="14px"
+                      onChange={(e) => setCTScan(e.target.value)}
+                    ></Textarea>
+                  </Box>
                 </Td>
-                <Td className="border" colSpan="4" p={0}>
-                  <Textarea
-                    placeholder="Click to enter text"
-                    m={0}
-                    borderRadius="0"
-                    border="none"
-                    rows={2}
-                    fontSize="14px"
-                    onChange={(e) => setXray(e.target.value)}
-                  ></Textarea>
+
+                <Td className="border" width="30%" py={0} px={0}>
+                  <Box height="142px">
+                    <Text fontSize="12px" textAlign="center" fontWeight="600">
+                      MRI
+                    </Text>
+                    <Textarea
+                      m={0}
+                      textAlign="center"
+                      borderRadius="0"
+                      border="none"
+                      rows={6}
+                      onChange={(e) => setMRI(e.target.value)}
+                      fontSize="14px"
+                    ></Textarea>
+                  </Box>
                 </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" colSpan="1" py={0}>
-                  <Text fontSize="12px" fontWeight="600">
-                    CT Scan
-                  </Text>
-                </Td>
-                <Td className="border" colSpan="4" p={0}>
-                  <Textarea
-                    placeholder="Click to enter text"
-                    m={0}
-                    borderRadius="0"
-                    border="none"
-                    rows={2}
-                    onChange={(e) => setCTScan(e.target.value)}
-                    fontSize="14px"
-                  ></Textarea>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" colSpan="1" py={2}>
-                  <Text fontSize="12px" fontWeight="600">
-                    MRI
-                  </Text>
-                </Td>
-                <Td className="border" colSpan="4" p={0}>
-                  <Textarea
-                    placeholder="Click to enter text"
-                    m={0}
-                    borderRadius="0"
-                    border="none"
-                    rows={2}
-                    fontSize="14px"
-                    onChange={(e) => setMRI(e.target.value)}
-                  ></Textarea>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" colSpan="1" py={2}>
-                  <Text fontSize="12px" fontWeight="600">
-                    Others
-                  </Text>
-                </Td>
-                <Td className="border" colSpan="4" p={0}>
-                  <Textarea
-                    placeholder="Click to enter text"
-                    m={0}
-                    borderRadius="0"
-                    border="none"
-                    rows={2}
-                    fontSize="14px"
-                    onChange={(e) => setOthers(e.target.value)}
-                  ></Textarea>
+                <Td className="border" width="20%" py={0} px={0}>
+                  <Box height="142px">
+                    <Text fontSize="12px" textAlign="center" fontWeight="600">
+                      OTHERS
+                    </Text>
+                    <Textarea
+                      m={0}
+                      textAlign="center"
+                      borderRadius="0"
+                      border="none"
+                      rows={6}
+                      fontSize="14px"
+                      onChange={(e) => setOthers(e.target.value)}
+                    ></Textarea>
+                  </Box>
                 </Td>
               </Tr>
+
               <Tr>
                 <Td className="border" colSpan="5" py={1}>
                   <Text fontSize="12px" fontWeight="600">
@@ -500,14 +494,18 @@ function TagubilinForm() {
                 );
               })}
 
-              <Button
-                style={{ marginTop: "5px", marginBottom: "5px" }}
-                colorScheme="blue"
-                size="sm"
-                onClick={handleAddClick}
-              >
-                Add medication
-              </Button>
+              <Tr>
+                <Td className="border" p={1} colSpan="5">
+                  <Button
+                    style={{ marginTop: "5px", marginBottom: "5px" }}
+                    colorScheme="blue"
+                    size="sm"
+                    onClick={handleAddClick}
+                  >
+                    + Add medication
+                  </Button>
+                </Td>
+              </Tr>
 
               <Tr>
                 <Td className="border" colSpan="5">
@@ -590,34 +588,27 @@ function TagubilinForm() {
               <Tr>
                 <Td className="border" colSpan="5">
                   <HStack>
-                  <Text fontSize="12px" fontWeight="600">
-                    I understand the above explanation given, I do hereby agree
-                    that I will have follow-up checkup:
-                  </Text>
-                  <Box
-                        style={{
-                          width: "350px",
-                        }}
-                      >
-                        {/* <Input
-                        type="date"
+                    <Text fontSize="12px" fontWeight="600">
+                      I understand the above explanation given, I do hereby
+                      agree that I will have follow-up checkup:
+                    </Text>
+                    <Box
+                      style={{
+                        width: "350px",
+                      }}
+                    >
+                      <Input
+                        type="text"
                         size="sm"
-                        width="150px"
+                        width="350px"
                         border="none "
-                        style={{ marginLeft: "50px" }}
-                      /> */}
-                        <Input
-                          type="text"
-                          size="sm"
-                          width="350px"
-                          border="none "
-                          textAlign="left"
-                          // placeholder="Via: Click to enter text"
-                          // required
-                          // onChange={(e) => setFollowUp(e.target.value)}
-                        />
-                      </Box>
-                      </HStack>
+                        textAlign="left"
+                        // placeholder="Via: Click to enter text"
+                        // required
+                        // onChange={(e) => setFollowUp(e.target.value)}
+                      />
+                    </Box>
+                  </HStack>
 
                   <Grid templateColumns="repeat(3, 1fr)" mt={8}>
                     <GridItem>
@@ -627,13 +618,6 @@ function TagubilinForm() {
                           margin: "0 auto",
                         }}
                       >
-                        {/* <Input
-                        type="date"
-                        size="sm"
-                        width="150px"
-                        border="none "
-                        style={{ marginLeft: "50px" }}
-                      /> */}
                         <Input
                           type="text"
                           size="sm"
