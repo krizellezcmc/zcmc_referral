@@ -68,7 +68,7 @@ function Prescription(){
               </div>
               <img src={dohLogo} className="plogo2" alt="DOH Logo" />
             </div>
-            <div style={{ textAlign: "right", marginTop: "20px" }}>
+            <div style={{ textAlign: "right", marginRight:"20px", marginTop: "20px" }}>
               <p className="pdate">Date:</p>
               <p className="pdate-line">{moment().format("LL")}</p>
             </div>
@@ -94,7 +94,8 @@ function Prescription(){
             <div style={{ marginBottom: "10px" }}>
               <p className="rx">Rx</p>
             </div>
-    
+
+            <div className="meds-container">
             {med.map((pres, key) => {
               return (
                 <>
@@ -103,13 +104,15 @@ function Prescription(){
                     <p className="pgeneric-line">{pres.medicine}</p>
                     <p className="pdetails">#</p>
                     <p className="pward-line">--</p>
-                    <p className="pdetails">Sig:</p>
+                    <div>
+                    <p className="psig">Sig:</p>
                     <p className="psig-line">{pres.dosage}</p>
+                    </div>
                   </div>
                 </>
               );
             })}
-    
+            </div>
             <div className="signature">
               <div>
                 <p className="signature-label">Signature</p>
@@ -117,7 +120,7 @@ function Prescription(){
               </div>
               <div>
                 <p className="signature-label">Printed Name</p>
-                <p className="sign-line">{resident} MD</p>
+                <p className="sign-line">{resident}</p>
               </div>
               <div>
                 <p className="signature-label">License No.</p>
@@ -132,9 +135,9 @@ function Prescription(){
           </div>
         );
         const pres = new jsPDF({
-          orientation: "p",
+          orientation: "l",
           unit: "mm",
-          format: [101.6, 290],
+          format: [297,210],
         });
         pres.page = 1;
     
@@ -142,13 +145,13 @@ function Prescription(){
           pres.setFont("Times-Roman");
           pres.setFontSize(7);
           pres.text(
-            15,
-            280,
+            38,
+            204,
             '"RA 9502 prohibits brand prescriibng in all government health agencies"'
           );
           pres.text(
-            7,
-            288,
+            30,
+            207,
             "ZCMC-F-OCMPS-05" +
               "                        " +
               "Rev. 1" +
@@ -159,10 +162,10 @@ function Prescription(){
         }
     
         pres.html(ReactDOMServer.renderToString(elementPres), {
-          width: 101.6,
-          height: 290,
-          windowWidth: 450,
-          windowHeight: 900,
+          width: 148.5,
+          height: 210,
+          windowWidth: 580,
+          windowHeight: 1160,
           margin: [3, 5, 5, 5],
     
           callback: function (pres) {
@@ -175,7 +178,7 @@ function Prescription(){
 return(
 
     <div>
-    <div style={{ float: "right", marginRight: "100px" }}>
+    <div style={{ float: "right", marginRight: "5px" }}>
         <Button
           onClick={exportPres}
           variant="outline"
@@ -197,11 +200,11 @@ return(
             </div>
             <img src={dohLogo} className="plogo2" alt="DOH Logo" />
           </div>
-          <div style={{ textAlign: "right", marginTop: "20px" }}>
+          <div style={{ textAlign: "right", marginRight:"10px",marginTop: "3px" }}>
             <p className="pdate">Date:</p>
             <p className="pdate-line">{moment().format("LL")}</p>
           </div>
-          <div style={{ marginTop: "20px" }}>
+          <div style={{ marginTop: "5px" }}>
             <p className="pfullname">Patient's Name:</p>
             <p className="pfullname-line">{refName}</p>
           </div>
@@ -220,25 +223,29 @@ return(
           </p>
           <p className="pdetails-line">-</p>
 
-          <div style={{ marginBottom: "10px" }}>
+          <div style={{ marginBottom: "5px" }}>
             <p className="rx">Rx</p>
           </div>
 
+          <div className="meds-container">
           {med.map((pres, key) => {
             return (
               <>
-                <div style={{ marginBottom: "10px" }}>
+                <div style={{ marginBottom: "3px" }}>
                   <p className="pdetails">Generic Name:</p>
                   <p className="pgeneric-line">{pres.medicine}</p>
                   <p className="pdetails">#</p>
                   <p className="pward-line">--</p>
-                  <p className="pdetails">Sig:</p>
+                  <div style={{display:"inline-block"}}>
+                  <p className="psig">Sig:</p>
                   <p className="psig-line">{pres.dosage}</p>
+                  </div>
+                  
                 </div>
               </>
             );
           })}
-
+          </div>
           <div className="signature">
             <div>
               <p className="signature-label">Signature</p>

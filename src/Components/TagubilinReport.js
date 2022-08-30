@@ -213,7 +213,7 @@ function TagubilinReport() {
           </tr>
           <tr className="border2">
             <td>
-              <p>{moment(followup).format("LL")}</p>
+              <p>{followup}</p>
               <p className="hr-date">Date of Follow-Up</p>
             </td>
             <td colSpan="2">
@@ -263,7 +263,7 @@ function TagubilinReport() {
       doc.setFontSize(8);
       doc.text(
         25,
-        290,
+        295,
         "ZCMC-F-OCMPS-05" +
           "                                " +
           "Rev. 1" +

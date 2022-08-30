@@ -17,6 +17,7 @@ import {
   Button,
   IconButton,
   CheckboxGroup,
+  HStack,
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import { BiMinus, BiSend } from "react-icons/bi";
@@ -586,10 +587,36 @@ function TagubilinForm() {
               </Tr>
               <Tr>
                 <Td className="border" colSpan="5">
+                  <HStack>
                   <Text fontSize="12px" fontWeight="600">
                     I understand the above explanation given, I do hereby agree
                     that I will have follow-up checkup:
                   </Text>
+                  <Box
+                        style={{
+                          width: "350px",
+                        }}
+                      >
+                        {/* <Input
+                        type="date"
+                        size="sm"
+                        width="150px"
+                        border="none "
+                        style={{ marginLeft: "50px" }}
+                      /> */}
+                        <Input
+                          type="text"
+                          size="sm"
+                          width="350px"
+                          border="none "
+                          textAlign="left"
+                          // placeholder="Via: Click to enter text"
+                          // required
+                          // onChange={(e) => setFollowUp(e.target.value)}
+                        />
+                      </Box>
+                      </HStack>
+
                   <Grid templateColumns="repeat(3, 1fr)" mt={8}>
                     <GridItem>
                       <Box
@@ -606,11 +633,12 @@ function TagubilinForm() {
                         style={{ marginLeft: "50px" }}
                       /> */}
                         <Input
-                          type="date"
+                          type="text"
                           size="sm"
                           width="250px"
                           border="none "
                           textAlign="center"
+                          placeholder="Click to enter text"
                           required
                           onChange={(e) => setFollowUp(e.target.value)}
                         />
