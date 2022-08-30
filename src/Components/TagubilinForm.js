@@ -42,10 +42,130 @@ function TagubilinForm() {
   const [followUp, setFollowUp] = useState("");
   const [time, setTime] = useState("");
   const [needBring, setNeedBring] = useState("");
-  const [diet, setDiet] = useState([]);
-  const [medications, setMedications] = useState([
-    { medicine: "", dosage: "", sched: "" },
+  const [dietList, setDietList] = useState([
+    {
+      value: "Low Salt Diet",
+      isChecked: false,
+    },
+    {
+      value: "Low Salt",
+      isChecked: false,
+    },
+    {
+      value: "Diabetic Diet",
+      isChecked: false,
+    },
+    {
+      value: "Low Protein Diet",
+      isChecked: false,
+    },
   ]);
+
+  const [instructions, setInstructions] = useState([
+    {
+      value: "Repeat Urinalysis",
+      isChecked: false,
+    },
+    {
+      value: "Repeat Creatine",
+      isChecked: false,
+    },
+    {
+      value: "Repeat FBS",
+      isChecked: false,
+    },
+    {
+      value: "Others: Request For",
+      isChecked: false,
+    },
+    {
+      value: "Medical Certificate",
+      isChecked: false,
+    },
+    {
+      value: "Photocopy of Health Records",
+      isChecked: false,
+    },
+  ]);
+
+  const [othersDiet, setOthersDiet] = useState("");
+  const [medications, setMedications] = useState([
+    { medicine: "", quantity: "", dosage: "", sched: "" },
+  ]);
+
+  // handle input change
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...medications];
+    list[index][name] = value;
+    setMedications(list);
+  };
+
+  //handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    const list = [...medications];
+    list.splice(index, 1);
+    setMedications(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = (e, index) => {
+    setMedications([
+      ...medications,
+      { medicine: "", quantity: "", dosage: "", sched: "" },
+    ]);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    localStorage.setItem(
+      "refpatient",
+      JSON.stringify({
+        patientName: patientName,
+        age: age,
+        ward: ward,
+        hrn: hrn,
+        admissionDate: admissionDate,
+        dischDiag: dischDiag,
+        dischDate: dischDate,
+        laboratory: laboratory,
+        xray: xray,
+        ctScan: ctScan,
+        mri: mri,
+        others: others,
+        nurse: nurse,
+        resident: resident,
+        followUp: followUp,
+        needBring: needBring,
+        time: time,
+        healthOthers: healthOthers,
+        medications: medications,
+        diet: dietList,
+        othersDiet: othersDiet,
+        instructions: instructions,
+      })
+    );
+    window.location.href = "/tagubilinreport";
+  };
+
+  // Health Diet
+  const handleCheck = (e, k) => {
+    let temp = [...dietList];
+    if (e.target.checked) {
+      temp[k]["isChecked"] = true;
+    } else {
+      temp[k]["isChecked"] = false;
+    }
+  };
+
+  const handleInst = (e, k) => {
+    let temp = [...instructions];
+    if (e.target.checked) {
+      temp[k]["isChecked"] = true;
+    } else {
+      temp[k]["isChecked"] = false;
+    }
+  };
 
   useEffect(() => {
     axios
@@ -71,82 +191,7 @@ function TagubilinForm() {
             : moment(response.data.dischdate.date).format("ll")
         );
       });
-  });
-
-  // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...medications];
-    list[index][name] = value;
-    setMedications(list);
-  };
-
-  //handle click event of the Remove button
-  const handleRemoveClick = (index) => {
-    const list = [...medications];
-    list.splice(index, 1);
-    setMedications(list);
-  };
-
-  // handle click event of the Add button
-  const handleAddClick = (e, index) => {
-    setMedications([...medications, { medicine: "", dosage: "", sched: "" }]);
-  };
-
-  const submit = (e) => {
-    e.preventDefault();
-    localStorage.setItem("refpatient", JSON.stringify({
-      patientName: patientName,
-      age: age,
-      ward: ward,
-      hrn: hrn,
-      admissionDate: admissionDate,
-      dischDiag: dischDiag,
-      dischDate: dischDate,
-      laboratory: laboratory,
-      xray: xray,
-      ctScan: ctScan,
-      mri: mri,
-      others: others,
-      nurse: nurse,
-      resident: resident,
-      followUp: followUp,
-      needBring: needBring,
-      time: time,
-      healthOthers: healthOthers,
-      medications: medications,
-      }))
-      window.location.href="/tagubilinreport"
-  };
-  
-
-  const dietList = [
-    {
-      value: "Low Salt Diet",
-      isChecked: false,
-    },
-    {
-      value: "Low Salt",
-      isChecked: false,
-    },
-    {
-      value: "Diabetic Diet",
-      isChecked: false,
-    },
-    {
-      value: "Low Protein Diet",
-      isChecked: false,
-    },
-  ];
-
-  const handleCheck = (el, key) => {
-    dietList.forEach((key) => {
-      if (key === key) {
-        el.isChecked = true;
-      }
-    });
-  };
-
+  }, [dietList]);
   return (
     <div
       style={{
@@ -201,7 +246,8 @@ function TagubilinForm() {
                     Discharge Date:
                   </Text>
                   <Text fontSize="14px">
-                    {dischDate === "" ? (
+                    Date
+                    {/* {dischDate === "" ? (
                       <Input
                         type="date"
                         size="sm"
@@ -212,7 +258,7 @@ function TagubilinForm() {
                       />
                     ) : (
                       dischDate
-                    )}
+                    )} */}
                   </Text>
                 </Td>
               </Tr>
@@ -237,16 +283,19 @@ function TagubilinForm() {
                   <Text fontSize="12px" fontWeight="600">
                     Operation/Operasyon:
                   </Text>
+                  <Text fontSize="14px">Operation</Text>
                 </Td>
                 <Td className="border" py={2} colSpan="2">
                   <Text fontSize="12px" fontWeight="600">
                     Surgeon:
                   </Text>
+                  <Text fontSize="14px">Surgeon</Text>
                 </Td>
                 <Td className="border" py={2} colSpan="1">
                   <Text fontSize="12px" fontWeight="600">
                     Petsa ng Operasyon:
                   </Text>
+                  <Text fontSize="14px">Date</Text>
                 </Td>
               </Tr>
               <Tr>
@@ -354,19 +403,25 @@ function TagubilinForm() {
                 </Td>
               </Tr>
               <Tr>
-                <Td className="border" colSpan="2" py={1}>
+                <Td className="border" width="200px" colSpan="2" py={1}>
                   <Text textAlign="center" fontSize="12px" fontWeight="600">
                     Pangalan ng Gamot
                   </Text>
                 </Td>
-                <Td className="border" colSpan="1" py={1}>
+
+                <Td className="border" colSpan="1" width="40%" py={1}>
                   <Text textAlign="center" fontSize="12px" fontWeight="600">
                     Dosage
                   </Text>
                 </Td>
-                <Td className="border" colSpan="2" py={1}>
+                <Td className="border" py={1} width="30%">
                   <Text textAlign="center" fontSize="12px" fontWeight="600">
                     Oras ng Pag-iinom
+                  </Text>
+                </Td>
+                <Td className="border" py={1}>
+                  <Text textAlign="center" fontSize="12px" fontWeight="600">
+                    Quantity
                   </Text>
                 </Td>
               </Tr>
@@ -386,7 +441,8 @@ function TagubilinForm() {
                           onChange={(e) => handleInputChange(e, i)}
                         ></Textarea>
                       </Td>
-                      <Td className="border" colSpan="1" p={0}>
+
+                      <Td className="border" p={0}>
                         <Textarea
                           m={0}
                           textAlign="center"
@@ -399,7 +455,7 @@ function TagubilinForm() {
                           onChange={(e) => handleInputChange(e, i)}
                         ></Textarea>
                       </Td>
-                      <Td className="border" p={0} colSpan="2">
+                      <Td className="border" p={0}>
                         <Textarea
                           m={0}
                           textAlign="center"
@@ -409,6 +465,18 @@ function TagubilinForm() {
                           value={x.sched}
                           fontSize="14px"
                           name="sched"
+                          onChange={(e) => handleInputChange(e, i)}
+                        ></Textarea>
+                      </Td>
+                      <Td className="border" p={0}>
+                        <Textarea
+                          m={0}
+                          borderRadius="0"
+                          border="none"
+                          rows={1}
+                          value={x.quantity}
+                          fontSize="14px"
+                          name="quantity"
                           onChange={(e) => handleInputChange(e, i)}
                         ></Textarea>
                       </Td>
@@ -455,7 +523,8 @@ function TagubilinForm() {
                             <Text fontSize="11px">
                               <Checkbox
                                 value={el.value}
-                                onChange={() => handleCheck(el, key)}
+                                name={el.value}
+                                onChange={(e) => handleCheck(e, key)}
                                 // isChecked={el.isChecked}
                               >
                                 <Text fontSize="14px">{el.value}</Text>
@@ -465,46 +534,11 @@ function TagubilinForm() {
                         );
                       })}
 
-                      {/* <Text mt={2}>
-                          <Checkbox value="Low Salt Diet">
-                            <Text fontSize="14px">Low Salt Diet</Text>
-                          </Checkbox>
-                        </Text> */}
-
-                      {/* <GridItem>
-                        <Text fontSize="11px">
-                          <Checkbox
-                            value="Low Salt Diet"
-                            onChange={(e) => console.log(e.target.value)}
-                          >
-                            <Text fontSize="14px">Low Salt Diet</Text>
-                          </Checkbox>
-                        </Text>
-                        <Text mt={2}>
-                          <Checkbox value="Low Salt Diet">
-                            <Text fontSize="14px">Low Salt Diet</Text>
-                          </Checkbox>
-                        </Text>
-                      </GridItem>
-
-                      <GridItem>
-                        <Text fontSize="11px">
-                          <Checkbox value="Diabetes Diet">
-                            <Text fontSize="14px">Diabetes Diet</Text>
-                          </Checkbox>
-                        </Text>
-                        <Text mt={2}>
-                          <Checkbox value="Low Protein Diet">
-                            <Text fontSize="14px">Low Protein Diet</Text>
-                          </Checkbox>
-                        </Text>
-                      </GridItem> */}
-
                       <GridItem
                         style={{ display: "flex", alignItems: "center" }}
                       >
                         <Text fontSize="11px" mr={3}>
-                          <Checkbox value="Others">
+                          <Checkbox>
                             <Text fontSize="14px">Others</Text>
                           </Checkbox>
                         </Text>
@@ -517,7 +551,7 @@ function TagubilinForm() {
                           rows={1}
                           width="300px"
                           fontSize="14px"
-                          onChange={(e) => setHealthOthers(e.target.value)}
+                          onChange={(e) => setOthersDiet(e.target.value)}
                         ></Textarea>
                       </GridItem>
                     </Grid>
@@ -529,52 +563,20 @@ function TagubilinForm() {
                   <Text fontSize="12px" fontWeight="600">
                     Other Instructions/Karagdagang Paalala
                   </Text>
-                  <Grid templateColumns="repeat(4, 1fr)" gap={4} mt={3}>
-                    <GridItem>
-                      <Text fontSize="11px">
-                        <Checkbox>
-                          <Text fontSize="14px">Repeat Analysis</Text>
-                        </Checkbox>
-                      </Text>
-                      <Text mt={5}>
-                        <Checkbox>
-                          <Text fontSize="14px">Others: Request for</Text>
-                        </Checkbox>
-                      </Text>
-                    </GridItem>
-
-                    <GridItem>
-                      <Text fontSize="11px">
-                        <Checkbox>
-                          <Text fontSize="14px">Repeat Creatinine</Text>
-                        </Checkbox>
-                      </Text>
-                      <Text mt={5}>
-                        <Checkbox>
-                          <Text fontSize="14px">Medical Certificate</Text>
-                        </Checkbox>
-                      </Text>
-                      <Text mt={2}>
-                        <Checkbox>
-                          <Text fontSize="14px">
-                            Photocopy of Health Records
-                          </Text>
-                        </Checkbox>
-                      </Text>
-                    </GridItem>
-
-                    <GridItem>
-                      <Checkbox>
-                        <Text fontSize="14px">Repeat FBS</Text>
-                      </Checkbox>
-                    </GridItem>
-                    <GridItem>
-                      <Text fontSize="11px">
-                        <Checkbox>
-                          <Text fontSize="14px">Repeat CBC</Text>
-                        </Checkbox>
-                      </Text>
-                    </GridItem>
+                  <Grid templateColumns="repeat(3, 1fr)" gap={4} mt={3}>
+                    {instructions.map((el, key) => {
+                      return (
+                        <>
+                          <GridItem>
+                            <Text fontSize="11px">
+                              <Checkbox onChange={(e) => handleInst(e, key)}>
+                                <Text fontSize="14px">{el.value}</Text>
+                              </Checkbox>
+                            </Text>
+                          </GridItem>
+                        </>
+                      );
+                    })}
                   </Grid>
                   <Text mt={5} fontStyle="italic" fontSize="13.5px">
                     Please call the following Hotline Numbers: 09664965480 for
@@ -599,18 +601,19 @@ function TagubilinForm() {
                         }}
                       >
                         {/* <Input
-                        type="date"
-                        size="sm"
-                        width="150px"
-                        border="none "
-                        style={{ marginLeft: "50px" }}
-                      /> */}
-                        <Input
                           type="date"
+                          size="sm"
+                          width="150px"
+                          border="none "
+                          style={{ marginLeft: "50px" }}
+                        /> */}
+                        <Input
+                          type="text"
                           size="sm"
                           width="250px"
                           border="none "
                           textAlign="center"
+                          placeholder="Click to enter text"
                           required
                           onChange={(e) => setFollowUp(e.target.value)}
                         />
@@ -627,16 +630,16 @@ function TagubilinForm() {
                     <GridItem>
                       <VStack>
                         <Box mb={10}>
-                        <Input
-                          type="text"
-                          size="sm"
-                          width="250px"
-                          border="none "
-                          textAlign="center"
-                          placeholder="Click to enter text"
-                          onChange={(e) => setTime(e.target.value)}
-                          required
-                        />
+                          <Input
+                            type="text"
+                            size="sm"
+                            width="250px"
+                            border="none "
+                            textAlign="center"
+                            placeholder="Click to enter text"
+                            onChange={(e) => setTime(e.target.value)}
+                            required
+                          />
                           <hr
                             style={{
                               border: "1px solid black",
@@ -778,7 +781,7 @@ function TagubilinForm() {
               width="250px"
               rightIcon={<BiSend />}
               type="submit"
-              onClick={()=>submit()}
+              onClick={() => submit()}
             >
               Submit
             </Button>
