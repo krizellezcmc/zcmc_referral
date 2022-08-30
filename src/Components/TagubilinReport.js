@@ -27,6 +27,8 @@ function TagubilinReport() {
   const [need, setNeedBring] = useState("");
   const [nurse, setNurse] = useState("");
   const [resident, setResident] = useState("");
+  const [dietList, setDietList] = useState([]);
+  const [instructions, setInstructions] = useState([]);
 
   useEffect(() => {
     let refpatient = JSON.parse(localStorage.getItem("refpatient"));
@@ -48,10 +50,13 @@ function TagubilinReport() {
     setNeedBring(refpatient.needBring);
     setNurse(refpatient.nurse);
     setResident(refpatient.resident);
+    setDietList(refpatient.diet);
+    setInstructions(refpatient.instructions);
   }, []);
 
   var zcmcLogo = require("../Assets/zcmc-logo.png");
   var dohLogo = require("../Assets/doh-logo.png");
+  var cbc = require("../Assets/cbc2.png");
   // let followTime = moment(time, [moment.ISO_8601, "HH:mm"]);
 
   const exportPDF = () => {
@@ -71,21 +76,25 @@ function TagubilinReport() {
 
         <table className="rtable">
           <tr>
-            <td className="cell">
+            <td className="cell" style={{ width: "23%" }}>
               Name/Pangalan:<p>{refName}</p>
             </td>
-            <td className="cell" style={{ borderLeft: "0" }}>
+            <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
               Age/Edad:<p>{age}</p>
             </td>
-            <td className="cell" style={{ borderLeft: "0" }}>
+            <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
+              Sex: <p>Sex</p>
+            </td>
+            <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
               Ward:<p>{ward}</p>
             </td>
-            <td className="cell" style={{ borderLeft: "0" }}>
+            <td className="cell" style={{ borderLeft: "0", width: "15%" }}>
               Hospital Record No.: <p>{hrn}</p>
             </td>
           </tr>
           <tr>
-            <td className="cell" colSpan="2">
+            <td className="cell">Address</td>
+            <td className="cell" colSpan="2" style={{ borderLeft: "0" }}>
               Admission/Petsa ng Pagpasok: <p>{admit}</p>
             </td>
             <td className="cell" colSpan="2" style={{ borderLeft: "0" }}>
@@ -93,8 +102,9 @@ function TagubilinReport() {
             </td>
           </tr>
           <tr>
-            <td className="cell" colSpan="4">
-              Diagnosis/Sakit: <p>{diagnosis}</p>
+            <td className="cell" colSpan="5">
+              Diagnosis/Sakit:
+              <p style={{ display: "inline-block" }}>{diagnosis}</p>
             </td>
           </tr>
           <tr>
@@ -102,42 +112,44 @@ function TagubilinReport() {
             <td className="cell" colSpan="2" style={{ borderLeft: "0" }}>
               Surgeon:
             </td>
-            <td className="cell" style={{ borderLeft: "0" }}>
+            <td className="cell" colSpan="2" style={{ borderLeft: "0" }}>
               Petsa ng Operasyon:
             </td>
           </tr>
           <tr>
-            <td className="major-label" colSpan="4">
+            <td className="major-label" colSpan="5">
               Major diagnostic Results/Panguanhing Resulta ng Pasusuri
             </td>
           </tr>
           <tr>
-            <td className="diagnosis" colSpan="4">
-              Laboratory<p>{lab}</p>
+            <td className="diagnosis" style={{ borderLeft: "0" }}>
+              Laboratory
+              <div className="image">
+                <img
+                  src={cbc}
+                  style={{ width: "200px", height: "80px" }}
+                  alt="cbc"
+                />
+              </div>
+            </td>
+
+            <td className="diagnosis" style={{ borderLeft: "0" }}>
+              X-ray <p className="diagnosis-con">{xray}</p>
+            </td>
+
+            <td className="diagnosis" style={{ borderLeft: "0" }}>
+              CT Scan <p className="diagnosis-con">{ctscan}</p>
+            </td>
+
+            <td className="diagnosis" style={{ borderLeft: "0" }}>
+              MRI <p className="diagnosis-con">{mri}</p>
+            </td>
+            <td className="diagnosis" style={{ borderLeft: "0" }}>
+              Others <p className="diagnosis-con">{others}</p>
             </td>
           </tr>
           <tr>
-            <td className="diagnosis" colSpan="4">
-              X-ray<p>{xray}</p>
-            </td>
-          </tr>
-          <tr>
-            <td className="diagnosis" colSpan="4">
-              CT scan<p>{ctscan}</p>
-            </td>
-          </tr>
-          <tr>
-            <td className="diagnosis" colSpan="4">
-              MRI<p>{mri}</p>
-            </td>
-          </tr>
-          <tr>
-            <td className="diagnosis" colSpan="4">
-              Others<p>others</p>
-            </td>
-          </tr>
-          <tr>
-            <td className="med-header" colSpan="4">
+            <td className="med-header" colSpan="5">
               <div className="med-box">
                 <div className="med-data">
                   <div className="checkbox"></div>
@@ -155,7 +167,7 @@ function TagubilinReport() {
             <td className="med" colSpan="2" style={{ borderRight: "0" }}>
               Dosage
             </td>
-            <td className="med" colSpan="1">
+            <td className="med" colSpan="2">
               Oras ng Pag-inom
             </td>
           </tr>
@@ -176,35 +188,73 @@ function TagubilinReport() {
                 >
                   {m.dosage}
                 </td>
-                <td className="med-cell" colSpan="1">
+                <td className="med-cell" colSpan="2">
                   {m.sched}
                 </td>
               </tr>
             );
           })}
           <tr>
-            <th className="diagnosis" colSpan="4">
-              Health Teaching/Pangunahing Paalalang Pangkalusugan
-            </th>
+            <td className="diagnosis" colSpan="5">
+              <b className="rb">
+                Health Teaching/Pangunahing Paalalang Pangkalusugan
+              </b>
+              <div style={{ display: "flex" }}>
+                {dietList
+                  .filter((el) => el.isChecked === true)
+                  .map((i, k) => {
+                    return (
+                      <>
+                        <div className="med-box">
+                          <div className="med-data">
+                            <input type="checkbox" checked={i.isChecked} />
+                          </div>
+                          <div className="med-label">
+                            <p>{i.value}</p>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+              </div>
+            </td>
           </tr>
           <tr>
             <td
               className="diagnosis"
-              colSpan="4"
+              colSpan="5"
               style={{ borderBottom: "1px solid black" }}
             >
               <b className="rb">Other Instructions/Karagdagang Paalala</b>
+              <div style={{ display: "flex" }}>
+                {instructions
+                  .filter((el) => el.isChecked === true)
+                  .map((i, k) => {
+                    return (
+                      <>
+                        <div className="med-box">
+                          <div className="med-data">
+                            <input type="checkbox" checked={i.isChecked} />
+                          </div>
+                          <div className="med-label">
+                            <p>{i.value}</p>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+              </div>
               <p id="para">
                 Please call the following Hotline Numbers: 09664965480 for Globe
                 and 09533296457 for TM during office hours Monday to Saturday,
-                8am to 5pm or email us at{" "}
+                8am to 5pm or email us at
                 <p id="email"> records@zcmc.doh.gov.ph</p> and we will happy to
                 serve you.
               </p>
             </td>
           </tr>
           <tr className="border1">
-            <td colSpan="4">
+            <td colSpan="5">
               <b className="rb">
                 I understand the above explanation given, I do hereby agree that
                 I will have follow-up check-up:
@@ -220,14 +270,14 @@ function TagubilinReport() {
               <p>{time}</p>
               <p className="hr-followup">Time</p>
             </td>
-            <td>
+            <td colSpan="2">
               <p>{need}</p>
               <p className="hr-followup">Need to Bring</p>
             </td>
           </tr>
 
           <tr className="borders">
-            <td colSpan="4">
+            <td colSpan="5">
               <div style={{ textAlign: "center" }}>
                 <p className="hr-watcher">
                   Signature over Printed Name of Patient/Watcher
@@ -319,20 +369,26 @@ function TagubilinReport() {
           </div>
           <table>
             <tr>
-              <td className="dcell">
+              <td className="dcell" style={{ width: "23%" }}>
                 Name/Pangalan:<p>{refName}</p>
               </td>
-              <td className="dcell">
+              <td className="dcell" style={{ width: "5%" }}>
                 Age/Edad:<p>{age}</p>
               </td>
-              <td className="dcell">
+              <td className="dcell" style={{ width: "10%" }}>
+                Sex :<p>Sex</p>
+              </td>
+              <td className="dcell" style={{ width: "10%" }}>
                 Ward:<p>{ward}</p>
               </td>
-              <td className="dcell">
+              <td className="dcell" style={{ width: "15%" }}>
                 Hospital Record No.<p>{hrn}</p>
               </td>
             </tr>
             <tr>
+              <td className="dcell" colSpan="1">
+                Address:
+              </td>
               <td className="dcell" colSpan="2">
                 Admission/Petsa ng Pagpasok: <p>{admit}</p>
               </td>
@@ -341,8 +397,9 @@ function TagubilinReport() {
               </td>
             </tr>
             <tr>
-              <td className="dcell" colSpan="4">
-                Diagnosis/Sakit: <p>{diagnosis}</p>
+              <td className="dcell" colSpan="5">
+                Diagnosis/Sakit:{" "}
+                <p style={{ display: "inline" }}>{diagnosis}</p>
               </td>
             </tr>
             <tr>
@@ -350,40 +407,44 @@ function TagubilinReport() {
               <td className="dcell" colSpan="2">
                 Surgeon:
               </td>
-              <td className="dcell">Petsa ng Operasyon:</td>
+              <td className="dcell" colSpan="2">
+                Petsa ng Operasyon:
+              </td>
             </tr>
             <tr>
-              <td className="ddiagnosis" colSpan="4">
+              <td className="ddiagnosis" colSpan="5">
                 Major diagnostic Results/Panguanhing Resulta ng Pasusuri
               </td>
             </tr>
             <tr>
-              <td className="ddiagnosis" colSpan="4">
-                Laboratory: <p className="diagnosis-con">{lab}</p>
+              <td className="ddiagnosis">
+                Laboratory
+                <div className="image">
+                  <img
+                    src={cbc}
+                    style={{ width: "200px", height: "80px" }}
+                    alt="cbc"
+                  />
+                </div>
+              </td>
+
+              <td className="ddiagnosis">
+                X-ray <p className="diagnosis-con">{xray}</p>
+              </td>
+
+              <td className="ddiagnosis">
+                CT scan <p className="diagnosis-con">{ctscan}</p>
+              </td>
+
+              <td className="ddiagnosis">
+                MRI <p className="diagnosis-con">{mri}</p>
+              </td>
+              <td className="ddiagnosis">
+                Others <p className="diagnosis-con">{others}</p>
               </td>
             </tr>
             <tr>
-              <td className="ddiagnosis" colSpan="4">
-                X-ray: <p className="diagnosis-con">{xray}</p>
-              </td>
-            </tr>
-            <tr>
-              <td className="ddiagnosis" colSpan="4">
-                CT scan: <p className="diagnosis-con">{ctscan}</p>
-              </td>
-            </tr>
-            <tr>
-              <td className="ddiagnosis" colSpan="4">
-                MRI: <p className="diagnosis-con">{mri}</p>
-              </td>
-            </tr>
-            <tr>
-              <td className="ddiagnosis" colSpan="4">
-                Others: <p className="diagnosis-con">{others}</p>
-              </td>
-            </tr>
-            <tr>
-              <td className="dmed-header" colSpan="4">
+              <td className="dmed-header" colSpan="5">
                 <div className="dmed-box">
                   <div className="dmed-data">
                     <div className="checkbox"></div>
@@ -401,7 +462,7 @@ function TagubilinReport() {
               <td className="dmed" colSpan="2">
                 (Dosage)
               </td>
-              <td className="dmed" colSpan="1">
+              <td className="dmed" colSpan="2">
                 (Oras ng Pag-inom)
               </td>
             </tr>
@@ -414,31 +475,69 @@ function TagubilinReport() {
                   <td className="dmed-cell" colSpan="2">
                     {m.dosage}
                   </td>
-                  <td className="dmed-cell" colSpan="1">
+                  <td className="dmed-cell" colSpan="2">
                     {m.sched}
                   </td>
                 </tr>
               );
             })}
             <tr>
-              <th className="ddiagnosis" colSpan="4">
-                Health Teaching/Pangunahing Paalalang Pangkalusugan
-              </th>
+              <td className="ddiagnosis" colSpan="5">
+                <b className="db">
+                  Health Teaching/Pangunahing Paalalang Pangkalusugan
+                </b>
+                <div style={{ display: "flex" }}>
+                  {dietList
+                    .filter((el) => el.isChecked === true)
+                    .map((i, k) => {
+                      return (
+                        <>
+                          <div className="dmed-box">
+                            <div className="dmed-data">
+                              <input type="checkbox" checked={i.isChecked} />
+                            </div>
+                            <div className="dmed-label">
+                              <p>{i.value}</p>
+                            </div>
+                          </div>
+                        </>
+                      );
+                    })}
+                </div>
+              </td>
             </tr>
             <tr>
-              <td className="ddiagnosis" colSpan="4">
+              <td className="ddiagnosis" colSpan="5">
                 <b className="db">Other Instructions/Karagdagang Paalala</b>
+                <div style={{ display: "flex" }}>
+                  {instructions
+                    .filter((el) => el.isChecked === true)
+                    .map((i, k) => {
+                      return (
+                        <>
+                          <div className="dmed-box">
+                            <div className="dmed-data">
+                              <input type="checkbox" checked={i.isChecked} />
+                            </div>
+                            <div className="dmed-label">
+                              <p>{i.value}</p>
+                            </div>
+                          </div>
+                        </>
+                      );
+                    })}
+                </div>
                 <p id="dpara">
-                  Please call the following Hotline Numbers: 09664965480 for``
+                  Please call the following Hotline Numbers: 09664965480 for
                   Globe and 09533296457 for TM during office hours Monday to
-                  Saturday, 8am to 5pm or email us at{" "}
+                  Saturday, 8am to 5pm or email us at
                   <p id="demail">records@zcmc.doh.gov.ph</p> and we will happy
                   to serve you.
                 </p>
               </td>
             </tr>
             <tr className="dborder1">
-              <td colSpan="4">
+              <td colSpan="5">
                 <b className="db">
                   I understand the above explanation given, I do hereby agree
                   that I will have follow-up check-up:
@@ -454,14 +553,13 @@ function TagubilinReport() {
                 <p>{time}</p>
                 <p className="dhr-followup">Time</p>
               </td>
-              <td>
+              <td colSpan="2">
                 <p>{need}</p>
                 <p className="dhr-followup">Need to Bring</p>
               </td>
             </tr>
-
             <tr className="dborders">
-              <td colSpan="4">
+              <td colSpan="5">
                 <div style={{ textAlign: "center" }}>
                   <p className="dhr-watcher">
                     Signature over Printed Name of Patient/Watcher
@@ -469,9 +567,8 @@ function TagubilinReport() {
                 </div>
               </td>
             </tr>
-
             <tr>
-              <td colSpan="4">
+              <td colSpan="5">
                 <div className="dfloat-container">
                   <div className="dfloat-child1">
                     <label>Prepared by:</label>

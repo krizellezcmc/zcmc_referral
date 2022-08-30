@@ -54,7 +54,7 @@
   font-family: "Times New Roman", Times, serif;
   text-align: left;
   font-size: 13px;
-  padding: 0px 0px 10px 2px;
+  padding: 0px 0px 5px 2px;
   font-weight: 300;
   margin-left: 10px;
 }
@@ -86,27 +86,21 @@
 .med-box {
   display: flex;
   margin-right: 50px;
-  padding: 0;
 }
 .med-data {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 .checkbox {
   width: 1px;
   padding: 6px;
   border: 1px solid black;
   border-radius: 2px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   margin-left: 3px;
-}
-.med-label {
-  font-family: "Times New Roman", Times, serif;
-  line-height: 1.5;
 }
 .med-label p {
   font-family: "Times New Roman", Times, serif;
   font-size: 12px;
-  margin-top: 3px;
   color: black;
   text-align: left;
   margin-left: 3px;
@@ -145,7 +139,7 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 13px;
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   margin-left: 3px;
 }
 .float-container {
@@ -172,6 +166,7 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 12px;
   margin-top: 30px;
+  word-spacing: 3px;
 }
 .rlabel {
   display: inline-block;
@@ -188,9 +183,9 @@
 .hr-followup {
   font-family: "Times New Roman", Times, serif;
   border-top: 1px solid black;
-  width: 180px;
+  width: 200px;
   font-size: 13px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .hr-date {
   font-family: "Times New Roman", Times, serif;

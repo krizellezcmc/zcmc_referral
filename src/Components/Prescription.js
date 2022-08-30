@@ -11,20 +11,7 @@ function Prescription(){
     const [refName, setRefName] = useState("");
     const [age, setAge] = useState("");
     const [ward, setWard] = useState("");
-    const [hrn, setHrn] = useState("");
-    const [admit, setAdmit] = useState("");
-    const [discharge, setDischarge] = useState("");
-    const [diagnosis, setDiagnosis] = useState("");
-    const [lab, setLab] = useState("");
-    const [xray, setXray] = useState("");
-    const [ctscan, setCTScan] = useState("");
-    const [mri, setMRI] = useState("");
-    const [others, setOthers] = useState("");
     const [med, setMed] = useState([]);
-    const [followup, setFollowUp] = useState("");
-    const [time, setTime] = useState("");
-    const [need, setNeedBring] = useState("");
-    const [nurse, setNurse] = useState("");
     const [resident, setResident] = useState("");
   
     useEffect(() => {
@@ -32,20 +19,7 @@ function Prescription(){
       setRefName(refpatient.patientName);
       setAge(refpatient.age);
       setWard(refpatient.ward);
-      setHrn(refpatient.hrn);
-      setAdmit(refpatient.admissionDate);
-      setDischarge(refpatient.dischDate);
-      setDiagnosis(refpatient.dischDiag);
-      setLab(refpatient.laboratory);
-      setXray(refpatient.xray);
-      setCTScan(refpatient.ctScan);
-      setMRI(refpatient.mri);
-      setOthers(refpatient.others);
       setMed(refpatient.medications);
-      setFollowUp(refpatient.followUp);
-      setTime(refpatient.time);
-      setNeedBring(refpatient.needBring);
-      setNurse(refpatient.nurse);
       setResident(refpatient.resident);
     }, []);
   
@@ -73,25 +47,28 @@ function Prescription(){
               <p className="pdate-line">{moment().format("LL")}</p>
             </div>
             <div style={{ marginTop: "20px" }}>
-              <p className="pfullname">Patient's Name:</p>
+              <p className="pfullname">Patient's Name :</p>
               <p className="pfullname-line">{refName}</p>
             </div>
-            <p className="pdetails">Age:</p>
+            <p className="pdetails">Age :</p>
             <p className="pdetails-line">{age}</p>
+
             <p className="pdetails" style={{ marginLeft: "20px" }}>
-              Sex:
+              Sex :
             </p>
             <p className="pdetails-line">-</p>
+
             <p className="pdetails" style={{ marginLeft: "20px" }}>
-              Ward:
+              Ward :
             </p>
             <p className="pward-line">{ward}</p>
+
             <p className="pdetails" style={{ marginLeft: "20px" }}>
-              OPD:
+              OPD :
             </p>
             <p className="pdetails-line">-</p>
     
-            <div style={{ marginBottom: "10px" }}>
+            <div style={{ marginBottom: "5px" }}>
               <p className="rx">Rx</p>
             </div>
 
@@ -99,13 +76,13 @@ function Prescription(){
             {med.map((pres, key) => {
               return (
                 <>
-                  <div style={{ marginBottom: "10px" }}>
-                    <p className="pdetails">Generic Name:</p>
+                  <div style={{ marginBottom: "3px" }}>
+                    <p className="pdetails">Generic Name :</p>
                     <p className="pgeneric-line">{pres.medicine}</p>
-                    <p className="pdetails">#</p>
-                    <p className="pward-line">--</p>
+                    <p className="pdetails"># </p>
+                    <p className="quantity-line">{pres.quantity}</p>
                     <div>
-                    <p className="psig">Sig:</p>
+                    <p className="psig">Sig :</p>
                     <p className="psig-line">{pres.dosage}</p>
                     </div>
                   </div>
@@ -232,12 +209,12 @@ return(
             return (
               <>
                 <div style={{ marginBottom: "3px" }}>
-                  <p className="pdetails">Generic Name:</p>
+                  <p className="pdetails">Generic Name :</p>
                   <p className="pgeneric-line">{pres.medicine}</p>
-                  <p className="pdetails">#</p>
-                  <p className="pward-line">--</p>
-                  <div style={{display:"inline-block"}}>
-                  <p className="psig">Sig:</p>
+                  <p className="pdetails"># </p>
+                  <p className="quantity-line">{pres.quantity}</p>
+                  <div>
+                  <p className="psig">Sig :</p>
                   <p className="psig-line">{pres.dosage}</p>
                   </div>
                   
@@ -253,7 +230,7 @@ return(
             </div>
             <div>
               <p className="signature-label">Printed Name</p>
-              <p className="sign-line">{resident} MD</p>
+              <p className="sign-line">{resident}</p>
             </div>
             <div>
               <p className="signature-label">License No.</p>
