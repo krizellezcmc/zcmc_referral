@@ -6,25 +6,25 @@
 .left-lab {
   position: absolute;
   top: 20px;
-  left: 55px;
+  left: 95px;
 }
 
 .top-lab {
   position: absolute;
-  top: 0px;
-  right: 158px;
+  top: -5px;
+  right: 205px;
 }
 
 .right-lab {
   position: absolute;
   top: 20px;
-  right: 67px;
+  right: 110px;
 }
 
 .bottom-lab {
   position: absolute;
   bottom: 0px;
-  right: 158px;
+  right: 205px;
 }
 
 .input-lab {

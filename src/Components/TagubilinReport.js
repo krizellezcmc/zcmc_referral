@@ -91,7 +91,7 @@ function TagubilinReport() {
               Age/Edad:<p>{age}</p>
             </td>
             <td className="cell" style={{ borderLeft: "0", width: "15%" }}>
-              Sex: <p>Sex</p>
+              Sex: <p>{sex}</p>
             </td>
             <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
               Ward:<p>{ward}</p>
@@ -101,7 +101,7 @@ function TagubilinReport() {
             </td>
           </tr>
           <tr>
-            <td className="cell">Address</td>
+            <td className="cell">Address: {address}</td>
             <td className="cell" colSpan="2" style={{ borderLeft: "0" }}>
               Admission/Petsa ng Pagpasok: <p>{admit}</p>
             </td>
@@ -424,7 +424,7 @@ function TagubilinReport() {
                 Age/Edad:<p>{age}</p>
               </td>
               <td className="dcell" style={{ width: "10%" }}>
-                Sex :<p>Sex</p>
+                Sex :<p>{sex}</p>
               </td>
               <td className="dcell" style={{ width: "10%" }}>
                 Ward:<p>{ward}</p>
@@ -435,7 +435,7 @@ function TagubilinReport() {
             </tr>
             <tr>
               <td className="dcell" colSpan="1">
-                Address:
+                Address: {address}
               </td>
               <td className="dcell" colSpan="2">
                 Admission/Petsa ng Pagpasok: <p>{admit}</p>

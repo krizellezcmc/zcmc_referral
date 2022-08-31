@@ -29,10 +29,10 @@ import { Center } from "chakra-ui";
 function TagubilinForm(props) {
   const [patientName, setPatient] = useState("");
   const [age, setAge] = useState("");
-  const [sex, setSex]=useState("");
+  const [sex, setSex] = useState("");
   const [ward, setWard] = useState("");
   const [hrn, setHrn] = useState("");
-  const [address, setAddress]=useState("");
+  const [address, setAddress] = useState("");
   const [admissionDate, setAdmissionDate] = useState("");
   const [dischDiag, setDischDiag] = useState("");
   const [dischDate, setDischDate] = useState("");
@@ -128,10 +128,10 @@ function TagubilinForm(props) {
       JSON.stringify({
         patientName: patientName,
         age: age,
-        sex:sex,
+        sex: sex,
         ward: ward,
         hrn: hrn,
-        address:address,
+        address: address,
         admissionDate: admissionDate,
         dischDiag: dischDiag,
         dischDate: dischDate,
@@ -216,14 +216,14 @@ function TagubilinForm(props) {
           <Table variant="unstyled" cellSpacing={0}>
             <Tbody>
               <Tr>
-                <Td className="border" minWidth="350px" py={1.5}>
+                <Td className="border" minWidth="500px" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Name/Pangalan:
                   </Text>
                   <Text fontSize="14px">{patientName}</Text>
                 </Td>
 
-                <Td className="border" maxWidth="50px" py={1.5}>
+                <Td className="border" maxWidth="100px" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Age/Edad:
                   </Text>
