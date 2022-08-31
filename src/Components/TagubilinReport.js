@@ -82,7 +82,7 @@ function TagubilinReport() {
             <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
               Age/Edad:<p>{age}</p>
             </td>
-            <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
+            <td className="cell" style={{ borderLeft: "0", width: "15%" }}>
               Sex: <p>Sex</p>
             </td>
             <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
@@ -124,40 +124,69 @@ function TagubilinReport() {
           <tr>
             <td className="diagnosis" style={{ borderLeft: "0" }}>
               Laboratory
-              <div className="image">
-                <img
-                  src={cbc}
-                  style={{ width: "200px", height: "80px" }}
-                  alt="cbc"
-                />
+              <div style={{ width: "100%", height: "80px" }}>
+                <div className="image">
+                  <img
+                    src={cbc}
+                    style={{ width: "200px", height: "80px" }}
+                    alt="cbc"
+                  />
+                </div>
               </div>
             </td>
 
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              X-ray <p className="diagnosis-con">{xray}</p>
+              X-ray
+              <div style={{ width: "100%", height: "80px" }}>
+                <p className="diagnosis-con">{xray}</p>
+              </div>
             </td>
 
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              CT Scan <p className="diagnosis-con">{ctscan}</p>
+              CT Scan
+              <div style={{ width: "100%", height: "80px" }}>
+                <p className="diagnosis-con">{ctscan}</p>
+              </div>
             </td>
 
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              MRI <p className="diagnosis-con">{mri}</p>
+              MRI
+              <div style={{ width: "100%", height: "80px" }}>
+                <p className="diagnosis-con">{mri}</p>
+              </div>
             </td>
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              Others <p className="diagnosis-con">{others}</p>
+              Others
+              <div style={{ width: "100%", height: "80px" }}>
+                <p className="diagnosis-con">{others}</p>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="med-header" colSpan="5">
-              <div className="med-box">
-                <div className="med-data">
-                  <div className="checkbox"></div>
+              {!med ? (
+                <div className="med-box">
+                  <div className="med-data">
+                    <div className="checkbox"></div>
+                  </div>
+                  <div className="med-label">
+                    <p>Home Medication/Gamot</p>
+                  </div>
                 </div>
-                <div className="med-label">
-                  <p>Home Medication/Gamot</p>
+              ) : (
+                <div className="med-box">
+                  <div className="med-data">
+                    <input
+                      type="checkbox"
+                      defaultChecked={true}
+                      style={{ marginLeft: "5px" }}
+                    />
+                  </div>
+                  <div className="med-label">
+                    <p>Home Medication/Gamot</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </td>
           </tr>
           <tr>
@@ -419,42 +448,73 @@ function TagubilinReport() {
             <tr>
               <td className="ddiagnosis">
                 Laboratory
-                <div className="image">
-                  <img
-                    src={cbc}
-                    style={{ width: "200px", height: "80px" }}
-                    alt="cbc"
-                  />
+                <div style={{ width: "100%", height: "80px" }}>
+                  <div className="image">
+                    <img
+                      src={cbc}
+                      style={{ width: "200px", height: "80px" }}
+                      alt="cbc"
+                    />
+                  </div>
                 </div>
               </td>
 
               <td className="ddiagnosis">
-                X-ray <p className="diagnosis-con">{xray}</p>
+                X-ray
+                <div style={{ width: "100%", height: "80px" }}>
+                  <p className="diagnosis-con">{xray}</p>
+                </div>
               </td>
 
               <td className="ddiagnosis">
-                CT scan <p className="diagnosis-con">{ctscan}</p>
+                CT scan
+                <div style={{ width: "100%", height: "80px" }}>
+                  <p className="diagnosis-con">{ctscan}</p>
+                </div>
               </td>
 
               <td className="ddiagnosis">
-                MRI <p className="diagnosis-con">{mri}</p>
+                MRI
+                <div style={{ width: "100%", height: "80px" }}>
+                  <p className="diagnosis-con">{mri}</p>
+                </div>
               </td>
               <td className="ddiagnosis">
-                Others <p className="diagnosis-con">{others}</p>
+                Others
+                <div style={{ width: "100%", height: "80px" }}>
+                  <p className="diagnosis-con">{others}</p>
+                </div>
               </td>
             </tr>
+
             <tr>
               <td className="dmed-header" colSpan="5">
-                <div className="dmed-box">
-                  <div className="dmed-data">
-                    <div className="checkbox"></div>
+                {!med ? (
+                  <div className="dmed-box">
+                    <div className="dmed-data">
+                      <div className="checkbox"></div>
+                    </div>
+                    <div className="dmed-label">
+                      <p>Home Medication/Gamot</p>
+                    </div>
                   </div>
-                  <div className="dmed-label">
-                    <p>Home Medication/Gamot</p>
+                ) : (
+                  <div className="dmed-box">
+                    <div className="dmed-data">
+                      <input
+                        type="checkbox"
+                        defaultChecked={true}
+                        style={{ marginLeft: "5px" }}
+                      ></input>
+                    </div>
+                    <div className="dmed-label">
+                      <p>Home Medication/Gamot</p>
+                    </div>
                   </div>
-                </div>
+                )}
               </td>
             </tr>
+
             <tr>
               <td className="dmed" colSpan="1">
                 (Pangalan ng Gamot)
