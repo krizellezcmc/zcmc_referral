@@ -88,6 +88,9 @@ function Login() {
     return <Navigate to="/home" />;
   }
 
+  if (user?.role === "ipcc") {
+    return <Navigate to="/ipcc" />;
+  }
   return (
     <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
       <Center>
