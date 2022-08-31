@@ -21,7 +21,7 @@ const Sidebar = () => {
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
   const [role, setRole] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   let navigate = useNavigate();
 
   const path = window.location.pathname;

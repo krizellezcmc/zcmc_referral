@@ -6,13 +6,17 @@ import "../Styles/DisplayReport.css";
 import "../Styles/Prescription.css";
 import { Button } from "@chakra-ui/react";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import Prescription from "./Prescription";
+import { FaArrowLeft } from "react-icons/fa";
 
 function TagubilinReport() {
   const [refName, setRefName] = useState("");
   const [age, setAge] = useState("");
+  const [sex, setSex] = useState("");
   const [ward, setWard] = useState("");
   const [hrn, setHrn] = useState("");
+  const [address, setAddress] = useState("");
   const [admit, setAdmit] = useState("");
   const [discharge, setDischarge] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
@@ -30,12 +34,16 @@ function TagubilinReport() {
   const [dietList, setDietList] = useState([]);
   const [instructions, setInstructions] = useState([]);
 
+  let navigate = useNavigate();
+
   useEffect(() => {
     let refpatient = JSON.parse(localStorage.getItem("refpatient"));
     setRefName(refpatient.patientName);
     setAge(refpatient.age);
+    setSex(refpatient.sex);
     setWard(refpatient.ward);
     setHrn(refpatient.hrn);
+    setAddress(refpatient.address);
     setAdmit(refpatient.admissionDate);
     setDischarge(refpatient.dischDate);
     setDiagnosis(refpatient.dischDiag);
@@ -377,10 +385,21 @@ function TagubilinReport() {
     <div>
       <div style={{ float: "left" }}>
         <Button
+          variant="solid"
+          colorScheme="teal"
+          size="md"
+          leftIcon={<FaArrowLeft />}
+          onClick={() => navigate("/tagubilin")}
+        >
+          Back to Tagubilin Form
+        </Button>
+        <br></br>
+        <Button
           onClick={exportPDF}
           variant="outline"
           colorScheme="red"
           size="sm"
+          mt={10}
         >
           Generate Tagubilin Report
         </Button>
@@ -632,7 +651,7 @@ function TagubilinReport() {
                 <div className="dfloat-container">
                   <div className="dfloat-child1">
                     <label>Prepared by:</label>
-                    <p className="dname">{nurse}</p>
+                    <p className="dname">{nurse} RN</p>
                     <p className="dhr-sign">Nurse on Duty</p>
                   </div>
                   <div className="dfloat-child2">
