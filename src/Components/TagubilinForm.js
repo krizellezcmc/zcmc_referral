@@ -26,7 +26,7 @@ import moment from "moment";
 import cbc from "../Assets/cbc2.png";
 import { Center } from "chakra-ui";
 
-function TagubilinForm() {
+function TagubilinForm(props) {
   const [patientName, setPatient] = useState("");
   const [age, setAge] = useState("");
   const [ward, setWard] = useState("");
@@ -173,7 +173,8 @@ function TagubilinForm() {
   useEffect(() => {
     axios
       .get(
-        "http://192.168.3.135/referral_local_backend/api/get_patient_info.php"
+        "http://192.168.3.135/referral_local_backend/api/get_patient_info.php",
+        { params: { id: props.id } }
       )
       .then((response) => {
         setPatient(response.data.patientName);
@@ -194,13 +195,13 @@ function TagubilinForm() {
             : moment(response.data.dischdate.date).format("ll")
         );
       });
-  }, [dietList]);
+  }, [dietList, props.id]);
   return (
     <div
       style={{
-        width: "1200px",
-        margin: "0 auto",
-        marginTop: "50px",
+        width: "1300px",
+        // margin: "0 auto",
+        marginTop: "25px",
         marginBottom: "50px",
       }}
     >
@@ -209,16 +210,16 @@ function TagubilinForm() {
           <Table variant="unstyled" cellSpacing={0}>
             <Tbody>
               <Tr>
-                <Td className="border" width="60%" py={1.5}>
+                <Td className="border" minWidth="350px" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Name/Pangalan:
                   </Text>
                   <Text fontSize="14px">{patientName}</Text>
                 </Td>
 
-                <Td className="border" width="10%" py={1.5}>
+                <Td className="border" maxWidth="50px" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
-                    Age/Edad:{" "}
+                    Age/Edad:
                   </Text>
                   <Text fontSize="14px">{age}</Text>
                 </Td>
@@ -315,34 +316,18 @@ function TagubilinForm() {
 
                     <div className="img-container">
                       <div className="left-lab">
-                        <input
-                          type="text"
-                          value="10"
-                          style={{ width: "40px" }}
-                        />
+                        <input type="text" value="10" className="input-lab" />
                       </div>
 
                       <div className="top-lab">
-                        <input
-                          type="text"
-                          value="20"
-                          style={{ width: "40px" }}
-                        />
+                        <input type="text" value="20" className="input-lab" />
                       </div>
                       <div className="right-lab">
-                        <input
-                          type="text"
-                          value="30"
-                          style={{ width: "40px" }}
-                        />
+                        <input type="text" value="30" className="input-lab" />
                       </div>
 
                       <div className="bottom-lab">
-                        <input
-                          type="text"
-                          value="40"
-                          style={{ width: "40px" }}
-                        />
+                        <input type="text" value="40" className="input-lab" />
                       </div>
                       <div>
                         <Center mt={5}>
