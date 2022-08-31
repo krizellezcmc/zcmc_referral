@@ -179,6 +179,8 @@ function TagubilinForm(props) {
   const homeMed = (e) => {
     if (e.target.checked) {
       setShow(true);
+    } else {
+      setShow(false);
     }
   };
 
