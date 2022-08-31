@@ -1,1 +1,28 @@
+.img-container {
+  position: relative;
+  margin-top: 25px;
+}
 
+.left-lab {
+  position: absolute;
+  top: 22px;
+  left: 45px;
+}
+
+.top-lab {
+  position: absolute;
+  top: 3px;
+  right: 122px;
+}
+
+.right-lab {
+  position: absolute;
+  top: 22px;
+  right: 45px;
+}
+
+.bottom-lab {
+  position: absolute;
+  bottom: 3px;
+  right: 122px;
+}

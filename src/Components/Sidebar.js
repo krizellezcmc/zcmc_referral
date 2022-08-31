@@ -88,6 +88,42 @@ const Sidebar = () => {
               <span>Account Settings</span>
             </li>
           </>
+        ) : role === "ipcc" ? (
+          <>
+            <li
+              className={path.includes("ipcc") ? "active" : ""}
+              onClick={() => navigate("/ipcc")}
+            >
+              <p>
+                {path.includes("ipcc") ? (
+                  <HiDocumentText />
+                ) : (
+                  <HiOutlineDocumentText />
+                )}
+              </p>
+              <span>IPCC Home</span>
+            </li>
+            {/* <li
+              className={path.includes("patientlist") ? "active" : ""}
+              onClick={() => navigate("/patientlist")}
+            >
+              <p>
+                {path.includes("patientlist") ? (
+                  <HiUserGroup />
+                ) : (
+                  <HiUserGroup />
+                )}
+              </p>
+              <span>Patient list</span>
+            </li>
+            <li
+              className={path.includes("changepass") ? "active" : ""}
+              onClick={() => navigate("/changepass")}
+            >
+              <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
+              <span>Account Settings</span>
+            </li> */}
+          </>
         ) : (
           <>
             <li

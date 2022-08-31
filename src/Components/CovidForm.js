@@ -1,0 +1,274 @@
+import React, { useEffect, useState } from "react";
+import { Select } from "chakra-react-select";
+import axios from "axios";
+import moment from "moment";
+import {
+  Text,
+  Box,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  Button,
+  HStack,
+  Spacer,
+  useToast,
+  Checkbox,
+} from "@chakra-ui/react";
+import { BiCalendar, BiSend } from "react-icons/bi";
+function CovidForm(props) {
+  const [patient, setPatient] = useState([]);
+  const [selected, setSelected] = useState("");
+
+  const [status, setStatus] = useState(1);
+  const [swabDate, setSwabDate] = useState("");
+  const [resultDate, setResultDate] = useState("");
+  const [covidData, setCovidData] = useState("");
+
+  patient.forEach((element, key) => {
+    patient[key]["label"] =
+      element.Lastname +
+      ", " +
+      element.Firstname +
+      " " +
+      element.Middlename +
+      " " +
+      "(" +
+      element.Timestamp +
+      ")";
+
+    patient[key]["value"] =
+      element.patientId +
+      "/" +
+      element.Lastname +
+      ", " +
+      element.Firstname +
+      " " +
+      element.Middlename +
+      " " +
+      "/" +
+      moment(element.Timestamp).format("YYYY-MM-DD hh:mm:ss");
+  });
+
+  let data = selected.split("/");
+  // let name = data[1];
+  let id = data[0];
+  // let refDate = data[2];
+
+  const handleChange = (event) => {
+    if (event.target.checked) {
+      setStatus(1);
+    } else {
+      setStatus(0);
+    }
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(
+        "http://192.168.3.135/referral_local_backend/api/post_covid_status.php",
+        {
+          status: status,
+          swabDate: swabDate,
+          resultDate: resultDate,
+          patId: id,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
+
+  useEffect(() => {
+    // const user = JSON.parse(localStorage.getItem("user"));
+
+    axios
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_sheets.php")
+      .then((response) => {
+        setPatient(response.data);
+      });
+
+    axios
+      .get(
+        "http://192.168.3.135/referral_local_backend/api/get_covid_status.php",
+        { params: { patientId: id } }
+      )
+      .then((response) => {
+        setCovidData(response.data);
+      });
+  }, [patient, selected, id]);
+
+  let toast = useToast();
+
+  return (
+    <div style={{ padding: "30px" }}>
+      <div style={{ width: "700px" }}>
+        <Text mb={2}>Search Patient</Text>
+        <Select
+          options={patient}
+          placeholder="Search patient"
+          selectedOptionStyle="check"
+          closeMenuOnSelect={true}
+          focusBorderColor="#058e46"
+          onChange={(e) => {
+            setSelected(e.value);
+          }}
+          width="100%"
+          required
+          useBasicStyles
+        />
+      </div>
+
+      {selected === "" ? (
+        ""
+      ) : (
+        <>
+          <Box pt={7}>
+            {patient
+              .filter((pat) => pat.patientId === id)
+              .map((i, k) => {
+                return (
+                  <>
+                    <HStack
+                      p={8}
+                      mb={10}
+                      style={{
+                        borderRadius: "4px",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.20) 0px 1px 3px, rgba(0, 0, 0, 0.15) 0px 0px 0px",
+                      }}
+                      w="1000px"
+                    >
+                      <Box>
+                        <Text fontSize="14px">Patient name: </Text>
+                        <Text fontWeight="500" fontSize="17px">
+                          {i.Lastname + ", " + i.Firstname + " " + i.Middlename}
+                        </Text>
+                      </Box>
+
+                      <Spacer />
+
+                      <Box>
+                        <Text fontSize="14px">Referred From: </Text>
+                        <Text fontWeight="500" fontSize="17px">
+                          {i.ReferringFacility}
+                        </Text>
+                      </Box>
+
+                      <Spacer />
+
+                      <Box>
+                        <Text fontSize="14px">Referral Date: </Text>
+                        <Text fontWeight="500" fontSize="17px">
+                          {moment(i.Timestamp).format("LLL")}
+                        </Text>
+                      </Box>
+                    </HStack>
+                  </>
+                );
+              })}
+
+            {covidData.length !== 0 ? (
+              <b>Done</b>
+            ) : (
+              /* {covidData.map((i, k) => {
+                  return (
+                    <>
+                      <Box w={350} bg="#f7f8fb" p={7} borderRadius={10}>
+                        <Text mb={1}>Result:</Text>
+
+                        <Badge
+                          fontSize="15px"
+                          variant="subtle"
+                          colorScheme={i.result === 1 ? "red" : "green"}
+                        >
+                          {i.result === 1 ? "Positive +" : "Negative -"}
+                        </Badge>
+
+                        <Text mt={9}>Swab Date:</Text>
+
+                        <Text fontWeight="600" mt={1}>
+                          {moment(i.swab_date).format("LLL")}
+                        </Text>
+
+                        <Text mt={9}>Result Date:</Text>
+
+                        <Text fontWeight="600" mt={1}>
+                          {moment(i.result_date).format("LLL")}
+                        </Text>
+                      </Box>
+                    </>
+                  );
+                })} */
+
+              <>
+                <form onSubmit={submit}>
+                  <Box w={350}>
+                    <Text fontWeight="600" mb={3}>
+                      Swab result:
+                    </Text>
+
+                    <Checkbox
+                      size="lg"
+                      colorScheme="red"
+                      value={status}
+                      onChange={handleChange}
+                    >
+                      Positive
+                    </Checkbox>
+
+                    <Text fontWeight="600" mt={6}>
+                      Swab Date:
+                    </Text>
+
+                    <InputGroup mt={1}>
+                      <InputLeftElement
+                        pointerEvents="none"
+                        children={<BiCalendar color="gray.300" />}
+                      />
+                      <Input
+                        type="datetime-local"
+                        onChange={(e) => setSwabDate(e.target.value)}
+                        required
+                      />
+                    </InputGroup>
+
+                    <Text fontWeight="600" mt={6}>
+                      Result Date:
+                    </Text>
+
+                    <InputGroup mt={1}>
+                      <InputLeftElement
+                        pointerEvents="none"
+                        children={<BiCalendar color="gray.300" />}
+                      />
+                      <Input
+                        type="datetime-local"
+                        onChange={(e) => setResultDate(e.target.value)}
+                        required
+                      />
+                    </InputGroup>
+                  </Box>
+
+                  <Button
+                    mt={10}
+                    w={150}
+                    type="submit"
+                    variant="solid"
+                    colorScheme="green"
+                    rightIcon={<BiSend />}
+                  >
+                    Submit
+                  </Button>
+                </form>
+              </>
+            )}
+          </Box>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default CovidForm;

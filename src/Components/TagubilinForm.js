@@ -313,12 +313,46 @@ function TagubilinForm() {
                       Laboratory
                     </Text>
 
-                    <Center mt={5}>
-                      <img
-                        src={cbc}
-                        style={{ height: "80px", width: "160px" }}
-                      />
-                    </Center>
+                    <div className="img-container">
+                      <div className="left-lab">
+                        <input
+                          type="text"
+                          value="10"
+                          style={{ width: "40px" }}
+                        />
+                      </div>
+
+                      <div className="top-lab">
+                        <input
+                          type="text"
+                          value="20"
+                          style={{ width: "40px" }}
+                        />
+                      </div>
+                      <div className="right-lab">
+                        <input
+                          type="text"
+                          value="30"
+                          style={{ width: "40px" }}
+                        />
+                      </div>
+
+                      <div className="bottom-lab">
+                        <input
+                          type="text"
+                          value="40"
+                          style={{ width: "40px" }}
+                        />
+                      </div>
+                      <div>
+                        <Center mt={5}>
+                          <img
+                            src={cbc}
+                            style={{ height: "65px", width: "180px" }}
+                          />
+                        </Center>
+                      </div>
+                    </div>
                   </Box>
                 </Td>
 
