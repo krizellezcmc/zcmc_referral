@@ -16,6 +16,7 @@ import TagubilinForm from "./TagubilinForm";
 import TagubilinPrescription from "../Pages/TagubilinPrescription";
 import Prescription from "./Prescription";
 import IPCCHome from "../Pages/IPCCHome";
+import NurseHome from "../Pages/NurseHome";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -26,8 +27,10 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Login />} />
-          <Route path="/tagubilin" element={<TagubilinForm />} />
           <Route path="/register" element={<Register />} />
+
+          {/* Nurse Routes*/}
+          <Route path="/tagubilin" element={<NurseHome />} />
           <Route path="/tagubilinreport" element={<TagubilinPrescription />} />
           <Route path="/prescription" element={<Prescription />} />
 

@@ -103,18 +103,21 @@ const Sidebar = () => {
               </p>
               <span>IPCC Home</span>
             </li>
-            {/* <li
-              className={path.includes("patientlist") ? "active" : ""}
-              onClick={() => navigate("/patientlist")}
+          </>
+        ) : role === "nurse" ? (
+          <>
+            <li
+              className={path.includes("tagubilin") ? "active" : ""}
+              onClick={() => navigate("/tagubilin")}
             >
               <p>
-                {path.includes("patientlist") ? (
-                  <HiUserGroup />
+                {path.includes("tagubilin") ? (
+                  <HiDocumentText />
                 ) : (
-                  <HiUserGroup />
+                  <HiOutlineDocumentText />
                 )}
               </p>
-              <span>Patient list</span>
+              <span>Tagubilin Form</span>
             </li>
             <li
               className={path.includes("changepass") ? "active" : ""}
@@ -122,7 +125,7 @@ const Sidebar = () => {
             >
               <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
               <span>Account Settings</span>
-            </li> */}
+            </li>
           </>
         ) : (
           <>

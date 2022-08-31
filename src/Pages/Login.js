@@ -91,6 +91,10 @@ function Login() {
   if (user?.role === "ipcc") {
     return <Navigate to="/ipcc" />;
   }
+
+  if (user?.role === "nurse") {
+    return <Navigate to="/tagubilin" />;
+  }
   return (
     <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
       <Center>
