@@ -29,8 +29,10 @@ import { Center } from "chakra-ui";
 function TagubilinForm(props) {
   const [patientName, setPatient] = useState("");
   const [age, setAge] = useState("");
+  const [sex, setSex]=useState("");
   const [ward, setWard] = useState("");
   const [hrn, setHrn] = useState("");
+  const [address, setAddress]=useState("");
   const [admissionDate, setAdmissionDate] = useState("");
   const [dischDiag, setDischDiag] = useState("");
   const [dischDate, setDischDate] = useState("");
@@ -126,8 +128,10 @@ function TagubilinForm(props) {
       JSON.stringify({
         patientName: patientName,
         age: age,
+        sex:sex,
         ward: ward,
         hrn: hrn,
+        address:address,
         admissionDate: admissionDate,
         dischDiag: dischDiag,
         dischDate: dischDate,
@@ -179,8 +183,10 @@ function TagubilinForm(props) {
       .then((response) => {
         setPatient(response.data.patientName);
         setAge(response.data.age);
+        setSex(response.data.gender);
         setWard(response.data.ward);
         setHrn(response.data.hrn);
+        setAddress(response.data.address);
         setAdmissionDate(
           moment(response.data.admissionDate.date).format("LLL")
         );
@@ -227,8 +233,7 @@ function TagubilinForm(props) {
                   <Text fontSize="12px" fontWeight="600">
                     Sex:
                   </Text>
-
-                  <Text fontSize="14px">Female</Text>
+                  <Text fontSize="14px">{sex}</Text>
                 </Td>
                 <Td className="border" width="40%" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
@@ -248,7 +253,7 @@ function TagubilinForm(props) {
                   <Text fontSize="12px" fontWeight="600">
                     Address:
                   </Text>
-                  <Text fontSize="14px">{admissionDate}</Text>
+                  <Text fontSize="14px">{address}</Text>
                 </Td>
                 <Td className="border" py={1.5} colSpan="2">
                   <Text fontSize="12px" fontWeight="600">

@@ -10,6 +10,7 @@ import moment from "moment";
 function Prescription(){
     const [refName, setRefName] = useState("");
     const [age, setAge] = useState("");
+    const [sex, setSex]=useState("");
     const [ward, setWard] = useState("");
     const [med, setMed] = useState([]);
     const [resident, setResident] = useState("");
@@ -18,6 +19,7 @@ function Prescription(){
       let refpatient = JSON.parse(localStorage.getItem("refpatient"));
       setRefName(refpatient.patientName);
       setAge(refpatient.age);
+      setSex(refpatient.sex);
       setWard(refpatient.ward);
       setMed(refpatient.medications);
       setResident(refpatient.resident);
@@ -51,17 +53,27 @@ function Prescription(){
               <p className="pfullname-line">{refName}</p>
             </div>
             <p className="pdetails">Age :</p>
-            <p className="pdetails-line">{age}</p>
-
-            <p className="pdetails" style={{ marginLeft: "20px" }}>
+            {!age ? (
+              <p className="pdetails-line">--</p>
+            ):(
+              <p className="pdetails-line">{age}</p>
+            )}
+             <p className="pdetails" style={{ marginLeft: "20px" }}>
               Sex :
             </p>
+            {!sex ? (
             <p className="pdetails-line">-</p>
-
+            ):(
+              <p className="pdetails-line">{sex}</p>
+            )}
             <p className="pdetails" style={{ marginLeft: "20px" }}>
               Ward :
             </p>
-            <p className="pward-line">{ward}</p>
+            {!ward ? (
+              <p className="pward-line">--</p>
+            ):(
+              <p className="pward-line">{ward}</p>
+            )}
 
             <p className="pdetails" style={{ marginLeft: "20px" }}>
               OPD :
@@ -78,12 +90,25 @@ function Prescription(){
                 <>
                   <div style={{ marginBottom: "3px" }}>
                     <p className="pdetails">Generic Name :</p>
-                    <p className="pgeneric-line">{pres.medicine}</p>
+                    {!pres.medicine ? (
+                    <p className="pgeneric-line">--</p>
+                    ):(
+                      <p className="pgeneric-line">{pres.medicine}</p>
+                    )}
                     <p className="pdetails"># </p>
-                    <p className="quantity-line">{pres.quantity}</p>
+                    {!pres.quantity ? (
+                    <p className="quantity-line">--</p>
+                    ):(
+                      <p className="quantity-line">{pres.quantity}</p>
+                    )}
                     <div>
                     <p className="psig">Sig :</p>
-                    <p className="psig-line">{pres.dosage}</p>
+                    {!pres.dosage ? (
+                      <p className="psig-line">--</p>
+                    ):(
+                      <p className="psig-line">{pres.dosage}</p>
+                    )}
+                    
                     </div>
                   </div>
                 </>
@@ -159,8 +184,9 @@ return(
         <Button
           onClick={exportPres}
           variant="outline"
-          colorScheme="green"
+          colorScheme="red"
           size="sm"
+          mt={20}
         >
           Generate Prescription
         </Button>
@@ -186,15 +212,27 @@ return(
             <p className="pfullname-line">{refName}</p>
           </div>
           <p className="pdetails">Age:</p>
-          <p className="pdetails-line">{age}</p>
-          <p className="pdetails" style={{ marginLeft: "20px" }}>
+          {!age ? (
+            <p className="pdetails-line">--</p>
+          ):(
+            <p className="pdetails-line">{age}</p>
+          )}
+           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Sex:
           </p>
-          <p className="pdetails-line">-</p>
+          {!sex ? (
+           <p className="pdetails-line">-</p>
+          ):(
+            <p className="pdetails-line">{sex}</p>
+          )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Ward:
           </p>
+          {!ward ? (
           <p className="pward-line">{ward}</p>
+          ):(
+            <p className="pward-line">--</p>
+          )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             OPD:
           </p>
@@ -210,12 +248,26 @@ return(
               <>
                 <div style={{ marginBottom: "3px" }}>
                   <p className="pdetails">Generic Name :</p>
-                  <p className="pgeneric-line">{pres.medicine}</p>
+                  {!pres ? (
+                      <p className="pgeneric-line">--</p>
+                    ):(
+                      <p className="pgeneric-line">{pres.medicine}</p>
+                    )}
+                
                   <p className="pdetails"># </p>
-                  <p className="quantity-line">{pres.quantity}</p>
+                  {!pres.quantity ? (
+                    <p className="quantity-line">--</p>
+                  ):(
+                    <p className="quantity-line">{pres.quantity}</p>
+                  )}
+                  
                   <div>
                   <p className="psig">Sig :</p>
+                  {!pres.dosage ? (
+                  <p className="psig-line">--</p>
+                  ):(
                   <p className="psig-line">{pres.dosage}</p>
+                  )}
                   </div>
                   
                 </div>
