@@ -25,6 +25,7 @@ import axios from "axios";
 import moment from "moment";
 import cbc from "../Assets/cbc2.png";
 import { Center } from "chakra-ui";
+import Home from "../Pages/AdminHome";
 
 function TagubilinForm(props) {
   const [patientName, setPatient] = useState("");
@@ -47,6 +48,7 @@ function TagubilinForm(props) {
   const [followUp, setFollowUp] = useState("");
   const [time, setTime] = useState("");
   const [needBring, setNeedBring] = useState("");
+  const [show, setShow] = useState(false);
   const [dietList, setDietList] = useState([
     {
       value: "Low Salt Diet",
@@ -171,6 +173,12 @@ function TagubilinForm(props) {
       temp[k]["isChecked"] = true;
     } else {
       temp[k]["isChecked"] = false;
+    }
+  };
+
+  const homeMed = (e) => {
+    if (e.target.checked) {
+      setShow(true);
     }
   };
 
@@ -417,119 +425,130 @@ function TagubilinForm(props) {
               <Tr>
                 <Td className="border" colSpan="5" py={1}>
                   <Text fontSize="12px" fontWeight="600">
-                    <Checkbox mr={2} mt={0.5}></Checkbox>Home Medications/Gamot
+                    <Checkbox
+                      mr={2}
+                      mt={0.5}
+                      onChange={(e) => homeMed(e)}
+                    ></Checkbox>
+                    Home Medications/Gamot
                   </Text>
                 </Td>
               </Tr>
-              <Tr>
-                <Td className="border" width="200px" colSpan="2" py={1}>
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Pangalan ng Gamot
-                  </Text>
-                </Td>
+              {!show ? (
+                ""
+              ) : (
+                <>
+                  <Tr>
+                    <Td className="border" width="200px" colSpan="2" py={1}>
+                      <Text textAlign="center" fontSize="12px" fontWeight="600">
+                        Pangalan ng Gamot
+                      </Text>
+                    </Td>
 
-                <Td className="border" colSpan="1" width="40%" py={1}>
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Dosage
-                  </Text>
-                </Td>
-                <Td className="border" py={1} width="30%">
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Oras ng Pag-iinom
-                  </Text>
-                </Td>
-                <Td className="border" py={1}>
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Quantity
-                  </Text>
-                </Td>
-              </Tr>
-              {medications.map((x, i) => {
-                return (
-                  <>
-                    <Tr>
-                      <Td className="border" colSpan="2" p={0}>
-                        <Textarea
-                          m={0}
-                          borderRadius="0"
-                          border="none"
-                          rows={1}
-                          value={x.medicine}
-                          fontSize="14px"
-                          name="medicine"
-                          onChange={(e) => handleInputChange(e, i)}
-                        ></Textarea>
-                      </Td>
+                    <Td className="border" colSpan="1" width="40%" py={1}>
+                      <Text textAlign="center" fontSize="12px" fontWeight="600">
+                        Dosage
+                      </Text>
+                    </Td>
+                    <Td className="border" py={1} width="30%">
+                      <Text textAlign="center" fontSize="12px" fontWeight="600">
+                        Oras ng Pag-iinom
+                      </Text>
+                    </Td>
+                    <Td className="border" py={1}>
+                      <Text textAlign="center" fontSize="12px" fontWeight="600">
+                        Quantity
+                      </Text>
+                    </Td>
+                  </Tr>
+                  {medications.map((x, i) => {
+                    return (
+                      <>
+                        <Tr>
+                          <Td className="border" colSpan="2" p={0}>
+                            <Textarea
+                              m={0}
+                              borderRadius="0"
+                              border="none"
+                              rows={1}
+                              value={x.medicine}
+                              fontSize="14px"
+                              name="medicine"
+                              onChange={(e) => handleInputChange(e, i)}
+                            ></Textarea>
+                          </Td>
 
-                      <Td className="border" p={0}>
-                        <Textarea
-                          m={0}
-                          textAlign="center"
-                          borderRadius="0"
-                          border="none"
-                          rows={1}
-                          value={x.dosage}
-                          fontSize="14px"
-                          name="dosage"
-                          onChange={(e) => handleInputChange(e, i)}
-                        ></Textarea>
-                      </Td>
-                      <Td className="border" p={0}>
-                        <Textarea
-                          m={0}
-                          textAlign="center"
-                          borderRadius="0"
-                          border="none"
-                          rows={1}
-                          value={x.sched}
-                          fontSize="14px"
-                          name="sched"
-                          onChange={(e) => handleInputChange(e, i)}
-                        ></Textarea>
-                      </Td>
-                      <Td className="border" p={0}>
-                        <Textarea
-                          m={0}
-                          borderRadius="0"
-                          border="none"
-                          rows={1}
-                          value={x.quantity}
-                          fontSize="14px"
-                          name="quantity"
-                          onChange={(e) => handleInputChange(e, i)}
-                        ></Textarea>
-                      </Td>
+                          <Td className="border" p={0}>
+                            <Textarea
+                              m={0}
+                              textAlign="center"
+                              borderRadius="0"
+                              border="none"
+                              rows={1}
+                              value={x.dosage}
+                              fontSize="14px"
+                              name="dosage"
+                              onChange={(e) => handleInputChange(e, i)}
+                            ></Textarea>
+                          </Td>
+                          <Td className="border" p={0}>
+                            <Textarea
+                              m={0}
+                              textAlign="center"
+                              borderRadius="0"
+                              border="none"
+                              rows={1}
+                              value={x.sched}
+                              fontSize="14px"
+                              name="sched"
+                              onChange={(e) => handleInputChange(e, i)}
+                            ></Textarea>
+                          </Td>
+                          <Td className="border" p={0}>
+                            <Textarea
+                              m={0}
+                              borderRadius="0"
+                              border="none"
+                              rows={1}
+                              value={x.quantity}
+                              fontSize="14px"
+                              name="quantity"
+                              onChange={(e) => handleInputChange(e, i)}
+                            ></Textarea>
+                          </Td>
 
-                      {medications.length !== 1 && (
-                        <button
-                          onClick={() => handleRemoveClick(i)}
-                          style={{
-                            margin: 0,
-                            color: "red",
-                            marginTop: "10px",
-                            fontSize: "18px",
-                          }}
-                        >
-                          <BiMinus />
-                        </button>
-                      )}
-                    </Tr>
-                  </>
-                );
-              })}
+                          {medications.length !== 1 && (
+                            <button
+                              onClick={() => handleRemoveClick(i)}
+                              style={{
+                                margin: 0,
+                                color: "red",
+                                marginTop: "10px",
+                                fontSize: "18px",
+                              }}
+                            >
+                              <BiMinus />
+                            </button>
+                          )}
+                        </Tr>
+                      </>
+                    );
+                  })}
 
-              <Tr>
-                <Td className="border" p={1} colSpan="5">
-                  <Button
-                    style={{ marginTop: "5px", marginBottom: "5px" }}
-                    colorScheme="blue"
-                    size="sm"
-                    onClick={handleAddClick}
-                  >
-                    + Add medication
-                  </Button>
-                </Td>
-              </Tr>
+                  <Tr>
+                    <Td className="border" p={1} colSpan="5">
+                      <Button
+                        style={{ marginTop: "5px", marginBottom: "5px" }}
+                        colorScheme="blue"
+                        size="sm"
+                        onClick={handleAddClick}
+                      >
+                        + Add medication
+                      </Button>
+                    </Td>
+                  </Tr>
+                </>
+              )}
 
               <Tr>
                 <Td className="border" colSpan="5">
@@ -802,15 +821,6 @@ function TagubilinForm(props) {
             </Tbody>
           </Table>
           <Box style={{ float: "right", margin: "30px 0px" }}>
-            <Button
-              onClick={submit}
-              colorScheme="red"
-              variant="outline"
-              width="250px"
-              mr={3}
-            >
-              Clear
-            </Button>
             <Button
               colorScheme="blue"
               width="250px"

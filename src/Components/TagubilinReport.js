@@ -366,7 +366,6 @@ function TagubilinReport() {
       );
       doc.page++;
     }
-
     doc.html(ReactDOMServer.renderToString(element), {
       width: 210,
       height: 297,
@@ -381,6 +380,10 @@ function TagubilinReport() {
     });
   };
 
+  const back = () => {
+    localStorage.removeItem("refpatient");
+    navigate("/tagubilin");
+  };
   return (
     <div>
       <div style={{ float: "left" }}>
@@ -389,7 +392,7 @@ function TagubilinReport() {
           colorScheme="teal"
           size="md"
           leftIcon={<FaArrowLeft />}
-          onClick={() => navigate("/tagubilin")}
+          onClick={() => back()}
         >
           Back to Tagubilin Form
         </Button>
