@@ -58,22 +58,22 @@
   display: inline-block;
   text-align: center;
   margin-left: 5px;
-  padding: 5px;
+  padding: 4px;
 }
 .pfullname {
   font-family: "Calibri";
   display: inline-block;
-  font-size: 10px;
+  font-size: 12px;
 }
 .pfullname-line {
   font-family: "Times New Roman", Times, serif;
   border-bottom: 1px solid black;
-  width: 440px;
-  font-size: 10px;
+  width: 420px;
+  font-size: 12px;
   display: inline-block;
   margin-left: 5px;
   text-align: center;
-  padding: 5px;
+  padding: 4px;
 }
 .pdetails {
   font-family: "Calibri";
@@ -82,29 +82,30 @@
 }
 .psig {
   font-family: "Calibri";
-  display: inline-block;
+  display: inline;
   font-size: 12px;
+  padding: 4px;
 }
 .pdetails-line {
   font-family: "Times New Roman", Times, serif;
   border-bottom: 1px solid black;
   width: 35px;
-  font-size: 10px;
+  font-size: 12px;
   display: inline-block;
   margin-left: 5px;
   text-align: center;
-  padding: 5px;
+  padding: 4px;
 }
 .pward-line {
   font-family: "Times New Roman", Times, serif;
   border-bottom: 1px solid black;
   width: 80px;
-  font-size: 10px;
+  font-size: 12px;
   display: inline-block;
   margin-top: 10px;
   margin-left: 5px;
   text-align: center;
-  padding: 5px;
+  padding: 4px;
 }
 .quantity-line {
   font-family: "Times New Roman", Times, serif;
@@ -115,7 +116,7 @@
   margin-top: 10px;
   margin-left: 5px;
   text-align: center;
-  padding: 5px;
+  padding: 4px;
 }
 .rx {
   font-size: 25px;
@@ -132,7 +133,7 @@
   margin-left: 5px;
   text-align: left;
   margin-right: 10px;
-  padding: 5px;
+  padding: 4px;
 }
 .psig-line {
   font-family: "Times New Roman", Times, serif;
@@ -144,7 +145,7 @@
   margin-left: 5px;
   /* text-align: center; */
   margin-right: 10px;
-  padding: 5px;
+  padding: 4px;
 }
 .signature {
   margin-top: 30px;
@@ -159,13 +160,13 @@
 .sign-line {
   font-family: "Times New Roman", Times, serif;
   border-bottom: 1px solid black;
-  width: 150px;
-  font-size: 8.5px;
+  width: 200px;
+  font-size: 10px;
   display: inline-block;
   text-align: center;
-  word-spacing: 3px;
+  word-spacing: 2px;
   margin-left: 5px;
-  padding: 5px;
+  padding: 4px;
 }
 .ra {
   font-family: "Calibri";
@@ -183,5 +184,5 @@
 }
 .meds-container {
   width: 530px;
-  height: 380px;
+  height: 370px;
 }

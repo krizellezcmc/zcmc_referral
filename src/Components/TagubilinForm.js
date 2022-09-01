@@ -42,6 +42,7 @@ function TagubilinForm(props) {
   const [ctScan, setCTScan] = useState("");
   const [mri, setMRI] = useState("");
   const [others, setOthers] = useState("");
+  const [homemed, setHomeMed] = useState(false);
   const [nurse, setNurse] = useState("");
   const [resident, setResident] = useState();
   const [healthOthers, setHealthOthers] = useState("");
@@ -142,6 +143,7 @@ function TagubilinForm(props) {
         ctScan: ctScan,
         mri: mri,
         others: others,
+        homemed:homemed,
         nurse: nurse,
         resident: resident,
         followUp: followUp,
@@ -179,6 +181,7 @@ function TagubilinForm(props) {
   const homeMed = (e) => {
     if (e.target.checked) {
       setShow(true);
+      setHomeMed(true);
     } else {
       setShow(false);
     }
@@ -328,31 +331,6 @@ function TagubilinForm(props) {
                     <Text fontSize="12px" textAlign="center" fontWeight="600">
                       Laboratory
                     </Text>
-
-                    <div className="img-container">
-                      <div className="left-lab">
-                        <input type="text" value="10" className="input-lab" />
-                      </div>
-
-                      <div className="top-lab">
-                        <input type="text" value="20" className="input-lab" />
-                      </div>
-                      <div className="right-lab">
-                        <input type="text" value="30" className="input-lab" />
-                      </div>
-
-                      <div className="bottom-lab">
-                        <input type="text" value="40" className="input-lab" />
-                      </div>
-                      <div>
-                        <Center mt={5}>
-                          <img
-                            src={cbc}
-                            style={{ height: "65px", width: "180px" }}
-                          />
-                        </Center>
-                      </div>
-                    </div>
                   </Box>
                 </Td>
 

@@ -25,6 +25,7 @@ function TagubilinReport() {
   const [ctscan, setCTScan] = useState("");
   const [mri, setMRI] = useState("");
   const [others, setOthers] = useState("");
+  const [homemed, setHomeMed] = useState("");
   const [med, setMed] = useState([]);
   const [followup, setFollowUp] = useState("");
   const [time, setTime] = useState("");
@@ -52,6 +53,7 @@ function TagubilinReport() {
     setCTScan(refpatient.ctScan);
     setMRI(refpatient.mri);
     setOthers(refpatient.others);
+    setHomeMed(refpatient.homemed);
     setMed(refpatient.medications);
     setFollowUp(refpatient.followUp);
     setTime(refpatient.time);
@@ -84,7 +86,10 @@ function TagubilinReport() {
 
         <table className="rtable">
           <tr>
-            <td className="cell" style={{ width: "23%" }}>
+            <td
+              className="cell"
+              style={{ borderLeft: "0", borderTop: "0", width: "23%" }}
+            >
               Name/Pangalan:<p>{refName}</p>
             </td>
             <td className="cell" style={{ borderLeft: "0", width: "10%" }}>
@@ -101,7 +106,9 @@ function TagubilinReport() {
             </td>
           </tr>
           <tr>
-            <td className="cell">Address: {address}</td>
+            <td className="cell">
+              Address: <p>{address}</p>
+            </td>
             <td className="cell" colSpan="2" style={{ borderLeft: "0" }}>
               Admission/Petsa ng Pagpasok: <p>{admit}</p>
             </td>
@@ -126,53 +133,83 @@ function TagubilinReport() {
           </tr>
           <tr>
             <td className="major-label" colSpan="5">
-              Major diagnostic Results/Panguanhing Resulta ng Pasusuri
+              Major Diagnostic Results/Panguanhing Resulta ng Pasusuri
             </td>
           </tr>
           <tr>
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              Laboratory
-              <div style={{ width: "100%", height: "80px" }}>
-                <div className="image">
-                  <img
-                    src={cbc}
-                    style={{ width: "200px", height: "80px" }}
-                    alt="cbc"
-                  />
-                </div>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontFamily: "'Times New Roman', Times, serif",
+                }}
+              >
+                Laboratory
+              </p>
+              <div style={{ width: "100%", height: "60px" }}>
+                <p className="diagnosis-con">{lab}</p>
               </div>
             </td>
 
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              X-ray
-              <div style={{ width: "100%", height: "80px" }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontFamily: "'Times New Roman', Times, serif",
+                }}
+              >
+                X-ray
+              </p>
+              <div style={{ width: "100%", height: "60px" }}>
                 <p className="diagnosis-con">{xray}</p>
               </div>
             </td>
 
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              CT Scan
-              <div style={{ width: "100%", height: "80px" }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontFamily: "'Times New Roman', Times, serif",
+                }}
+              >
+                CT
+              </p>
+              <div style={{ width: "100%", height: "60px" }}>
                 <p className="diagnosis-con">{ctscan}</p>
               </div>
             </td>
 
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              MRI
-              <div style={{ width: "100%", height: "80px" }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontFamily: "'Times New Roman', Times, serif",
+                }}
+              >
+                MRI
+              </p>
+              <div style={{ width: "100%", height: "60px" }}>
                 <p className="diagnosis-con">{mri}</p>
               </div>
             </td>
             <td className="diagnosis" style={{ borderLeft: "0" }}>
-              Others
-              <div style={{ width: "100%", height: "80px" }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontFamily: "'Times New Roman', Times, serif",
+                }}
+              >
+                Others
+              </p>
+              <div style={{ width: "100%", height: "60px" }}>
                 <p className="diagnosis-con">{others}</p>
               </div>
             </td>
           </tr>
-          <tr>
-            <td className="med-header" colSpan="5">
-              {!med ? (
+
+          {!homemed ? (
+            <tr>
+              <td className="med-header" colSpan="5">
                 <div className="med-box">
                   <div className="med-data">
                     <div className="checkbox"></div>
@@ -181,56 +218,63 @@ function TagubilinReport() {
                     <p>Home Medication/Gamot</p>
                   </div>
                 </div>
-              ) : (
-                <div className="med-box">
-                  <div className="med-data">
-                    <input
-                      type="checkbox"
-                      defaultChecked={true}
-                      style={{ marginLeft: "5px" }}
-                    />
-                  </div>
-                  <div className="med-label">
-                    <p>Home Medication/Gamot</p>
-                  </div>
-                </div>
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td className="med" colSpan="1" style={{ borderRight: "0" }}>
-              Pangalan ng Gamot
-            </td>
-            <td className="med" colSpan="2" style={{ borderRight: "0" }}>
-              Dosage
-            </td>
-            <td className="med" colSpan="2">
-              Oras ng Pag-inom
-            </td>
-          </tr>
-          {med.map((m, k) => {
-            return (
+              </td>
+            </tr>
+          ) : (
+            <>
               <tr>
-                <td
-                  className="med-cell"
-                  colSpan="1"
-                  style={{ borderRight: "0" }}
-                >
-                  {m.medicine}
-                </td>
-                <td
-                  className="med-cell"
-                  colSpan="2"
-                  style={{ borderRight: "0" }}
-                >
-                  {m.dosage}
-                </td>
-                <td className="med-cell" colSpan="2">
-                  {m.sched}
+                <td className="med-header" colSpan="5">
+                  <div className="med-box">
+                    <div className="med-data">
+                      <input
+                        type="checkbox"
+                        defaultChecked={true}
+                        style={{ marginLeft: "5px" }}
+                      />
+                    </div>
+                    <div className="med-label">
+                      <p>Home Medication/Gamot</p>
+                    </div>
+                  </div>
                 </td>
               </tr>
-            );
-          })}
+              <tr>
+                <td className="med" colSpan="1" style={{ borderRight: "0" }}>
+                  Pangalan ng Gamot
+                </td>
+                <td className="med" colSpan="2" style={{ borderRight: "0" }}>
+                  Dosage
+                </td>
+                <td className="med" colSpan="2">
+                  Oras ng Pag-inom
+                </td>
+              </tr>
+              {med.map((m, k) => {
+                return (
+                  <tr>
+                    <td
+                      className="med-cell"
+                      colSpan="1"
+                      style={{ borderRight: "0" }}
+                    >
+                      {m.medicine}
+                    </td>
+                    <td
+                      className="med-cell"
+                      colSpan="2"
+                      style={{ borderRight: "0" }}
+                    >
+                      {m.dosage}
+                    </td>
+                    <td className="med-cell" colSpan="2">
+                      {m.sched}
+                    </td>
+                  </tr>
+                );
+              })}
+            </>
+          )}
+
           <tr>
             <td className="diagnosis" colSpan="5">
               <b className="rb">
@@ -260,7 +304,7 @@ function TagubilinReport() {
             <td
               className="diagnosis"
               colSpan="5"
-              style={{ borderBottom: "1px solid black" }}
+              style={{ borderBottom: "1px solid #A9A9A9" }}
             >
               <b className="rb">Other Instructions/Karagdagang Paalala</b>
               <div style={{ display: "flex" }}>
@@ -350,7 +394,7 @@ function TagubilinReport() {
       doc.setFontSize(8);
       doc.text(
         25,
-        295,
+        293,
         "ZCMC-F-OCMPS-05" +
           "                                " +
           "Rev. 1" +
@@ -371,7 +415,7 @@ function TagubilinReport() {
       height: 297,
       windowWidth: 800,
       windowHeight: 1600,
-      margin: [3, 10, 10, 10],
+      margin: [5, 10, 10, 10],
 
       callback: function (doc) {
         footer();
@@ -438,7 +482,7 @@ function TagubilinReport() {
             </tr>
             <tr>
               <td className="dcell" colSpan="1">
-                Address: {address}
+                Address: <p>{address}</p>
               </td>
               <td className="dcell" colSpan="2">
                 Admission/Petsa ng Pagpasok: <p>{admit}</p>
@@ -449,7 +493,7 @@ function TagubilinReport() {
             </tr>
             <tr>
               <td className="dcell" colSpan="5">
-                Diagnosis/Sakit:{" "}
+                Diagnosis/Sakit:
                 <p style={{ display: "inline" }}>{diagnosis}</p>
               </td>
             </tr>
@@ -464,20 +508,14 @@ function TagubilinReport() {
             </tr>
             <tr>
               <td className="ddiagnosis" colSpan="5">
-                Major diagnostic Results/Panguanhing Resulta ng Pasusuri
+                Major Diagnostic Results/Panguanhing Resulta ng Pasusuri
               </td>
             </tr>
             <tr>
               <td className="ddiagnosis">
                 Laboratory
                 <div style={{ width: "100%", height: "80px" }}>
-                  <div className="image">
-                    <img
-                      src={cbc}
-                      style={{ width: "200px", height: "80px" }}
-                      alt="cbc"
-                    />
-                  </div>
+                  <p className="diagnosis-con">{lab}</p>
                 </div>
               </td>
 
@@ -509,9 +547,9 @@ function TagubilinReport() {
               </td>
             </tr>
 
-            <tr>
-              <td className="dmed-header" colSpan="5">
-                {!med ? (
+            {!homemed ? (
+              <tr>
+                <td className="dmed-header" colSpan="5">
                   <div className="dmed-box">
                     <div className="dmed-data">
                       <div className="checkbox"></div>
@@ -520,49 +558,55 @@ function TagubilinReport() {
                       <p>Home Medication/Gamot</p>
                     </div>
                   </div>
-                ) : (
-                  <div className="dmed-box">
-                    <div className="dmed-data">
-                      <input
-                        type="checkbox"
-                        defaultChecked={true}
-                        style={{ marginLeft: "5px" }}
-                      ></input>
-                    </div>
-                    <div className="dmed-label">
-                      <p>Home Medication/Gamot</p>
-                    </div>
-                  </div>
-                )}
-              </td>
-            </tr>
-
-            <tr>
-              <td className="dmed" colSpan="1">
-                (Pangalan ng Gamot)
-              </td>
-              <td className="dmed" colSpan="2">
-                (Dosage)
-              </td>
-              <td className="dmed" colSpan="2">
-                (Oras ng Pag-inom)
-              </td>
-            </tr>
-            {med.map((m, k) => {
-              return (
+                </td>
+              </tr>
+            ) : (
+              <>
                 <tr>
-                  <td className="dmed-cell" colSpan="1">
-                    {m.medicine}
-                  </td>
-                  <td className="dmed-cell" colSpan="2">
-                    {m.dosage}
-                  </td>
-                  <td className="dmed-cell" colSpan="2">
-                    {m.sched}
+                  <td className="dmed-header" colSpan="5">
+                    <div className="dmed-box">
+                      <div className="dmed-data">
+                        <input
+                          type="checkbox"
+                          defaultChecked={true}
+                          style={{ marginLeft: "5px" }}
+                        ></input>
+                      </div>
+                      <div className="dmed-label">
+                        <p>Home Medication/Gamot</p>
+                      </div>
+                    </div>
                   </td>
                 </tr>
-              );
-            })}
+                <tr>
+                  <td className="dmed" colSpan="1">
+                    (Pangalan ng Gamot)
+                  </td>
+                  <td className="dmed" colSpan="2">
+                    (Dosage)
+                  </td>
+                  <td className="dmed" colSpan="2">
+                    (Oras ng Pag-inom)
+                  </td>
+                </tr>
+                {med.map((m, k) => {
+                  return (
+                    <tr>
+                      <td className="dmed-cell" colSpan="1">
+                        {m.medicine}
+                      </td>
+                      <td className="dmed-cell" colSpan="2">
+                        {m.dosage}
+                      </td>
+                      <td className="dmed-cell" colSpan="2">
+                        {m.sched}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </>
+            )}
+
             <tr>
               <td className="ddiagnosis" colSpan="5">
                 <b className="db">
@@ -659,7 +703,7 @@ function TagubilinReport() {
                   </div>
                   <div className="dfloat-child2">
                     <label>Noted by:</label>
-                    <p className="dname">{resident}</p>
+                    <p className="dname">{resident} MD</p>
                     <p className="dhr-sign">Resident-in-Charge</p>
                   </div>
                 </div>

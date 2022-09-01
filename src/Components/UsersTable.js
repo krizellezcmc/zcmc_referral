@@ -124,7 +124,7 @@ const UsersTable = () => {
       .then(function (response) {
         setUserVerify(response.data);
       });
-  });
+  },[userVerify]);
 
   const deleteUser = (id) => {
     Swal.fire({
@@ -300,7 +300,7 @@ const UsersTable = () => {
                       >
                         <HStack>
                           <p style={{ fontSize: "14px" }}>
-                            <b>{user.firstName + " " + user.lastName}</b>{" "}
+                            <b>{user.firstName + " " + user.lastName}</b>
                             <Badge colorScheme="purple" ml="1" size="xs">
                               New
                             </Badge>
@@ -419,7 +419,7 @@ const UsersTable = () => {
             <Button
               size="sm"
               mr={3}
-              colorScheme="pink"
+              colorScheme="red"
               onClick={() => {
                 declineUser(userId);
               }}

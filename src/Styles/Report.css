@@ -37,13 +37,13 @@
 .rtable {
   font-family: "Times New Roman", Times, serif;
   border-collapse: collapse;
-  border: 1px solid black;
+  border: 1px solid #a9a9a9;
   max-width: 730px;
 }
 
 .cell {
   font-family: "Times New Roman", Times, serif;
-  border: 1px solid black;
+  border: 1px solid #a9a9a9;
   border-bottom: 0;
   text-align: left;
   font-size: 13px;
@@ -56,11 +56,11 @@
   font-size: 13px;
   padding: 0px 0px 5px 2px;
   font-weight: 300;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .diagnosis {
   font-family: "Times New Roman", Times, serif;
-  border: 1px solid black;
+  border: 1px solid #a9a9a9;
   border-bottom: 0;
   text-align: left;
   font-size: 13px;
@@ -72,13 +72,13 @@
   font-size: 13px;
   font-weight: bolder;
   padding: 0px 0px 5px 5px;
-  border: 1px solid black;
+  border: 1px solid #a9a9a9;
   border-bottom: 0;
   margin-bottom: 30px;
 }
 .med-header {
   font-family: "Times New Roman", Times, serif;
-  border: 1px solid black;
+  border: 1px solid #a9a9a9;
   text-align: left;
   font-size: 13px;
   border-bottom: 0;
@@ -109,7 +109,7 @@
 .med {
   font-family: "Times New Roman", Times, serif;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #a9a9a9;
   border-bottom: 0;
   font-size: 12px;
   font-weight: bolder;
@@ -118,7 +118,7 @@
 .med-cell {
   font-family: "Times New Roman", Times, serif;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #a9a9a9;
   border-bottom: 0;
   font-size: 12px;
   padding: 0px 0px 10px 0px;
@@ -174,7 +174,7 @@
 }
 .hr-sign {
   font-family: "Times New Roman", Times, serif;
-  border-top: 1px solid black;
+  border-top: 1px solid #a9a9a9;
   width: 200px;
   font-size: 13px;
   margin-top: 10px;
@@ -182,14 +182,14 @@
 }
 .hr-followup {
   font-family: "Times New Roman", Times, serif;
-  border-top: 1px solid black;
+  border-top: 1px solid #a9a9a9;
   width: 200px;
   font-size: 13px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .hr-date {
   font-family: "Times New Roman", Times, serif;
-  border-top: 1px solid black;
+  border-top: 1px solid #a9a9a9;
   width: 250px;
   margin-left: 20px;
   font-size: 13px;
@@ -198,7 +198,7 @@
 }
 .hr-watcher {
   font-family: "Times New Roman", Times, serif;
-  border-top: 1px solid black;
+  border-top: 1px solid #a9a9a9;
   width: 250px;
   margin-top: 50px;
   margin-left: 230px;
@@ -206,12 +206,12 @@
   padding-bottom: 10px;
 }
 .border1 {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid #a9a9a9;
+  border-right: 1px solid #a9a9a9;
 }
 .border2 {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid #a9a9a9;
+  border-right: 1px solid #a9a9a9;
   text-align: center;
 }
 .border2 p {
@@ -221,9 +221,9 @@
   font-weight: 400;
 }
 .borders {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-left: 1px solid #a9a9a9;
+  border-right: 1px solid #a9a9a9;
+  border-bottom: 1px solid #a9a9a9;
   font-size: 13px;
   /* margin-top: 30px; */
 }

@@ -27,31 +27,52 @@ import {
   Box,
   GridItem,
   Grid,
+  VStack,
+  HStack,
+  Spacer
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
-import { BiCalendarEvent, BiSearch, BiStats, BiUser } from "react-icons/bi";
+import "../Styles/Table.css";
+import { BiCalendarEvent, BiSearch, BiStats, BiUser, BiUserCheck } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
+import { GoCheck, GoX } from "react-icons/go";
+import Swal from "sweetalert2";
 
 const PatientsList = () => {
   let navigate = useNavigate();
   const [patients, setPatients] = useState([]);
+  const [pendingPat, setPendingPat] = useState([]);
+  // const [patDet, setPatDet]=useState([]);
   const [search, setSearch] = useState("");
   const [details, setDetails] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen:isReferredOpen, onOpen:onReferredOpen, onClose:onReferredClose } = useDisclosure();
+  const { isOpen:isPendingOpen, onOpen:onPendingOpen, onClose:onPendingClose } = useDisclosure();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+  //get pending patient data
+  const [patientId, setPatientId]=useState("");
+  const [refFacility, setRefFacility]=useState("");
+  const [refDate, setRefDate]=useState("");
+  const [lastName, setLastName]=useState("");
+  const [firstName, setFirstName]=useState("");
+  const [middleName, setMiddleName]=useState("");
+  const [sex, setSex]=useState("");
+  const [admitDate, setAdmitDate]=useState("");
+  const [refType, setRefType]=useState("");
+  const [disposition, setDisposition]=useState("");
+  const [specialization, setSpecialization]=useState("");
+  const [latestTemp, setLatestTemp]=useState("");
+  const [latestBP, setLatestBP]=useState("");
+  const [latestRespi, setLatestRespi]=useState("");
+  const [latestPulse, setLatestPulse]=useState("");
+  const [latestOxygen, setLatestOxygen]=useState("");
+  const [latestGlasgow, setLatestGlasgow]=useState("");
 
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
-      .then(function (response) {
-        setPatients(response.data);
-      });
-  });
+  const [reasonPat, setReasonPat]=useState("");
+
 
   const getDetails = (id) => {
     axios
@@ -63,7 +84,120 @@ const PatientsList = () => {
       });
   };
 
+  const getPendingDetails=(pid)=>{
+    axios.get("http://localhost/zcmc_referral_api/api/get_pending_details.php/",{
+      params:{pid:pid},
+    })
+    .then(function(response){
+      setPatientId(response.data[0].patientId);
+      setRefFacility(response.data[0].refFacility);
+      setRefDate(response.data[0].tstamp);
+      setLastName(response.data[0].lastname);
+      setFirstName(response.data[0].firstname);
+      setMiddleName(response.data[0].middleName);
+      setSex(response.data[0].sex);
+      setAdmitDate(response.data[0].dateAdmitted);
+      setRefType(response.data[0].refType);
+      setDisposition(response.data[0].disposition);
+      setSpecialization(response.data[0].specialization);
+      setLatestTemp(response.data[0].latestTemp);
+      setLatestBP(response.data[0].latestBp);
+      setLatestRespi(response.data[0].latestRespi);
+      setLatestPulse(response.data[0].latestPulse);
+      setLatestOxygen(response.data[0].latestOxygen);
+      setLatestGlasgow(response.data[0].latestGlasgow);
+    })
+  };
+
+  const handleAcceptPatient=(patId)=>{
+    onPendingClose(true);
+    Swal.fire({
+      text: "Are you sure you want to accept this patient?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Verify",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post("http://localhost/zcmc_referral_api/api/accept_referred_patient.php", {
+            patId: patId,
+          })
+          .then((response) => {
+            if (response.data.status === 1) {
+              Swal.fire(
+                "User verified!",
+                "You successfully verified the user.",
+                "success"
+              );
+            } else {
+              Swal.fire("Error!", "Something went wrong.", "error");
+            }
+            console.log(response.data);
+          });
+      }
+    });
+  }
+  
+  const declineReferredPatient = (id) => {
+    onPendingClose(true);
+    Swal.fire({
+      text: "Please indicate reason for declining patient",
+      icon: "warning",
+      input: 'text',
+      // html:"<div class='b'><p>Please indicate reason for declining patient</p></div><input id='reason' class='swal2-input' required/>",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Decline",
+      preConfirm:(data) => {
+        if (!data) {
+          Swal.showValidationMessage(`Request failed`);
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post("http://localhost/zcmc_referral_api/api/decline_referred_patient.php", {
+            id: id, reason:result.value,
+          })
+          .then((response) => {
+            if (response.data.status === 1) {
+              Swal.fire(
+                "Declined!",
+                "You successfully declined the user.",
+                "success"
+              );
+            } else {
+              Swal.fire("Error!", "Something went wrong.", "error");
+            }
+            console.log(response.data);
+
+          });
+      }
+    });
+  };
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    axios
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
+      .then(function (response) {
+        setPatients(response.data);
+      });
+
+    axios
+    .get("http://localhost/zcmc_referral_api/api/get_pending_patients.php")
+    .then(function(response){
+      setPendingPat(response.data);
+    });
+  },[pendingPat])
+
   return (
+    <div>
+    <Grid templateColumns="repeat(9,1fr)" gap={4}>
+      <GridItem colSpan={6}>
     <div className="table-container">
       <h1 className="block">Referred Patients</h1>
       <div
@@ -159,7 +293,7 @@ const PatientsList = () => {
                               variant="outline"
                               colorScheme="blue"
                               onClick={() => {
-                                onOpen();
+                                onReferredOpen();
                                 getDetails(pat.PK_patientId);
                               }}
                               icon={<BsEye fontSize="15px" />}
@@ -174,9 +308,62 @@ const PatientsList = () => {
           </Table>
         </TableContainer>
       )}
+      </div>
+      </GridItem>
+
+      <GridItem colSpan={3}>
+        <div className="side-container" style={{ padding: "15px"}}>
+          <h1 style={{marginBottom: "15px" }}>
+            <b>Pending Patients</b>
+            </h1>
+
+            <VStack spacing={2}>
+              {pendingPat.length !== 0 ? (
+              pendingPat.map((p,k)=>{
+                  return(
+                    <>
+                <Box
+                width="100%"
+                borderWidth="1px"
+                borderRadius="xs"
+                padding={3}
+              >
+                <HStack>
+                  <p style={{ fontSize: "14px" }}>
+                    <b>{p.lastname+", "+p.firstname+", "+p.middleName}</b>
+                    <Badge colorScheme="purple" ml="1" size="xs">
+                      New
+                    </Badge>
+                    <br />
+                  </p>
+
+                  <Spacer></Spacer>
+                  <IconButton
+                    size="sm"
+                    variant="outline"
+                    colorScheme="teal"
+                    onClick={() => {
+                      onPendingOpen();
+                      getPendingDetails(p.patientId);
+                    }}
+                    icon={<BiUserCheck fontSize="17px" />}
+                  />
+                </HStack>
+              </Box>
+              </>
+                  );
+              })
+              ):(
+                <Text mt={3}>Nothing to show</Text>
+              )}
+            </VStack>
+
+        </div>
+      </GridItem>
+      </Grid>
 
       {/* MODAL VIEW DETAILS */}
-      <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+      <Modal isOpen={isReferredOpen} onClose={onReferredClose} size="2xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Patient Details</ModalHeader>
@@ -324,7 +511,233 @@ const PatientsList = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="blue" mr={3} onClick={onReferredClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* MODAL VIEW DETAILS - PENDING */}
+      <Modal isOpen={isPendingOpen} onClose={onPendingClose} size="2xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Patient Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+                  <Grid templateColumns="repeat(2, 1fr)" mt={3}>
+                    <GridItem>
+                      <small
+                        style={{
+                          display: "flex",
+                          marginBottom: 4,
+                        }}
+                      >
+                        <BiUser style={{ marginRight: "5px", marginTop: 2 }} />
+                        <Text textTransform="uppercase">Patient name</Text>
+                      </small>
+                      <Text fontWeight="600">{lastName+" "+firstName+" "+middleName}</Text>
+                    </GridItem>
+
+                    <GridItem>
+                      <small
+                        style={{
+                          display: "flex",
+                          marginBottom: 4,
+                        }}
+                      >
+                        <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                        <Text textTransform="uppercase">Sex</Text>
+                      </small>
+                        <Badge colorScheme="red">{sex}</Badge>
+                    </GridItem>
+                  </Grid>
+
+                  <Grid templateColumns="repeat(1, 1fr)" mt={10}>
+                    <GridItem>
+                      <small style={{ display: "flex", marginBottom: 6 }}>
+                        <TbBuildingHospital
+                          style={{ marginRight: "5px", marginTop: 2 }}
+                        />
+                        <Text textTransform="uppercase">Referred from</Text>
+                      </small>
+                      <Text fontSize="15px">{refFacility}</Text>
+                    </GridItem>
+                  </Grid>
+                      
+                    <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                    <GridItem>
+                      <small style={{ display: "flex", marginBottom: 6 }}>
+                        <BiCalendarEvent
+                          style={{ marginRight: "5px", marginTop: 2 }}
+                        />
+                        <Text textTransform="uppercase">Referred date</Text>
+                      </small>
+                      <Text fontSize="15px">
+                        {moment(refDate).format("lll")}
+                      </Text>
+                    </GridItem>
+                    <GridItem>
+                      <small style={{ display: "flex", marginBottom: 6 }}>
+                        <BiCalendarEvent
+                          style={{ marginRight: "5px", marginTop: 2 }}
+                        />
+                        <Text textTransform="uppercase">Date Admitted</Text>
+                      </small>
+                      <Text fontSize="15px">
+                        {moment(admitDate).format("lll")}
+                      </Text>
+                    </GridItem>
+                  </Grid>
+                      
+                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <TbCheckupList
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Referral Type</Text>
+                    </small>
+              
+                            <Text fontSize="13px">{refType}</Text>
+                     </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <TbCheckupList
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Disposition</Text>
+                    </small>
+                    <Text fontSize="13px">{disposition}</Text>
+                  </GridItem>
+                  </Grid>
+
+                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Latest V/S Temperature</Text>
+                    </small>
+                          <Text
+                            fontSize=" 14px"
+                            color="red.600"
+                            fontWeight="600"
+                          >
+                            {latestTemp}
+                          </Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Latest V/S Blood Pressure</Text>
+                    </small>
+                          <Text
+                            fontSize=" 14px"
+                            color="red.600"
+                            fontWeight="600"
+                          >
+                            {latestBP}
+                          </Text>
+                  </GridItem>
+                  </Grid>
+                  
+                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Latest V/S Respiration Rate</Text>
+                    </small>
+                          <Text
+                            fontSize=" 14px"
+                            color="red.600"
+                            fontWeight="600"
+                          >
+                            {latestRespi}
+                          </Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Latest V/S Pulse Rate</Text>
+                    </small>
+                          <Text
+                            fontSize=" 14px"
+                            color="red.600"
+                            fontWeight="600"
+                          >
+                            {latestPulse}
+                          </Text>
+                  </GridItem>
+                  </Grid>
+
+                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                    <GridItem>
+
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Latest V/S Oxygen Saturation</Text>
+                    </small>
+                          <Text
+                            fontSize=" 14px"
+                            color="red.600"
+                            fontWeight="600"
+                          >
+                            {latestOxygen}
+                          </Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Glasgow Coma Scale</Text>
+                    </small>
+
+                          <Text
+                            fontSize=" 14px"
+                            color="red.600"
+                            fontWeight="600"
+                          >
+                            {latestGlasgow}
+                          </Text>
+                  </GridItem>
+                  </Grid>
+          </ModalBody>
+
+          <ModalFooter>
+          <Button
+              size="sm"
+              mr={3}
+              colorScheme="green"
+              onClick={() => {
+                handleAcceptPatient(patientId);
+              }}
+              leftIcon={<GoCheck fontSize="20px" />}
+            >
+              Verify
+            </Button>
+            <Button
+              size="sm"
+              mr={3}
+              colorScheme="red"
+              onClick={() => {
+                declineReferredPatient(patientId);
+              }}
+              leftIcon={<GoX fontSize="20px" />}
+            >
+              Decline
+            </Button>
+            <Button colorScheme="blue" size="sm" mr={3} onClick={onPendingClose}>
               Close
             </Button>
           </ModalFooter>

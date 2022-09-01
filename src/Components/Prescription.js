@@ -14,6 +14,7 @@ function Prescription(){
     const [ward, setWard] = useState("");
     const [med, setMed] = useState([]);
     const [resident, setResident] = useState("");
+    // const [counter, setCounter]=useState(0);
   
     useEffect(() => {
       let refpatient = JSON.parse(localStorage.getItem("refpatient"));
@@ -27,6 +28,9 @@ function Prescription(){
   
     var zcmcLogo = require("../Assets/zcmc-logo.png");
     var dohLogo = require("../Assets/doh-logo.png");
+
+    let counter = 1;
+    let reportCounter=1;
 
     const exportPres = () => {
         let elementPres = (
@@ -48,7 +52,7 @@ function Prescription(){
               <p className="pdate">Date:</p>
               <p className="pdate-line">{moment().format("LL")}</p>
             </div>
-            <div style={{ marginTop: "20px" }}>
+            <div style={{ marginTop: "10px" }}>
               <p className="pfullname">Patient's Name :</p>
               <p className="pfullname-line">{refName}</p>
             </div>
@@ -64,7 +68,7 @@ function Prescription(){
             {!sex ? (
             <p className="pdetails-line">-</p>
             ):(
-              <p className="pdetails-line">{sex}</p>
+              <p className="pward-line">{sex}</p>
             )}
             <p className="pdetails" style={{ marginLeft: "20px" }}>
               Ward :
@@ -80,7 +84,7 @@ function Prescription(){
             </p>
             <p className="pdetails-line">-</p>
     
-            <div style={{ marginBottom: "5px" }}>
+            <div style={{marginBottom:"5px"}}>
               <p className="rx">Rx</p>
             </div>
 
@@ -88,8 +92,8 @@ function Prescription(){
             {med.map((pres, key) => {
               return (
                 <>
-                  <div style={{ marginBottom: "3px" }}>
-                    <p className="pdetails">Generic Name :</p>
+                  <div>
+                  <p className="pdetails">{reportCounter}.</p>
                     {!pres.medicine ? (
                     <p className="pgeneric-line">--</p>
                     ):(
@@ -108,8 +112,8 @@ function Prescription(){
                     ):(
                       <p className="psig-line">{pres.dosage}</p>
                     )}
-                    
                     </div>
+                    <p style={{display:"none"}}>{reportCounter++}</p>
                   </div>
                 </>
               );
@@ -122,7 +126,7 @@ function Prescription(){
               </div>
               <div>
                 <p className="signature-label">Printed Name</p>
-                <p className="sign-line">{resident}</p>
+                <p className="sign-line">{resident} MD</p>
               </div>
               <div>
                 <p className="signature-label">License No.</p>
@@ -148,12 +152,12 @@ function Prescription(){
           pres.setFontSize(7);
           pres.text(
             38,
-            204,
-            '"RA 9502 prohibits brand prescriibng in all government health agencies"'
+            201,
+            '"RA 9502 prohibits brand prescribing in all government health agencies"'
           );
           pres.text(
             30,
-            207,
+            205,
             "ZCMC-F-OCMPS-05" +
               "                        " +
               "Rev. 1" +
@@ -168,7 +172,7 @@ function Prescription(){
           height: 210,
           windowWidth: 580,
           windowHeight: 1160,
-          margin: [3, 5, 5, 5],
+          margin: [5, 5, 5, 5],
     
           callback: function (pres) {
             footer();
@@ -223,22 +227,22 @@ return(
           {!sex ? (
            <p className="pdetails-line">-</p>
           ):(
-            <p className="pdetails-line">{sex}</p>
+            <p className="pward-line">{sex}</p>
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Ward:
           </p>
           {!ward ? (
-          <p className="pward-line">{ward}</p>
+          <p className="pward-line">--</p>
           ):(
-            <p className="pward-line">--</p>
+            <p className="pward-line">{ward}</p>
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             OPD:
           </p>
           <p className="pdetails-line">-</p>
 
-          <div style={{ marginBottom: "5px" }}>
+          <div>
             <p className="rx">Rx</p>
           </div>
 
@@ -246,9 +250,9 @@ return(
           {med.map((pres, key) => {
             return (
               <>
-                <div style={{ marginBottom: "3px" }}>
-                  <p className="pdetails">Generic Name :</p>
-                  {!pres ? (
+                <div>
+                <p className="pdetails">{counter}.</p>
+                  {!pres.medicine ? (
                       <p className="pgeneric-line">--</p>
                     ):(
                       <p className="pgeneric-line">{pres.medicine}</p>
@@ -269,7 +273,7 @@ return(
                   <p className="psig-line">{pres.dosage}</p>
                   )}
                   </div>
-                  
+                    <p style={{display:"none"}}>{counter++}</p>
                 </div>
               </>
             );
@@ -282,7 +286,7 @@ return(
             </div>
             <div>
               <p className="signature-label">Printed Name</p>
-              <p className="sign-line">{resident}</p>
+              <p className="sign-line">{resident} MD</p>
             </div>
             <div>
               <p className="signature-label">License No.</p>
@@ -295,8 +299,7 @@ return(
           </div>
 
           <p className="ra">
-            "RA 9502 prohibits brand prescriibng in all government health
-            agencies"
+            "RA 9502 prohibits brand prescribing in all government health agencies"
           </p>
 
           <div className="pfooter">
