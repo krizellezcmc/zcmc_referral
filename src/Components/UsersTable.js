@@ -124,7 +124,7 @@ const UsersTable = () => {
       .then(function (response) {
         setUserVerify(response.data);
       });
-  },[userVerify]);
+  }, [userVerify]);
 
   const deleteUser = (id) => {
     Swal.fire({
