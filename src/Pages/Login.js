@@ -47,7 +47,7 @@ function Login() {
         if (response.data.status === 1) {
           // navigate("/");
           window.location.reload();
-          localStorage.setItem("logStat", true);
+          // localStorage.setItem("logStat", true);
           localStorage.setItem("user", JSON.stringify(response.data.user));
         } else if (response.data.status === 2) {
           toast({

@@ -11,6 +11,7 @@ import "../Styles/ReferralForm.css";
 import moment from "moment";
 import uniqid from "uniqid";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");
@@ -270,31 +271,54 @@ const ReferralForm = () => {
   };
 
   // POST TO SHEETS
-  const postSheets = () => {
-    axios
-      .get("http://mms-krizelle/zcmc_referral_api/api/get_pending_users.php")
-      .then((response) => {
-        const data = JSON.stringify(response.data);
 
-        fetch(
-          "https://script.google.com/macros/s/AKfycbyb0W56u9pJPRkCwP9__1kKWLVoMOQaMWUoP4o5d5rFc17JEUKFbvPJ1sxK2CIye-BBCg/exec?action=postData",
-          {
-            method: "POST",
-            body: data,
-          }
-        ).then(async (response) => {
-          if (response) {
-            toast({
-              position: "top",
-              title: "Record successfully.",
-              description: "Patient succesfully added.",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            });
-          }
-        });
-      });
+  const postSheets = () => {
+    // axios
+    //   .get("http://mms-krizelle/zcmc_referral_api/api/get_pending_ref.php", {
+    //     params: { id: id },
+    //   })
+    //   .then((response) => {
+    //     let data = JSON.stringify(response.data);
+
+    //     fetch(
+    //       "https://script.google.com/macros/s/AKfycbyb0W56u9pJPRkCwP9__1kKWLVoMOQaMWUoP4o5d5rFc17JEUKFbvPJ1sxK2CIye-BBCg/exec?action=postData",
+    //       {
+    //         method: "POST",
+    //         body: data,
+    //       }
+    //     ).then(async (response) => {
+    //       if (response) {
+    //         toast({
+    //           position: "top",
+    //           title: "Record successfully.",
+    //           description: "Patient succesfully added.",
+    //           status: "success",
+    //           duration: 3000,
+    //           isClosable: true,
+    //         });
+    //       }
+    //     });
+    //   });
+
+    Swal.fire({
+      title: "Submit your Github username",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Look up",
+      showLoaderOnConfirm: true,
+      preConfirm: (data) => {
+        if (!data) {
+          Swal.showValidationMessage(`Request failed`);
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(result.value);
+      }
+    });
   };
 
   useEffect(() => {

@@ -3,22 +3,15 @@ import { Select } from "chakra-react-select";
 import axios from "axios";
 import moment from "moment";
 import { Box, Badge, Text, Grid, GridItem, Flex } from "@chakra-ui/react";
-import {
-  BiCalendarEvent,
-  BiIdCard,
-  BiSearch,
-  BiStats,
-  BiUser,
-} from "react-icons/bi";
+import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
-import { TbBuildingHospital } from "react-icons/tb";
 
 function SearchPatient(props) {
   const [patient, setPatient] = useState([]);
   const [selected, setSelected] = useState("/");
-
   const [bizbox, setBizbox] = useState([]);
   const [hospital, setHospital] = useState("");
+  const [covid, setCovid] = useState("");
 
   patient.forEach((element, key) => {
     patient[key]["label"] =
@@ -65,13 +58,21 @@ function SearchPatient(props) {
       });
 
     axios
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_covid.php", {
+        params: { id: id },
+      })
+      .then((response) => {
+        setCovid(response.data.result);
+      });
+
+    axios
       .get("http://192.168.3.135/zcmc_referral_api/api/get_patient_data.php", {
         params: { patientName: name, referredDate: refDate },
       })
       .then((response) => {
         setBizbox(response.data);
       });
-  }, [patient, hospital, bizbox, name, refDate]);
+  }, [patient, hospital, bizbox, name, refDate, id]);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -230,7 +231,7 @@ function SearchPatient(props) {
                           <h1>Admitting Details</h1>
 
                           <div className="inline-block-2">
-                            <div className="input-container-3">
+                            <div className="input-container-4">
                               <label>
                                 Date Admitted <span>*</span>
                               </label>
@@ -241,7 +242,7 @@ function SearchPatient(props) {
                               />
                             </div>
 
-                            <div className="input-container-3">
+                            <div className="input-container-4">
                               <label>
                                 Referral Type <span>*</span>
                               </label>
@@ -256,7 +257,7 @@ function SearchPatient(props) {
                               </select>
                             </div>
 
-                            <div className="input-container-3">
+                            <div className="input-container-4">
                               <label>
                                 Disposition <span>*</span>
                               </label>
@@ -266,7 +267,121 @@ function SearchPatient(props) {
                                 </option>
                               </select>
                             </div>
+
+                            <div className="input-container-4">
+                              <label>
+                                Specialization <span>*</span>
+                              </label>
+                              <select value={i.Specialization}>
+                                <option disabled selected>
+                                  {i.Specialization}
+                                </option>
+                              </select>
+                            </div>
                           </div>
+
+                          {i.Specialization === "Obstetrics And Gynecology" ? (
+                            <>
+                              <Text
+                                mb={3}
+                                fontSize="16px"
+                                textTransform="uppercase"
+                              >
+                                For OB Cases:
+                              </Text>
+                              <div className="inline-block-2">
+                                <div className="input-container-3">
+                                  <label>
+                                    Gravidity and Parity <span>*</span>
+                                  </label>
+
+                                  <input
+                                    disabled
+                                    type="text"
+                                    value={i.GravidityParity}
+                                  />
+                                </div>
+
+                                <div className="input-container-3">
+                                  <label>
+                                    Last Menstrual Period <span>*</span>
+                                  </label>
+                                  <input disabled value={i.LMP} required />
+                                </div>
+
+                                <div className="input-container-3">
+                                  <label>
+                                    AOG <span>*</span>
+                                  </label>
+                                  <input
+                                    disabled
+                                    type="text"
+                                    value={i.AOG}
+                                    required
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="inline-block-2">
+                                <div className="input-container-4">
+                                  <label>
+                                    EDC <span>*</span>
+                                  </label>
+                                  <input disabled value={i.EDC} required />
+                                </div>
+                                <div className="input-container-4">
+                                  <label>
+                                    Fetal Heart Tones <span>*</span>
+                                  </label>
+                                  <input
+                                    disabled
+                                    type="text"
+                                    value={i.FHT}
+                                    required
+                                  />
+                                </div>
+
+                                <div className="input-container-4">
+                                  <label>
+                                    Fundal Height <span>*</span>
+                                  </label>
+                                  <input
+                                    disabled
+                                    type="text"
+                                    value={i.FH}
+                                    required
+                                  />
+                                </div>
+
+                                <div className="input-container-4">
+                                  <label>
+                                    Baby APGAR <span>*</span>
+                                  </label>
+                                  <input
+                                    disabled
+                                    type="text"
+                                    value={i.APGAR}
+                                    required
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="inline-block-2">
+                                <div className="input-container-2">
+                                  <label>Internal Examination</label>
+
+                                  <input disabled value={i.IE} />
+                                </div>
+                                <div className="input-container-2">
+                                  <label>Bow</label>
+
+                                  <input disabled value={i.Bow} />
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            ""
+                          )}
 
                           <div className="inline-block-2">
                             <div className="input-container-5">
@@ -434,11 +549,26 @@ function SearchPatient(props) {
                             </Text>
                           </Text>
 
+                          {/* COVID */}
+
+                          <Text textTransform="uppercase">
+                            COVID:{" "}
+                            {covid === 1 ? (
+                              <Badge colorScheme="red">POSITIVE +</Badge>
+                            ) : covid === 0 ? (
+                              <Badge colorScheme="blue">negative -</Badge>
+                            ) : (
+                              <Badge colorScheme="gray">No result</Badge>
+                            )}
+                          </Text>
+                          <br />
+
                           <Text
                             style={{
                               display: "flex",
                               marginBottom: 4,
                             }}
+                            mt={1}
                           >
                             <BiStats
                               style={{ marginRight: "5px", marginTop: 2 }}
