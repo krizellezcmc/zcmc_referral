@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Text, useToast, Button } from "@chakra-ui/react";
+import {
+  Text,
+  useToast,
+  Button,
+  Checkbox,
+  HStack,
+  Link,
+} from "@chakra-ui/react";
 import "../Styles/ReferralForm.css";
 import moment from "moment";
 import uniqid from "uniqid";
+import axios from "axios";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");
+  const [data, setData] = useState();
   const [timeStamp, setTimeStamp] = useState(newDate);
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
@@ -100,8 +109,10 @@ const ReferralForm = () => {
     setIe(temp);
   };
 
-  const url =
-    "https://script.google.com/macros/s/AKfycbyDuFLupqdcyp7z3lbGbfwNX79SZlbm9d84n2uPDijo6cXuO_fw_7PwYSL1tOkxhL-I5g/exec?action=postData";
+  // const url =
+  //   "https://script.google.com/macros/s/AKfycbyDuFLupqdcyp7z3lbGbfwNX79SZlbm9d84n2uPDijo6cXuO_fw_7PwYSL1tOkxhL-I5g/exec?action=postData";
+
+  const url = "http://192.168.3.135/zcmc_referral_api/api/temp_referral.php";
 
   const postData = async () => {
     const data = JSON.stringify(bowList);
@@ -158,104 +169,132 @@ const ReferralForm = () => {
         isClosable: true,
       });
     } else {
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          timeStamp,
-          patientId,
-          username,
-          referringFacility,
-          lastname,
-          firstname,
-          middlename,
-          extendedName,
-          sex,
-          birthdate,
-          age,
-          civilStatus,
-          nationality,
-          religion,
-          occupation,
-          philhealth,
-          address,
-          nextOfKin,
-          contact,
-          dateAdmitted,
-          referralType,
-          disposition,
-          specialization,
-          temperature,
-          bloodPressure,
-          respiRate,
-          pulseRate,
-          oxygen,
-          glasgow,
-          chiefComplaints,
-          diagnosis,
-          endorsement,
-          userContact,
-          reason,
-          newGp,
-          lmp,
-          aog,
-          edc,
-          fht,
-          fh,
-          apgar,
-          newIe,
-          newBowList,
-        }),
-      }).then(async (response) => {
-        if (response) {
-          setLastName("");
-          setFirstName("");
-          setMiddleName("");
-          setExtendedName("");
-          setSex("");
-          setBirthdate("");
-          setAge("");
-          setCivilStatus("");
-          setNationality("");
-          setReligion("");
-          setOccupation("");
-          setPhilhealth("");
-          setAddress("");
-          setNextOfKin("");
-          setContact("");
-          setDateAdmitted("");
-          setReferralType("");
-          setDisposition("");
-          setSpecialization("");
-          setTemperature("");
-          setBloodPressure("");
-          setRespiRate("");
-          setPulseRate("");
-          setOxygen("");
-          setGlasgow("");
-          setChiefComplaints("");
-          setDiagnosis("");
-          setEndorsement("");
-          setUserContact("");
-          setReason("");
-          setSpecialization("");
-          // setGp("");
-          // setAog("");
-          // setEdc("");
-          // setFht("");
-          // setFh("");
-          // setNewIe("");
-          // setNewBowList("");
-          toast({
-            position: "top",
-            title: "Record successfully.",
-            description: "Patient succesfully added.",
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-          });
-        }
-      });
+      axios
+        .post(url, {
+          timeStamp: timeStamp,
+          patientId: patientId,
+          username: username,
+          referringFacility: referringFacility,
+          lastname: lastname,
+          firstname: firstname,
+          middlename: middlename,
+          extendedName: extendedName,
+          sex: sex,
+          birthdate: birthdate,
+          age: age,
+          civilStatus: civilStatus,
+          nationality: nationality,
+          religion: religion,
+          occupation: occupation,
+          philhealth: philhealth,
+          address: address,
+          nextOfKin: nextOfKin,
+          contact: contact,
+          dateAdmitted: dateAdmitted,
+          referralType: referralType,
+          disposition: disposition,
+          specialization: specialization,
+          temperature: temperature,
+          bloodPressure: bloodPressure,
+          respiRate: respiRate,
+          pulseRate: pulseRate,
+          oxygen: oxygen,
+          glasgow: glasgow,
+          chiefComplaints: chiefComplaints,
+          diagnosis: diagnosis,
+          endorsement: endorsement,
+          userContact: userContact,
+          reason: reason,
+          newGp: newGp,
+          lmp: lmp,
+          aog: aog,
+          edc: edc,
+          fht: fht,
+          fh: fh,
+          apgar: apgar,
+          newIe: newIe,
+          newBowList: newBowList,
+        })
+        .then(async (response) => {
+          if (response) {
+            console.log(response.data);
+            // setLastName("");
+            // setFirstName("");
+            // setMiddleName("");
+            // setExtendedName("");
+            // setSex("");
+            // setBirthdate("");
+            // setAge("");
+            // setCivilStatus("");
+            // setNationality("");
+            // setReligion("");
+            // setOccupation("");
+            // setPhilhealth("");
+            // setAddress("");
+            // setNextOfKin("");
+            // setContact("");
+            // setDateAdmitted("");
+            // setReferralType("");
+            // setDisposition("");
+            // setSpecialization("");
+            // setTemperature("");
+            // setBloodPressure("");
+            // setRespiRate("");
+            // setPulseRate("");
+            // setOxygen("");
+            // setGlasgow("");
+            // setChiefComplaints("");
+            // setDiagnosis("");
+            // setEndorsement("");
+            // setUserContact("");
+            // setReason("");
+            // setSpecialization("");
+            // setGp("");
+            // setAog("");
+            // setEdc("");
+            // setFht("");
+            // setFh("");
+            // setNewIe("");
+            // setNewBowList("");
+            // toast({
+            //   position: "top",
+            //   title: "Record successfully.",
+            //   description: "Patient succesfully added.",
+            //   status: "success",
+            //   duration: 3000,
+            //   isClosable: true,
+            // });
+          }
+        });
     }
+  };
+
+  // POST TO SHEETS
+  const postSheets = () => {
+    axios
+      .get("http://mms-krizelle/zcmc_referral_api/api/get_pending_users.php")
+      .then((response) => {
+        const data = JSON.stringify(response.data);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbyb0W56u9pJPRkCwP9__1kKWLVoMOQaMWUoP4o5d5rFc17JEUKFbvPJ1sxK2CIye-BBCg/exec?action=postData",
+          {
+            method: "POST",
+            body: data,
+          }
+        ).then(async (response) => {
+          if (response) {
+            toast({
+              position: "top",
+              title: "Record successfully.",
+              description: "Patient succesfully added.",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+            });
+          }
+        });
+      });
   };
 
   useEffect(() => {
@@ -268,6 +307,7 @@ const ReferralForm = () => {
     <form>
       <div className="referral-form">
         <div className="block">
+          <Button onClick={postSheets}>Post to sheets</Button>
           <h1>Patient Information</h1>
 
           <div className="inline-block">
@@ -810,6 +850,12 @@ const ReferralForm = () => {
                 </select>
               </div>
             </div>
+            <HStack mt={5}>
+              <Checkbox></Checkbox>
+              <Link fontSize="14px" onClick={() => alert("hey")}>
+                Patient Consent
+              </Link>
+            </HStack>
             {/* CLOSE */}
           </div>
 
