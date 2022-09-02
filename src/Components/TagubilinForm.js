@@ -645,12 +645,17 @@ function TagubilinForm(props) {
                       );
                     })}
                   </Grid>
+
                   <Text mt={5} fontStyle="italic" fontSize="13.5px">
                     Please call the following Hotline Numbers: 09664965480 for
                     Globe and 09533296357 for TM during office hours Monday to
                     Saturday, 8am to 5pm or email us at <br />
                     records@zcmc.doh.gov.ph and we will happy to serve you.
                   </Text>
+                </Td>
+              </Tr>
+              <Tr>
+                <Td className="border" colSpan="5">
                   <Text mt={3} fontWeight="600">
                     Specialization
                   </Text>

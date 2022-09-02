@@ -4,7 +4,7 @@ import ReactDOMServer from "react-dom/server";
 import "../Styles/Report.css";
 import "../Styles/DisplayReport.css";
 import "../Styles/Prescription.css";
-import { Button } from "@chakra-ui/react";
+import { Button, Spacer } from "@chakra-ui/react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import Prescription from "./Prescription";
@@ -332,6 +332,114 @@ function TagubilinReport() {
                 <p id="email"> records@zcmc.doh.gov.ph</p> and we will happy to
                 serve you.
               </p>
+            </td>
+          </tr>
+          <tr>
+            <td className="diagnosis" colSpan="5">
+              <b className="rb">Specialization</b>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan="5">
+              <table className="rtable">
+                <tr>
+                  <td>
+                    <th
+                      style={{
+                        width: "120px",
+                        fontFamily: "'Times New Roman', Times, serif",
+                        border: "1px solid black",
+                        borderTop: 0,
+                        textAlign: "center",
+                        fontSize: "13px",
+                        padding: "0px 0px 5px 5px",
+                        fontWeight: "bolder",
+                      }}
+                    >
+                      Date
+                    </th>
+                    <th
+                      style={{
+                        width: "150px",
+                        fontFamily: "'Times New Roman', Times, serif",
+                        border: "1px solid black",
+                        borderTop: 0,
+                        textAlign: "left",
+                        fontSize: "13px",
+                        padding: "0px 0px 5px 5px",
+                        fontWeight: "bolder",
+                      }}
+                    >
+                      From
+                      <p
+                        style={{
+                          marginLeft: "40px",
+                          display: "inline",
+                          fontFamily: "'Times New Roman', Times, serif",
+                        }}
+                      >
+                        To
+                      </p>
+                    </th>
+                    <th
+                      style={{
+                        width: "60px",
+                        fontFamily: "'Times New Roman', Times, serif",
+                        border: "1px solid black",
+                        borderTop: 0,
+                        textAlign: "center",
+                        fontSize: "13px",
+                        padding: "0px 0px 5px 5px",
+                        fontWeight: "bolder",
+                      }}
+                    >
+                      Yes
+                    </th>
+                    <th
+                      style={{
+                        width: "160px",
+                        fontFamily: "'Times New Roman', Times, serif",
+                        border: "1px solid black",
+                        borderTop: 0,
+                        textAlign: "center",
+                        fontSize: "13px",
+                        padding: "0px 0px 5px 5px",
+                        fontWeight: "bolder",
+                      }}
+                    >
+                      If no, reason
+                    </th>
+                    <th
+                      style={{
+                        width: "110px",
+                        fontFamily: "'Times New Roman', Times, serif",
+                        border: "1px solid black",
+                        borderTop: 0,
+                        textAlign: "center",
+                        fontSize: "13px",
+                        padding: "0px 0px 5px 5px",
+                        fontWeight: "bolder",
+                      }}
+                    >
+                      Management
+                    </th>
+                    <th
+                      style={{
+                        width: "160px",
+                        fontFamily: "'Times New Roman', Times, serif",
+                        border: "1px solid black",
+                        borderTop: 0,
+                        textAlign: "center",
+                        fontSize: "13px",
+                        padding: "0px 0px 5px 5px",
+                        fontWeight: "bolder",
+                      }}
+                    >
+                      Attended
+                    </th>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           <tr className="border1">
@@ -662,6 +770,115 @@ function TagubilinReport() {
                 </p>
               </td>
             </tr>
+            <tr>
+              <td className="ddiagnosis" colSpan="5">
+                <b className="db">Specialization</b>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="5">
+                <table>
+                  <tr>
+                    <td>
+                      <th
+                        style={{
+                          width: "120px",
+                          fontFamily: "'Times New Roman', Times, serif",
+                          border: "1px solid black",
+                          borderTop: 0,
+                          textAlign: "center",
+                          fontSize: "13px",
+                          padding: "0px 0px 5px 5px",
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Date
+                      </th>
+                      <th
+                        style={{
+                          width: "150px",
+                          fontFamily: "'Times New Roman', Times, serif",
+                          border: "1px solid black",
+                          borderTop: 0,
+                          textAlign: "left",
+                          fontSize: "13px",
+                          padding: "0px 0px 5px 5px",
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        From
+                        <p
+                          style={{
+                            marginLeft: "40px",
+                            display: "inline",
+                            fontFamily: "'Times New Roman', Times, serif",
+                          }}
+                        >
+                          To
+                        </p>
+                      </th>
+                      <th
+                        style={{
+                          width: "60px",
+                          fontFamily: "'Times New Roman', Times, serif",
+                          border: "1px solid black",
+                          borderTop: 0,
+                          textAlign: "center",
+                          fontSize: "13px",
+                          padding: "0px 0px 5px 5px",
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Yes
+                      </th>
+                      <th
+                        style={{
+                          width: "160px",
+                          fontFamily: "'Times New Roman', Times, serif",
+                          border: "1px solid black",
+                          borderTop: 0,
+                          textAlign: "center",
+                          fontSize: "13px",
+                          padding: "0px 0px 5px 5px",
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        If no, reason
+                      </th>
+                      <th
+                        style={{
+                          width: "110px",
+                          fontFamily: "'Times New Roman', Times, serif",
+                          border: "1px solid black",
+                          borderTop: 0,
+                          textAlign: "center",
+                          fontSize: "13px",
+                          padding: "0px 0px 5px 5px",
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Management
+                      </th>
+                      <th
+                        style={{
+                          width: "160px",
+                          fontFamily: "'Times New Roman', Times, serif",
+                          border: "1px solid black",
+                          borderTop: 0,
+                          textAlign: "center",
+                          fontSize: "13px",
+                          padding: "0px 0px 5px 5px",
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Attended
+                      </th>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
             <tr className="dborder1">
               <td colSpan="5">
                 <b className="db">
