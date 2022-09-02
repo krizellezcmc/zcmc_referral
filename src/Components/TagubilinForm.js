@@ -199,6 +199,7 @@ function TagubilinForm(props) {
         othersDiet: othersDiet,
         instructions: instructions,
         breastfeed: breastfeed,
+        ob:ob,
       })
     );
     window.location.href = "/tagubilinreport";
@@ -657,7 +658,7 @@ function TagubilinForm(props) {
               <Tr>
                 <Td className="border" colSpan="5">
                   <Text mt={3} fontWeight="600">
-                    Specialization
+                    Service Type
                   </Text>
                   <div style={{ width: "400px" }}>
                     <Select
@@ -1075,6 +1076,12 @@ function TagubilinForm(props) {
               </Tr>
             </Tbody>
           </Table>
+          {/* <Table>
+            <Tr>
+              Hello
+            </Tr>
+
+          </Table> */}
           <Box style={{ float: "right", margin: "30px 0px" }}>
             <Button
               colorScheme="blue"
