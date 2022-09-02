@@ -9,6 +9,7 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import Prescription from "./Prescription";
 import { FaArrowLeft } from "react-icons/fa";
+import { borderTop, fontWeight, padding } from "@mui/system";
 
 function TagubilinReport() {
   const [refName, setRefName] = useState("");
@@ -34,6 +35,8 @@ function TagubilinReport() {
   const [resident, setResident] = useState("");
   const [dietList, setDietList] = useState([]);
   const [instructions, setInstructions] = useState([]);
+  const [breastfeed, setBreastfeed]=useState([]);
+  const [ob, setOb] = useState("");
 
   let navigate = useNavigate();
 
@@ -62,6 +65,8 @@ function TagubilinReport() {
     setResident(refpatient.resident);
     setDietList(refpatient.diet);
     setInstructions(refpatient.instructions);
+    setOb(refpatient.ob);
+    setBreastfeed(refpatient.breastfeed);
   }, []);
 
   var zcmcLogo = require("../Assets/zcmc-logo.png");
@@ -334,114 +339,323 @@ function TagubilinReport() {
               </p>
             </td>
           </tr>
-          <tr>
-            <td className="diagnosis" colSpan="5">
-              <b className="rb">Specialization</b>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="5">
-              <table className="rtable">
-                <tr>
-                  <td>
-                    <th
-                      style={{
-                        width: "120px",
-                        fontFamily: "'Times New Roman', Times, serif",
-                        border: "1px solid black",
-                        borderTop: 0,
-                        textAlign: "center",
-                        fontSize: "13px",
-                        padding: "0px 0px 5px 5px",
-                        fontWeight: "bolder",
-                      }}
-                    >
-                      Date
-                    </th>
-                    <th
-                      style={{
-                        width: "150px",
-                        fontFamily: "'Times New Roman', Times, serif",
-                        border: "1px solid black",
-                        borderTop: 0,
-                        textAlign: "left",
-                        fontSize: "13px",
-                        padding: "0px 0px 5px 5px",
-                        fontWeight: "bolder",
-                      }}
-                    >
-                      From
-                      <p
-                        style={{
-                          marginLeft: "40px",
-                          display: "inline",
-                          fontFamily: "'Times New Roman', Times, serif",
-                        }}
-                      >
-                        To
-                      </p>
-                    </th>
-                    <th
-                      style={{
-                        width: "60px",
-                        fontFamily: "'Times New Roman', Times, serif",
-                        border: "1px solid black",
-                        borderTop: 0,
-                        textAlign: "center",
-                        fontSize: "13px",
-                        padding: "0px 0px 5px 5px",
-                        fontWeight: "bolder",
-                      }}
-                    >
-                      Yes
-                    </th>
-                    <th
-                      style={{
-                        width: "160px",
-                        fontFamily: "'Times New Roman', Times, serif",
-                        border: "1px solid black",
-                        borderTop: 0,
-                        textAlign: "center",
-                        fontSize: "13px",
-                        padding: "0px 0px 5px 5px",
-                        fontWeight: "bolder",
-                      }}
-                    >
-                      If no, reason
-                    </th>
-                    <th
-                      style={{
-                        width: "110px",
-                        fontFamily: "'Times New Roman', Times, serif",
-                        border: "1px solid black",
-                        borderTop: 0,
-                        textAlign: "center",
-                        fontSize: "13px",
-                        padding: "0px 0px 5px 5px",
-                        fontWeight: "bolder",
-                      }}
-                    >
-                      Management
-                    </th>
-                    <th
-                      style={{
-                        width: "160px",
-                        fontFamily: "'Times New Roman', Times, serif",
-                        border: "1px solid black",
-                        borderTop: 0,
-                        textAlign: "center",
-                        fontSize: "13px",
-                        padding: "0px 0px 5px 5px",
-                        fontWeight: "bolder",
-                      }}
-                    >
-                      Attended
-                    </th>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+          {!ob ? (""):(
+            <>
+             <tr>
+             <td colSpan="5" style={{
+                   border: "1px solid #a9a9a9",
+                   borderTop: 0,
+                   borderBottom:0,
+                   padding: "0px 0px 5px 5px",
+                 }}>
+                   <p style={{
+                     textAlign:"center",
+                     fontFamily: "'Times New Roman', Times, serif",
+                     fontSize:"14px",
+                     fontWeight:"bolder"
+                   }}>REFERRAL UNIT BREASTFEED</p>
+             </td>
+           </tr>
+           <tr>
+               <td colSpan="5">
+                 <table>
+                   <tr>
+                       <td
+                         style={{
+                           width: "120px",
+                           fontFamily: "'Times New Roman', Times, serif",
+                           border: "1px solid #a9a9a9",
+                           textAlign: "center",
+                           fontSize: "13px",
+                           padding: "0px 0px 5px 5px",
+                           fontWeight: "bolder",
+                         }}
+                       >
+                         Date
+                       </td>
+                       <td
+                         style={{
+                           width: "150px",
+                           fontFamily: "'Times New Roman', Times, serif",
+                           border: "1px solid #a9a9a9",
+                           textAlign: "left",
+                           fontSize: "13px",
+                           padding: "0px 0px 5px 5px",
+                           fontWeight: "bolder",
+                         }}
+                       >
+                         From
+                         <p
+                           style={{
+                             marginLeft: "40px",
+                             display: "inline",
+                             fontFamily: "'Times New Roman', Times, serif",
+                           }}
+                         >
+                           To
+                         </p>
+                       </td>
+                       <td
+                         style={{
+                           width: "60px",
+                           fontFamily: "'Times New Roman', Times, serif",
+                           border: "1px solid #a9a9a9",
+                           textAlign: "center",
+                           fontSize: "13px",
+                           padding: "0px 0px 5px 5px",
+                           fontWeight: "bolder",
+                         }}
+                       >
+                         Yes
+                       </td>
+                       <td
+                         style={{
+                           width: "160px",
+                           fontFamily: "'Times New Roman', Times, serif",
+                           border: "1px solid #a9a9a9",
+                           textAlign: "center",
+                           fontSize: "13px",
+                           padding: "0px 0px 5px 5px",
+                           fontWeight: "bolder",
+                         }}
+                       >
+                         If no, reason
+                       </td>
+                       <td
+                         style={{
+                           width: "110px",
+                           fontFamily: "'Times New Roman', Times, serif",
+                           border: "1px solid #a9a9a9",
+                           textAlign: "center",
+                           fontSize: "13px",
+                           padding: "0px 0px 5px 5px",
+                           fontWeight: "bolder",
+                         }}
+                       >
+                         Management
+                       </td>
+                       <td
+                         style={{
+                           width: "160px",
+                           fontFamily: "'Times New Roman', Times, serif",
+                           border: "1px solid #a9a9a9",
+                           textAlign: "center",
+                           fontSize: "13px",
+                           padding: "0px 0px 5px 5px",
+                           fontWeight: "bolder",
+                         }}
+                       >
+                         Attended
+                       </td>
+                   </tr>
+                   {breastfeed.map((b,i)=>{
+                    return (
+                      <>
+                      <tr>
+                    
+                        <td
+                          style={{
+                            width: "120px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid #a9a9a9",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+
+                          }}
+                        >
+                          {b.date}
+                        </td>
+                        <td
+                          style={{
+                            width: "150px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid #a9a9a9",
+                            borderTop: 0,
+                            textAlign: "left",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+    
+                          }}
+                        >
+                          {b.fromTo}
+                        
+                        </td>
+                        <td
+                          style={{
+                            width: "60px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid #a9a9a9",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                          {b.yes}
+                        </td>
+                        <td
+                          style={{
+                            width: "160px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid #a9a9a9",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                          {b.reason}
+                        </td>
+                        <td
+                          style={{
+                            width: "110px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid #a9a9a9",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                          {b.management}
+                        </td>
+                        <td
+                          style={{
+                            width: "160px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid #a9a9a9",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                        {b.attended}
+                        </td>
+                    </tr>
+                      </>
+                    )}
+                    )}
+                   <tr>
+                     <td style={{
+                         border:"1px solid #a9a9a9",
+                         borderTop:"0",
+                         borderBottom:"0",
+                         padding: "0px 0px 5px 5px"
+                         }}
+                         colSpan="6">
+                       <p style={{
+                         textAlign:"center",
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontWeight:"bolder",
+                         fontSize:"14px",
+                         }}>
+                           REMINDER
+                       </p>
+                       <div style=
+                       {{
+                         float:"left", 
+                         display:"block",
+                         width:"50%"
+                         }}>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         1. Breastfeed your baby 
+                         </p>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         2. Allow your baby to suck freely at breast without any fixed time table
+                         </p>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         3. Do not give prelacteal feeds such as sterile water, glucose water, honey, ampalaya juice, etc.
+                         </p>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         4. No feeding bottles, milk substitutes artificial, teats and pacifiers.
+                         </p>
+                       </div>
+                       <div style=
+                       {{
+                         float:"right", 
+                         display:"block",
+                         width:"50%"
+                         }}>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         6. There is no to stop breastfeeding if the baby wants to continue even after 3 years.
+                         </p>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         7. Start solid foods when your baby is 4-6 months old.
+                         </p>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         8. Eat a good and well balance diet
+                         </p>
+                         <p style=
+                       {{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                         }}>
+                         9. Visit any halth centers for advice.
+                         </p>
+                       </div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style={{
+                         border:"1px solid #a9a9a9",
+                         borderTop:"0",
+                         padding: "5px 0px 5px 5px"
+                         }}
+                         colSpan="6">
+                     <p style={{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px"
+                       }}>For assistance, kindly approach ZCMC Public Affairs & Customer Care Unit (PACCU)or call</p>
+                       <p style={{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px",
+                         fontWeight:"bolder"
+                       }}>GLOBE: 097585750/ 09262435850/ 09359284701</p>
+                       <p style={{
+                         fontFamily: "'Times New Roman', Times, serif",
+                         fontSize:"12px",
+                         fontWeight:"bolder"
+                       }}>SMART: 09474951217/ 09474963439</p>
+                       
+                       </td>
+                       </tr>
+                 </table>
+               </td>
+             </tr>
+             </>
+          )}
+         
           <tr className="border1">
             <td colSpan="5">
               <b className="rb">
@@ -527,7 +741,7 @@ function TagubilinReport() {
 
       callback: function (doc) {
         footer();
-        window.open(doc.output("bloburl"));
+        doc.save(refName);
       },
     });
   };
@@ -770,114 +984,328 @@ function TagubilinReport() {
                 </p>
               </td>
             </tr>
-            <tr>
-              <td className="ddiagnosis" colSpan="5">
-                <b className="db">Specialization</b>
-              </td>
-            </tr>
-            <tr>
-              <td colSpan="5">
-                <table>
-                  <tr>
-                    <td>
-                      <th
-                        style={{
-                          width: "120px",
-                          fontFamily: "'Times New Roman', Times, serif",
-                          border: "1px solid black",
-                          borderTop: 0,
-                          textAlign: "center",
-                          fontSize: "13px",
-                          padding: "0px 0px 5px 5px",
-                          fontWeight: "bolder",
-                        }}
-                      >
-                        Date
-                      </th>
-                      <th
-                        style={{
-                          width: "150px",
-                          fontFamily: "'Times New Roman', Times, serif",
-                          border: "1px solid black",
-                          borderTop: 0,
-                          textAlign: "left",
-                          fontSize: "13px",
-                          padding: "0px 0px 5px 5px",
-                          fontWeight: "bolder",
-                        }}
-                      >
-                        From
-                        <p
+            
+            {/* //OB THINGS */}
+            {!ob ? (""):(
+              <>
+                <tr>
+                <td colSpan="5" style={{
+                  border: "1px solid black",
+                  borderTop: 0,
+                }}>
+                  <p style={{
+                    textAlign:"center",
+                    fontFamily: "'Times New Roman', Times, serif",
+                    fontSize:"14px",
+                    fontWeight:"bolder"
+                  }}>REFERRAL UNIT BREASTFEED</p>
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="5">
+                  <table>
+                    <tr>
+                        <td
                           style={{
-                            marginLeft: "40px",
-                            display: "inline",
+                            width: "120px",
                             fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                            fontWeight: "bolder",
                           }}
                         >
-                          To
+                          Date
+                        </td>
+                        <td
+                          style={{
+                            width: "150px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "left",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          From
+                          <p
+                            style={{
+                              marginLeft: "40px",
+                              display: "inline",
+                              fontFamily: "'Times New Roman', Times, serif",
+                            }}
+                          >
+                            To
+                          </p>
+                        </td>
+                        <td
+                          style={{
+                            width: "60px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          Yes
+                        </td>
+                        <td
+                          style={{
+                            width: "160px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          If no, reason
+                        </td>
+                        <td
+                          style={{
+                            width: "110px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          Management
+                        </td>
+                        <td
+                          style={{
+                            width: "160px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          Attended
+                        </td>
+                    </tr>
+                    {breastfeed.map((b,i)=>{
+                    return (
+                      <>
+                       <tr>
+                    
+                        <td
+                          style={{
+                            width: "120px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+
+                          }}
+                        >
+                          {b.date}
+                        </td>
+                        <td
+                          style={{
+                            width: "150px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "left",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+    
+                          }}
+                        >
+                          {b.fromTo}
+                        
+                        </td>
+                        <td
+                          style={{
+                            width: "60px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                          {b.yes}
+                        </td>
+                        <td
+                          style={{
+                            width: "160px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                          {b.reason}
+                        </td>
+                        <td
+                          style={{
+                            width: "110px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                          {b.management}
+                        </td>
+                        <td
+                          style={{
+                            width: "160px",
+                            fontFamily: "'Times New Roman', Times, serif",
+                            border: "1px solid black",
+                            borderTop: 0,
+                            textAlign: "center",
+                            fontSize: "13px",
+                            padding: "0px 0px 5px 5px",
+                          }}
+                        >
+                        {b.attended}
+                        </td>
+                    </tr>
+                      </>
+                    )}
+                    )}
+                    <tr>
+                      <td style={{
+                          border:"1px solid black",
+                          borderTop:"0",
+                          borderBottom:"0",
+                          padding: "0px 0px 5px 5px"
+                          }} colSpan="6">
+                        <p style={{
+                          textAlign:"center",
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontWeight:"bolder",
+                          fontSize:"14px",
+                          }}>
+                            REMINDER
                         </p>
-                      </th>
-                      <th
-                        style={{
-                          width: "60px",
+                        <div style=
+                        {{
+                          float:"left", 
+                          display:"block",
+                          width:"50%"
+                          }}>
+                          <p style=
+                        {{
                           fontFamily: "'Times New Roman', Times, serif",
-                          border: "1px solid black",
-                          borderTop: 0,
-                          textAlign: "center",
-                          fontSize: "13px",
-                          padding: "0px 0px 5px 5px",
-                          fontWeight: "bolder",
-                        }}
-                      >
-                        Yes
-                      </th>
-                      <th
-                        style={{
-                          width: "160px",
+                          fontSize:"12px"
+                          }}>
+                          1. Breastfeed your baby 
+                          </p>
+                          <p style=
+                        {{
                           fontFamily: "'Times New Roman', Times, serif",
-                          border: "1px solid black",
-                          borderTop: 0,
-                          textAlign: "center",
-                          fontSize: "13px",
-                          padding: "0px 0px 5px 5px",
-                          fontWeight: "bolder",
-                        }}
-                      >
-                        If no, reason
-                      </th>
-                      <th
-                        style={{
-                          width: "110px",
+                          fontSize:"12px"
+                          }}>
+                          2. Allow your baby to suck freely at breast without any fixed time table
+                          </p>
+                          <p style=
+                        {{
                           fontFamily: "'Times New Roman', Times, serif",
-                          border: "1px solid black",
-                          borderTop: 0,
-                          textAlign: "center",
-                          fontSize: "13px",
-                          padding: "0px 0px 5px 5px",
-                          fontWeight: "bolder",
-                        }}
-                      >
-                        Management
-                      </th>
-                      <th
-                        style={{
-                          width: "160px",
+                          fontSize:"12px"
+                          }}>
+                          3. Do not give prelacteal feeds such as sterile water, glucose water, honey, ampalaya juice, etc.
+                          </p>
+                          <p style=
+                        {{
                           fontFamily: "'Times New Roman', Times, serif",
-                          border: "1px solid black",
-                          borderTop: 0,
-                          textAlign: "center",
-                          fontSize: "13px",
-                          padding: "0px 0px 5px 5px",
-                          fontWeight: "bolder",
-                        }}
-                      >
-                        Attended
-                      </th>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+                          fontSize:"12px"
+                          }}>
+                          4. No feeding bottles, milk substitutes artificial, teats and pacifiers.
+                          </p>
+                        </div>
+                        <div style=
+                        {{
+                          float:"right", 
+                          display:"block",
+                          width:"50%"
+                          }}>
+                          <p style=
+                        {{
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontSize:"12px"
+                          }}>
+                          6. There is no to stop breastfeeding if the baby wants to continue even after 3 years.
+                          </p>
+                          <p style=
+                        {{
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontSize:"12px"
+                          }}>
+                          7. Start solid foods when your baby is 4-6 months old.
+                          </p>
+                          <p style=
+                        {{
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontSize:"12px"
+                          }}>
+                          8. Eat a good and well balance diet
+                          </p>
+                          <p style=
+                        {{
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontSize:"12px"
+                          }}>
+                          9. Visit any halth centers for advice.
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{
+                          border:"1px solid black",
+                          borderTop:"0",
+                          padding: "5px 0px 5px 5px"
+                          }}
+                          colSpan="6">
+                      <p style={{
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontSize:"12px"
+                        }}>For assistance, kindly approach ZCMC Public Affairs & Customer Care Unit (PACCU)or call</p>
+                        <p style={{
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontSize:"12px",
+                          fontWeight:"bolder"
+                        }}>GLOBE: 097585750/ 09262435850/ 09359284701</p>
+                        <p style={{
+                          fontFamily: "'Times New Roman', Times, serif",
+                          fontSize:"12px",
+                          fontWeight:"bolder"
+                        }}>SMART: 09474951217/ 09474963439</p>
+                        
+                        </td>
+                        </tr>
+                  </table>
+                </td>
+              </tr>
+              </>
+            )}
+            
             <tr className="dborder1">
               <td colSpan="5">
                 <b className="db">
