@@ -272,55 +272,6 @@ const ReferralForm = () => {
 
   // POST TO SHEETS
 
-  const postSheets = () => {
-    // axios
-    //   .get("http://mms-krizelle/zcmc_referral_api/api/get_pending_ref.php", {
-    //     params: { id: id },
-    //   })
-    //   .then((response) => {
-    //     let data = JSON.stringify(response.data);
-
-    //     fetch(
-    //       "https://script.google.com/macros/s/AKfycbyb0W56u9pJPRkCwP9__1kKWLVoMOQaMWUoP4o5d5rFc17JEUKFbvPJ1sxK2CIye-BBCg/exec?action=postData",
-    //       {
-    //         method: "POST",
-    //         body: data,
-    //       }
-    //     ).then(async (response) => {
-    //       if (response) {
-    //         toast({
-    //           position: "top",
-    //           title: "Record successfully.",
-    //           description: "Patient succesfully added.",
-    //           status: "success",
-    //           duration: 3000,
-    //           isClosable: true,
-    //         });
-    //       }
-    //     });
-    //   });
-
-    Swal.fire({
-      title: "Submit your Github username",
-      input: "text",
-      inputAttributes: {
-        autocapitalize: "off",
-      },
-      showCancelButton: true,
-      confirmButtonText: "Look up",
-      showLoaderOnConfirm: true,
-      preConfirm: (data) => {
-        if (!data) {
-          Swal.showValidationMessage(`Request failed`);
-        }
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log(result.value);
-      }
-    });
-  };
-
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setReferringFacility(user.name.toUpperCase());
@@ -331,7 +282,6 @@ const ReferralForm = () => {
     <form>
       <div className="referral-form">
         <div className="block">
-          <Button onClick={postSheets}>Post to sheets</Button>
           <h1>Patient Information</h1>
 
           <div className="inline-block">

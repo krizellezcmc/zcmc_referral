@@ -29,7 +29,7 @@ import {
   Grid,
   VStack,
   HStack,
-  Spacer
+  Spacer,
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
@@ -49,30 +49,37 @@ const PatientsList = () => {
   // const [patDet, setPatDet]=useState([]);
   const [search, setSearch] = useState("");
   const [details, setDetails] = useState([]);
-  const { isOpen:isReferredOpen, onOpen:onReferredOpen, onClose:onReferredClose } = useDisclosure();
-  const { isOpen:isPendingOpen, onOpen:onPendingOpen, onClose:onPendingClose } = useDisclosure();
+  const {
+    isOpen: isReferredOpen,
+    onOpen: onReferredOpen,
+    onClose: onReferredClose,
+  } = useDisclosure();
+  const {
+    isOpen: isPendingOpen,
+    onOpen: onPendingOpen,
+    onClose: onPendingClose,
+  } = useDisclosure();
 
   //get pending patient data
-  const [patientId, setPatientId]=useState("");
-  const [refFacility, setRefFacility]=useState("");
-  const [refDate, setRefDate]=useState("");
-  const [lastName, setLastName]=useState("");
-  const [firstName, setFirstName]=useState("");
-  const [middleName, setMiddleName]=useState("");
-  const [sex, setSex]=useState("");
-  const [admitDate, setAdmitDate]=useState("");
-  const [refType, setRefType]=useState("");
-  const [disposition, setDisposition]=useState("");
-  const [specialization, setSpecialization]=useState("");
-  const [latestTemp, setLatestTemp]=useState("");
-  const [latestBP, setLatestBP]=useState("");
-  const [latestRespi, setLatestRespi]=useState("");
-  const [latestPulse, setLatestPulse]=useState("");
-  const [latestOxygen, setLatestOxygen]=useState("");
-  const [latestGlasgow, setLatestGlasgow]=useState("");
+  const [patientId, setPatientId] = useState("");
+  const [refFacility, setRefFacility] = useState("");
+  const [refDate, setRefDate] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [sex, setSex] = useState("");
+  const [admitDate, setAdmitDate] = useState("");
+  const [refType, setRefType] = useState("");
+  const [disposition, setDisposition] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [latestTemp, setLatestTemp] = useState("");
+  const [latestBP, setLatestBP] = useState("");
+  const [latestRespi, setLatestRespi] = useState("");
+  const [latestPulse, setLatestPulse] = useState("");
+  const [latestOxygen, setLatestOxygen] = useState("");
+  const [latestGlasgow, setLatestGlasgow] = useState("");
 
-  const [reasonPat, setReasonPat]=useState("");
-
+  const [reasonPat, setReasonPat] = useState("");
 
   const getDetails = (id) => {
     axios
@@ -84,32 +91,33 @@ const PatientsList = () => {
       });
   };
 
-  const getPendingDetails=(pid)=>{
-    axios.get("http://localhost/zcmc_referral_api/api/get_pending_details.php/",{
-      params:{pid:pid},
-    })
-    .then(function(response){
-      setPatientId(response.data[0].patientId);
-      setRefFacility(response.data[0].refFacility);
-      setRefDate(response.data[0].tstamp);
-      setLastName(response.data[0].lastname);
-      setFirstName(response.data[0].firstname);
-      setMiddleName(response.data[0].middleName);
-      setSex(response.data[0].sex);
-      setAdmitDate(response.data[0].dateAdmitted);
-      setRefType(response.data[0].refType);
-      setDisposition(response.data[0].disposition);
-      setSpecialization(response.data[0].specialization);
-      setLatestTemp(response.data[0].latestTemp);
-      setLatestBP(response.data[0].latestBp);
-      setLatestRespi(response.data[0].latestRespi);
-      setLatestPulse(response.data[0].latestPulse);
-      setLatestOxygen(response.data[0].latestOxygen);
-      setLatestGlasgow(response.data[0].latestGlasgow);
-    })
+  const getPendingDetails = (pid) => {
+    axios
+      .get("http://localhost/zcmc_referral_api/api/get_pending_details.php/", {
+        params: { pid: pid },
+      })
+      .then(function (response) {
+        setPatientId(response.data[0].patientId);
+        setRefFacility(response.data[0].refFacility);
+        setRefDate(response.data[0].tstamp);
+        setLastName(response.data[0].lastname);
+        setFirstName(response.data[0].firstname);
+        setMiddleName(response.data[0].middleName);
+        setSex(response.data[0].sex);
+        setAdmitDate(response.data[0].dateAdmitted);
+        setRefType(response.data[0].refType);
+        setDisposition(response.data[0].disposition);
+        setSpecialization(response.data[0].specialization);
+        setLatestTemp(response.data[0].latestTemp);
+        setLatestBP(response.data[0].latestBp);
+        setLatestRespi(response.data[0].latestRespi);
+        setLatestPulse(response.data[0].latestPulse);
+        setLatestOxygen(response.data[0].latestOxygen);
+        setLatestGlasgow(response.data[0].latestGlasgow);
+      });
   };
 
-  const handleAcceptPatient=(patId)=>{
+  const handleAcceptPatient = (patId) => {
     onPendingClose(true);
     Swal.fire({
       text: "Are you sure you want to accept this patient?",
@@ -121,37 +129,62 @@ const PatientsList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post("http://localhost/zcmc_referral_api/api/accept_referred_patient.php", {
-            patId: patId,
-          })
+          .post(
+            "http://localhost/zcmc_referral_api/api/accept_referred_patient.php",
+            {
+              patId: patId,
+            }
+          )
           .then((response) => {
             if (response.data.status === 1) {
-              Swal.fire(
-                "User verified!",
-                "You successfully verified the user.",
-                "success"
-              );
+              axios
+                .get(
+                  "http://mms-krizelle/zcmc_referral_api/api/get_pending_ref.php",
+                  {
+                    params: { id: patId },
+                  }
+                )
+                .then((response) => {
+                  let data = JSON.stringify(response.data);
+
+                  fetch(
+                    "https://script.google.com/macros/s/AKfycbyb0W56u9pJPRkCwP9__1kKWLVoMOQaMWUoP4o5d5rFc17JEUKFbvPJ1sxK2CIye-BBCg/exec?action=postData",
+                    {
+                      method: "POST",
+                      body: data,
+                    }
+                  ).then(async (response) => {
+                    if (response) {
+                      Swal.fire(
+                        "User verified!",
+                        "You successfully verified the user.",
+                        "success"
+                      );
+                    } else {
+                      Swal.fire("Error!", "Something went wrong.", "error");
+                    }
+                  });
+                });
             } else {
               Swal.fire("Error!", "Something went wrong.", "error");
             }
-            console.log(response.data);
           });
       }
     });
-  }
-  
+  };
+
   const declineReferredPatient = (id) => {
     onPendingClose(true);
     Swal.fire({
       text: "Please indicate reason for declining patient",
       icon: "warning",
-      input: 'text',
+      input: "text",
       // html:"<div class='b'><p>Please indicate reason for declining patient</p></div><input id='reason' class='swal2-input' required/>",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Decline",
-      preConfirm:(data) => {
+      preConfirm: (data) => {
         if (!data) {
           Swal.showValidationMessage(`Request failed`);
         }
@@ -159,9 +192,13 @@ const PatientsList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post("http://localhost/zcmc_referral_api/api/decline_referred_patient.php", {
-            id: id, reason:result.value,
-          })
+          .post(
+            "http://localhost/zcmc_referral_api/api/decline_referred_patient.php",
+            {
+              id: id,
+              reason: result.value,
+            }
+          )
           .then((response) => {
             if (response.data.status === 1) {
               Swal.fire(
@@ -173,7 +210,6 @@ const PatientsList = () => {
               Swal.fire("Error!", "Something went wrong.", "error");
             }
             console.log(response.data);
-
           });
       }
     });
@@ -188,179 +224,189 @@ const PatientsList = () => {
       });
 
     axios
-    .get("http://localhost/zcmc_referral_api/api/get_pending_patients.php")
-    .then(function(response){
-      setPendingPat(response.data);
-    });
-  },[pendingPat])
+      .get("http://localhost/zcmc_referral_api/api/get_pending_patients.php")
+      .then(function (response) {
+        setPendingPat(response.data);
+      });
+  }, [pendingPat, patients]);
 
 
   return (
     <div>
-    <Grid templateColumns="repeat(9,1fr)" gap={4}>
-    <GridItem colSpan={6}>
-    <div className="table-container">
-      <h1 className="block">Referred Patients</h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 10,
-        }}
-      >
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            children={<BiSearch color="gray.300" />}
-          />
-          <Input
-            fontSize="13px"
-            type="text"
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search patient"
-            width="400px"
-          />
-        </InputGroup>
-      </div>
+      <Grid templateColumns="repeat(9,1fr)" gap={4}>
+        <GridItem colSpan={6}>
+          <div className="table-container">
+            <h1 className="block">Referred Patients</h1>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 10,
+              }}
+            >
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<BiSearch color="gray.300" />}
+                />
+                <Input
+                  fontSize="13px"
+                  type="text"
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search patient"
+                  width="400px"
+                />
+              </InputGroup>
+            </div>
 
-      {!patients ? (
-        <i style={{ alignContent: "center" }}>---No data found---</i>
-      ) : (
-        <TableContainer>
-          <Table cellSpacing={0}>
-            <Thead>
-              <Tr>
-                <Th className="border" width="30%">
-                  Full name
-                </Th>
-                <Th className="border" width="10%">
-                  Referred Date
-                </Th>
-                <Th className="border" width="30%">
-                  Referred From
-                </Th>
-                <Th className="border" width="10%">
-                  Discharge Date
-                </Th>
-                <Th className="border" width="10%">
-                  Status
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {patients
-                .filter((val) => {
-                  if (search === "") {
-                    return val;
-                  } else if (
-                    val.patientName.toLowerCase().includes(search.toLowerCase())
-                  ) {
-                    return val;
-                  }
-                })
-                .map((pat) => {
-                  return (
-                    <>
-                      <Tr>
-                        <Td className="border">{pat.patientName}</Td>
-                        <Td className="border">
-                          {moment(pat.referredDate).format("LLL")}
-                        </Td>
-                        <Td className="border">{pat.referredFrom}</Td>
-                        <Td className="border">
-                          {pat.dischDate == null ? (
-                            <Badge colorScheme="yellow"> Not applicable</Badge>
-                          ) : (
-                            moment(pat.dischDate).format("LLL")
-                          )}
-                        </Td>
-                        <Td className="border">
-                          {pat.dischDate === null ? (
-                            <Badge colorScheme="blue">+ Admitted</Badge>
-                          ) : (
-                            <Badge colorScheme="red">- Discharged</Badge>
-                          )}
-                        </Td>
-                        <Td border="0" paddingTop="0" paddingBottom="0">
-                          <Tooltip
-                            label="View"
-                            aria-label="A tooltip"
-                            bg="blue.400"
-                            placement="right"
-                          >
-                            <IconButton
-                              style={{ margin: 0, padding: 0 }}
-                              size="sm"
-                              variant="outline"
-                              colorScheme="blue"
-                              onClick={() => {
-                                onReferredOpen();
-                                getDetails(pat.PK_patientId);
-                              }}
-                              icon={<BsEye fontSize="15px" />}
-                            />
-                          </Tooltip>
-                        </Td>
-                      </Tr>
-                    </>
-                  );
-                })}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      )}
-      </div>
-      </GridItem>
+            {!patients ? (
+              <i style={{ alignContent: "center" }}>---No data found---</i>
+            ) : (
+              <TableContainer>
+                <Table cellSpacing={0}>
+                  <Thead>
+                    <Tr>
+                      <Th className="border" width="30%">
+                        Full name
+                      </Th>
+                      <Th className="border" width="10%">
+                        Referred Date
+                      </Th>
+                      <Th className="border" width="30%">
+                        Referred From
+                      </Th>
+                      <Th className="border" width="10%">
+                        Discharge Date
+                      </Th>
+                      <Th className="border" width="10%">
+                        Status
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {patients
+                      .filter((val) => {
+                        if (search === "") {
+                          return val;
+                        } else if (
+                          val.patientName
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                        ) {
+                          return val;
+                        }
+                      })
+                      .map((pat) => {
+                        return (
+                          <>
+                            <Tr>
+                              <Td className="border">{pat.patientName}</Td>
+                              <Td className="border">
+                                {moment(pat.referredDate).format("LLL")}
+                              </Td>
+                              <Td className="border">{pat.referredFrom}</Td>
+                              <Td className="border">
+                                {pat.dischDate == null ? (
+                                  <Badge colorScheme="yellow">
+                                    {" "}
+                                    Not applicable
+                                  </Badge>
+                                ) : (
+                                  moment(pat.dischDate).format("LLL")
+                                )}
+                              </Td>
+                              <Td className="border">
+                                {pat.dischDate === null ? (
+                                  <Badge colorScheme="blue">+ Admitted</Badge>
+                                ) : (
+                                  <Badge colorScheme="red">- Discharged</Badge>
+                                )}
+                              </Td>
+                              <Td border="0" paddingTop="0" paddingBottom="0">
+                                <Tooltip
+                                  label="View"
+                                  aria-label="A tooltip"
+                                  bg="blue.400"
+                                  placement="right"
+                                >
+                                  <IconButton
+                                    style={{ margin: 0, padding: 0 }}
+                                    size="sm"
+                                    variant="outline"
+                                    colorScheme="blue"
+                                    onClick={() => {
+                                      onReferredOpen();
+                                      getDetails(pat.PK_patientId);
+                                    }}
+                                    icon={<BsEye fontSize="15px" />}
+                                  />
+                                </Tooltip>
+                              </Td>
+                            </Tr>
+                          </>
+                        );
+                      })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            )}
+          </div>
+        </GridItem>
 
-      <GridItem colSpan={3}>
-        <div className="side-container" style={{ padding: "15px"}}>
-          <h1 style={{marginBottom: "15px" }}>
-            <b>Pending Patients</b>
+        <GridItem colSpan={3}>
+          <div className="side-container" style={{ padding: "15px" }}>
+            <h1 style={{ marginBottom: "15px" }}>
+              <b>Pending Patients</b>
             </h1>
 
             <VStack spacing={2}>
               {pendingPat.length !== 0 ? (
-              pendingPat.map((p,k)=>{
-                  return(
+                pendingPat.map((p, k) => {
+                  return (
                     <>
-                <Box
-                width="100%"
-                borderWidth="1px"
-                borderRadius="xs"
-                padding={3}
-              >
-                <HStack>
-                  <p style={{ fontSize: "14px" }}>
-                    <b>{p.lastname+", "+p.firstname+", "+p.middleName}</b>
-                    <Badge colorScheme="purple" ml="1" size="xs">
-                      New
-                    </Badge>
-                    <br />
-                  </p>
+                      <Box
+                        width="100%"
+                        borderWidth="1px"
+                        borderRadius="xs"
+                        padding={3}
+                      >
+                        <HStack>
+                          <p style={{ fontSize: "14px" }}>
+                            <b>
+                              {p.lastname +
+                                ", " +
+                                p.firstname +
+                                ", " +
+                                p.middleName}
+                            </b>
+                            <Badge colorScheme="purple" ml="1" size="xs">
+                              New
+                            </Badge>
+                            <br />
+                          </p>
 
-                  <Spacer></Spacer>
-                  <IconButton
-                    size="sm"
-                    variant="outline"
-                    colorScheme="teal"
-                    onClick={() => {
-                      onPendingOpen();
-                      getPendingDetails(p.patientId);
-                    }}
-                    icon={<BiUserCheck fontSize="17px" />}
-                  />
-                </HStack>
-              </Box>
-              </>
+                          <Spacer></Spacer>
+                          <IconButton
+                            size="sm"
+                            variant="outline"
+                            colorScheme="teal"
+                            onClick={() => {
+                              onPendingOpen();
+                              getPendingDetails(p.patientId);
+                            }}
+                            icon={<BiUserCheck fontSize="17px" />}
+                          />
+                        </HStack>
+                      </Box>
+                    </>
                   );
-              })
-              ):(
+                })
+              ) : (
                 <Text mt={3}>Nothing to show</Text>
               )}
             </VStack>
-
-        </div>
-      </GridItem>
+          </div>
+        </GridItem>
       </Grid>
 
       {/* MODAL VIEW DETAILS */}
@@ -526,197 +572,172 @@ const PatientsList = () => {
           <ModalHeader>Patient Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-                  <Grid templateColumns="repeat(2, 1fr)" mt={3}>
-                    <GridItem>
-                      <small
-                        style={{
-                          display: "flex",
-                          marginBottom: 4,
-                        }}
-                      >
-                        <BiUser style={{ marginRight: "5px", marginTop: 2 }} />
-                        <Text textTransform="uppercase">Patient name</Text>
-                      </small>
-                      <Text fontWeight="600">{lastName+" "+firstName+" "+middleName}</Text>
-                    </GridItem>
+            <Grid templateColumns="repeat(2, 1fr)" mt={3}>
+              <GridItem>
+                <small
+                  style={{
+                    display: "flex",
+                    marginBottom: 4,
+                  }}
+                >
+                  <BiUser style={{ marginRight: "5px", marginTop: 2 }} />
+                  <Text textTransform="uppercase">Patient name</Text>
+                </small>
+                <Text fontWeight="600">
+                  {lastName + " " + firstName + " " + middleName}
+                </Text>
+              </GridItem>
 
-                    <GridItem>
-                      <small
-                        style={{
-                          display: "flex",
-                          marginBottom: 4,
-                        }}
-                      >
-                        <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                        <Text textTransform="uppercase">Sex</Text>
-                      </small>
-                        <Badge colorScheme="red">{sex}</Badge>
-                    </GridItem>
-                  </Grid>
+              <GridItem>
+                <small
+                  style={{
+                    display: "flex",
+                    marginBottom: 4,
+                  }}
+                >
+                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                  <Text textTransform="uppercase">Sex</Text>
+                </small>
+                <Badge colorScheme="red">{sex}</Badge>
+              </GridItem>
+            </Grid>
 
-                  <Grid templateColumns="repeat(1, 1fr)" mt={10}>
-                    <GridItem>
-                      <small style={{ display: "flex", marginBottom: 6 }}>
-                        <TbBuildingHospital
-                          style={{ marginRight: "5px", marginTop: 2 }}
-                        />
-                        <Text textTransform="uppercase">Referred from</Text>
-                      </small>
-                      <Text fontSize="15px">{refFacility}</Text>
-                    </GridItem>
-                  </Grid>
-                      
-                    <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-                    <GridItem>
-                      <small style={{ display: "flex", marginBottom: 6 }}>
-                        <BiCalendarEvent
-                          style={{ marginRight: "5px", marginTop: 2 }}
-                        />
-                        <Text textTransform="uppercase">Referred date</Text>
-                      </small>
-                      <Text fontSize="15px">
-                        {moment(refDate).format("lll")}
-                      </Text>
-                    </GridItem>
-                    <GridItem>
-                      <small style={{ display: "flex", marginBottom: 6 }}>
-                        <BiCalendarEvent
-                          style={{ marginRight: "5px", marginTop: 2 }}
-                        />
-                        <Text textTransform="uppercase">Date Admitted</Text>
-                      </small>
-                      <Text fontSize="15px">
-                        {moment(admitDate).format("lll")}
-                      </Text>
-                    </GridItem>
-                  </Grid>
-                      
-                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-                  <GridItem>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <TbCheckupList
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Referral Type</Text>
-                    </small>
-              
-                            <Text fontSize="13px">{refType}</Text>
-                     </GridItem>
-                  <GridItem>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <TbCheckupList
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Disposition</Text>
-                    </small>
-                    <Text fontSize="13px">{disposition}</Text>
-                  </GridItem>
-                  </Grid>
+            <Grid templateColumns="repeat(1, 1fr)" mt={10}>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <TbBuildingHospital
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">Referred from</Text>
+                </small>
+                <Text fontSize="15px">{refFacility}</Text>
+              </GridItem>
+            </Grid>
 
-                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-                  <GridItem>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <BiCalendarEvent
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Latest V/S Temperature</Text>
-                    </small>
-                          <Text
-                            fontSize=" 14px"
-                            color="red.600"
-                            fontWeight="600"
-                          >
-                            {latestTemp}
-                          </Text>
-                  </GridItem>
-                  <GridItem>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <BiCalendarEvent
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Latest V/S Blood Pressure</Text>
-                    </small>
-                          <Text
-                            fontSize=" 14px"
-                            color="red.600"
-                            fontWeight="600"
-                          >
-                            {latestBP}
-                          </Text>
-                  </GridItem>
-                  </Grid>
-                  
-                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-                  <GridItem>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <BiCalendarEvent
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Latest V/S Respiration Rate</Text>
-                    </small>
-                          <Text
-                            fontSize=" 14px"
-                            color="red.600"
-                            fontWeight="600"
-                          >
-                            {latestRespi}
-                          </Text>
-                  </GridItem>
-                  <GridItem>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <BiCalendarEvent
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Latest V/S Pulse Rate</Text>
-                    </small>
-                          <Text
-                            fontSize=" 14px"
-                            color="red.600"
-                            fontWeight="600"
-                          >
-                            {latestPulse}
-                          </Text>
-                  </GridItem>
-                  </Grid>
+            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">Referred date</Text>
+                </small>
+                <Text fontSize="15px">{moment(refDate).format("lll")}</Text>
+              </GridItem>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">Date Admitted</Text>
+                </small>
+                <Text fontSize="15px">{moment(admitDate).format("lll")}</Text>
+              </GridItem>
+            </Grid>
 
-                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-                    <GridItem>
+            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <TbCheckupList style={{ marginRight: "5px", marginTop: 2 }} />
+                  <Text textTransform="uppercase">Referral Type</Text>
+                </small>
 
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <BiCalendarEvent
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Latest V/S Oxygen Saturation</Text>
-                    </small>
-                          <Text
-                            fontSize=" 14px"
-                            color="red.600"
-                            fontWeight="600"
-                          >
-                            {latestOxygen}
-                          </Text>
-                  </GridItem>
-                  <GridItem>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <BiCalendarEvent
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Glasgow Coma Scale</Text>
-                    </small>
+                <Text fontSize="13px">{refType}</Text>
+              </GridItem>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <TbCheckupList style={{ marginRight: "5px", marginTop: 2 }} />
+                  <Text textTransform="uppercase">Disposition</Text>
+                </small>
+                <Text fontSize="13px">{disposition}</Text>
+              </GridItem>
+            </Grid>
 
-                          <Text
-                            fontSize=" 14px"
-                            color="red.600"
-                            fontWeight="600"
-                          >
-                            {latestGlasgow}
-                          </Text>
-                  </GridItem>
-                  </Grid>
+            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">Latest V/S Temperature</Text>
+                </small>
+                <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                  {latestTemp}
+                </Text>
+              </GridItem>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">
+                    Latest V/S Blood Pressure
+                  </Text>
+                </small>
+                <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                  {latestBP}
+                </Text>
+              </GridItem>
+            </Grid>
+
+            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">
+                    Latest V/S Respiration Rate
+                  </Text>
+                </small>
+                <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                  {latestRespi}
+                </Text>
+              </GridItem>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">Latest V/S Pulse Rate</Text>
+                </small>
+                <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                  {latestPulse}
+                </Text>
+              </GridItem>
+            </Grid>
+
+            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">
+                    Latest V/S Oxygen Saturation
+                  </Text>
+                </small>
+                <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                  {latestOxygen}
+                </Text>
+              </GridItem>
+              <GridItem>
+                <small style={{ display: "flex", marginBottom: 6 }}>
+                  <BiCalendarEvent
+                    style={{ marginRight: "5px", marginTop: 2 }}
+                  />
+                  <Text textTransform="uppercase">Glasgow Coma Scale</Text>
+                </small>
+
+                <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                  {latestGlasgow}
+                </Text>
+              </GridItem>
+            </Grid>
           </ModalBody>
 
           <ModalFooter>
-          <Button
+            <Button
               size="sm"
               mr={3}
               colorScheme="green"
@@ -738,7 +759,12 @@ const PatientsList = () => {
             >
               Decline
             </Button>
-            <Button colorScheme="blue" size="sm" mr={3} onClick={onPendingClose}>
+            <Button
+              colorScheme="blue"
+              size="sm"
+              mr={3}
+              onClick={onPendingClose}
+            >
               Close
             </Button>
           </ModalFooter>
