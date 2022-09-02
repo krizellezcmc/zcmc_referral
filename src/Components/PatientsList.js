@@ -35,7 +35,7 @@ import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
 import "../Styles/Table.css";
-import { BiCalendarEvent, BiSearch, BiStats, BiUser, BiUserCheck } from "react-icons/bi";
+import { BiCalendarEvent, BiSearch, BiStats, BiUser, BiUserCheck, BiRefresh } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
@@ -194,10 +194,11 @@ const PatientsList = () => {
     });
   },[pendingPat])
 
+
   return (
     <div>
     <Grid templateColumns="repeat(9,1fr)" gap={4}>
-      <GridItem colSpan={6}>
+    <GridItem colSpan={6}>
     <div className="table-container">
       <h1 className="block">Referred Patients</h1>
       <div

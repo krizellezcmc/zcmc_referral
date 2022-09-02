@@ -334,6 +334,13 @@ function TagubilinReport() {
               </p>
             </td>
           </tr>
+          <tr colSpan="5">
+            <td>
+              <table>
+
+              </table>
+            </td>
+          </tr>
           <tr className="border1">
             <td colSpan="5">
               <b className="rb">
@@ -660,6 +667,90 @@ function TagubilinReport() {
                   <p id="demail">records@zcmc.doh.gov.ph</p> and we will happy
                   to serve you.
                 </p>
+              </td>
+            </tr>
+            <tr >
+              <td colSpan="5">
+                <table>
+                  <tr colSpan="6">
+                    <td 
+                    style={{
+          
+                      fontFamily: "'Times New Roman', Times, serif",
+                      border: "1px solid black",
+                      borderBottom: "0",
+                      borderTop: "0",
+                      textAlign: "left",
+                      fontSize: "13px",
+                      padding: "0px 0px 5px 5px",
+                      fontWeight: "bolder",
+                    }}>
+                      Date</td>
+                    <td 
+                    style=
+                    {{
+                      width:"10%",
+                      
+                      fontFamily: "'Times New Roman', Times, serif",
+                      border: "1px solid black",
+                      borderBottom: "0",
+                      borderTop: "0",
+                      textAlign: "left",
+                      fontSize: "13px",
+                      padding: "0px 0px 5px 5px",
+                      fontWeight: "bolder",
+                      }}>
+                      From To
+                      </td>
+                    <td 
+                    style={{
+                      fontFamily: "'Times New Roman', Times, serif",
+                      border: "1px solid black",
+                      borderBottom: "0",
+                      borderTop: "0",
+                      textAlign: "left",
+                      fontSize: "13px",
+                      padding: "0px 0px 5px 5px",
+                      fontWeight: "bolder",
+                      }}>
+                      Yes</td>
+                    <td 
+                    style={{
+                      width:"10%",
+                      fontFamily: "'Times New Roman', Times, serif",
+                      border: "1px solid black",
+                      borderBottom: "0",
+                      borderTop: "0",
+                      textAlign: "left",
+                      fontSize: "13px",
+                      padding: "0px 0px 5px 5px",
+                      fontWeight: "bolder",
+                      }}>
+                      If no, reason</td>
+                    <td style={{
+                      width:"15%",
+                      fontFamily: "'Times New Roman', Times, serif",
+                      border: "1px solid black",
+                      borderBottom: "0",
+                      borderTop: "0",
+                      textAlign: "left",
+                      fontSize: "13px",
+                      padding: "0px 0px 5px 5px",
+                      fontWeight: "bolder",
+                      }}>
+                      Management</td>
+                    <td style={{
+                      fontFamily: "'Times New Roman', Times, serif",
+                      border: "1px solid black",
+                      borderBottom: "0",
+                      borderTop: "0",
+                      textAlign: "left",
+                      fontSize: "13px",
+                      padding: "0px 0px 5px 5px",
+                      fontWeight: "bolder",}}>
+                      Attended</td>
+                  </tr>
+                </table>
               </td>
             </tr>
             <tr className="dborder1">
