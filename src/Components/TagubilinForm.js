@@ -24,8 +24,7 @@ import { BiMinus, BiSend } from "react-icons/bi";
 import axios from "axios";
 import moment from "moment";
 import cbc from "../Assets/cbc2.png";
-import { Center } from "chakra-ui";
-import Home from "../Pages/AdminHome";
+import { Select } from "chakra-react-select";
 
 function TagubilinForm(props) {
   const [patientName, setPatient] = useState("");
@@ -69,6 +68,10 @@ function TagubilinForm(props) {
     },
   ]);
 
+  const [breastfeed, setBreastfeed] = useState([
+    { date: "", fromTo: "", yes: "", reason: "", management: "", attended: "" },
+  ]);
+
   const [instructions, setInstructions] = useState([
     {
       value: "Repeat Urinalysis",
@@ -96,6 +99,15 @@ function TagubilinForm(props) {
     },
   ]);
 
+  const specialization = [
+    { label: "Obstetrics And Gynecology", value: 1 },
+    { label: "Internal Medicine", value: "Internal Medicine" },
+    { label: "Pediatrics", value: "Pediatrics" },
+    { label: "Surgery", value: "Surgery" },
+    { label: "Psychiatry", value: "Psychiatry" },
+  ];
+
+  const [ob, setOb] = useState("");
   const [othersDiet, setOthersDiet] = useState("");
   const [medications, setMedications] = useState([
     { medicine: "", quantity: "", dosage: "", sched: "" },
@@ -124,6 +136,38 @@ function TagubilinForm(props) {
     ]);
   };
 
+  // handle input change
+  const inputBreastfeed = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...breastfeed];
+    list[index][name] = value;
+    setBreastfeed(list);
+
+    console.log(breastfeed);
+  };
+
+  //handle click event of the Remove button
+  const removeBreastfeed = (index) => {
+    const list = [...breastfeed];
+    list.splice(index, 1);
+    setBreastfeed(list);
+  };
+
+  // handle click event of the Add button
+  const addBreastfeed = (e, index) => {
+    setBreastfeed([
+      ...breastfeed,
+      {
+        date: "",
+        fromTo: "",
+        yes: "",
+        reason: "",
+        management: "",
+        attended: "",
+      },
+    ]);
+  };
+
   const submit = (e) => {
     e.preventDefault();
     localStorage.setItem(
@@ -143,7 +187,7 @@ function TagubilinForm(props) {
         ctScan: ctScan,
         mri: mri,
         others: others,
-        homemed:homemed,
+        homemed: homemed,
         nurse: nurse,
         resident: resident,
         followUp: followUp,
@@ -154,6 +198,7 @@ function TagubilinForm(props) {
         diet: dietList,
         othersDiet: othersDiet,
         instructions: instructions,
+        breastfeed: breastfeed,
       })
     );
     window.location.href = "/tagubilinreport";
@@ -600,6 +645,7 @@ function TagubilinForm(props) {
                       );
                     })}
                   </Grid>
+
                   <Text mt={5} fontStyle="italic" fontSize="13.5px">
                     Please call the following Hotline Numbers: 09664965480 for
                     Globe and 09533296357 for TM during office hours Monday to
@@ -610,6 +656,235 @@ function TagubilinForm(props) {
               </Tr>
               <Tr>
                 <Td className="border" colSpan="5">
+                  <Text mt={3} fontWeight="600">
+                    Specialization
+                  </Text>
+                  <div style={{ width: "400px" }}>
+                    <Select
+                      options={specialization}
+                      placeholder="Search patient"
+                      selectedOptionStyle="check"
+                      closeMenuOnSelect={true}
+                      focusBorderColor="#058e46"
+                      onChange={(e) => {
+                        setOb(e.value);
+                      }}
+                      width="100%"
+                      required
+                      useBasicStyles
+                    />
+                  </div>
+                </Td>
+              </Tr>
+              {ob === 1 ? (
+                <Tr>
+                  <Td colSpan="5" style={{ padding: 0 }}>
+                    <Table variant="unstyled" cellSpacing={0}>
+                      <Tr>
+                        <Td
+                          className="border"
+                          style={{ borderTop: "none" }}
+                          py={3}
+                        >
+                          <Text
+                            textAlign="center"
+                            fontWeight="500"
+                            fontSize="12px"
+                          >
+                            Date
+                          </Text>
+                        </Td>
+                        <Td
+                          className="border"
+                          style={{ borderTop: "none" }}
+                          py={3}
+                        >
+                          <Text
+                            textAlign="center"
+                            fontWeight="500"
+                            fontSize="12px"
+                          >
+                            From To
+                          </Text>
+                        </Td>
+                        <Td
+                          className="border"
+                          style={{ borderTop: "none" }}
+                          py={3}
+                        >
+                          <Text
+                            textAlign="center"
+                            fontWeight="500"
+                            fontSize="12px"
+                          >
+                            Yes
+                          </Text>
+                        </Td>
+
+                        <Td
+                          className="border"
+                          style={{ borderTop: "none" }}
+                          py={3}
+                        >
+                          <Text
+                            textAlign="center"
+                            fontWeight="500"
+                            fontSize="12px"
+                          >
+                            If no, reason
+                          </Text>
+                        </Td>
+
+                        <Td
+                          className="border"
+                          style={{ borderTop: "none" }}
+                          py={3}
+                        >
+                          <Text
+                            textAlign="center"
+                            fontWeight="500"
+                            fontSize="12px"
+                          >
+                            Management
+                          </Text>
+                        </Td>
+                        <Td
+                          className="border"
+                          style={{ borderTop: "none" }}
+                          py={3}
+                        >
+                          <Text
+                            textAlign="center"
+                            fontWeight="500"
+                            fontSize="12px"
+                          >
+                            Attended (Signature)
+                          </Text>
+                        </Td>
+                      </Tr>
+                      {breastfeed.map((x, i) => {
+                        return (
+                          <>
+                            <Tr>
+                              <Td className="border" p={0}>
+                                <Textarea
+                                  m={0}
+                                  borderRadius="0"
+                                  border="none"
+                                  rows={1}
+                                  value={x.date}
+                                  fontSize="14px"
+                                  name="date"
+                                  onChange={(e) => inputBreastfeed(e, i)}
+                                ></Textarea>
+                              </Td>
+
+                              <Td className="border" p={0}>
+                                <Textarea
+                                  m={0}
+                                  textAlign="center"
+                                  borderRadius="0"
+                                  border="none"
+                                  rows={1}
+                                  value={x.fromTo}
+                                  fontSize="14px"
+                                  name="fromTo"
+                                  onChange={(e) => inputBreastfeed(e, i)}
+                                ></Textarea>
+                              </Td>
+                              <Td className="border" p={0}>
+                                <Textarea
+                                  m={0}
+                                  textAlign="center"
+                                  borderRadius="0"
+                                  border="none"
+                                  rows={1}
+                                  value={x.yes}
+                                  fontSize="14px"
+                                  name="yes"
+                                  onChange={(e) => inputBreastfeed(e, i)}
+                                ></Textarea>
+                              </Td>
+                              <Td className="border" p={0}>
+                                <Textarea
+                                  m={0}
+                                  borderRadius="0"
+                                  border="reason"
+                                  rows={1}
+                                  value={x.reason}
+                                  fontSize="14px"
+                                  name="reason"
+                                  onChange={(e) => inputBreastfeed(e, i)}
+                                ></Textarea>
+                              </Td>
+                              <Td className="border" p={0}>
+                                <Textarea
+                                  m={0}
+                                  textAlign="center"
+                                  borderRadius="0"
+                                  border="none"
+                                  rows={1}
+                                  value={x.management}
+                                  fontSize="14px"
+                                  name="management"
+                                  onChange={(e) => inputBreastfeed(e, i)}
+                                ></Textarea>
+                              </Td>
+                              <Td className="border" p={0}>
+                                <Textarea
+                                  m={0}
+                                  textAlign="center"
+                                  borderRadius="0"
+                                  border="none"
+                                  rows={1}
+                                  fontSize="14px"
+                                  value={x.attended}
+                                  name="attended"
+                                  onChange={(e) => inputBreastfeed(e, i)}
+                                ></Textarea>
+                              </Td>
+
+                              {breastfeed.length !== 1 && (
+                                <button
+                                  onClick={() => removeBreastfeed(i)}
+                                  style={{
+                                    margin: 0,
+                                    color: "red",
+                                    marginTop: "10px",
+                                    fontSize: "18px",
+                                  }}
+                                >
+                                  <BiMinus />
+                                </button>
+                              )}
+                            </Tr>
+                          </>
+                        );
+                      })}
+                      <Tr>
+                        <Td className="border" p={1} colSpan="6">
+                          <Button
+                            style={{ marginTop: "5px", marginBottom: "5px" }}
+                            colorScheme="blue"
+                            size="sm"
+                            onClick={addBreastfeed}
+                          >
+                            + Add new
+                          </Button>
+                        </Td>
+                      </Tr>
+                    </Table>
+                  </Td>
+                </Tr>
+              ) : (
+                ""
+              )}
+              <Tr>
+                <Td
+                  className="border"
+                  colSpan="5"
+                  style={{ borderTop: "none" }}
+                >
                   <HStack>
                     <Text fontSize="12px" fontWeight="600">
                       I understand the above explanation given, I do hereby
