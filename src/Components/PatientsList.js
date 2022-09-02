@@ -47,6 +47,7 @@ import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
 import { GoCheck, GoX } from "react-icons/go";
 import Swal from "sweetalert2";
+import { capitalize } from "@mui/material";
 
 const PatientsList = () => {
   let navigate = useNavigate();
@@ -131,7 +132,7 @@ const PatientsList = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Verify",
+      confirmButtonText: "Accept",
     }).then((result) => {
       if (result.isConfirmed) {
         axios
@@ -182,14 +183,14 @@ const PatientsList = () => {
   const declineReferredPatient = (id) => {
     onPendingClose(true);
     Swal.fire({
-      text: "Please indicate reason for declining patient",
+      text: "Please indicate reason for rejecting the referral",
       icon: "warning",
       input: "text",
       // html:"<div class='b'><p>Please indicate reason for declining patient</p></div><input id='reason' class='swal2-input' required/>",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Decline",
+      confirmButtonText: "Reject",
       preConfirm: (data) => {
         if (!data) {
           Swal.showValidationMessage(`Request failed`);
@@ -208,8 +209,8 @@ const PatientsList = () => {
           .then((response) => {
             if (response.data.status === 1) {
               Swal.fire(
-                "Declined!",
-                "You successfully declined the user.",
+                "Rejected!",
+                "You successfully rejected the referral.",
                 "success"
               );
             } else {
@@ -388,6 +389,9 @@ const PatientsList = () => {
                               New
                             </Badge>
                             <br />
+                            <Text style={{ textTransform: "capitalize" }}>
+                              {p.refFacility}
+                            </Text>
                           </p>
 
                           <Spacer></Spacer>
@@ -741,7 +745,7 @@ const PatientsList = () => {
             </Grid>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter mt={4}>
             <Button
               size="sm"
               mr={3}
@@ -751,7 +755,7 @@ const PatientsList = () => {
               }}
               leftIcon={<GoCheck fontSize="20px" />}
             >
-              Verify
+              Accept
             </Button>
             <Button
               size="sm"
