@@ -199,7 +199,7 @@ function TagubilinForm(props) {
         othersDiet: othersDiet,
         instructions: instructions,
         breastfeed: breastfeed,
-        ob:ob,
+        ob: ob,
       })
     );
     window.location.href = "/tagubilinreport";

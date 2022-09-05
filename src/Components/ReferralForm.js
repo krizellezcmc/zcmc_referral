@@ -15,7 +15,6 @@ import Swal from "sweetalert2";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");
-  const [data, setData] = useState();
   const [timeStamp, setTimeStamp] = useState(newDate);
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
