@@ -17,6 +17,10 @@ import TagubilinPrescription from "../Pages/TagubilinPrescription";
 import Prescription from "./Prescription";
 import IPCCHome from "../Pages/IPCCHome";
 import NurseHome from "../Pages/NurseHome";
+import Blocked from "../Pages/Blocked";
+import AdminDashboard from "../Pages/AdminDashboard";
+import DashboardTile from "./DashboardTile";
+import UserDashboard from "../Pages/UserDashboard";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -27,7 +31,10 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Login />} />
+          <Route path="/blocked" element={<Blocked />} />
           <Route path="/register" element={<Register />} />
+
+          <Route path="/user" element={<UserDashboard />}></Route>
 
           {/* Nurse Routes*/}
           <Route path="/tagubilin" element={<NurseHome />} />
@@ -50,6 +57,7 @@ const AnimatedRoutes = () => {
 
           {/* Admin Routes */}
           <Route element={<ProtectedRoutes user={user} role="admin" />}>
+            <Route path="/admindashboard" element={<AdminDashboard />} />
             <Route path="/addhospital" element={<AddHospital />} />
             <Route path="/verifyuser" element={<VerifyUser />} />
             <Route path="/patientlist" element={<Patient />} />

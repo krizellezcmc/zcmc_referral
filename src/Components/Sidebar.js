@@ -14,7 +14,7 @@ import {
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
-import { BiWrench } from "react-icons/bi";
+import { BiGrid, BiGridAlt, BiMenu, BiWrench } from "react-icons/bi";
 import useAuth from "../Hooks/useAuth";
 
 const Sidebar = () => {
@@ -45,6 +45,19 @@ const Sidebar = () => {
       <ul className="navlinks">
         {role === "admin" ? (
           <>
+            <li
+              className={path.includes("admindashboard") ? "active" : ""}
+              onClick={() => navigate("/admindashboard")}
+            >
+              <p>
+                {path.includes("admindashboard") ? (
+                  <BiGridAlt />
+                ) : (
+                  <BiGridAlt />
+                )}
+              </p>
+              <span>Dashboard</span>
+            </li>
             <li
               className={path.includes("addhospital") ? "active" : ""}
               onClick={() => navigate("/addhospital")}
@@ -129,6 +142,13 @@ const Sidebar = () => {
           </>
         ) : (
           <>
+            <li
+              className={path.includes("user") ? "active" : ""}
+              onClick={() => navigate("/user")}
+            >
+              <p>{path.includes("user") ? <BiGridAlt /> : <BiGridAlt />}</p>
+              <span>Dashboard</span>
+            </li>
             <li
               className={path.includes("home") ? "active" : ""}
               onClick={() => navigate("/home")}
