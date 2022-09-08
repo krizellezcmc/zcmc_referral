@@ -360,7 +360,7 @@ const UsersTable = () => {
                     </FormLabel>
                   </div>
                   <Text ml={2} fontWeight={500}>
-                    {contact}{" "}
+                    {contact}
                   </Text>
                 </FormControl>
                 <FormControl>
@@ -385,7 +385,7 @@ const UsersTable = () => {
                     </FormLabel>
                   </div>
                   <Text ml={2} fontWeight={500}>
-                    {hospital}{" "}
+                    {hospital}
                   </Text>
                 </FormControl>
 

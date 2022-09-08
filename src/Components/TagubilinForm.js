@@ -478,7 +478,7 @@ function TagubilinForm(props) {
                     </Td>
                     <Td className="border" py={1} width="30%">
                       <Text textAlign="center" fontSize="12px" fontWeight="600">
-                        Oras ng Pag-iinom
+                        Prikwensiya at Oras ng Pag-iinom
                       </Text>
                     </Td>
                     <Td className="border" py={1}>

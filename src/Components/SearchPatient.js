@@ -13,48 +13,44 @@ function SearchPatient(props) {
   const [hospital, setHospital] = useState("");
   const [covid, setCovid] = useState("");
 
-  patient.forEach((element, key) => {
+  patient.filter((l) => l.refFacility === hospital.toUpperCase()).forEach((element, key) => {
     patient[key]["label"] =
-      element.Lastname +
+      element.lastname +
       ", " +
-      element.Firstname +
+      element.firstname +
       " " +
-      element.Middlename +
+      element.middleName +
       " " +
       "(" +
-      element.Timestamp +
+      element.tstamp +
       ")";
 
     patient[key]["value"] =
       element.patientId +
       "/" +
-      element.Lastname +
+      element.lastname +
       ", " +
-      element.Firstname +
+      element.firstname +
       " " +
-      element.Middlename +
-      " " +
-      "/" +
-      moment(element.Timestamp).format("YYYY-MM-DD hh:mm:ss");
+      element.middleName +
+      " "+"/" + element.tstamp
+      
   });
 
-  // Split value
+  // Split 
   let data = selected.split("/");
   let name = data[1];
   let id = data[0];
-  let refDate = data[2];
+  const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setHospital(user.name);
 
     axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_sheets.php")
+      .get("http://localhost/zcmc_referral_api/api/get_sheets.php")
       .then((response) => {
-        let list = response.data;
-        setPatient(
-          list.filter((l) => l.ReferringFacility === hospital.toUpperCase())
-        );
+        setPatient(response.data);
       });
 
     axios
@@ -62,7 +58,7 @@ function SearchPatient(props) {
         params: { id: id },
       })
       .then((response) => {
-        setCovid(response.data.result);
+        setCovid(response.data);
       });
 
     axios
@@ -72,7 +68,7 @@ function SearchPatient(props) {
       .then((response) => {
         setBizbox(response.data);
       });
-  }, [patient, hospital, bizbox, name, refDate, id]);
+  }, [ refDate, name, id]);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -95,7 +91,7 @@ function SearchPatient(props) {
 
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
         {patient
-          .filter((pat) => pat.patientId == id)
+          .filter((pat) => pat.patientId == id )
           .map((i, k) => {
             return (
               <>
@@ -103,7 +99,6 @@ function SearchPatient(props) {
                   <div className="referral-form-search">
                     <div className="block">
                       <Flex>
-                        {" "}
                         <h1>Patient Information</h1>
                       </Flex>
 
@@ -116,7 +111,7 @@ function SearchPatient(props) {
                             disabled
                             style={{ textTransform: "uppercase" }}
                             type="text"
-                            value={i.Lastname}
+                            value={i.lastname}
                             className="lastname"
                             placeholder="Last name"
                             required
@@ -125,7 +120,7 @@ function SearchPatient(props) {
                             disabled
                             style={{ textTransform: "uppercase" }}
                             type="text"
-                            value={i.Firstname}
+                            value={i.firstname}
                             className="firstname"
                           />
                           <input
@@ -134,13 +129,13 @@ function SearchPatient(props) {
                             type="text"
                             className="middlename"
                             placeholder="Middle name"
-                            value={i.Middlename}
+                            value={i.middleName}
                           />
                           <input
                             disabled
                             style={{ textTransform: "uppercase" }}
                             type="text"
-                            value={i.ExtendedNameofPatient}
+                            value={i.extended}
                             className="suffix"
                             placeholder="Suffix"
                           />
@@ -150,20 +145,20 @@ function SearchPatient(props) {
                             <label>Birthday</label>
                             <input
                               disabled
-                              value={moment(i.Birthdate).format("LL")}
+                              value={moment(i.birthdate).format("LL")}
                               type="text"
                             />
                           </div>
 
                           <div className="input-container-4">
                             <label>Sex</label>
-                            <input disabled value={i.Sex} type="text" />
+                            <input disabled value={i.sex} type="text" />
                           </div>
 
                           <div className="input-container-4">
                             <label>Civil Status</label>
-                            <select value={i.CivilStatus}>
-                              <option value={i.CivilStatus} selected disabled>
+                            <select value={i.civilStatus}>
+                              <option value={i.civilStatus} selected disabled>
                                 {i.CivilStatus}
                               </option>
                             </select>
@@ -171,13 +166,13 @@ function SearchPatient(props) {
 
                           <div className="input-container-4">
                             <label>Nationality</label>
-                            <input disabled value={i.Nationality} type="text" />
+                            <input disabled value={i.nationality} type="text" />
                           </div>
                         </div>
                         <div className="inline-block-2">
                           <div className="input-container-3">
                             <label>Religion</label>
-                            <select value={i.Religion}>
+                            <select value={i.religion}>
                               <option value="" selected>
                                 {i.Religion}
                               </option>
@@ -186,14 +181,14 @@ function SearchPatient(props) {
 
                           <div className="input-container-3">
                             <label>Occupation</label>
-                            <input disabled value={i.Occupation} type="text" />
+                            <input disabled value={i.occupation} type="text" />
                           </div>
 
                           <div className="input-container-3">
                             <label>PhilHealth MDR</label>
                             <input
                               disabled
-                              value={i.PhilhealthMDR}
+                              value={i.philhealth}
                               type="text"
                             />
                           </div>
@@ -204,7 +199,7 @@ function SearchPatient(props) {
                             <textarea
                               disabled
                               rows="1"
-                              value={i.Address}
+                              value={i.address}
                             ></textarea>
                           </div>
                         </div>
@@ -214,14 +209,14 @@ function SearchPatient(props) {
                           <div className="inline-block-2">
                             <div className="input-container-2">
                               <label>Next of Kin</label>
-                              <input disabled value={i.NextofKin} type="text" />
+                              <input disabled value={i.nextOfKin} type="text" />
                             </div>
 
                             <div className="input-container-2">
                               <label>Landline/Mobile/Email</label>
                               <input
                                 disabled
-                                value={i.ContactNoWatcher}
+                                value={i.contactWatcher}
                                 type="text"
                               />
                             </div>
@@ -237,7 +232,7 @@ function SearchPatient(props) {
                               </label>
                               <input
                                 disabled
-                                value={i.DateAdmitted}
+                                value={i.dateAdmitted}
                                 type="text"
                               />
                             </div>
@@ -246,9 +241,9 @@ function SearchPatient(props) {
                               <label>
                                 Referral Type <span>*</span>
                               </label>
-                              <select value={i.ReferralType}>
+                              <select value={i.refType}>
                                 <option
-                                  value={i.ReferralType}
+                                  value={i.refType}
                                   disabled
                                   selected
                                 >
@@ -261,9 +256,9 @@ function SearchPatient(props) {
                               <label>
                                 Disposition <span>*</span>
                               </label>
-                              <select value={i.Disposition}>
+                              <select value={i.disposition}>
                                 <option disabled selected>
-                                  {i.Disposition}
+                                  {i.disposition}
                                 </option>
                               </select>
                             </div>
@@ -274,7 +269,7 @@ function SearchPatient(props) {
                               </label>
                               <select value={i.Specialization}>
                                 <option disabled selected>
-                                  {i.Specialization}
+                                  {i.specialization}
                                 </option>
                               </select>
                             </div>
@@ -298,7 +293,7 @@ function SearchPatient(props) {
                                   <input
                                     disabled
                                     type="text"
-                                    value={i.GravidityParity}
+                                    value={i.GP}
                                   />
                                 </div>
 
@@ -375,7 +370,7 @@ function SearchPatient(props) {
                                 <div className="input-container-2">
                                   <label>Bow</label>
 
-                                  <input disabled value={i.Bow} />
+                                  <input disabled value={i.bow} />
                                 </div>
                               </div>
                             </>
@@ -390,7 +385,7 @@ function SearchPatient(props) {
                               </label>
                               <input
                                 disabled
-                                value={i.LatestVSTemperature}
+                                value={i.latestTemp}
                                 type="text"
                               />
                             </div>
@@ -401,7 +396,7 @@ function SearchPatient(props) {
                               </label>
                               <input
                                 disabled
-                                value={i.LatestVSBloodPressure}
+                                value={i.latestBp}
                                 type="text"
                               />
                             </div>
@@ -412,7 +407,7 @@ function SearchPatient(props) {
                               </label>
                               <input
                                 disabled
-                                value={i.LatestVSRespirationRate}
+                                value={i.latestRespi}
                                 type="text"
                               />
                             </div>
@@ -423,7 +418,7 @@ function SearchPatient(props) {
                               </label>
                               <input
                                 disabled
-                                value={i.LatestVSPulseRate}
+                                value={i.latestPulse}
                                 type="text"
                               />
                             </div>
@@ -434,7 +429,7 @@ function SearchPatient(props) {
                               </label>
                               <input
                                 disabled
-                                value={i.LatestVSOxygenSaturation}
+                                value={i.latestOxygen}
                                 type="text"
                               />
                             </div>
@@ -447,7 +442,7 @@ function SearchPatient(props) {
                               </label>
                               <input
                                 disabled
-                                value={i.GlasgowComaScale}
+                                value={i.latestGlasgow}
                                 type="text"
                               />
                             </div>
@@ -456,7 +451,7 @@ function SearchPatient(props) {
                               <label>Endorsement/Initial Care</label>
                               <input
                                 disabled
-                                value={i.Endorsement}
+                                value={i.endorsement}
                                 type="text"
                               />
                             </div>
@@ -465,7 +460,7 @@ function SearchPatient(props) {
                               <label>Resident on Duty/Contact #</label>
                               <input
                                 disabled
-                                value={i.UserContactNo}
+                                value={i.userContact}
                                 type="text"
                               />
                             </div>
@@ -476,7 +471,7 @@ function SearchPatient(props) {
                               <label>Chief Complaints</label>
                               <textarea
                                 disabled
-                                value={i.ChiefComplaints}
+                                value={i.chiefComplaints}
                                 style={{
                                   marginTop: "5px",
                                   minWidth: "0px",
@@ -490,7 +485,7 @@ function SearchPatient(props) {
                               <label>Diagnosis</label>
                               <textarea
                                 disabled
-                                value={i.Diagnosis}
+                                value={i.diagnosis}
                                 style={{
                                   marginTop: "5px",
                                   minWidth: "0px",
@@ -506,7 +501,7 @@ function SearchPatient(props) {
                               <label>Reason for Referral</label>
                               <select value={i.ReasonforReferral}>
                                 <option value="" disabled selected>
-                                  {i.ReasonforReferral}
+                                  {i.reason}
                                 </option>
                               </select>
                             </div>

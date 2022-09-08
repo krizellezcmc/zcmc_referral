@@ -209,21 +209,22 @@
   border-left: 1px solid #a9a9a9;
   border-right: 1px solid #a9a9a9;
 }
-.border2 {
-  border-left: 1px solid #a9a9a9;
-  border-right: 1px solid #a9a9a9;
+/* .border2 {
   text-align: center;
-}
-.border2 p {
+  border: 1px solid #a9a9a9;
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+} */
+/* .border2-para{
   font-family: "Times New Roman", Times, serif;
   font-size: 13px;
   margin-right: 20px;
   font-weight: 400;
-}
-.borders {
-  border-left: 1px solid #a9a9a9;
-  border-right: 1px solid #a9a9a9;
-  border-bottom: 1px solid #a9a9a9;
+} */
+/* .borders {
+ 
+  border-top: 0;
   font-size: 13px;
-  /* margin-top: 30px; */
-}
+  /* margin-top: 30px;
+} */

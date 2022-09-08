@@ -113,7 +113,7 @@ const ReferralForm = () => {
   // const url =
   //   "https://script.google.com/macros/s/AKfycbyDuFLupqdcyp7z3lbGbfwNX79SZlbm9d84n2uPDijo6cXuO_fw_7PwYSL1tOkxhL-I5g/exec?action=postData";
 
-  const url = "http://192.168.3.135/zcmc_referral_api/api/temp_referral.php";
+  const url = "http://localhost/zcmc_referral_api/api/temp_referral.php";
 
   const postData = async () => {
     const data = JSON.stringify(bowList);

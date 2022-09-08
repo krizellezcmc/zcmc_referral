@@ -247,11 +247,11 @@ function TagubilinReport() {
                 <td className="med" colSpan="1" style={{ borderRight: "0" }}>
                   Pangalan ng Gamot
                 </td>
-                <td className="med" colSpan="2" style={{ borderRight: "0" }}>
+                <td className="med" colSpan="1" style={{ borderRight: "0" }}>
                   Dosage
                 </td>
-                <td className="med" colSpan="2">
-                  Oras ng Pag-inom
+                <td className="med" colSpan="3">
+                Prikwensiya at Oras ng Pag-iinom
                 </td>
               </tr>
               {med.map((m, k) => {
@@ -266,12 +266,12 @@ function TagubilinReport() {
                     </td>
                     <td
                       className="med-cell"
-                      colSpan="2"
+                      colSpan="1"
                       style={{ borderRight: "0" }}
                     >
                       {m.dosage}
                     </td>
-                    <td className="med-cell" colSpan="2">
+                    <td className="med-cell" colSpan="3">
                       {m.sched}
                     </td>
                   </tr>
@@ -656,36 +656,84 @@ function TagubilinReport() {
              </>
           )}
          
-          <tr className="border1">
-            <td colSpan="5">
+          <tr>
+            <td className="border1" colSpan="5">
               <b className="rb">
                 I understand the above explanation given, I do hereby agree that
                 I will have follow-up check-up:
               </b>
             </td>
           </tr>
-          <tr className="border2">
-            <td>
-              <p>{followup}</p>
-              <p className="hr-date">Date of Follow-Up</p>
+          <tr>
+            <td style={{
+              textAlign: "center",
+              border: "1px solid #a9a9a9",
+              borderTop: "0",
+              borderBottom: "0",
+              borderRight: "0",
+              }}>
+              <p style={{
+              fontFamily: "'Times New Roman', Times, serif",
+              fontSize: "13px",
+              marginRight: "20px",
+              fontWeight: '400',
+              }}>{followup}</p>
+              <p className="hr-date" style={{
+              fontFamily: "'Times New Roman', Times, serif",
+              fontSize: "13px",
+              marginRight: "20px",
+              fontWeight: '400',
+              }}>Date of Follow-Up</p>
             </td>
-            <td colSpan="2">
-              <p>{time}</p>
-              <p className="hr-followup">Time</p>
+            <td colSpan="2" style=
+            {{
+              textAlign: "center",
+              }}>
+              <p style={{
+              fontFamily: "'Times New Roman', Times, serif",
+              fontSize: "13px",
+              marginRight: "20px",
+              fontWeight: '400',
+              }}>{time}</p>
+              <p className="hr-followup" style={{
+              fontFamily: "'Times New Roman', Times, serif",
+              fontSize: "13px",
+              marginRight: "20px",
+              fontWeight: '400',
+              }}>Time</p>
             </td>
-            <td colSpan="2">
-              <p>{need}</p>
-              <p className="hr-followup">Need to Bring</p>
+            <td colSpan="2" style=
+            {{
+              textAlign: "center",
+              border: "1px solid #a9a9a9",
+              borderTop: "0",
+              borderBottom: "0",
+              borderLeft: "0",
+              }}>
+              <p style={{
+              fontFamily: "'Times New Roman', Times, serif",
+              fontSize: "13px",
+              marginRight: "20px",
+              fontWeight: '400',
+              }}>{need}</p>
+              <p className="hr-followup" style={{
+              fontFamily: "'Times New Roman', Times, serif",
+              fontSize: "13px",
+              marginRight: "20px",
+              fontWeight: '400',
+              }}>Need to Bring</p>
             </td>
           </tr>
 
-          <tr className="borders">
-            <td colSpan="5">
-              <div style={{ textAlign: "center" }}>
+          <tr>
+            <td style={{
+               border: "1px solid #a9a9a9",
+               borderTop: "0",
+               textAlign:"center"
+            }} colSpan="5">              
                 <p className="hr-watcher">
                   Signature over Printed Name of Patient/Watcher
                 </p>
-              </div>
             </td>
           </tr>
         </table>
@@ -737,11 +785,11 @@ function TagubilinReport() {
       height: 297,
       windowWidth: 800,
       windowHeight: 1600,
-      margin: [5, 10, 10, 10],
+      margin: [10, 10, 14, 10],
 
       callback: function (doc) {
         footer();
-        doc.save(refName);
+        window.open(doc.output("bloburl"));
       },
     });
   };
@@ -902,13 +950,13 @@ function TagubilinReport() {
                 </tr>
                 <tr>
                   <td className="dmed" colSpan="1">
-                    (Pangalan ng Gamot)
+                    Pangalan ng Gamot
                   </td>
-                  <td className="dmed" colSpan="2">
-                    (Dosage)
+                  <td className="dmed" colSpan="1">
+                    Dosage
                   </td>
-                  <td className="dmed" colSpan="2">
-                    (Oras ng Pag-inom)
+                  <td className="dmed" colSpan="3">
+                    Prikwensiya at Oras ng Pag-iinom
                   </td>
                 </tr>
                 {med.map((m, k) => {
@@ -917,10 +965,10 @@ function TagubilinReport() {
                       <td className="dmed-cell" colSpan="1">
                         {m.medicine}
                       </td>
-                      <td className="dmed-cell" colSpan="2">
+                      <td className="dmed-cell" colSpan="1">
                         {m.dosage}
                       </td>
-                      <td className="dmed-cell" colSpan="2">
+                      <td className="dmed-cell" colSpan="3">
                         {m.sched}
                       </td>
                     </tr>

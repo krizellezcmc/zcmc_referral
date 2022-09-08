@@ -97,7 +97,7 @@ function Prescription(){
                     {!pres.medicine ? (
                     <p className="pgeneric-line">--</p>
                     ):(
-                      <p className="pgeneric-line">{pres.medicine}</p>
+                      <p className="pgeneric-line">{pres.medicine + "  "+ pres.dosage}</p>
                     )}
                     <p className="pdetails"># </p>
                     {!pres.quantity ? (
@@ -107,10 +107,10 @@ function Prescription(){
                     )}
                     <div>
                     <p className="psig">Sig :</p>
-                    {!pres.dosage ? (
+                    {!pres.sched ? (
                       <p className="psig-line">--</p>
                     ):(
-                      <p className="psig-line">{pres.dosage}</p>
+                      <p className="psig-line">{pres.sched}</p>
                     )}
                     </div>
                     <p style={{display:"none"}}>{reportCounter++}</p>
@@ -255,8 +255,15 @@ return(
                   {!pres.medicine ? (
                       <p className="pgeneric-line">--</p>
                     ):(
-                      <p className="pgeneric-line">{pres.medicine}</p>
+                      <>
+                      <p className="pgeneric-line">{pres.medicine + "  "+ pres.dosage}</p>                
+                      </>
                     )}
+                     {/* {!pres.dosage ? (
+                  <p className="psig-line">--</p>
+                  ):(
+  
+                  )} */}
                 
                   <p className="pdetails"># </p>
                   {!pres.quantity ? (
@@ -267,10 +274,10 @@ return(
                   
                   <div>
                   <p className="psig">Sig :</p>
-                  {!pres.dosage ? (
+                  {!pres.sched ? (
                   <p className="psig-line">--</p>
                   ):(
-                  <p className="psig-line">{pres.dosage}</p>
+                  <p className="psig-line">{pres.sched}</p>
                   )}
                   </div>
                     <p style={{display:"none"}}>{counter++}</p>

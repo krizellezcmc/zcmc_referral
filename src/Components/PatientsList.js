@@ -635,7 +635,7 @@ const PatientsList = () => {
                   />
                   <Text textTransform="uppercase">Date Admitted</Text>
                 </small>
-                <Text fontSize="15px">{moment(admitDate).format("lll")}</Text>
+                <Text fontSize="15px">{moment(admitDate).format("ll")}</Text>
               </GridItem>
             </Grid>
 
