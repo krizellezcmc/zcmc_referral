@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+}
+
+#searchbar {
+  position: absolute;
+  width: 50%;
+  z-index: 20;
+}
+
+#progress {
+  padding: 0;
+  list-style-type: none;
+  font-family: arial;
+  font-size: 15px;
+  clear: both;
+  line-height: 1.5em;
+  margin: 0 -1px;
+  text-align: center;
+}
+
+#progress li {
+  float: left;
+  padding: 10px 30px 10px 40px;
+  background: #e0f8e5;
+  color: gray;
+  position: relative;
+  border-top: 1px solid #e0f8e5;
+  border-bottom: 1px solid #e0f8e5;
+  width: 20%;
+  margin: 0 1px;
+}
+
+#progress li:before {
+  content: "";
+  border-left: 20px solid #fff;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#progress li:after {
+  content: "";
+  border-left: 20px solid #e0f8e5;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 10;
+}
+
+#progress li.active {
+  color: white;
+  font-weight: 600;
+  background: #38a169;
+}
+
+#progress li.active:after {
+  border-left-color: #38a169;
+}
