@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Text,
@@ -24,6 +24,8 @@ import useAuth from "../Hooks/useAuth";
 function Login() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const [counter, setCounter] = useState(1);
+  const [attempt, setAttempt] = useState(0);
 
   const [data, setData] = useState({
     email: "",
@@ -65,10 +67,17 @@ function Login() {
             duration: 2000,
             isClosable: true,
           });
+        } else if (response.data.status === 5) {
+          navigate("/blocked");
         } else {
+          let logs = 3 - response.data.logs;
           toast({
             position: "top",
-            title: "Invalid password.",
+            title: logs === 0 ? "User blocked!" : "Invalid password.",
+            description:
+              logs === 0
+                ? "Contact the admin"
+                : "You have " + logs + " login attempt.",
             status: "error",
             duration: 2000,
             isClosable: true,
@@ -81,7 +90,7 @@ function Login() {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <Navigate to="/addhospital" />;
+    return <Navigate to="/admindashboard" />;
   }
 
   if (user?.role === "user") {

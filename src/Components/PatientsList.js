@@ -35,7 +35,14 @@ import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
 import "../Styles/Table.css";
-import { BiCalendarEvent, BiSearch, BiStats, BiUser, BiUserCheck, BiRefresh } from "react-icons/bi";
+import {
+  BiCalendarEvent,
+  BiSearch,
+  BiStats,
+  BiUser,
+  BiUserCheck,
+  BiRefresh,
+} from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
@@ -230,7 +237,6 @@ const PatientsList = () => {
         setPendingPat(response.data);
       });
   }, [pendingPat, patients]);
-
 
   return (
     <div>

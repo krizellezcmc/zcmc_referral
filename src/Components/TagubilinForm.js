@@ -68,9 +68,7 @@ function TagubilinForm(props) {
     },
   ]);
 
-  const [breastfeed, setBreastfeed] = useState([
-    { date: "", fromTo: "", yes: "", reason: "", management: "", attended: "" },
-  ]);
+  const [breastfeed, setBreastfeed] = useState([]);
 
   const [instructions, setInstructions] = useState([
     {
@@ -109,9 +107,7 @@ function TagubilinForm(props) {
 
   const [ob, setOb] = useState("");
   const [othersDiet, setOthersDiet] = useState("");
-  const [medications, setMedications] = useState([
-    { medicine: "", quantity: "", dosage: "", sched: "" },
-  ]);
+  const [medications, setMedications] = useState([]);
 
   // handle input change
   const handleInputChange = (e, index) => {
@@ -142,8 +138,6 @@ function TagubilinForm(props) {
     const list = [...breastfeed];
     list[index][name] = value;
     setBreastfeed(list);
-
-    console.log(breastfeed);
   };
 
   //handle click event of the Remove button
@@ -168,8 +162,45 @@ function TagubilinForm(props) {
     ]);
   };
 
+  const url = "http://192.168.3.135/zcmc_referral_api/api/add_tagubilin.php";
+
   const submit = (e) => {
     e.preventDefault();
+    axios
+      .post(url, {
+        patientName: patientName,
+        age: age,
+        sex: sex,
+        ward: ward,
+        hrn: hrn,
+        address: address,
+        admissionDate: admissionDate,
+        dischDiag: dischDiag,
+        dischDate: dischDate,
+        laboratory: laboratory,
+        xray: xray,
+        ctScan: ctScan,
+        mri: mri,
+        others: others,
+        homemed: homemed,
+        nurse: nurse,
+        resident: resident,
+        followUp: followUp,
+        needBring: needBring,
+        time: time,
+        healthOthers: healthOthers,
+        medications: medications,
+        diet: dietList,
+        othersDiet: othersDiet,
+        instructions: instructions,
+        breastfeed: breastfeed,
+        ob: ob,
+      })
+      .then((response) => {
+        console.log(response);
+        // window.location.href = "/tagubilinreport";
+      });
+
     localStorage.setItem(
       "refpatient",
       JSON.stringify({
@@ -199,10 +230,11 @@ function TagubilinForm(props) {
         othersDiet: othersDiet,
         instructions: instructions,
         breastfeed: breastfeed,
-        ob:ob,
+        ob: ob,
       })
     );
-    window.location.href = "/tagubilinreport";
+
+    //
   };
 
   // Health Diet
@@ -261,6 +293,7 @@ function TagubilinForm(props) {
         );
       });
   }, [dietList, props.id]);
+
   return (
     <div
       style={{
