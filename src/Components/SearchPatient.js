@@ -150,12 +150,62 @@ function SearchPatient(props) {
           return (
             <>
               <Center>
-                <Box mt={20} w="50%">
+                <Box mt={20} w="85%">
                   <ul id="progress">
-                    <li>Referred</li>
-                    <li class="active">Arrived</li>
-                    <li>Admitted</li>
-                    <li>Discharged</li>
+                    <li
+                      className={
+                        i.status === "pending"
+                          ? "active"
+                          : // : i.status === "cancelled"
+                            // ? "out"
+                            ""
+                      }
+                    >
+                      Waiting for approval
+                      {/* {i.status === "pending"
+                        ? "Waiting for approval"
+                        : i.status === "cancelled"
+                        ? "Cancelled"
+                        : ""} */}
+                    </li>
+                    <li
+                      className={
+                        i.status === "accepted" && bizbox.length === 0
+                          ? "active"
+                          : ""
+                      }
+                    >
+                      Referred
+                    </li>
+
+                    <li
+                      className={bizbox.map((d) => {
+                        return (
+                          <>
+                            {d.dischDate === "" || d.dischDate === null
+                              ? "active"
+                              : ""}
+                          </>
+                        );
+                      })}
+                    >
+                      Admitted
+                    </li>
+
+                    <li
+                      className={bizbox.map((d) => {
+                        return (
+                          <>
+                            {" "}
+                            {d.dischDate !== "" || d.dischDate !== null
+                              ? "out"
+                              : ""}
+                          </>
+                        );
+                      })}
+                    >
+                      Discharged
+                    </li>
                   </ul>
                 </Box>
               </Center>
@@ -304,7 +354,7 @@ function SearchPatient(props) {
                               </label>
                               <select value={i.refType}>
                                 <option value={i.refType} disabled selected>
-                                  {i.ReferralType}
+                                  {i.refType}
                                 </option>
                               </select>
                             </div>
@@ -606,7 +656,7 @@ function SearchPatient(props) {
                           </Text>
                           <br />
 
-                          <Text
+                          {/* <Text
                             style={{
                               display: "flex",
                               marginBottom: 4,
@@ -640,7 +690,7 @@ function SearchPatient(props) {
                                 Patient Discharged
                               </Text>
                             </Box>
-                          )}
+                          )} */}
 
                           <Text
                             style={{

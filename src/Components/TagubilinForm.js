@@ -358,7 +358,7 @@ function TagubilinForm(props) {
                   <Text fontSize="12px" fontWeight="600">
                     Discharge Date:
                   </Text>
-                  <Text fontSize="14px">Date</Text>
+                  <Text fontSize="14px">{dischDate}</Text>
                 </Td>
               </Tr>
               <Tr>
@@ -405,11 +405,20 @@ function TagubilinForm(props) {
                 </Td>
               </Tr>
               <Tr>
-                <Td className="border" width="40%" py={1.5}>
+                <Td className="border" width="40%" py={2} px={0}>
                   <Box height="150px">
                     <Text fontSize="12px" textAlign="center" fontWeight="600">
                       Laboratory
                     </Text>
+                    <Textarea
+                      m={0}
+                      textAlign="center"
+                      borderRadius="0"
+                      border="none"
+                      rows={6}
+                      onChange={(e) => setLaboratory(e.target.value)}
+                      fontSize="14px"
+                    ></Textarea>
                   </Box>
                 </Td>
 
