@@ -2,9 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Select } from "chakra-react-select";
 import axios from "axios";
 import moment from "moment";
-import { Box, Badge, Text, Grid, GridItem, Flex } from "@chakra-ui/react";
+import "../Styles/StatusBar.css";
+import {
+  Box,
+  Badge,
+  Text,
+  Grid,
+  GridItem,
+  Flex,
+  Button,
+  Center,
+} from "@chakra-ui/react";
 import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
+import Swal from "sweetalert2";
 
 function SearchPatient(props) {
   const [patient, setPatient] = useState([]);
@@ -13,35 +24,78 @@ function SearchPatient(props) {
   const [hospital, setHospital] = useState("");
   const [covid, setCovid] = useState("");
 
-  patient.filter((l) => l.refFacility === hospital.toUpperCase()).forEach((element, key) => {
-    patient[key]["label"] =
-      element.lastname +
-      ", " +
-      element.firstname +
-      " " +
-      element.middleName +
-      " " +
-      "(" +
-      element.tstamp +
-      ")";
+  patient
+    .filter((l) => l.refFacility === hospital.toUpperCase())
+    .forEach((element, key) => {
+      patient[key]["label"] =
+        element.lastname +
+        ", " +
+        element.firstname +
+        " " +
+        element.middleName +
+        " " +
+        "(" +
+        element.tstamp +
+        ")";
 
-    patient[key]["value"] =
-      element.patientId +
-      "/" +
-      element.lastname +
-      ", " +
-      element.firstname +
-      " " +
-      element.middleName +
-      " "+"/" + element.tstamp
-      
-  });
+      patient[key]["value"] =
+        element.patientId +
+        "/" +
+        element.lastname +
+        ", " +
+        element.firstname +
+        " " +
+        element.middleName +
+        " " +
+        "/" +
+        element.tstamp;
+    });
 
-  // Split 
+  // Split
   let data = selected.split("/");
   let name = data[1];
   let id = data[0];
   const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
+
+  const cancelReferral = (id) => {
+    Swal.fire({
+      text: "Please indicate reason for cancelling the referral",
+      icon: "warning",
+      input: "textarea",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Proceed",
+      preConfirm: (data) => {
+        if (!data) {
+          Swal.showValidationMessage(`Request failed`);
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            "http://localhost/zcmc_referral_api/api/cancel_referred_patient.php",
+            {
+              id: id,
+              reason: result.value,
+            }
+          )
+          .then((response) => {
+            if (response.data.status === 1) {
+              Swal.fire(
+                "Rejected!",
+                "You successfully rejected the referral.",
+                "success"
+              );
+            } else {
+              Swal.fire("Error!", "Something went wrong.", "error");
+            }
+            console.log(response.data);
+          });
+      }
+    });
+  };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -68,7 +122,7 @@ function SearchPatient(props) {
       .then((response) => {
         setBizbox(response.data);
       });
-  }, [ refDate, name, id]);
+  }, [refDate, name, id]);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -86,15 +140,76 @@ function SearchPatient(props) {
           width="100%"
           required
           useBasicStyles
+          id="searchbar"
         />
       </div>
 
-      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-        {patient
-          .filter((pat) => pat.patientId == id )
-          .map((i, k) => {
-            return (
-              <>
+      {patient
+        .filter((pat) => pat.patientId == id)
+        .map((i, k) => {
+          return (
+            <>
+              <Center>
+                <Box mt={20} w="85%">
+                  <ul id="progress">
+                    <li
+                      className={
+                        i.status === "pending"
+                          ? "active"
+                          : // : i.status === "cancelled"
+                            // ? "out"
+                            ""
+                      }
+                    >
+                      Waiting for approval
+                      {/* {i.status === "pending"
+                        ? "Waiting for approval"
+                        : i.status === "cancelled"
+                        ? "Cancelled"
+                        : ""} */}
+                    </li>
+                    <li
+                      className={
+                        i.status === "accepted" && bizbox.length === 0
+                          ? "active"
+                          : ""
+                      }
+                    >
+                      Referred
+                    </li>
+
+                    <li
+                      className={bizbox.map((d) => {
+                        return (
+                          <>
+                            {d.dischDate === "" || d.dischDate === null
+                              ? "active"
+                              : ""}
+                          </>
+                        );
+                      })}
+                    >
+                      Admitted
+                    </li>
+
+                    <li
+                      className={bizbox.map((d) => {
+                        return (
+                          <>
+                            {" "}
+                            {d.dischDate !== "" || d.dischDate !== null
+                              ? "out"
+                              : ""}
+                          </>
+                        );
+                      })}
+                    >
+                      Discharged
+                    </li>
+                  </ul>
+                </Box>
+              </Center>
+              <Grid templateColumns="repeat(3, 1fr)" gap={6}>
                 <GridItem colSpan={2}>
                   <div className="referral-form-search">
                     <div className="block">
@@ -186,11 +301,7 @@ function SearchPatient(props) {
 
                           <div className="input-container-3">
                             <label>PhilHealth MDR</label>
-                            <input
-                              disabled
-                              value={i.philhealth}
-                              type="text"
-                            />
+                            <input disabled value={i.philhealth} type="text" />
                           </div>
                         </div>
                         <div className="inline-block">
@@ -242,12 +353,8 @@ function SearchPatient(props) {
                                 Referral Type <span>*</span>
                               </label>
                               <select value={i.refType}>
-                                <option
-                                  value={i.refType}
-                                  disabled
-                                  selected
-                                >
-                                  {i.ReferralType}
+                                <option value={i.refType} disabled selected>
+                                  {i.refType}
                                 </option>
                               </select>
                             </div>
@@ -290,11 +397,7 @@ function SearchPatient(props) {
                                     Gravidity and Parity <span>*</span>
                                   </label>
 
-                                  <input
-                                    disabled
-                                    type="text"
-                                    value={i.GP}
-                                  />
+                                  <input disabled type="text" value={i.GP} />
                                 </div>
 
                                 <div className="input-container-3">
@@ -394,11 +497,7 @@ function SearchPatient(props) {
                               <label>
                                 Latest V/S-Blood Pressure <span>*</span>
                               </label>
-                              <input
-                                disabled
-                                value={i.latestBp}
-                                type="text"
-                              />
+                              <input disabled value={i.latestBp} type="text" />
                             </div>
 
                             <div className="input-container-5">
@@ -511,7 +610,6 @@ function SearchPatient(props) {
                     </div>
                   </div>
                 </GridItem>
-
                 <GridItem
                   p={3}
                   style={{
@@ -558,7 +656,7 @@ function SearchPatient(props) {
                           </Text>
                           <br />
 
-                          <Text
+                          {/* <Text
                             style={{
                               display: "flex",
                               marginBottom: 4,
@@ -592,7 +690,7 @@ function SearchPatient(props) {
                                 Patient Discharged
                               </Text>
                             </Box>
-                          )}
+                          )} */}
 
                           <Text
                             style={{
@@ -705,6 +803,15 @@ function SearchPatient(props) {
                         </>
                       );
                     })
+                  ) : i.status === "cancelled" ? (
+                    <Text
+                      style={{
+                        display: "flex",
+                        marginBottom: 4,
+                      }}
+                    >
+                      Cancelled na
+                    </Text>
                   ) : (
                     <>
                       <Text
@@ -721,13 +828,22 @@ function SearchPatient(props) {
                           Pending referral
                         </Text>
                       </Box>
+                      <Button
+                        size="sm"
+                        colorScheme="red"
+                        variant="solid"
+                        onClick={() => cancelReferral(id)}
+                      >
+                        Cancel Referral
+                      </Button>
                     </>
                   )}
-                </GridItem>
-              </>
-            );
-          })}
-      </Grid>
+                </GridItem>{" "}
+              </Grid>
+            </>
+          );
+        })}
+
       {/* // <Button onClick={find}>Find</Button> */}
     </div>
   );

@@ -1,12 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import DashboardTile from "../Components/DashboardTile";
 import Sidebar from "../Components/Sidebar";
 import Header from "../Components/Header";
-import { HStack, Spacer } from "@chakra-ui/react";
+import { Button, HStack, Spacer } from "@chakra-ui/react";
 import Graphs from "../Components/Graphs";
 import LineChart from "../Components/LineChart";
 
 function UserDashboard(props) {
+  let navigate = useNavigate();
+
+  const navigation = (id) => {
+    navigate({ pathname: "/search", search: `?${id}` });
+  };
   return (
     <div>
       <div className="container">
@@ -21,6 +27,9 @@ function UserDashboard(props) {
               padding: "35px",
             }}
           >
+            <Button colorScheme="green" onClick={() => navigation(123)}>
+              Navidate to user
+            </Button>
             <HStack mb={8}>
               <DashboardTile
                 title="Referred Patients"
