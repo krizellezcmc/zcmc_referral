@@ -21,6 +21,7 @@ import Blocked from "../Pages/Blocked";
 import AdminDashboard from "../Pages/AdminDashboard";
 import DashboardTile from "./DashboardTile";
 import UserDashboard from "../Pages/UserDashboard";
+import HospiTagubilin from "../Pages/HospiTagubilin";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -45,6 +46,7 @@ const AnimatedRoutes = () => {
           <Route element={<ProtectedRoutes user={user} role="user" />}>
             <Route path="/home" element={<AdminHome />} />
             <Route path="/referredpatient" element={<ReferredPatient />} />
+            <Route path="/hospitagubilin" element={<HospiTagubilin />} />
           </Route>
 
           {/* IPCC Routes */}
