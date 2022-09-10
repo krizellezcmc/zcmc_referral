@@ -216,54 +216,53 @@ const ReferralForm = () => {
           newBowList: newBowList,
         })
         .then(async (response) => {
-          if (response) {
-            console.log(response.data);
-            // setLastName("");
-            // setFirstName("");
-            // setMiddleName("");
-            // setExtendedName("");
-            // setSex("");
-            // setBirthdate("");
-            // setAge("");
-            // setCivilStatus("");
-            // setNationality("");
-            // setReligion("");
-            // setOccupation("");
-            // setPhilhealth("");
-            // setAddress("");
-            // setNextOfKin("");
-            // setContact("");
-            // setDateAdmitted("");
-            // setReferralType("");
-            // setDisposition("");
-            // setSpecialization("");
-            // setTemperature("");
-            // setBloodPressure("");
-            // setRespiRate("");
-            // setPulseRate("");
-            // setOxygen("");
-            // setGlasgow("");
-            // setChiefComplaints("");
-            // setDiagnosis("");
-            // setEndorsement("");
-            // setUserContact("");
-            // setReason("");
-            // setSpecialization("");
-            // setGp("");
-            // setAog("");
-            // setEdc("");
-            // setFht("");
-            // setFh("");
-            // setNewIe("");
-            // setNewBowList("");
-            // toast({
-            //   position: "top",
-            //   title: "Record successfully.",
-            //   description: "Patient succesfully added.",
-            //   status: "success",
-            //   duration: 3000,
-            //   isClosable: true,
-            // });
+          if (response.data.status === 1) {
+            setLastName("");
+            setFirstName("");
+            setMiddleName("");
+            setExtendedName("");
+            setSex("");
+            setBirthdate("");
+            setAge("");
+            setCivilStatus("");
+            setNationality("");
+            setReligion("");
+            setOccupation("");
+            setPhilhealth("");
+            setAddress("");
+            setNextOfKin("");
+            setContact("");
+            setDateAdmitted("");
+            setReferralType("");
+            setDisposition("");
+            setSpecialization("");
+            setTemperature("");
+            setBloodPressure("");
+            setRespiRate("");
+            setPulseRate("");
+            setOxygen("");
+            setGlasgow("");
+            setChiefComplaints("");
+            setDiagnosis("");
+            setEndorsement("");
+            setUserContact("");
+            setReason("");
+            setSpecialization("");
+            setGp("");
+            setAog("");
+            setEdc("");
+            setFht("");
+            setFh("");
+            setNewIe("");
+            setNewBowList("");
+            toast({
+              position: "top",
+              title: "Record successfully.",
+              description: "Patient succesfully added.",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+            });
           }
         });
     }
