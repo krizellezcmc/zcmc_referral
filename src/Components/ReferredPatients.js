@@ -26,12 +26,16 @@ import {
   GridItem,
   IconButton,
   Grid,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList
 } from "@chakra-ui/react";
 import axios from "axios";
 import "../Styles/Patients.css";
 import moment from "moment";
-import { BiCalendarEvent, BiSearch, BiStats, BiUser } from "react-icons/bi";
-import { BsEye } from "react-icons/bs";
+import { BiCalendarEvent, BiChevronDown, BiSearch, BiStats, BiUser } from "react-icons/bi";
+import { BsEye, BsFile } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
 
@@ -168,18 +172,29 @@ const ReferredPatients = () => {
                           )}
                         </Td>
                         <Td paddingTop="0" paddingBottom="0 ">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            colorScheme="blue"
-                            onClick={() => {
+                          <Menu>
+                            <MenuButton as={Button} rightIcon={<BiChevronDown/>} colorScheme="blue" size="sm">
+                            Action
+                            </MenuButton>
+                            <MenuList size="sm" borderColor="blue.500">
+                            <MenuItem minH="40px" fontSize="15px" onClick={() => 
+                              {
                               onOpen();
                               getDetails(pat.PK_patientId);
                             }}
-                            leftIcon={<BsEye fontSize="15px" />}
-                          >
-                            View
-                          </Button>
+                            icon={<BsEye/>}>
+                            View Details
+                            </MenuItem>
+                            {pat.dischDate === null ? (""):(
+                            <MenuItem minH="40px" fontSize="15px" onClick={() => {
+                               navigate("/home");
+                            }}
+                            icon={<BsFile/>}>
+                          View Tagubilin
+                            </MenuItem>
+                            )}
+                            </MenuList>
+                          </Menu>
                         </Td>
                       </Tr>
                     </>
