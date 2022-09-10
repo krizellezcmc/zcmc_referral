@@ -53,7 +53,7 @@ const AnimatedRoutes = () => {
           </Route>
 
           {/* Universal */}
-          <Route path="/changepass" element={<ChangePassword />} />
+          <Route path="/changepass/:id" element={<ChangePassword />} />
 
           {/* Admin Routes */}
           <Route element={<ProtectedRoutes user={user} role="admin" />}>

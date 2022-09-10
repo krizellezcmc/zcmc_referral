@@ -11,7 +11,7 @@ function UserDashboard(props) {
   let navigate = useNavigate();
 
   const navigation = (id) => {
-    navigate({ pathname: "/search", search: `?${id}` });
+    navigate({ pathname: "changepass/" + id });
   };
   return (
     <div>

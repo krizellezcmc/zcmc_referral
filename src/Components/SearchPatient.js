@@ -138,6 +138,7 @@ function SearchPatient(props) {
             setSelected(e.value);
           }}
           width="100%"
+          x
           required
           useBasicStyles
           id="searchbar"
