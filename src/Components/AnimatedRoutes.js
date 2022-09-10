@@ -44,7 +44,7 @@ const AnimatedRoutes = () => {
           <Route element={<ProtectedRoutes user={user} role="user" />}>
             <Route path="/home" element={<AdminHome />} />
             <Route path="/referredpatient" element={<ReferredPatient />} />
-            <Route path="/hospitagubilin" element={<HospiTagubilin />} />
+            <Route path="/hospitagubilin/:id" element={<HospiTagubilin />} />
           </Route>
 
           {/* IPCC Routes */}
