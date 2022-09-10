@@ -50,22 +50,20 @@ function TagubilinForm(props) {
   const [needBring, setNeedBring] = useState("");
   const [show, setShow] = useState(false);
   const [patRegister, setPatRegister] = useState("");
+  const [diet, setDiet] = useState([]);
+  const [inst, setInst] = useState([]);
   const [dietList, setDietList] = useState([
     {
       value: "Low Salt Diet",
-      isChecked: false,
     },
     {
       value: "Low Salt",
-      isChecked: false,
     },
     {
       value: "Diabetic Diet",
-      isChecked: false,
     },
     {
       value: "Low Protein Diet",
-      isChecked: false,
     },
   ]);
 
@@ -74,27 +72,21 @@ function TagubilinForm(props) {
   const [instructions, setInstructions] = useState([
     {
       value: "Repeat Urinalysis",
-      isChecked: false,
     },
     {
       value: "Repeat Creatine",
-      isChecked: false,
     },
     {
       value: "Repeat FBS",
-      isChecked: false,
     },
     {
       value: "Others: Request For",
-      isChecked: false,
     },
     {
       value: "Medical Certificate",
-      isChecked: false,
     },
     {
       value: "Photocopy of Health Records",
-      isChecked: false,
     },
   ]);
 
@@ -192,9 +184,9 @@ function TagubilinForm(props) {
         time: time,
         healthOthers: healthOthers,
         medications: medications,
-        diet: dietList,
+        diet: diet,
         othersDiet: othersDiet,
-        instructions: instructions,
+        instructions: inst,
         breastfeed: breastfeed,
         ob: ob,
       })
@@ -229,9 +221,9 @@ function TagubilinForm(props) {
         time: time,
         healthOthers: healthOthers,
         medications: medications,
-        diet: dietList,
+        diet: diet,
         othersDiet: othersDiet,
-        instructions: instructions,
+        instructions: inst,
         breastfeed: breastfeed,
         ob: ob,
       })
@@ -240,22 +232,19 @@ function TagubilinForm(props) {
     //
   };
 
-  // Health Diet
-  const handleCheck = (e, k) => {
-    let temp = [...dietList];
+  const handleCheck = (e, value) => {
     if (e.target.checked) {
-      temp[k]["isChecked"] = true;
+      setDiet([...diet, value]);
     } else {
-      temp[k]["isChecked"] = false;
+      setDiet(diet.filter((val) => val !== value));
     }
   };
 
-  const handleInst = (e, k) => {
-    let temp = [...instructions];
+  const handleInst = (e, value) => {
     if (e.target.checked) {
-      temp[k]["isChecked"] = true;
+      setInst([...inst, value]);
     } else {
-      temp[k]["isChecked"] = false;
+      setInst(inst.filter((val) => val !== value));
     }
   };
 
@@ -281,7 +270,11 @@ function TagubilinForm(props) {
         setWard(response.data.ward);
         setHrn(response.data.hrn);
         setAddress(response.data.address);
-        setAdmissionDate(response.data.admissionDate.date);
+        setAdmissionDate(
+          response.data.admissionDate === null
+            ? ""
+            : response.data.admissionDate.date
+        );
         setPatRegister(response.data.patRegister);
         setDischDiag(
           response.data.dischdiagnosis === ""
@@ -292,7 +285,7 @@ function TagubilinForm(props) {
           response.data.dischdate === null ? "" : response.data.dischdate.date
         );
       });
-  }, [dietList, props.id]);
+  }, [diet, props.id]);
 
   return (
     <div
@@ -640,7 +633,7 @@ function TagubilinForm(props) {
                               <Checkbox
                                 value={el.value}
                                 name={el.value}
-                                onChange={(e) => handleCheck(e, key)}
+                                onChange={(e) => handleCheck(e, el.value)}
                                 // isChecked={el.isChecked}
                               >
                                 <Text fontSize="14px">{el.value}</Text>

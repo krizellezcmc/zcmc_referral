@@ -197,9 +197,8 @@ function SearchPatient(props) {
                       className={bizbox.map((d) => {
                         return (
                           <>
-                            {" "}
                             {d.dischDate !== "" || d.dischDate !== null
-                              ? "out"
+                              ? "active"
                               : ""}
                           </>
                         );

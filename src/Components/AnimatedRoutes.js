@@ -12,14 +12,12 @@ import Patient from "../Pages/Patient";
 import ReferredPatient from "../Pages/ReferredPatient";
 import ChangePassword from "../Pages/ChangePass";
 import ProtectedRoutes from "./ProtectedRoute";
-import TagubilinForm from "./TagubilinForm";
 import TagubilinPrescription from "../Pages/TagubilinPrescription";
 import Prescription from "./Prescription";
 import IPCCHome from "../Pages/IPCCHome";
 import NurseHome from "../Pages/NurseHome";
 import Blocked from "../Pages/Blocked";
 import AdminDashboard from "../Pages/AdminDashboard";
-import DashboardTile from "./DashboardTile";
 import UserDashboard from "../Pages/UserDashboard";
 import HospiTagubilin from "../Pages/HospiTagubilin";
 
@@ -55,7 +53,7 @@ const AnimatedRoutes = () => {
           </Route>
 
           {/* Universal */}
-          <Route path="/changepass/:id" element={<ChangePassword />} />
+          <Route path="/changepass" element={<ChangePassword />} />
 
           {/* Admin Routes */}
           <Route element={<ProtectedRoutes user={user} role="admin" />}>
