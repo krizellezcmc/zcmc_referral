@@ -76,6 +76,11 @@ const ReferredPatients = () => {
         setDetails(response.data);
       });
   };
+
+  const navigateTagubilin=(id)=>{
+    navigate({pathname:"/hospitagubilin/"+id});
+  }
+  
   return (
     <div className="table-container">
       <h1 className="block">Referred Patients</h1>
@@ -187,7 +192,7 @@ const ReferredPatients = () => {
                             </MenuItem>
                             {pat.dischDate === null ? (""):(
                             <MenuItem minH="40px" fontSize="15px" onClick={() => {
-                               navigate("/home");
+                               navigateTagubilin(pat.FK_psPatRegisters);
                             }}
                             icon={<BsFile/>}>
                           View Tagubilin

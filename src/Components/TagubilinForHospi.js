@@ -25,8 +25,9 @@ import axios from "axios";
 import moment from "moment";
 import cbc from "../Assets/cbc2.png";
 import { Select } from "chakra-react-select";
+import {useParams} from "react-router-dom";
 
-function TagubilinForHospi(props) {
+function TagubilinForHospi() {
   const [patientName, setPatient] = useState("");
   const [age, setAge] = useState("");
   const [sex, setSex] = useState("");
@@ -162,81 +163,6 @@ function TagubilinForHospi(props) {
     ]);
   };
 
-  const url = "http://192.168.3.135/zcmc_referral_api/api/add_tagubilin.php";
-
-  const submit = (e) => {
-    e.preventDefault();
-    axios
-      .post(url, {
-        patientName: patientName,
-        age: age,
-        sex: sex,
-        ward: ward,
-        hrn: hrn,
-        address: address,
-        admissionDate: admissionDate,
-        dischDiag: dischDiag,
-        dischDate: dischDate,
-        laboratory: laboratory,
-        xray: xray,
-        ctScan: ctScan,
-        mri: mri,
-        others: others,
-        homemed: homemed,
-        nurse: nurse,
-        resident: resident,
-        followUp: followUp,
-        needBring: needBring,
-        time: time,
-        healthOthers: healthOthers,
-        medications: medications,
-        diet: dietList,
-        othersDiet: othersDiet,
-        instructions: instructions,
-        breastfeed: breastfeed,
-        ob: ob,
-      })
-      .then((response) => {
-        console.log(response);
-        // window.location.href = "/tagubilinreport";
-      });
-
-    localStorage.setItem(
-      "refpatient",
-      JSON.stringify({
-        patientName: patientName,
-        age: age,
-        sex: sex,
-        ward: ward,
-        hrn: hrn,
-        address: address,
-        admissionDate: admissionDate,
-        dischDiag: dischDiag,
-        dischDate: dischDate,
-        laboratory: laboratory,
-        xray: xray,
-        ctScan: ctScan,
-        mri: mri,
-        others: others,
-        homemed: homemed,
-        nurse: nurse,
-        resident: resident,
-        followUp: followUp,
-        needBring: needBring,
-        time: time,
-        healthOthers: healthOthers,
-        medications: medications,
-        diet: dietList,
-        othersDiet: othersDiet,
-        instructions: instructions,
-        breastfeed: breastfeed,
-        ob: ob,
-      })
-    );
-
-    //
-  };
-
   // Health Diet
   const handleCheck = (e, k) => {
     let temp = [...dietList];
@@ -265,34 +191,42 @@ function TagubilinForHospi(props) {
     }
   };
 
+  const {id}=useParams();
+
   useEffect(() => {
     axios
       .get(
-        "http://192.168.3.135/referral_local_backend/api/get_patient_info.php",
-        { params: { id: props.id } }
+        `http://localhost/zcmc_referral_api/api/get_tagubilinhospi.php/${id}`
       )
       .then((response) => {
-        setPatient(response.data.patientName);
-        setAge(response.data.age);
-        setSex(response.data.gender);
-        setWard(response.data.ward);
-        setHrn(response.data.hrn);
-        setAddress(response.data.address);
-        setAdmissionDate(
-          moment(response.data.admissionDate.date).format("LLL")
-        );
-        setDischDiag(
-          response.data.dischdiagnosis === ""
-            ? response.data.finaldiagnosis
-            : response.data.dischdiagnosis
-        );
-        setDischDate(
-          response.data.dischdate === null
-            ? ""
-            : moment(response.data.dischdate.date).format("ll")
-        );
+        setPatient(response.data[0].patientName);
+        setAge(response.data[0].age);
+        setSex(response.data[0].sex);
+        setAddress(response.data[0].address);
+        setWard(response.data[0].ward);
+        setHrn(response.data[0].hrn);
+        // setAdmissionDate(
+        //   moment(response.data.admissionDate.date).format("LLL")
+        // );
+        setDischDiag(response.data[0].disch_diagnosis);
+        // setDischDate(
+        //   response.data.dischdate === null
+        //     ? ""
+        //     : moment(response.data.dischdate.date).format("ll")
+        // );
+        setLaboratory(response.data[0].laboratory);
+        setXray(response.data[0].xray);
+        setCTScan(response.data[0].ctScan);
+        setMRI(response.data[0].mri);
+        setOthers(response.data[0].others);
+        setFollowUp(response.data[0].followupDate);
+        setTime(response.data[0].time);
+        setNeedBring(response.data[0].needToBring);
+        setNurse(response.data[0].nurse);
+        setResident(response.data[0].resident);
+        console.log(response.data);
       });
-  }, [dietList, props.id]);
+  }, []);
 
   return (
     <div
@@ -303,8 +237,8 @@ function TagubilinForHospi(props) {
         marginBottom: "50px",
       }}
     >
+      <p>{id}</p>
       <TableContainer>
-        <form onSubmit={submit}>
           <Table variant="unstyled" cellSpacing={0}>
             <Tbody>
               <Tr>
@@ -351,7 +285,7 @@ function TagubilinForHospi(props) {
                   <Text fontSize="12px" fontWeight="600">
                     Admission Date:
                   </Text>
-                  <Text fontSize="14px">{admissionDate}</Text>
+                  {/* <Text fontSize="14px">{admissionDate}</Text> */}
                 </Td>
 
                 <Td className="border" py={1.5}>
@@ -366,15 +300,14 @@ function TagubilinForHospi(props) {
                   <Text fontSize="12px" fontWeight="600">
                     Diagnosis:
                   </Text>
-                  <Textarea
-                    defaultValue={dischDiag}
+                  <Text
+                    // defaultValue={dischDiag}
                     mt={1}
                     borderRadius="0"
                     border="none"
                     rows={1}
                     fontSize="14px"
-                    onChange={(e) => setDischDiag(e.target.value)}
-                  ></Textarea>
+                  >{dischDiag}</Text>
                 </Td>
               </Tr>
               <Tr>
@@ -410,6 +343,14 @@ function TagubilinForHospi(props) {
                     <Text fontSize="12px" textAlign="center" fontWeight="600">
                       Laboratory
                     </Text>
+                    <Text
+                      m={0}
+                      textAlign="center"
+                      borderRadius="0"
+                      border="none"
+                      rows={6}
+                      fontSize="14px"
+                    >{laboratory}</Text>
                   </Box>
                 </Td>
 
@@ -418,15 +359,14 @@ function TagubilinForHospi(props) {
                     <Text fontSize="12px" textAlign="center" fontWeight="600">
                       X-Ray
                     </Text>
-                    <Textarea
+                    <Text
                       m={0}
                       textAlign="center"
                       borderRadius="0"
                       border="none"
                       rows={6}
                       fontSize="14px"
-                      onChange={(e) => setXray(e.target.value)}
-                    ></Textarea>
+                    >{xray}</Text>
                   </Box>
                 </Td>
 
@@ -435,15 +375,14 @@ function TagubilinForHospi(props) {
                     <Text fontSize="12px" textAlign="center" fontWeight="600">
                       CT-Scan
                     </Text>
-                    <Textarea
+                    <Text
                       m={0}
                       textAlign="center"
                       borderRadius="0"
                       border="none"
                       rows={6}
                       fontSize="14px"
-                      onChange={(e) => setCTScan(e.target.value)}
-                    ></Textarea>
+                    >{ctScan}</Text>
                   </Box>
                 </Td>
 
@@ -452,15 +391,14 @@ function TagubilinForHospi(props) {
                     <Text fontSize="12px" textAlign="center" fontWeight="600">
                       MRI
                     </Text>
-                    <Textarea
+                    <Text
                       m={0}
                       textAlign="center"
                       borderRadius="0"
                       border="none"
                       rows={6}
-                      onChange={(e) => setMRI(e.target.value)}
                       fontSize="14px"
-                    ></Textarea>
+                    >{mri}</Text>
                   </Box>
                 </Td>
                 <Td className="border" width="20%" py={0} px={0}>
@@ -468,15 +406,14 @@ function TagubilinForHospi(props) {
                     <Text fontSize="12px" textAlign="center" fontWeight="600">
                       OTHERS
                     </Text>
-                    <Textarea
+                    <Text
                       m={0}
                       textAlign="center"
                       borderRadius="0"
                       border="none"
                       rows={6}
                       fontSize="14px"
-                      onChange={(e) => setOthers(e.target.value)}
-                    ></Textarea>
+                    >{others}</Text>
                   </Box>
                 </Td>
               </Tr>
@@ -950,16 +887,14 @@ function TagubilinForHospi(props) {
                           margin: "0 auto",
                         }}
                       >
-                        <Input
-                          type="text"
+                        <Text
+                         
                           size="sm"
                           width="250px"
                           border="none "
                           textAlign="center"
-                          placeholder="Click to enter text"
-                          required
-                          onChange={(e) => setFollowUp(e.target.value)}
-                        />
+                         
+                        >{followUp}</Text>
                         <hr
                           style={{
                             border: "1px solid black",
@@ -973,16 +908,12 @@ function TagubilinForHospi(props) {
                     <GridItem>
                       <VStack>
                         <Box mb={10}>
-                          <Input
-                            type="text"
+                          <Text
                             size="sm"
                             width="250px"
                             border="none "
                             textAlign="center"
-                            placeholder="Click to enter text"
-                            onChange={(e) => setTime(e.target.value)}
-                            required
-                          />
+                          >{time}</Text>
                           <hr
                             style={{
                               border: "1px solid black",
@@ -1013,16 +944,12 @@ function TagubilinForHospi(props) {
                           margin: "0 auto",
                         }}
                       >
-                        <Input
-                          type="text"
+                        <Text
                           size="sm"
                           width="250px"
                           border="none "
                           textAlign="center"
-                          placeholder="Click to enter text"
-                          onChange={(e) => setNeedBring(e.target.value)}
-                          required
-                        />
+                        >{needBring}</Text>
                         <hr
                           style={{
                             border: "1px solid black",
@@ -1059,16 +986,12 @@ function TagubilinForHospi(props) {
                   <Grid templateColumns="repeat(3, 1fr)" mt={5}>
                     <GridItem>
                       <Box ml={20}>
-                        <Input
-                          placeholder="Click to enter text"
-                          type="text"
+                        <Text
+                        
                           size="sm"
                           width="250px"
                           border="none "
-                          textAlign="center"
-                          required
-                          onChange={(e) => setNurse(e.target.value)}
-                        />
+                          textAlign="center">{nurse}</Text>
                         <hr
                           style={{
                             border: "1px solid black",
@@ -1083,16 +1006,14 @@ function TagubilinForHospi(props) {
                     <Spacer />
                     <GridItem ml={20}>
                       <Box>
-                        <Input
-                          placeholder="Click to enter text"
-                          type="text"
+                        <Text
+                         
                           size="sm"
                           width="250px"
                           border="none "
                           textAlign="center"
-                          onChange={(e) => setResident(e.target.value)}
-                          required
-                        />
+                       
+                        >{resident}</Text>
                         <hr
                           style={{
                             border: "1px solid black",
@@ -1109,24 +1030,6 @@ function TagubilinForHospi(props) {
               </Tr>
             </Tbody>
           </Table>
-          {/* <Table>
-            <Tr>
-              Hello
-            </Tr>
-
-          </Table> */}
-          <Box style={{ float: "right", margin: "30px 0px" }}>
-            <Button
-              colorScheme="blue"
-              width="250px"
-              rightIcon={<BiSend />}
-              type="submit"
-              onClick={() => submit()}
-            >
-              Submit
-            </Button>
-          </Box>
-        </form>
       </TableContainer>
     </div>
   );
