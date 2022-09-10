@@ -42,154 +42,17 @@ function TagubilinForHospi() {
   const [ctScan, setCTScan] = useState("");
   const [mri, setMRI] = useState("");
   const [others, setOthers] = useState("");
-  const [homemed, setHomeMed] = useState(false);
   const [nurse, setNurse] = useState("");
   const [resident, setResident] = useState();
   const [healthOthers, setHealthOthers] = useState("");
   const [followUp, setFollowUp] = useState("");
   const [time, setTime] = useState("");
   const [needBring, setNeedBring] = useState("");
-  const [show, setShow] = useState(false);
-  const [dietList, setDietList] = useState([
-    {
-      value: "Low Salt Diet",
-      isChecked: false,
-    },
-    {
-      value: "Low Salt",
-      isChecked: false,
-    },
-    {
-      value: "Diabetic Diet",
-      isChecked: false,
-    },
-    {
-      value: "Low Protein Diet",
-      isChecked: false,
-    },
-  ]);
-
-  const [breastfeed, setBreastfeed] = useState([]);
-
-  const [instructions, setInstructions] = useState([
-    {
-      value: "Repeat Urinalysis",
-      isChecked: false,
-    },
-    {
-      value: "Repeat Creatine",
-      isChecked: false,
-    },
-    {
-      value: "Repeat FBS",
-      isChecked: false,
-    },
-    {
-      value: "Others: Request For",
-      isChecked: false,
-    },
-    {
-      value: "Medical Certificate",
-      isChecked: false,
-    },
-    {
-      value: "Photocopy of Health Records",
-      isChecked: false,
-    },
-  ]);
-
-  const specialization = [
-    { label: "Obstetrics And Gynecology", value: 1 },
-    { label: "Internal Medicine", value: "Internal Medicine" },
-    { label: "Pediatrics", value: "Pediatrics" },
-    { label: "Surgery", value: "Surgery" },
-    { label: "Psychiatry", value: "Psychiatry" },
-  ];
-
-  const [ob, setOb] = useState("");
   const [othersDiet, setOthersDiet] = useState("");
+  const [medId, setMedId]=useState("");
   const [medications, setMedications] = useState([]);
-
-  // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...medications];
-    list[index][name] = value;
-    setMedications(list);
-  };
-
-  //handle click event of the Remove button
-  const handleRemoveClick = (index) => {
-    const list = [...medications];
-    list.splice(index, 1);
-    setMedications(list);
-  };
-
-  // handle click event of the Add button
-  const handleAddClick = (e, index) => {
-    setMedications([
-      ...medications,
-      { medicine: "", quantity: "", dosage: "", sched: "" },
-    ]);
-  };
-
-  // handle input change
-  const inputBreastfeed = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...breastfeed];
-    list[index][name] = value;
-    setBreastfeed(list);
-  };
-
-  //handle click event of the Remove button
-  const removeBreastfeed = (index) => {
-    const list = [...breastfeed];
-    list.splice(index, 1);
-    setBreastfeed(list);
-  };
-
-  // handle click event of the Add button
-  const addBreastfeed = (e, index) => {
-    setBreastfeed([
-      ...breastfeed,
-      {
-        date: "",
-        fromTo: "",
-        yes: "",
-        reason: "",
-        management: "",
-        attended: "",
-      },
-    ]);
-  };
-
-  // Health Diet
-  const handleCheck = (e, k) => {
-    let temp = [...dietList];
-    if (e.target.checked) {
-      temp[k]["isChecked"] = true;
-    } else {
-      temp[k]["isChecked"] = false;
-    }
-  };
-
-  const handleInst = (e, k) => {
-    let temp = [...instructions];
-    if (e.target.checked) {
-      temp[k]["isChecked"] = true;
-    } else {
-      temp[k]["isChecked"] = false;
-    }
-  };
-
-  const homeMed = (e) => {
-    if (e.target.checked) {
-      setShow(true);
-      setHomeMed(true);
-    } else {
-      setShow(false);
-    }
-  };
+  const [obId, setObId]=useState("");
+  const [breastfeed, setBreastfeed] = useState([]);
 
   const {id}=useParams();
 
@@ -224,9 +87,21 @@ function TagubilinForHospi() {
         setNeedBring(response.data[0].needToBring);
         setNurse(response.data[0].nurse);
         setResident(response.data[0].resident);
-        console.log(response.data);
+        setMedId(response.data[0].FK_medicationId);
+        setObId(response.data[0].FK_breastfeedId);
       });
-  }, []);
+
+      axios.get("http://localhost/zcmc_referral_api/api/get_medhospi.php/", {params:{mid:medId}})
+      .then((response)=>{
+        setMedications(response.data);
+      })
+
+      axios.get("http://localhost/zcmc_referral_api/api/get_obhospi.php/", {params:{oid:obId}})
+      .then((response)=>{
+        setBreastfeed(response.data);
+      })
+
+  }, [medId,obId]);
 
   return (
     <div
@@ -418,22 +293,23 @@ function TagubilinForHospi() {
                 </Td>
               </Tr>
 
+            
+              {!medications ? (
+                ""
+              ) : (
+                <>
               <Tr>
                 <Td className="border" colSpan="5" py={1}>
                   <Text fontSize="12px" fontWeight="600">
                     <Checkbox
                       mr={2}
                       mt={0.5}
-                      onChange={(e) => homeMed(e)}
+                      isDisabled defaultChecked
                     ></Checkbox>
                     Home Medications/Gamot
                   </Text>
                 </Td>
               </Tr>
-              {!show ? (
-                ""
-              ) : (
-                <>
                   <Tr>
                     <Td className="border" width="200px" colSpan="2" py={1}>
                       <Text textAlign="center" fontSize="12px" fontWeight="600">
@@ -461,88 +337,51 @@ function TagubilinForHospi() {
                     return (
                       <>
                         <Tr>
-                          <Td className="border" colSpan="2" p={0}>
-                            <Textarea
+                          <Td className="border" colSpan="2" p={1}>
+                            <Text
                               m={0}
                               borderRadius="0"
                               border="none"
                               rows={1}
-                              value={x.medicine}
                               fontSize="14px"
-                              name="medicine"
-                              onChange={(e) => handleInputChange(e, i)}
-                            ></Textarea>
+                              textAlign="center"
+                            >{x.medicine}</Text>
                           </Td>
 
-                          <Td className="border" p={0}>
-                            <Textarea
+                          <Td className="border" p={1}>
+                            <Text
                               m={0}
                               textAlign="center"
                               borderRadius="0"
                               border="none"
                               rows={1}
-                              value={x.dosage}
                               fontSize="14px"
-                              name="dosage"
-                              onChange={(e) => handleInputChange(e, i)}
-                            ></Textarea>
+                            >{x.dosage}</Text>
                           </Td>
-                          <Td className="border" p={0}>
-                            <Textarea
+                          <Td className="border" p={1}>
+                            <Text
                               m={0}
                               textAlign="center"
                               borderRadius="0"
                               border="none"
                               rows={1}
-                              value={x.sched}
                               fontSize="14px"
-                              name="sched"
-                              onChange={(e) => handleInputChange(e, i)}
-                            ></Textarea>
+                            >{x.sched}</Text>
                           </Td>
-                          <Td className="border" p={0}>
-                            <Textarea
+                          <Td className="border" p={1}>
+                            <Text
                               m={0}
                               borderRadius="0"
                               border="none"
                               rows={1}
-                              value={x.quantity}
                               fontSize="14px"
-                              name="quantity"
-                              onChange={(e) => handleInputChange(e, i)}
-                            ></Textarea>
+                              textAlign="center"
+                            >{x.quantity}</Text>
                           </Td>
-
-                          {medications.length !== 1 && (
-                            <button
-                              onClick={() => handleRemoveClick(i)}
-                              style={{
-                                margin: 0,
-                                color: "red",
-                                marginTop: "10px",
-                                fontSize: "18px",
-                              }}
-                            >
-                              <BiMinus />
-                            </button>
-                          )}
                         </Tr>
                       </>
                     );
                   })}
-
-                  <Tr>
-                    <Td className="border" p={1} colSpan="5">
-                      <Button
-                        style={{ marginTop: "5px", marginBottom: "5px" }}
-                        colorScheme="blue"
-                        size="sm"
-                        onClick={handleAddClick}
-                      >
-                        + Add medication
-                      </Button>
-                    </Td>
-                  </Tr>
                 </>
               )}
 
@@ -551,7 +390,7 @@ function TagubilinForHospi() {
                   <Text fontSize="12px" fontWeight="600">
                     Health Teaching/Pangunahing Paalalang Pangkalusugan
                   </Text>
-                  <div>
+                  {/* <div>
                     <Grid templateColumns="repeat(6, 1fr)" gap={4} mt={3}>
                       {dietList.map((el, key) => {
                         return (
@@ -593,7 +432,7 @@ function TagubilinForHospi() {
                         ></Textarea>
                       </GridItem>
                     </Grid>
-                  </div>
+                  </div> */}
                 </Td>
               </Tr>
               <Tr>
@@ -602,7 +441,7 @@ function TagubilinForHospi() {
                     Other Instructions/Karagdagang Paalala
                   </Text>
                   <Grid templateColumns="repeat(3, 1fr)" gap={4} mt={3}>
-                    {instructions.map((el, key) => {
+                    {/* {instructions.map((el, key) => {
                       return (
                         <>
                           <GridItem>
@@ -614,7 +453,7 @@ function TagubilinForHospi() {
                           </GridItem>
                         </>
                       );
-                    })}
+                    })} */}
                   </Grid>
 
                   <Text mt={5} fontStyle="italic" fontSize="13.5px">
@@ -625,29 +464,17 @@ function TagubilinForHospi() {
                   </Text>
                 </Td>
               </Tr>
-              <Tr>
+              {!breastfeed ? " "
+              :
+              (
+                  <>
+                   <Tr>
                 <Td className="border" colSpan="5">
                   <Text mt={3} fontWeight="600">
-                    Service Type
+                    Obstetrics and Gynecology
                   </Text>
-                  <div style={{ width: "400px" }}>
-                    <Select
-                      options={specialization}
-                      placeholder="Search patient"
-                      selectedOptionStyle="check"
-                      closeMenuOnSelect={true}
-                      focusBorderColor="#058e46"
-                      onChange={(e) => {
-                        setOb(e.value);
-                      }}
-                      width="100%"
-                      required
-                      useBasicStyles
-                    />
-                  </div>
                 </Td>
               </Tr>
-              {ob === 1 ? (
                 <Tr>
                   <Td colSpan="5" style={{ padding: 0 }}>
                     <Table variant="unstyled" cellSpacing={0}>
@@ -738,118 +565,79 @@ function TagubilinForHospi() {
                           <>
                             <Tr>
                               <Td className="border" p={0}>
-                                <Textarea
+                                <Text
                                   m={0}
                                   borderRadius="0"
                                   border="none"
                                   rows={1}
-                                  value={x.date}
                                   fontSize="14px"
-                                  name="date"
-                                  onChange={(e) => inputBreastfeed(e, i)}
-                                ></Textarea>
+                                  textAlign="center"
+                                  padding={2}
+                                >{x.date}</Text>
                               </Td>
 
                               <Td className="border" p={0}>
-                                <Textarea
+                                <Text
                                   m={0}
                                   textAlign="center"
                                   borderRadius="0"
                                   border="none"
                                   rows={1}
-                                  value={x.fromTo}
+                                  
                                   fontSize="14px"
-                                  name="fromTo"
-                                  onChange={(e) => inputBreastfeed(e, i)}
-                                ></Textarea>
+                                >{x.fromTo}</Text>
                               </Td>
                               <Td className="border" p={0}>
-                                <Textarea
+                                <Text
                                   m={0}
                                   textAlign="center"
                                   borderRadius="0"
                                   border="none"
                                   rows={1}
-                                  value={x.yes}
                                   fontSize="14px"
-                                  name="yes"
-                                  onChange={(e) => inputBreastfeed(e, i)}
-                                ></Textarea>
+                                 >{x.yes}</Text>
                               </Td>
                               <Td className="border" p={0}>
-                                <Textarea
+                                <Text
                                   m={0}
                                   borderRadius="0"
                                   border="reason"
                                   rows={1}
-                                  value={x.reason}
                                   fontSize="14px"
-                                  name="reason"
-                                  onChange={(e) => inputBreastfeed(e, i)}
-                                ></Textarea>
+                                  padding={2}
+                                >{x.reason}</Text>
                               </Td>
                               <Td className="border" p={0}>
-                                <Textarea
+                                <Text
                                   m={0}
                                   textAlign="center"
                                   borderRadius="0"
                                   border="none"
                                   rows={1}
-                                  value={x.management}
+                                  
                                   fontSize="14px"
-                                  name="management"
-                                  onChange={(e) => inputBreastfeed(e, i)}
-                                ></Textarea>
+                            
+                                >{x.management}</Text>
                               </Td>
                               <Td className="border" p={0}>
-                                <Textarea
+                                <Text
                                   m={0}
                                   textAlign="center"
                                   borderRadius="0"
                                   border="none"
                                   rows={1}
                                   fontSize="14px"
-                                  value={x.attended}
-                                  name="attended"
-                                  onChange={(e) => inputBreastfeed(e, i)}
-                                ></Textarea>
+                                >{x.attended}</Text>
                               </Td>
-
-                              {breastfeed.length !== 1 && (
-                                <button
-                                  onClick={() => removeBreastfeed(i)}
-                                  style={{
-                                    margin: 0,
-                                    color: "red",
-                                    marginTop: "10px",
-                                    fontSize: "18px",
-                                  }}
-                                >
-                                  <BiMinus />
-                                </button>
-                              )}
                             </Tr>
                           </>
                         );
                       })}
-                      <Tr>
-                        <Td className="border" p={1} colSpan="6">
-                          <Button
-                            style={{ marginTop: "5px", marginBottom: "5px" }}
-                            colorScheme="blue"
-                            size="sm"
-                            onClick={addBreastfeed}
-                          >
-                            + Add new
-                          </Button>
-                        </Td>
-                      </Tr>
                     </Table>
                   </Td>
                 </Tr>
-              ) : (
-                ""
-              )}
+                  </>
+                )}
               <Tr>
                 <Td
                   className="border"
