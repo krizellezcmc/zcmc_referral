@@ -171,7 +171,7 @@ function SearchPatient(props) {
                     </li>
                     <li
                       className={
-                        i.status === "accepted" && bizbox.length === 0
+                        bizbox.length === 0 && i.status === "accepted"
                           ? "active"
                           : ""
                       }
@@ -179,33 +179,49 @@ function SearchPatient(props) {
                       Referred
                     </li>
 
-                    <li
-                      className={bizbox.map((d) => {
-                        return (
-                          <>
-                            {d.dischDate === "" || d.dischDate === null
-                              ? "active"
-                              : ""}
-                          </>
-                        );
-                      })}
-                    >
+                {bizbox.length==0 ? (
+                  <>
+                    <li>
                       Admitted
                     </li>
-
-                    <li
-                      className={bizbox.map((d) => {
+                     <li>
+                     Discharged
+                    </li>
+                   </>
+                    ) : (
+                      <>
+                    {bizbox.map((d) => {
                         return (
                           <>
-                            {d.dischDate !== "" || d.dischDate !== null
-                              ? "active"
-                              : ""}
-                          </>
-                        );
-                      })}
-                    >
-                      Discharged
-                    </li>
+                      <li
+                        className=
+                              {d.dischDate === "" || d.dischDate === null
+                                ? "active"
+                                : ""}
+                      >
+                        Admitted
+                      </li>
+                      </>
+                          );
+                        })}
+  
+                      {bizbox.map((d) => {
+                          return (
+                            <>
+                      <li
+                        className=
+                              {d.dischDate !== "" || d.dischDate !== null
+                                ? "active"
+                                : ""}
+                        
+                      >
+                        Discharged
+                      </li>
+                      </>
+                          );
+                        })}
+                        </>
+                    )}
                   </ul>
                 </Box>
               </Center>

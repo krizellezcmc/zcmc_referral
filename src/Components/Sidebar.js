@@ -45,7 +45,7 @@ const Sidebar = () => {
       <ul className="navlinks">
         {role === "admin" ? (
           <>
-            <li
+            {/* <li
               className={path.includes("admindashboard") ? "active" : ""}
               onClick={() => navigate("/admindashboard")}
             >
@@ -57,7 +57,7 @@ const Sidebar = () => {
                 )}
               </p>
               <span>Dashboard</span>
-            </li>
+            </li> */}
             <li
               className={path.includes("addhospital") ? "active" : ""}
               onClick={() => navigate("/addhospital")}
@@ -142,13 +142,13 @@ const Sidebar = () => {
           </>
         ) : (
           <>
-            <li
+            {/* <li
               className={path.includes("user") ? "active" : ""}
               onClick={() => navigate("/user")}
             >
               <p>{path.includes("user") ? <BiGridAlt /> : <BiGridAlt />}</p>
               <span>Dashboard</span>
-            </li>
+            </li> */}
             <li
               className={path.includes("home") ? "active" : ""}
               onClick={() => navigate("/home")}

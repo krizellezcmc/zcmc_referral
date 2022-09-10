@@ -24,29 +24,30 @@ function CovidForm(props) {
   const [resultDate, setResultDate] = useState("");
   const [covidData, setCovidData] = useState("");
 
-  patient.forEach((element, key) => {
+  patient
+  .forEach((element, key) => {
     patient[key]["label"] =
-      element.Lastname +
+      element.lastname +
       ", " +
-      element.Firstname +
+      element.firstname +
       " " +
-      element.Middlename +
+      element.middleName +
       " " +
       "(" +
-      element.Timestamp +
+      element.tstamp +
       ")";
 
     patient[key]["value"] =
       element.patientId +
       "/" +
-      element.Lastname +
+      element.lastname +
       ", " +
-      element.Firstname +
+      element.firstname +
       " " +
-      element.Middlename +
+      element.middleName +
       " " +
       "/" +
-      moment(element.Timestamp).format("YYYY-MM-DD hh:mm:ss");
+      element.tstamp;
   });
 
   let data = selected.split("/");
@@ -84,7 +85,7 @@ function CovidForm(props) {
     // const user = JSON.parse(localStorage.getItem("user"));
 
     axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_sheets.php")
+      .get("http://localhost/zcmc_referral_api/api/get_acceptedpats.php")
       .then((response) => {
         setPatient(response.data);
       });
@@ -97,7 +98,7 @@ function CovidForm(props) {
       .then((response) => {
         setCovidData(response.data);
       });
-  }, [patient, selected, id]);
+  }, [id]);
 
   let toast = useToast();
 
@@ -143,7 +144,7 @@ function CovidForm(props) {
                       <Box>
                         <Text fontSize="14px">Patient name: </Text>
                         <Text fontWeight="500" fontSize="17px">
-                          {i.Lastname + ", " + i.Firstname + " " + i.Middlename}
+                          {i.lastname + ", " + i.firstname + " " + i.middleName}
                         </Text>
                       </Box>
 
@@ -152,7 +153,7 @@ function CovidForm(props) {
                       <Box>
                         <Text fontSize="14px">Referred From: </Text>
                         <Text fontWeight="500" fontSize="17px">
-                          {i.ReferringFacility}
+                          {i.refFacility}
                         </Text>
                       </Box>
 
@@ -161,7 +162,7 @@ function CovidForm(props) {
                       <Box>
                         <Text fontSize="14px">Referral Date: </Text>
                         <Text fontWeight="500" fontSize="17px">
-                          {moment(i.Timestamp).format("LLL")}
+                          {i.tstamp}
                         </Text>
                       </Box>
                     </HStack>
