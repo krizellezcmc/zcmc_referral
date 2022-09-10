@@ -49,6 +49,7 @@ function TagubilinForm(props) {
   const [time, setTime] = useState("");
   const [needBring, setNeedBring] = useState("");
   const [show, setShow] = useState(false);
+  const [patRegister, setPatRegister] = useState("");
   const [dietList, setDietList] = useState([
     {
       value: "Low Salt Diet",
@@ -168,6 +169,7 @@ function TagubilinForm(props) {
     e.preventDefault();
     axios
       .post(url, {
+        patRegister: patRegister,
         patientName: patientName,
         age: age,
         sex: sex,
@@ -204,6 +206,7 @@ function TagubilinForm(props) {
     localStorage.setItem(
       "refpatient",
       JSON.stringify({
+        patRegister: patRegister,
         patientName: patientName,
         age: age,
         sex: sex,
@@ -278,18 +281,15 @@ function TagubilinForm(props) {
         setWard(response.data.ward);
         setHrn(response.data.hrn);
         setAddress(response.data.address);
-        setAdmissionDate(
-          moment(response.data.admissionDate.date).format("LLL")
-        );
+        setAdmissionDate(response.data.admissionDate.date);
+        setPatRegister(response.data.patRegister);
         setDischDiag(
           response.data.dischdiagnosis === ""
             ? response.data.finaldiagnosis
             : response.data.dischdiagnosis
         );
         setDischDate(
-          response.data.dischdate === null
-            ? ""
-            : moment(response.data.dischdate.date).format("ll")
+          response.data.dischdate === null ? "" : response.data.dischdate.date
         );
       });
   }, [dietList, props.id]);
@@ -351,14 +351,20 @@ function TagubilinForm(props) {
                   <Text fontSize="12px" fontWeight="600">
                     Admission Date:
                   </Text>
-                  <Text fontSize="14px">{admissionDate}</Text>
+                  <Text fontSize="14px">
+                    {admissionDate === ""
+                      ? ""
+                      : moment(admissionDate).format("lll")}
+                  </Text>
                 </Td>
 
                 <Td className="border" py={1.5}>
                   <Text fontSize="12px" fontWeight="600">
                     Discharge Date:
                   </Text>
-                  <Text fontSize="14px">{dischDate}</Text>
+                  <Text fontSize="14px">
+                    {dischDate === "" ? "" : moment(dischDate).format("lll")}
+                  </Text>
                 </Td>
               </Tr>
               <Tr>
