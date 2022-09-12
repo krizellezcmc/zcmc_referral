@@ -1138,7 +1138,7 @@ function TagubilinForm(props) {
               </Button>
             </Box>
           ) : (
-            "nuay pa"
+            ""
           )}
         </form>
       </TableContainer>
