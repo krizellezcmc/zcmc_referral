@@ -1,13 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState} from "react";
 import "../Styles/Header.css";
 import Logo from "../Assets/zcmc.png";
+import Logo2 from "../Assets/doh-logo.png";
 import { IconButton } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import {
+  Circle
+} from "@chakra-ui/react";
 
 function Header() {
+  const [username, setUserName] = useState("");
+  const [referringFacility, setReferringFacility] = useState("");
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setReferringFacility(user.name);
+    setUserName(user.firstName + "  " + user.lastName);
+    setRole(user.role);
+  }, [username, referringFacility, role]);
+
   let navigate = useNavigate();
   const logout = () => {
     Swal.fire({
@@ -27,25 +42,52 @@ function Header() {
     });
   };
 
+
   return (
     <>
       <nav>
         <div className="brand">
           <img src={Logo} alt="ZCMC Logo" />
+          <img src={Logo2} alt="DOH Logo" />
           <h1>
-            ZCMC <span>Hospital Referral System</span>
+          ZCMC<Circle size="5px" bg="green" mt={3} mx={1}/>DOH<span> One Hospital Command </span>
           </h1>
+          
         </div>
 
+       <div className="brand">
+        <h1>
+        {role==="user"?
+        <>
+         <span style={{fontWeight:"bolder"}}>{referringFacility}</span><span>|</span>
+        </>
+          : role==="nurse"
+          ?
+          (
+            <>
+            <span style={{fontWeight:"bolder"}}>ZCMC Nurse </span><span>|</span>
+            </>
+          ): role==="ipcc"?(
+            <>
+            <span style={{fontWeight:"bolder"}}>ZCMC IPCC</span><span>|</span>
+            </>
+          ):(
+            <>
+            <span style={{fontWeight:"bolder"}}>ZCMC Administrator </span><span>|</span>
+            </>
+          )}
+        </h1>
         <IconButton
-          className="log-out"
           size="sm"
           variant="solid"
           colorScheme="red"
-          style={{ marginTop: "9px" }}
+          ml={5}
           onClick={logout}
           icon={<FiLogOut fontSize="17px" />}
         />
+        </div>
+   
+   
       </nav>
     </>
   );

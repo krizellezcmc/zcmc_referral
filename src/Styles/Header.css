@@ -28,8 +28,10 @@ nav {
   color: #0f531e;
   font-weight: 600;
   font-size: 18px;
+  display: flex;
 }
 
 .brand h1 span {
   font-weight: 300;
+  margin-left: 10px;
 }
