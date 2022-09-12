@@ -37,7 +37,6 @@
 .rtable {
   font-family: "Times New Roman", Times, serif;
   border-collapse: collapse;
-  border: 1px solid #a9a9a9;
   max-width: 730px;
 }
 
@@ -104,7 +103,7 @@
   color: black;
   text-align: left;
   margin-left: 3px;
-  font-weight: bolder;
+  /* font-weight: bolder; */
 }
 .med {
   font-family: "Times New Roman", Times, serif;
@@ -139,7 +138,7 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 13px;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   margin-left: 3px;
 }
 .float-container {
@@ -180,27 +179,21 @@
   margin-top: 10px;
   text-align: center;
 }
-.hr-followup {
-  font-family: "Times New Roman", Times, serif;
-  border-top: 1px solid #a9a9a9;
-  width: 200px;
-  font-size: 13px;
-  margin-top: 10px;
-}
 .hr-date {
   font-family: "Times New Roman", Times, serif;
   border-top: 1px solid #a9a9a9;
-  width: 250px;
+  width: 200px;
   margin-left: 20px;
   font-size: 13px;
   text-align: center;
   margin-top: 10px;
+  padding-top: 0;
 }
 .hr-watcher {
   font-family: "Times New Roman", Times, serif;
   border-top: 1px solid #a9a9a9;
   width: 250px;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 230px;
   font-size: 13px;
   padding-bottom: 10px;
