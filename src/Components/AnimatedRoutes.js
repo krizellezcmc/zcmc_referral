@@ -32,14 +32,13 @@ const AnimatedRoutes = () => {
           <Route path="/" element={<Login />} />
           <Route path="/blocked" element={<Blocked />} />
           <Route path="/register" element={<Register />} />
-
+          <Route path="/tagubilinreport" element={<TagubilinPrescription />} />
+          <Route path="/prescription" element={<Prescription />} />
           <Route path="/user" element={<UserDashboard />}></Route>
 
           {/* Nurse Routes*/}
-          <Route element={<ProtectedRoutes user={user} role="nurse"/>}>
-          <Route path="/tagubilin" element={<NurseHome />} />
-          <Route path="/tagubilinreport" element={<TagubilinPrescription />} />
-          <Route path="/prescription" element={<Prescription />} />
+          <Route element={<ProtectedRoutes user={user} role="nurse" />}>
+            <Route path="/tagubilin" element={<NurseHome />} />
           </Route>
 
           {/* User Routes */}

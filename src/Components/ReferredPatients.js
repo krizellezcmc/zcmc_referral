@@ -29,12 +29,18 @@ import {
   Menu,
   MenuButton,
   MenuItem,
-  MenuList
+  MenuList,
 } from "@chakra-ui/react";
 import axios from "axios";
 import "../Styles/Patients.css";
 import moment from "moment";
-import { BiCalendarEvent, BiChevronDown, BiSearch, BiStats, BiUser } from "react-icons/bi";
+import {
+  BiCalendarEvent,
+  BiChevronDown,
+  BiSearch,
+  BiStats,
+  BiUser,
+} from "react-icons/bi";
 import { BsEye, BsFile } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
@@ -77,10 +83,10 @@ const ReferredPatients = () => {
       });
   };
 
-  const navigateTagubilin=(id)=>{
-    navigate({pathname:"/hospitagubilin/"+id});
-  }
-  
+  const navigateTagubilin = (id) => {
+    navigate({ pathname: "/hospitagubilin/" + id });
+  };
+
   return (
     <div className="table-container">
       <h1 className="block">Referred Patients</h1>
@@ -178,26 +184,40 @@ const ReferredPatients = () => {
                         </Td>
                         <Td paddingTop="0" paddingBottom="0 ">
                           <Menu>
-                            <MenuButton as={Button} rightIcon={<BiChevronDown/>} colorScheme="blue" size="sm">
-                            Action
+                            <MenuButton
+                              as={Button}
+                              rightIcon={<BiChevronDown />}
+                              colorScheme="blue"
+                              size="sm"
+                            >
+                              Action
                             </MenuButton>
                             <MenuList size="sm" borderColor="blue.500">
-                            <MenuItem minH="40px" fontSize="15px" onClick={() => 
-                              {
-                              onOpen();
-                              getDetails(pat.PK_patientId);
-                            }}
-                            icon={<BsEye/>}>
-                            View Details
-                            </MenuItem>
-                            {pat.dischDate === null ? (""):(
-                            <MenuItem minH="40px" fontSize="15px" onClick={() => {
-                               navigateTagubilin(pat.FK_psPatRegisters);
-                            }}
-                            icon={<BsFile/>}>
-                          View Tagubilin
-                            </MenuItem>
-                            )}
+                              <MenuItem
+                                minH="40px"
+                                fontSize="15px"
+                                onClick={() => {
+                                  onOpen();
+                                  getDetails(pat.PK_patientId);
+                                }}
+                                icon={<BsEye />}
+                              >
+                                View Details
+                              </MenuItem>
+                              {pat.tagubilin === 0 ? (
+                                ""
+                              ) : (
+                                <MenuItem
+                                  minH="40px"
+                                  fontSize="15px"
+                                  onClick={() => {
+                                    navigateTagubilin(pat.FK_psPatRegisters);
+                                  }}
+                                  icon={<BsFile />}
+                                >
+                                  View Tagubilin
+                                </MenuItem>
+                              )}
                             </MenuList>
                           </Menu>
                         </Td>

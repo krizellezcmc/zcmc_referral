@@ -185,15 +185,14 @@ function TagubilinForm(props) {
         time: time,
         healthOthers: healthOthers,
         medications: medications,
-        diet: diet,
+        diet: JSON.stringify(diet),
         othersDiet: othersDiet,
-        instructions: inst,
+        instructions: JSON.stringify(inst),
         breastfeed: breastfeed,
         ob: ob,
       })
       .then((response) => {
-        console.log(response);
-        // window.location.href = "/tagubilinreport";
+        window.location.href = "/tagubilinreport";
       });
 
     localStorage.setItem(
@@ -206,9 +205,9 @@ function TagubilinForm(props) {
         ward: ward,
         hrn: hrn,
         address: address,
-        admissionDate: admissionDate,
+        admissionDate: moment(admissionDate).format("LLL"),
         dischDiag: dischDiag,
-        dischDate: dischDate,
+        dischDate: moment(dischDate).format("LLL"),
         laboratory: laboratory,
         xray: xray,
         ctScan: ctScan,
@@ -648,9 +647,7 @@ function TagubilinForm(props) {
                         style={{ display: "flex", alignItems: "center" }}
                       >
                         <Text fontSize="11px" mr={3}>
-                          <Checkbox>
-                            <Text fontSize="14px">Others</Text>
-                          </Checkbox>
+                          <Text fontSize="14px">Others</Text>
                         </Text>
 
                         <Textarea
@@ -659,9 +656,9 @@ function TagubilinForm(props) {
                           borderRadius="0"
                           borderBottom="1px solid black"
                           rows={1}
-                          width="300px"
+                          width="350px"
                           fontSize="14px"
-                          onChange={(e) => setOthersDiet(e.target.value)}
+                          onChange={(e) => setHealthOthers(e.target.value)}
                         ></Textarea>
                       </GridItem>
                     </Grid>
@@ -679,7 +676,9 @@ function TagubilinForm(props) {
                         <>
                           <GridItem>
                             <Text fontSize="11px">
-                              <Checkbox onChange={(e) => handleInst(e, key)}>
+                              <Checkbox
+                                onChange={(e) => handleInst(e, el.value)}
+                              >
                                 <Text fontSize="14px">{el.value}</Text>
                               </Checkbox>
                             </Text>
@@ -1138,7 +1137,7 @@ function TagubilinForm(props) {
               </Button>
             </Box>
           ) : (
-            "nuay pa"
+            ""
           )}
         </form>
       </TableContainer>
