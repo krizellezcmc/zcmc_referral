@@ -151,7 +151,7 @@ function SearchPatient(props) {
           return (
             <>
               <Center>
-                <Box mt={20} w="85%">
+                <Box mt={20} w="70%">
                   <ul id="progress">
                     <li
                       className={
@@ -162,65 +162,57 @@ function SearchPatient(props) {
                             ""
                       }
                     >
-                      Waiting for approval
-                      {/* {i.status === "pending"
-                        ? "Waiting for approval"
-                        : i.status === "cancelled"
-                        ? "Cancelled"
-                        : ""} */}
+                      Pending
                     </li>
-                    <li
-                      className={
-                        bizbox.length === 0 && i.status === "accepted"
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      Referred
-                    </li>
+                    {i.status === "cancelled" ? (
+                      <li className="out">Cancelled</li>
+                    ) : (
+                      <li
+                        className={
+                          bizbox.length === 0 && i.status === "accepted"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        Referred
+                      </li>
+                    )}
 
-                {bizbox.length==0 ? (
-                  <>
-                    <li>
-                      Admitted
-                    </li>
-                     <li>
-                     Discharged
-                    </li>
-                   </>
+                    {bizbox.length == 0 ? (
+                      <>
+                        <li>Admitted</li>
+                        <li>Discharged</li>
+                      </>
                     ) : (
                       <>
-                    {bizbox.map((d) => {
-                        return (
-                          <>
-                      <li
-                        className=
-                              {d.dischDate === "" || d.dischDate === null
-                                ? "active"
-                                : ""}
-                      >
-                        Admitted
-                      </li>
-                      </>
-                          );
-                        })}
-  
-                      {bizbox.map((d) => {
+                        {bizbox.map((d) => {
                           return (
                             <>
-                      <li
-                        className=
-                              {d.dischDate !== "" || d.dischDate !== null
-                                ? "active"
-                                : ""}
-                        
-                      >
-                        Discharged
-                      </li>
-                      </>
+                              <li
+                                className={
+                                  d.dischDate === null || d.dischDate === ""
+                                    ? "active"
+                                    : ""
+                                }
+                              >
+                                Admitted
+                              </li>
+                            </>
                           );
                         })}
-                        </>
+
+                        {bizbox.map((d) => {
+                          return (
+                            <>
+                              <li
+                                className={d.dischDate !== null ? "active" : ""}
+                              >
+                                Discharged
+                              </li>
+                            </>
+                          );
+                        })}
+                      </>
                     )}
                   </ul>
                 </Box>

@@ -90,7 +90,7 @@ function Login() {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <Navigate to="/admindashboard" />;
+    return <Navigate to="/addhospital" />;
   }
 
   if (user?.role === "user") {

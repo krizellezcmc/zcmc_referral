@@ -37,6 +37,7 @@ import moment from "moment";
 import {
   BiCalendarEvent,
   BiChevronDown,
+  BiFile,
   BiSearch,
   BiStats,
   BiUser,
@@ -213,7 +214,7 @@ const ReferredPatients = () => {
                                   onClick={() => {
                                     navigateTagubilin(pat.FK_psPatRegisters);
                                   }}
-                                  icon={<BsFile />}
+                                  icon={<BiFile />}
                                 >
                                   View Tagubilin
                                 </MenuItem>

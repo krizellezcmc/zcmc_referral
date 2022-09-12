@@ -67,3 +67,7 @@
 #progress li.active:after {
   border-left-color: #38a169;
 }
+
+#progress li.out:after {
+  border-left-color: rgb(232, 67, 67);
+}
