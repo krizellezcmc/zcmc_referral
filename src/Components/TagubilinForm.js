@@ -52,6 +52,7 @@ function TagubilinForm(props) {
   const [patRegister, setPatRegister] = useState("");
   const [diet, setDiet] = useState([]);
   const [inst, setInst] = useState([]);
+  const [stat, setStat] = useState(0);
   const [dietList, setDietList] = useState([
     {
       value: "Low Salt Diet",
@@ -1123,17 +1124,22 @@ function TagubilinForm(props) {
             </Tr>
 
           </Table> */}
-          <Box style={{ float: "right", margin: "30px 0px" }}>
-            <Button
-              colorScheme="blue"
-              width="250px"
-              rightIcon={<BiSend />}
-              type="submit"
-              onClick={() => submit()}
-            >
-              Submit
-            </Button>
-          </Box>
+
+          {props.stat === 0 ? (
+            <Box style={{ float: "right", margin: "30px 0px" }}>
+              <Button
+                colorScheme="blue"
+                width="250px"
+                rightIcon={<BiSend />}
+                type="submit"
+                onClick={() => submit()}
+              >
+                Submit
+              </Button>
+            </Box>
+          ) : (
+            "nuay pa"
+          )}
         </form>
       </TableContainer>
     </div>
