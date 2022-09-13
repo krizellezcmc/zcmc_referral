@@ -700,7 +700,7 @@ function TagubilinForm(props) {
                   <div style={{ width: "400px" }}>
                     <Select
                       options={specialization}
-                      placeholder="Search patient"
+                      placeholder="Search Service Type"
                       selectedOptionStyle="check"
                       closeMenuOnSelect={true}
                       focusBorderColor="#058e46"

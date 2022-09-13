@@ -90,8 +90,6 @@ function Login() {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <Navigate to="/addhospital" />;
-
     return <Navigate to="/patientlist" />;
   }
 

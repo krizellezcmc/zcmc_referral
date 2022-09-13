@@ -9,7 +9,6 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import Prescription from "./Prescription";
 import { FaArrowLeft } from "react-icons/fa";
-import { borderTop, fontWeight, padding } from "@mui/system";
 
 function TagubilinReport() {
   const [refName, setRefName] = useState("");
@@ -801,11 +800,14 @@ function TagubilinReport() {
       </div>
     );
 
+    let content = element;
+
     const doc = new jsPDF({
       orientation: "p",
       unit: "mm",
       format: [210, 297],
     });
+
     doc.page = 1;
 
     function footer() {
@@ -825,10 +827,11 @@ function TagubilinReport() {
           doc.page +
           " " +
           " of " +
-          "1"
+          doc.page++
       );
       doc.page++;
     }
+
     doc.html(ReactDOMServer.renderToString(element), {
       width: 210,
       height: 297,
@@ -1214,7 +1217,7 @@ function TagubilinReport() {
                             fontWeight: "bolder",
                           }}
                         >
-                          Attended
+                          Attended (Signature)
                         </td>
                       </tr>
                       {breastfeed.map((b, i) => {
