@@ -44,7 +44,7 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost/zcmc_referral_api/api/login.php", data)
+      .post("http://192.168.3.135/zcmc_referral_api/api/login.php", data)
       .then(function (response) {
         if (response.data.status === 1) {
           // navigate("/");
