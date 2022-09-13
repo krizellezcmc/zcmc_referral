@@ -189,7 +189,7 @@ const Sidebar = () => {
       <div className="sidebar-user">
         <img src={Nouser} alt="User Avatar" />
         <div className="user">
-          <h1>{role === "admin" ? "ADMIN" : username}</h1>
+          <h1>{role === "admin" ? "OPCEN" : username}</h1>
           <small>{referringFacility}</small>
         </div>
       </div>

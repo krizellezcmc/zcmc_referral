@@ -13,6 +13,7 @@ import {
   Spacer,
   useToast,
   Checkbox,
+  Badge,
 } from "@chakra-ui/react";
 import { BiCalendar, BiSend } from "react-icons/bi";
 function CovidForm(props) {
@@ -24,8 +25,7 @@ function CovidForm(props) {
   const [resultDate, setResultDate] = useState("");
   const [covidData, setCovidData] = useState("");
 
-  patient
-  .forEach((element, key) => {
+  patient.forEach((element, key) => {
     patient[key]["label"] =
       element.lastname +
       ", " +
@@ -171,7 +171,35 @@ function CovidForm(props) {
               })}
 
             {covidData.length !== 0 ? (
-              <b>Done</b>
+              covidData.map((i, k) => {
+                return (
+                  <>
+                    <Box w={350} bg="#f7f8fb" p={7} borderRadius={10}>
+                      <Text mb={1}>Result:</Text>
+
+                      <Badge
+                        fontSize="15px"
+                        variant="subtle"
+                        colorScheme={i.result === 1 ? "red" : "green"}
+                      >
+                        {i.result === 1 ? "Positive +" : "Negative -"}
+                      </Badge>
+
+                      <Text mt={9}>Swab Date:</Text>
+
+                      <Text fontWeight="600" mt={1}>
+                        {moment(i.swab_date).format("LLL")}
+                      </Text>
+
+                      <Text mt={9}>Result Date:</Text>
+
+                      <Text fontWeight="600" mt={1}>
+                        {moment(i.result_date).format("LLL")}
+                      </Text>
+                    </Box>
+                  </>
+                );
+              })
             ) : (
               /* {covidData.map((i, k) => {
                   return (

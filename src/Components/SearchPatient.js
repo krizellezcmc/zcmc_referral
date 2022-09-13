@@ -22,7 +22,7 @@ function SearchPatient(props) {
   const [selected, setSelected] = useState("/");
   const [bizbox, setBizbox] = useState([]);
   const [hospital, setHospital] = useState("");
-  const [covid, setCovid] = useState("");
+  const [covid, setCovid] = useState([]);
 
   patient
     .filter((l) => l.refFacility === hospital.toUpperCase())
@@ -91,7 +91,6 @@ function SearchPatient(props) {
             } else {
               Swal.fire("Error!", "Something went wrong.", "error");
             }
-            console.log(response.data);
           });
       }
     });
@@ -122,7 +121,7 @@ function SearchPatient(props) {
       .then((response) => {
         setBizbox(response.data);
       });
-  }, [refDate, name, id]);
+  }, [refDate, name, id, covid]);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -652,53 +651,21 @@ function SearchPatient(props) {
 
                           {/* COVID */}
 
-                          <Text textTransform="uppercase">
+                          <Text
+                            textTransform="uppercase"
+                            fontSize="15px"
+                            fontWeight="500"
+                          >
                             COVID:{" "}
-                            {covid === 1 ? (
-                              <Badge colorScheme="red">POSITIVE +</Badge>
-                            ) : covid === 0 ? (
-                              <Badge colorScheme="blue">negative -</Badge>
-                            ) : (
+                            {covid === null ? (
                               <Badge colorScheme="gray">No result</Badge>
+                            ) : covid["result"] === 1 ? (
+                              <Badge colorScheme="red">POSITIVE +</Badge>
+                            ) : (
+                              <Badge colorScheme="blue">negative -</Badge>
                             )}
                           </Text>
                           <br />
-
-                          {/* <Text
-                            style={{
-                              display: "flex",
-                              marginBottom: 4,
-                            }}
-                            mt={1}
-                          >
-                            <BiStats
-                              style={{ marginRight: "5px", marginTop: 2 }}
-                            />
-                            <Text textTransform="uppercase">
-                              Patient status
-                            </Text>
-                          </Text>
-                          {d.dischDate === null ? (
-                            <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
-                              <Text
-                                fontSize="13px"
-                                fontWeight="600"
-                                color="blue.500"
-                              >
-                                Patient Admitted
-                              </Text>
-                            </Box>
-                          ) : (
-                            <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
-                              <Text
-                                fontSize="13px"
-                                fontWeight="600"
-                                color="red.500"
-                              >
-                                Patient Discharged
-                              </Text>
-                            </Box>
-                          )} */}
 
                           <Text
                             style={{
