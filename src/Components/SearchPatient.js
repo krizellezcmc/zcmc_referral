@@ -75,7 +75,7 @@ function SearchPatient(props) {
       if (result.isConfirmed) {
         axios
           .post(
-            "http://192.168.3.135/zcmc_referral_api/api/cancel_referred_patient.php",
+            "http://localhost/zcmc_referral_api/api/cancel_referred_patient.php",
             {
               id: id,
               reason: result.value,
@@ -100,8 +100,11 @@ function SearchPatient(props) {
     const user = JSON.parse(localStorage.getItem("user"));
     setHospital(user.name);
 
+    console.log(patient);
     axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_sheets.php")
+      .get("http://localhost/zcmc_referral_api/api/get_sheets.php", {
+        params: { hospital: hospital },
+      })
       .then((response) => {
         setPatient(response.data);
       });
@@ -154,7 +157,7 @@ function SearchPatient(props) {
                   <ul id="progress">
                     <li
                       className={
-                        i.status === "pending"
+                        i.status === "pending" || i.status === "accepted"
                           ? "active"
                           : // : i.status === "cancelled"
                             // ? "out"
@@ -166,15 +169,18 @@ function SearchPatient(props) {
                     {i.status === "cancelled" ? (
                       <li className="out">Cancelled</li>
                     ) : (
-                      <li
-                        className={
-                          bizbox.length === 0 && i.status === "accepted"
-                            ? "active"
-                            : ""
-                        }
-                      >
-                        Referred
-                      </li>
+                      <>
+                        {" "}
+                        <li
+                          className={
+                            bizbox.length === 0 && i.status === "arrived"
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          Arrived
+                        </li>
+                      </>
                     )}
 
                     {bizbox.length == 0 ? (
@@ -779,14 +785,35 @@ function SearchPatient(props) {
                       );
                     })
                   ) : i.status === "cancelled" ? (
-                    <Text
-                      style={{
-                        display: "flex",
-                        marginBottom: 4,
-                      }}
-                    >
-                      Cancelled na
-                    </Text>
+                    <>
+                      {" "}
+                      <Box p={3} bg="red.50" borderRadius="5px" mb={6}>
+                        <Text fontSize="15px" fontWeight="600" color="red.500">
+                          Referral Cancelled
+                        </Text>
+                        <Text mt={5} fontSize="15px">
+                          <b>Reason:</b> <i>{i.rejectReason}</i>
+                        </Text>
+                      </Box>
+                    </>
+                  ) : i.status === "arrived" ? (
+                    <>
+                      {" "}
+                      <Text
+                        style={{
+                          display: "flex",
+                          marginBottom: 4,
+                        }}
+                      >
+                        <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                        <Text textTransform="uppercase">Patient status</Text>
+                      </Text>
+                      <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
+                        <Text fontSize="13px" fontWeight="600" color="blue.500">
+                          Not yet available
+                        </Text>
+                      </Box>
+                    </>
                   ) : (
                     <>
                       <Text

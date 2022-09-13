@@ -30,6 +30,7 @@ import {
   VStack,
   HStack,
   Spacer,
+  Link,
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
@@ -43,14 +44,14 @@ import {
   BiUserCheck,
   BiRefresh,
   BiMaleSign,
-  BiFemaleSign
+  BiFemaleSign,
 } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
 import { GoCheck, GoX } from "react-icons/go";
 import Swal from "sweetalert2";
-import { capitalize } from "@mui/material";
+import CancelledModal from "./CancelledModal";
 
 const PatientsList = () => {
   let navigate = useNavigate();
@@ -68,6 +69,12 @@ const PatientsList = () => {
     isOpen: isPendingOpen,
     onOpen: onPendingOpen,
     onClose: onPendingClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isCancelledOpen,
+    onOpen: onCancelledOpen,
+    onClose: onCancelledClose,
   } = useDisclosure();
 
   //get pending patient data
@@ -88,8 +95,8 @@ const PatientsList = () => {
   const [latestPulse, setLatestPulse] = useState("");
   const [latestOxygen, setLatestOxygen] = useState("");
   const [latestGlasgow, setLatestGlasgow] = useState("");
-
-  const [reasonPat, setReasonPat] = useState("");
+  const [status, setStatus] = useState("");
+  const [count, setCount] = useState(0);
 
   const getDetails = (id) => {
     axios
@@ -103,9 +110,12 @@ const PatientsList = () => {
 
   const getPendingDetails = (pid) => {
     axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_pending_details.php/", {
-        params: { pid: pid },
-      })
+      .get(
+        "http://192.168.3.135/zcmc_referral_api/api/get_pending_details.php/",
+        {
+          params: { pid: pid },
+        }
+      )
       .then(function (response) {
         setPatientId(response.data[0].patientId);
         setRefFacility(response.data[0].refFacility);
@@ -124,6 +134,7 @@ const PatientsList = () => {
         setLatestPulse(response.data[0].latestPulse);
         setLatestOxygen(response.data[0].latestOxygen);
         setLatestGlasgow(response.data[0].latestGlasgow);
+        setStatus(response.data[0].status);
       });
   };
 
@@ -141,6 +152,36 @@ const PatientsList = () => {
         axios
           .post(
             "http://192.168.3.135/zcmc_referral_api/api/accept_referred_patient.php",
+            {
+              patId: patId,
+            }
+          )
+          .then((response) => {
+            if (response.data.status === 1) {
+              Swal.fire("Success!", "Record Successfully.", "success");
+            } else {
+              Swal.fire("Error!", "Something went wrong.", "error");
+            }
+          });
+      }
+    });
+  };
+
+  // PATIENT ARRIVAL
+  const patientArrival = (patId) => {
+    onPendingClose(true);
+    Swal.fire({
+      text: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            "http://192.168.3.135/zcmc_referral_api/api/arrived_referred_patient.php",
             {
               patId: patId,
             }
@@ -165,11 +206,7 @@ const PatientsList = () => {
                     }
                   ).then(async (response) => {
                     if (response) {
-                      Swal.fire(
-                        "User verified!",
-                        "You successfully verified the user.",
-                        "success"
-                      );
+                      Swal.fire("Success!", "Record Successfully.", "success");
                     } else {
                       Swal.fire("Error!", "Something went wrong.", "error");
                     }
@@ -232,9 +269,17 @@ const PatientsList = () => {
       });
 
     axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_pending_patients.php")
+      .get(
+        "http://192.168.3.135/zcmc_referral_api/api/get_pending_patients.php"
+      )
       .then(function (response) {
         setPendingPat(response.data);
+      });
+
+    axios
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_cancelled.php/")
+      .then((response) => {
+        setCount(response.data);
       });
   }, [pendingPat]);
 
@@ -362,9 +407,21 @@ const PatientsList = () => {
 
         <GridItem colSpan={3}>
           <div className="side-container" style={{ padding: "15px" }}>
-            <h1 style={{ marginBottom: "15px" }}>
-              <b>Pending Patients</b>
-            </h1>
+            <HStack mb={5}>
+              <h1>
+                <b>Pending Patients</b>
+              </h1>
+              <Spacer />
+              <Link
+                fontSize="14px"
+                onClick={() => {
+                  onCancelledOpen();
+                }}
+                color="red.600"
+              >
+                View Cancelled Referrals ({count.length})
+              </Link>
+            </HStack>
 
             <VStack spacing={2}>
               {pendingPat.length !== 0 ? (
@@ -386,9 +443,15 @@ const PatientsList = () => {
                                 ", " +
                                 p.middleName}
                             </b>
-                            <Badge colorScheme="purple" ml="1" size="xs">
-                              New
-                            </Badge>
+                            {p.status === "accepted" ? (
+                              <Badge colorScheme="green" ml="1" size="xs">
+                                Incoming patient
+                              </Badge>
+                            ) : (
+                              <Badge colorScheme="purple" ml="1" size="xs">
+                                New
+                              </Badge>
+                            )}
                             <br />
                             <Text style={{ textTransform: "capitalize" }}>
                               {p.refFacility}
@@ -412,7 +475,9 @@ const PatientsList = () => {
                   );
                 })
               ) : (
-                <Text mt={3}>Nothing to show</Text>
+                <Text mt={3} fontSize="15px">
+                  Nothing to show
+                </Text>
               )}
             </VStack>
           </div>
@@ -605,12 +670,14 @@ const PatientsList = () => {
                     marginBottom: 4,
                   }}
                 >
-                  {sex==="Male"?(
-                  <BiMaleSign style={{ marginRight: "5px", marginTop: 2 }} />
-                  ):(
-                    <BiFemaleSign style={{ marginRight: "5px", marginTop: 2 }} />
+                  {sex === "Male" ? (
+                    <BiMaleSign style={{ marginRight: "5px", marginTop: 2 }} />
+                  ) : (
+                    <BiFemaleSign
+                      style={{ marginRight: "5px", marginTop: 2 }}
+                    />
                   )}
-          
+
                   <Text textTransform="uppercase">Sex</Text>
                 </small>
                 <Badge colorScheme="red">{sex}</Badge>
@@ -682,9 +749,7 @@ const PatientsList = () => {
               </GridItem>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
+                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
                   <Text textTransform="uppercase">
                     Latest V/S Blood Pressure
                   </Text>
@@ -698,9 +763,7 @@ const PatientsList = () => {
             <Grid templateColumns="repeat(2, 1fr)" mt={10}>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
+                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
                   <Text textTransform="uppercase">
                     Latest V/S Respiration Rate
                   </Text>
@@ -711,9 +774,7 @@ const PatientsList = () => {
               </GridItem>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
+                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
                   <Text textTransform="uppercase">Latest V/S Pulse Rate</Text>
                 </small>
                 <Text fontSize=" 14px" color="red.600" fontWeight="600">
@@ -725,9 +786,7 @@ const PatientsList = () => {
             <Grid templateColumns="repeat(2, 1fr)" mt={10}>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
+                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
                   <Text textTransform="uppercase">
                     Latest V/S Oxygen Saturation
                   </Text>
@@ -738,9 +797,7 @@ const PatientsList = () => {
               </GridItem>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
+                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
                   <Text textTransform="uppercase">Glasgow Coma Scale</Text>
                 </small>
 
@@ -752,34 +809,67 @@ const PatientsList = () => {
           </ModalBody>
 
           <ModalFooter mt={4}>
-            <Button
-              size="sm"
-              mr={3}
-              colorScheme="green"
-              onClick={() => {
-                handleAcceptPatient(patientId);
-              }}
-              leftIcon={<GoCheck fontSize="20px" />}
-            >
-              Accept
-            </Button>
-            <Button
-              size="sm"
-              mr={3}
-              colorScheme="red"
-              onClick={() => {
-                declineReferredPatient(patientId);
-              }}
-              leftIcon={<GoX fontSize="20px" />}
-            >
-              Decline
-            </Button>
-            <Button
-              colorScheme="blue"
-              size="sm"
-              mr={3}
-              onClick={onPendingClose}
-            >
+            {status === "pending" ? (
+              <>
+                <Button
+                  size="sm"
+                  mr={3}
+                  colorScheme="green"
+                  onClick={() => {
+                    handleAcceptPatient(patientId);
+                  }}
+                  leftIcon={<GoCheck fontSize="20px" />}
+                >
+                  Accept
+                </Button>
+                <Button
+                  size="sm"
+                  mr={3}
+                  colorScheme="red"
+                  onClick={() => {
+                    declineReferredPatient(patientId);
+                  }}
+                  leftIcon={<GoX fontSize="20px" />}
+                >
+                  Decline
+                </Button>
+                <Button
+                  colorScheme="blue"
+                  size="sm"
+                  mr={3}
+                  onClick={onPendingClose}
+                >
+                  Close
+                </Button>
+              </>
+            ) : (
+              <Button
+                colorScheme="blue"
+                size="sm"
+                mr={3}
+                onClick={() => {
+                  patientArrival(patientId);
+                }}
+              >
+                Patient Arrived
+              </Button>
+            )}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* MODAL VIEW DETAILS */}
+      <Modal isOpen={isCancelledOpen} onClose={onCancelledClose} size="6xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Cancelled Referrals</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <CancelledModal />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onCancelledClose}>
               Close
             </Button>
           </ModalFooter>

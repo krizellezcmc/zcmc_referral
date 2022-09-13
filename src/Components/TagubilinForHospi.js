@@ -115,7 +115,7 @@ function TagubilinForHospi() {
   return (
     <div
       style={{
-        width: "1300px",
+        width: "1250px",
         // margin: "0 auto",
         marginTop: "25px",
         marginBottom: "50px",
