@@ -27,7 +27,7 @@ const ReferralForm = () => {
   const [age, setAge] = useState("");
 
   const [civilStatus, setCivilStatus] = useState("");
-  const [nationality, setNationality] = useState("");
+  const [nationality, setNationality] = useState("Filipino");
   const [religion, setReligion] = useState("");
   const [occupation, setOccupation] = useState("");
   const [philhealth, setPhilhealth] = useState("");
@@ -586,7 +586,7 @@ const ReferralForm = () => {
                     </label>
                     <input
                       onChange={(e) => setEdc(e.target.value)}
-                      type="date"
+                      type="text"
                       required
                     />
                   </div>

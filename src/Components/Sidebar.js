@@ -58,8 +58,8 @@ const Sidebar = () => {
               </p>
               <span>Dashboard</span>
             </li> */}
-       
-       <li
+
+            <li
               className={path.includes("patientlist") ? "active" : ""}
               onClick={() => navigate("/patientlist")}
             >
@@ -80,7 +80,6 @@ const Sidebar = () => {
               <span>Verify Users</span>
             </li>
 
-         
             <li
               className={path.includes("addhospital") ? "active" : ""}
               onClick={() => navigate("/addhospital")}
@@ -190,7 +189,7 @@ const Sidebar = () => {
       <div className="sidebar-user">
         <img src={Nouser} alt="User Avatar" />
         <div className="user">
-          <h1>{role === "admin" ? "OPCEN" : username}</h1>
+          <h1>{role === "admin" ? "ADMIN" : username}</h1>
           <small>{referringFacility}</small>
         </div>
       </div>

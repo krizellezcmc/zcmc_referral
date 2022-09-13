@@ -20,6 +20,7 @@ import Blocked from "../Pages/Blocked";
 import AdminDashboard from "../Pages/AdminDashboard";
 import UserDashboard from "../Pages/UserDashboard";
 import HospiTagubilin from "../Pages/HospiTagubilin";
+import CancelledModal from "./CancelledModal";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -35,6 +36,8 @@ const AnimatedRoutes = () => {
           <Route path="/tagubilinreport" element={<TagubilinPrescription />} />
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/user" element={<UserDashboard />}></Route>
+
+          {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
           {/* Nurse Routes*/}
           <Route element={<ProtectedRoutes user={user} role="nurse" />}>
