@@ -58,20 +58,14 @@ const Sidebar = () => {
               </p>
               <span>Dashboard</span>
             </li> */}
-            <li
-              className={path.includes("addhospital") ? "active" : ""}
-              onClick={() => navigate("/addhospital")}
+       
+       <li
+              className={path.includes("patientlist") ? "active" : ""}
+              onClick={() => navigate("/patientlist")}
             >
-              <p>
-                {path.includes("addhospital") ? (
-                  <HiOfficeBuilding />
-                ) : (
-                  <HiOutlineOfficeBuilding />
-                )}
-              </p>
-              <span>Hospitals</span>
+              <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
+              <span>Patient List</span>
             </li>
-
             <li
               className={path.includes("verifyuser") ? "active" : ""}
               onClick={() => navigate("/verifyuser")}
@@ -86,12 +80,19 @@ const Sidebar = () => {
               <span>Verify Users</span>
             </li>
 
+         
             <li
-              className={path.includes("patientlist") ? "active" : ""}
-              onClick={() => navigate("/patientlist")}
+              className={path.includes("addhospital") ? "active" : ""}
+              onClick={() => navigate("/addhospital")}
             >
-              <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
-              <span>Patient List</span>
+              <p>
+                {path.includes("addhospital") ? (
+                  <HiOfficeBuilding />
+                ) : (
+                  <HiOutlineOfficeBuilding />
+                )}
+              </p>
+              <span>Hospitals</span>
             </li>
             <li
               className={path.includes("changepass") ? "active" : ""}

@@ -52,7 +52,6 @@ function TagubilinForm(props) {
   const [patRegister, setPatRegister] = useState("");
   const [diet, setDiet] = useState([]);
   const [inst, setInst] = useState([]);
-  const [stat, setStat] = useState(0);
   const [dietList, setDietList] = useState([
     {
       value: "Low Salt Diet",
@@ -100,7 +99,6 @@ function TagubilinForm(props) {
   ];
 
   const [ob, setOb] = useState("");
-  const [othersDiet, setOthersDiet] = useState("");
   const [medications, setMedications] = useState([]);
 
   // handle input change
@@ -186,7 +184,6 @@ function TagubilinForm(props) {
         healthOthers: healthOthers,
         medications: medications,
         diet: JSON.stringify(diet),
-        othersDiet: othersDiet,
         instructions: JSON.stringify(inst),
         breastfeed: breastfeed,
         ob: ob,
@@ -222,7 +219,6 @@ function TagubilinForm(props) {
         healthOthers: healthOthers,
         medications: medications,
         diet: diet,
-        othersDiet: othersDiet,
         instructions: inst,
         breastfeed: breastfeed,
         ob: ob,

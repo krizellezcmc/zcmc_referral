@@ -62,7 +62,7 @@ function TagubilinForHospi() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost/zcmc_referral_api/api/get_tagubilinhospi.php/${id}`
+        `http://192.168.3.135/zcmc_referral_api/api/get_tagubilinhospi.php/${id}`
       )
       .then((response) => {
         setPatient(response.data[0].patientName);
@@ -96,7 +96,7 @@ function TagubilinForHospi() {
       });
 
     axios
-      .get("http://localhost/zcmc_referral_api/api/get_medhospi.php/", {
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_medhospi.php/", {
         params: { mid: medId },
       })
       .then((response) => {
@@ -104,7 +104,7 @@ function TagubilinForHospi() {
       });
 
     axios
-      .get("http://localhost/zcmc_referral_api/api/get_obhospi.php/", {
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_obhospi.php/", {
         params: { oid: obId },
       })
       .then((response) => {

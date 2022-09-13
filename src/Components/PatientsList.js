@@ -42,6 +42,8 @@ import {
   BiUser,
   BiUserCheck,
   BiRefresh,
+  BiMaleSign,
+  BiFemaleSign
 } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
@@ -101,7 +103,7 @@ const PatientsList = () => {
 
   const getPendingDetails = (pid) => {
     axios
-      .get("http://localhost/zcmc_referral_api/api/get_pending_details.php/", {
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_pending_details.php/", {
         params: { pid: pid },
       })
       .then(function (response) {
@@ -138,7 +140,7 @@ const PatientsList = () => {
       if (result.isConfirmed) {
         axios
           .post(
-            "http://localhost/zcmc_referral_api/api/accept_referred_patient.php",
+            "http://192.168.3.135/zcmc_referral_api/api/accept_referred_patient.php",
             {
               patId: patId,
             }
@@ -147,7 +149,7 @@ const PatientsList = () => {
             if (response.data.status === 1) {
               axios
                 .get(
-                  "http://mms-krizelle/zcmc_referral_api/api/get_pending_ref.php",
+                  "http://192.168.3.135/zcmc_referral_api/api/get_pending_ref.php",
                   {
                     params: { id: patId },
                   }
@@ -201,7 +203,7 @@ const PatientsList = () => {
       if (result.isConfirmed) {
         axios
           .post(
-            "http://localhost/zcmc_referral_api/api/decline_referred_patient.php",
+            "http://192.168.3.135/zcmc_referral_api/api/decline_referred_patient.php",
             {
               id: id,
               reason: result.value,
@@ -223,8 +225,6 @@ const PatientsList = () => {
     });
   };
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-
     axios
       .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
       .then(function (response) {
@@ -232,11 +232,11 @@ const PatientsList = () => {
       });
 
     axios
-      .get("http://localhost/zcmc_referral_api/api/get_pending_patients.php")
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_pending_patients.php")
       .then(function (response) {
         setPendingPat(response.data);
       });
-  }, [pendingPat, patients]);
+  }, [pendingPat]);
 
   return (
     <div>
@@ -605,7 +605,12 @@ const PatientsList = () => {
                     marginBottom: 4,
                   }}
                 >
-                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                  {sex==="Male"?(
+                  <BiMaleSign style={{ marginRight: "5px", marginTop: 2 }} />
+                  ):(
+                    <BiFemaleSign style={{ marginRight: "5px", marginTop: 2 }} />
+                  )}
+          
                   <Text textTransform="uppercase">Sex</Text>
                 </small>
                 <Badge colorScheme="red">{sex}</Badge>
@@ -666,8 +671,8 @@ const PatientsList = () => {
             <Grid templateColumns="repeat(2, 1fr)" mt={10}>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
-                    style={{ marginRight: "5px", marginTop: 2 }}
+                  <BiStats
+                    stCalendarEventyle={{ marginRight: "5px", marginTop: 2 }}
                   />
                   <Text textTransform="uppercase">Latest V/S Temperature</Text>
                 </small>
@@ -677,7 +682,7 @@ const PatientsList = () => {
               </GridItem>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
+                  <BiStats
                     style={{ marginRight: "5px", marginTop: 2 }}
                   />
                   <Text textTransform="uppercase">
@@ -693,7 +698,7 @@ const PatientsList = () => {
             <Grid templateColumns="repeat(2, 1fr)" mt={10}>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
+                  <BiStats
                     style={{ marginRight: "5px", marginTop: 2 }}
                   />
                   <Text textTransform="uppercase">
@@ -706,7 +711,7 @@ const PatientsList = () => {
               </GridItem>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
+                  <BiStats
                     style={{ marginRight: "5px", marginTop: 2 }}
                   />
                   <Text textTransform="uppercase">Latest V/S Pulse Rate</Text>
@@ -720,7 +725,7 @@ const PatientsList = () => {
             <Grid templateColumns="repeat(2, 1fr)" mt={10}>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
+                  <BiStats
                     style={{ marginRight: "5px", marginTop: 2 }}
                   />
                   <Text textTransform="uppercase">
@@ -733,7 +738,7 @@ const PatientsList = () => {
               </GridItem>
               <GridItem>
                 <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
+                  <BiStats
                     style={{ marginRight: "5px", marginTop: 2 }}
                   />
                   <Text textTransform="uppercase">Glasgow Coma Scale</Text>
