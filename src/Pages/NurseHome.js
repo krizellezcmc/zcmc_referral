@@ -18,7 +18,7 @@ function NurseHome(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost/zcmc_referral_api/api/get_patientList.php")
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_patientList.php")
       .then((response) => {
         setPatientList(response.data);
         setStat(response.data[0].tagubilin);

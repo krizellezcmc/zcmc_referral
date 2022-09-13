@@ -85,7 +85,7 @@ function CovidForm(props) {
     // const user = JSON.parse(localStorage.getItem("user"));
 
     axios
-      .get("http://localhost/zcmc_referral_api/api/get_acceptedpats.php")
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_acceptedpats.php")
       .then((response) => {
         setPatient(response.data);
       });

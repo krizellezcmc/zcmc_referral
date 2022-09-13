@@ -59,21 +59,21 @@ function Header() {
         <h1>
         {role==="user"?
         <>
-         <span style={{fontWeight:"bolder"}}>{referringFacility}</span><span>|</span>
+         <span style={{fontWeight:"500"}}>{referringFacility}</span><span>|</span>
         </>
           : role==="nurse"
           ?
           (
             <>
-            <span style={{fontWeight:"bolder"}}>ZCMC Nurse </span><span>|</span>
+            <span style={{fontWeight:"500"}}>ZCMC Nurse </span><span>|</span>
             </>
           ): role==="ipcc"?(
             <>
-            <span style={{fontWeight:"bolder"}}>ZCMC IPCC</span><span>|</span>
+            <span style={{fontWeight:"500"}}>ZCMC IPCC</span><span>|</span>
             </>
           ):(
             <>
-            <span style={{fontWeight:"bolder"}}>ZCMC Administrator </span><span>|</span>
+            <span style={{fontWeight:"500"}}>ZCMC Administrator </span><span>|</span>
             </>
           )}
         </h1>

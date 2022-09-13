@@ -154,7 +154,7 @@ function TagubilinForm(props) {
     ]);
   };
 
-  const url = "http://localhost/zcmc_referral_api/api/add_tagubilin.php";
+  const url = "http://192.168.3.135/zcmc_referral_api/api/add_tagubilin.php";
 
   const submit = (e) => {
     e.preventDefault();
