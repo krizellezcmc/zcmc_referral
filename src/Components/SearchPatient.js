@@ -75,7 +75,7 @@ function SearchPatient(props) {
       if (result.isConfirmed) {
         axios
           .post(
-            "http://localhost/zcmc_referral_api/api/cancel_referred_patient.php",
+            "http://192.168.3.135/zcmc_referral_api/api/cancel_referred_patient.php",
             {
               id: id,
               reason: result.value,
@@ -102,7 +102,7 @@ function SearchPatient(props) {
 
     console.log(patient);
     axios
-      .get("http://localhost/zcmc_referral_api/api/get_sheets.php", {
+      .get("http://192.168.3.135/zcmc_referral_api/api/get_sheets.php", {
         params: { hospital: hospital },
       })
       .then((response) => {
