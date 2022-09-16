@@ -56,6 +56,8 @@ function Login() {
       setCookie("sessionId", JSON.stringify(response.data.session_id), "/");
       // window.location.reload();
       sessionStorage.setItem("user", JSON.stringify(response.data.user));
+
+      localStorage.setItem("user", JSON.stringify(response.data.user));
     } else if (response.data.status === 2) {
       toast({
         position: "top",
