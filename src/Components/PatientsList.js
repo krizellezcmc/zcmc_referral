@@ -230,26 +230,20 @@ const PatientsList = (props) => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .post(
-            "http://192.168.3.135/zcmc_referral_api/api/decline_referred_patient.php",
-            {
-              id: id,
-              reason: result.value,
-            }
-          )
-          .then((response) => {
-            if (response.data.status === 1) {
-              Swal.fire(
-                "Rejected!",
-                "You successfully rejected the referral.",
-                "success"
-              );
-            } else {
-              Swal.fire("Error!", "Something went wrong.", "error");
-            }
-            console.log(response.data);
-          });
+        let response = api.post("/decline_referred_patient.php", {
+          id: id,
+          reason: result.value,
+        });
+
+        if (response.data.status === 1) {
+          Swal.fire(
+            "Rejected!",
+            "You successfully rejected the referral.",
+            "success"
+          );
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       }
     });
   };

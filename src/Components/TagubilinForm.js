@@ -154,43 +154,41 @@ function TagubilinForm(props) {
     ]);
   };
 
-  const url = "http://192.168.3.135/zcmc_referral_api/api/add_tagubilin.php";
-
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    axios
-      .post(url, {
-        patRegister: patRegister,
-        patientName: patientName,
-        age: age,
-        sex: sex,
-        ward: ward,
-        hrn: hrn,
-        address: address,
-        admissionDate: admissionDate,
-        dischDiag: dischDiag,
-        dischDate: dischDate,
-        laboratory: laboratory,
-        xray: xray,
-        ctScan: ctScan,
-        mri: mri,
-        others: others,
-        homemed: homemed,
-        nurse: nurse,
-        resident: resident,
-        followUp: followUp,
-        needBring: needBring,
-        time: time,
-        healthOthers: healthOthers,
-        medications: medications,
-        diet: JSON.stringify(diet),
-        instructions: JSON.stringify(inst),
-        breastfeed: breastfeed,
-        ob: ob,
-      })
-      .then((response) => {
-        window.location.href = "/tagubilinreport";
-      });
+    let response = await api.post("/add_tagubilin.php", {
+      patRegister: patRegister,
+      patientName: patientName,
+      age: age,
+      sex: sex,
+      ward: ward,
+      hrn: hrn,
+      address: address,
+      admissionDate: admissionDate,
+      dischDiag: dischDiag,
+      dischDate: dischDate,
+      laboratory: laboratory,
+      xray: xray,
+      ctScan: ctScan,
+      mri: mri,
+      others: others,
+      homemed: homemed,
+      nurse: nurse,
+      resident: resident,
+      followUp: followUp,
+      needBring: needBring,
+      time: time,
+      healthOthers: healthOthers,
+      medications: medications,
+      diet: JSON.stringify(diet),
+      instructions: JSON.stringify(inst),
+      breastfeed: breastfeed,
+      ob: ob,
+    });
+
+    if (response) {
+      window.location.href = "/tagubilinreport";
+    }
 
     localStorage.setItem(
       "refpatient",

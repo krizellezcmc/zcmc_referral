@@ -15,6 +15,7 @@ import "../Styles/Table.css";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import axios from "axios";
 import { BiWrench } from "react-icons/bi";
+import api from "../API/Api";
 
 function ChangePassword(props) {
   const [isError, setIsError] = useState(false);
@@ -36,56 +37,54 @@ function ChangePassword(props) {
 
   const toast = useToast();
 
-  const change = (e) => {
+  const change = async (e) => {
     e.preventDefault();
     if (newPass !== confirm) {
       setIsError(true);
     } else {
       setIsError(false);
-      axios
-        .post("http://192.168.3.135/zcmc_referral_api/api/change_pass.php", {
-          userId: userId,
-          email: email,
-          newPass: newPass,
-          old: old,
-        })
-        .then(function (response) {
-          if (response.data.status === 1) {
-            toast({
-              position: "top",
-              title: "Record successfully.",
-              description: "Password has changed.",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            });
-            setNewPass("");
-            setConfirm("");
-            setOld("");
-            setIsError(false);
-            setCurrentError(false);
-          } else if (response.data.status === 0) {
-            setCurrentError(true);
-          } else if (response.data.status === 3) {
-            toast({
-              position: "top",
-              title: "Warning.",
-              description: response.data.message,
-              status: "warning",
-              duration: 3000,
-              isClosable: true,
-            });
-          } else {
-            toast({
-              position: "top",
-              title: "Failed to update.",
-              description: "Please try again.",
-              status: "error",
-              duration: 3000,
-              isClosable: true,
-            });
-          }
+      let response = await api.post("/change_pass.php", {
+        userId: userId,
+        email: email,
+        newPass: newPass,
+        old: old,
+      });
+
+      if (response.data.status === 1) {
+        toast({
+          position: "top",
+          title: "Record successfully.",
+          description: "Password has changed.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
         });
+        setNewPass("");
+        setConfirm("");
+        setOld("");
+        setIsError(false);
+        setCurrentError(false);
+      } else if (response.data.status === 0) {
+        setCurrentError(true);
+      } else if (response.data.status === 3) {
+        toast({
+          position: "top",
+          title: "Warning.",
+          description: response.data.message,
+          status: "warning",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          position: "top",
+          title: "Failed to update.",
+          description: "Please try again.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
     }
   };
 

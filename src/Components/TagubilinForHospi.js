@@ -22,11 +22,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
-import { BiMinus, BiSend } from "react-icons/bi";
-import axios from "axios";
 import moment from "moment";
-import cbc from "../Assets/cbc2.png";
-import { Select } from "chakra-react-select";
 import { useParams } from "react-router-dom";
 import api from "../API/Api";
 
@@ -61,7 +57,8 @@ function TagubilinForHospi() {
   const { id } = useParams();
 
   const fetchData = async () => {
-    let response = await api.get("/get_tagubilinhospi.php/${id}");
+    let response = await api.get(`/get_tagubilinhospi.php/${id}`);
+
     setPatient(response.data[0].patientName);
     setAge(response.data[0].age);
     setSex(response.data[0].sex);
@@ -91,20 +88,20 @@ function TagubilinForHospi() {
     setOthersDiet(response.data[0].healthOthers);
     setInstructions(JSON.parse(response.data[0].instructions));
 
-    let meds = await api.get("/get_tagubilinhospi.php", {
+    let meds = await api.get("/get_medhospi.php", {
       params: { mid: medId },
     });
     setMedications(meds.data);
 
     let bfeed = await api.get("/get_obhospi.php", {
-      params: { mid: medId },
+      params: { oid: obId },
     });
     setBreastfeed(bfeed.data);
   };
 
   useEffect(() => {
     fetchData();
-  }, [medId, obId, id]);
+  }, [medId, obId, id, medications, breastfeed]);
 
   return (
     <div

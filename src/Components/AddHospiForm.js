@@ -25,7 +25,7 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
-import { MdOutlineAdd } from "react-icons/md";
+import api from "../API/Api";
 import { BiSave, BiSearch } from "react-icons/bi";
 
 const AddHospiForm = () => {
@@ -36,20 +36,21 @@ const AddHospiForm = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const fetch = async () => {
+    let response = await api.get("/get_hospitals.php");
+    setHospitals(response.data);
+  };
+
   useEffect(() => {
     setAddHospi({
       code: code,
       hospiName: hospiName,
     });
 
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_hospitals.php")
-      .then(function (response) {
-        setHospitals(response.data);
-      });
-  }, [code, hospiName]);
+    fetch();
+  }, [code, hospiName, hospitals]);
 
-  const sendHospiData = () => {
+  const sendHospiData = async () => {
     if (!hospiName || !code || code === 0) {
       toast({
         position: "top",
@@ -60,44 +61,39 @@ const AddHospiForm = () => {
         isClosable: true,
       });
     } else {
-      axios
-        .post(
-          "http://192.168.3.135/zcmc_referral_api/api/add_hospi.php/",
-          addHospi
-        )
-        .then((response) => {
-          if (response.data.status === 1) {
-            toast({
-              position: "top",
-              title: "Record successfully.",
-              description: "New hospital added.",
-              status: "success",
-              variant: "subtle",
-              duration: 2000,
-              isClosable: true,
-            });
-            setHospiName("");
-            setCode(0);
-          } else if (response.data.status === 3) {
-            toast({
-              position: "top",
-              title: "Hospital or code exist.",
-              description: "Please try again.",
-              status: "warning",
-              duration: 3000,
-              isClosable: true,
-            });
-          } else {
-            toast({
-              position: "top",
-              title: "Error.",
-              description: "Please try again.",
-              status: "error",
-              duration: 3000,
-              isClosable: true,
-            });
-          }
+      let response = await api.post("/add_hospi.php", addHospi);
+
+      if (response.data.status === 1) {
+        toast({
+          position: "top",
+          title: "Record successfully.",
+          description: "New hospital added.",
+          status: "success",
+          variant: "subtle",
+          duration: 2000,
+          isClosable: true,
         });
+        setHospiName("");
+        setCode(0);
+      } else if (response.data.status === 3) {
+        toast({
+          position: "top",
+          title: "Hospital or code exist.",
+          description: "Please try again.",
+          status: "warning",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          position: "top",
+          title: "Error.",
+          description: "Please try again.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
     }
   };
 
@@ -120,15 +116,6 @@ const AddHospiForm = () => {
               width="400px"
             />
           </InputGroup>
-          {/* <Button
-            variant="solid"
-            colorScheme="blue"
-            leftIcon={<MdOutlineAdd />}
-            onClick={onOpen}
-            style={{ padding: "0 25px 0 25px" }}
-          >
-            Add new hospital
-          </Button> */}
         </div>
         {!hospitals ? (
           <i style={{ alignContent: "center" }}>---No data found---</i>

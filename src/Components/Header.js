@@ -23,6 +23,7 @@ function Header() {
   }, [username, referringFacility, role]);
 
   let navigate = useNavigate();
+
   const logout = () => {
     Swal.fire({
       text: "Are you sure you want to log out?",
@@ -33,13 +34,14 @@ function Header() {
       confirmButtonText: "Logout",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        let response = await api.post("/logout.php");
-
         sessionStorage.removeItem("sessionId");
         localStorage.removeItem("user");
+        navigate("/");
+        window.location.reload();
+
         // navigate("/");
         // window.location.reload();
-        console.log(response);
+        // console.log(response);
       }
     });
   };

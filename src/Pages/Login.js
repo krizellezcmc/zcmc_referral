@@ -26,8 +26,6 @@ function Login() {
   const [cookies, setCookie] = useCookies(["sessionId"]);
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const [counter, setCounter] = useState(1);
-  const [attempt, setAttempt] = useState(0);
 
   const [data, setData] = useState({
     email: "",
@@ -53,9 +51,9 @@ function Login() {
         JSON.stringify(response.data.session_id)
       );
 
-      setCookie("sessionId", JSON.stringify(response.data.session_id), "/");
+      // setCookie("sessionId", JSON.stringify(response.data.session_id), "/");
       window.location.reload();
-      sessionStorage.setItem("user", JSON.stringify(response.data.user));
+      // sessionStorage.setItem("user", JSON.stringify(response.data.user));
 
       localStorage.setItem("user", JSON.stringify(response.data.user));
     } else if (response.data.status === 2) {
@@ -99,7 +97,6 @@ function Login() {
 
   if (user?.role === "admin") {
     return <Navigate to="/patientList" />;
-    // return <Navigate to="/patientlist" />;
   }
 
   if (user?.role === "user") {

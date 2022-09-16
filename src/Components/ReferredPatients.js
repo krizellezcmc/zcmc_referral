@@ -31,7 +31,6 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import axios from "axios";
 import "../Styles/Patients.css";
 import moment from "moment";
 import {

@@ -72,27 +72,25 @@ function SearchPatient(props) {
           Swal.showValidationMessage(`Request failed`);
         }
       },
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axios
-          .post(
-            "http://192.168.3.135/zcmc_referral_api/api/cancel_referred_patient.php",
-            {
-              id: id,
-              reason: result.value,
-            }
-          )
-          .then((response) => {
-            if (response.data.status === 1) {
-              Swal.fire(
-                "Rejected!",
-                "You successfully rejected the referral.",
-                "success"
-              );
-            } else {
-              Swal.fire("Error!", "Something went wrong.", "error");
-            }
-          });
+        let res = await api.post(
+          "http://192.168.3.135/zcmc_referral_api/api/cancel_referred_patient.php",
+          {
+            id: id,
+            reason: result.value,
+          }
+        );
+
+        if (res.data.status === 1) {
+          Swal.fire(
+            "Rejected!",
+            "You successfully rejected the referral.",
+            "success"
+          );
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       }
     });
   };
@@ -118,7 +116,7 @@ function SearchPatient(props) {
     setHospital(user.name);
 
     fetchPatData();
-  }, [refDate, name, id, covid]);
+  }, [refDate, name, id, covid, patient, bizbox]);
 
   return (
     <div style={{ padding: "20px" }}>

@@ -64,23 +64,28 @@ function CovidForm(props) {
     }
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post(
-        "http://192.168.3.135/referral_local_backend/api/post_covid_status.php",
-        {
-          status: status,
-          swabDate: swabDate,
-          resultDate: resultDate,
-          patId: id,
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
+    let response = await api.post("/post_covid_status.php", {
+      status: status,
+      swabDate: swabDate,
+      resultDate: resultDate,
+      patId: id,
+    });
+
+    if (response) {
+      toast({
+        position: "top",
+        title: "Success!",
+        description: "Record successfully.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
       });
+    }
   };
+
   const fetchCovidData = async () => {
     let pat = await api.get("/get_acceptedpats.php");
     setPatient(pat.data);

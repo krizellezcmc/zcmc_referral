@@ -51,7 +51,7 @@ function Signup() {
   const toast = useToast();
   // let navigate = useNavigate();
 
-  const register = (event) => {
+  const register = async (event) => {
     event.preventDefault();
 
     if (hospitalCode === 0) {
@@ -64,49 +64,47 @@ function Signup() {
         isClosable: true,
       });
     } else {
-      axios
-        .post("http://192.168.3.135/zcmc_referral_api/api/register.php", {
-          firstName: firstName,
-          lastName: lastName,
-          contact: contact,
-          email: email,
-          password: password,
-          hospitalCode: hospitalCode,
-          accessCode: accessCode,
-        })
-        .then(function (response) {
-          if (response.data.status === 1) {
-            toast({
-              position: "top",
-              title: "Account registered.",
-              description: "Kindly check your email.",
-              status: "success",
-              variant: "solid",
-              duration: 2000,
-              isClosable: true,
-            });
-          } else if (response.data.status === 2) {
-            toast({
-              position: "top",
-              title: "Email exists.",
-              description: "Try to use another email",
-              status: "warning",
-              variant: "solid",
-              duration: 2000,
-              isClosable: true,
-            });
-          } else {
-            toast({
-              position: "top",
-              title: "Error.",
-              description: "Error ocurred. Please try again!",
-              status: "error",
-              variant: "solid",
-              duration: 2000,
-              isClosable: true,
-            });
-          }
+      let response = await api.post("/register.php", {
+        firstName: firstName,
+        lastName: lastName,
+        contact: contact,
+        email: email,
+        password: password,
+        hospitalCode: hospitalCode,
+        accessCode: accessCode,
+      });
+
+      if (response.data.status === 1) {
+        toast({
+          position: "top",
+          title: "Account registered.",
+          description: "Kindly check your email.",
+          status: "success",
+          variant: "solid",
+          duration: 2000,
+          isClosable: true,
         });
+      } else if (response.data.status === 2) {
+        toast({
+          position: "top",
+          title: "Email exists.",
+          description: "Try to use another email",
+          status: "warning",
+          variant: "solid",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          position: "top",
+          title: "Error.",
+          description: "Error ocurred. Please try again!",
+          status: "error",
+          variant: "solid",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
     }
   };
 

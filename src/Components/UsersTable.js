@@ -69,12 +69,9 @@ const UsersTable = () => {
       Id: Id,
     };
 
-    let response = await api.get(
-      "http://192.168.3.135/zcmc_referral_api/api/get_user_data.php",
-      {
-        params,
-      }
-    );
+    let response = await api.get("/get_user_data.php", {
+      params,
+    });
 
     setUserId(response.data[0].userId);
     setLastName(response.data[0].lastName);
@@ -102,24 +99,21 @@ const UsersTable = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Verify",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axios
-          .post("http://192.168.3.135/zcmc_referral_api/api/accept_user.php", {
-            userId: userId,
-          })
-          .then((response) => {
-            if (response.data.status === 1) {
-              Swal.fire(
-                "User verified!",
-                "You successfully verified the user.",
-                "success"
-              );
-            } else {
-              Swal.fire("Error!", "Something went wrong.", "error");
-            }
-            console.log(response.data);
-          });
+        let res = await api.post("/accept_user.php", {
+          userId: userId,
+        });
+
+        if (res.data.status === 1) {
+          Swal.fire(
+            "User verified!",
+            "You successfully verified the user.",
+            "success"
+          );
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       }
     });
   };
@@ -132,19 +126,17 @@ const UsersTable = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axios
-          .post("http://192.168.3.135/zcmc_referral_api/api/remove_user.php", {
-            userId: id,
-          })
-          .then((response) => {
-            if (response.data.status === 1) {
-              Swal.fire("Deleted!", "The user has been removed.", "success");
-            } else {
-              Swal.fire("Error!", "Something went wrong.", "error");
-            }
-          });
+        let res = await api.post("/remove_user.php", {
+          userId: id,
+        });
+
+        if (res.data.status === 1) {
+          Swal.fire("Deleted!", "The user has been removed.", "success");
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       }
     });
   };
@@ -158,24 +150,21 @@ const UsersTable = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Decline",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axios
-          .post("http://192.168.3.135/zcmc_referral_api/api/decline_user.php", {
-            userId: id,
-          })
-          .then((response) => {
-            if (response.data.status === 1) {
-              Swal.fire(
-                "Declined!",
-                "You successfully declined the user.",
-                "success"
-              );
-            } else {
-              Swal.fire("Error!", "Something went wrong.", "error");
-            }
-            console.log(response.data);
-          });
+        let response = await api.post("/decline_user.php", {
+          userId: id,
+        });
+
+        if (response.data.status === 1) {
+          Swal.fire(
+            "Declined!",
+            "You successfully declined the user.",
+            "success"
+          );
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       }
     });
   };
