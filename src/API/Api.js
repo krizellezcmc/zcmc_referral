@@ -1,7 +1,7 @@
 import axios from "axios";
 // axios.defaults.withCredentials = true;
 
-let serverUrl = "https://zcmc-referral-online.preview-domain.com/api/";
+let serverUrl = "https://zcmc-referral.online/api/";
 
 //Custom API to fetch data from the server using axios
 const api = axios.create({
