@@ -23,7 +23,7 @@ import "../Styles/Tagubilin.css";
 import { BiMinus, BiSend } from "react-icons/bi";
 import axios from "axios";
 import moment from "moment";
-import cbc from "../Assets/cbc2.png";
+import api from "../API/Api";
 import { Select } from "chakra-react-select";
 
 function TagubilinForm(props) {
@@ -252,35 +252,35 @@ function TagubilinForm(props) {
       setShow(false);
     }
   };
+  const fetchData = async () => {
+    let response = await api.get("/get_patient_info.php", {
+      params: { id: props.id },
+    });
+
+    setPatient(response.data.patientName);
+    setAge(response.data.age);
+    setSex(response.data.gender);
+    setWard(response.data.ward);
+    setHrn(response.data.hrn);
+    setAddress(response.data.address);
+    setAdmissionDate(
+      response.data.admissionDate === null
+        ? ""
+        : response.data.admissionDate.date
+    );
+    setPatRegister(response.data.patRegister);
+    setDischDiag(
+      response.data.dischdiagnosis === ""
+        ? response.data.finaldiagnosis
+        : response.data.dischdiagnosis
+    );
+    setDischDate(
+      response.data.dischdate === null ? "" : response.data.dischdate.date
+    );
+  };
 
   useEffect(() => {
-    axios
-      .get(
-        "http://192.168.3.135/referral_local_backend/api/get_patient_info.php",
-        { params: { id: props.id } }
-      )
-      .then((response) => {
-        setPatient(response.data.patientName);
-        setAge(response.data.age);
-        setSex(response.data.gender);
-        setWard(response.data.ward);
-        setHrn(response.data.hrn);
-        setAddress(response.data.address);
-        setAdmissionDate(
-          response.data.admissionDate === null
-            ? ""
-            : response.data.admissionDate.date
-        );
-        setPatRegister(response.data.patRegister);
-        setDischDiag(
-          response.data.dischdiagnosis === ""
-            ? response.data.finaldiagnosis
-            : response.data.dischdiagnosis
-        );
-        setDischDate(
-          response.data.dischdate === null ? "" : response.data.dischdate.date
-        );
-      });
+    fetchData();
   }, [diet, props.id]);
 
   return (

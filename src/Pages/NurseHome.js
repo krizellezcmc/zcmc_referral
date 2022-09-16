@@ -6,6 +6,8 @@ import Sidebar from "../Components/Sidebar";
 import TagubilinForm from "../Components/TagubilinForm";
 import { Select } from "chakra-react-select";
 import axios from "axios";
+import api from "../API/Api";
+import { pick } from "@reach/router/lib/utils";
 
 function NurseHome(props) {
   const refreshPage = () => {
@@ -15,13 +17,14 @@ function NurseHome(props) {
   const [patientList, setPatientList] = useState([]);
   const [selected, setSelected] = useState("");
 
+  const fetchData = async () => {
+    let response = await api.get("/get_patientList.php");
+    setPatientList(response.data);
+  };
+
   useEffect(() => {
-    axios
-      .get("http://localhost/zcmc_referral_api/api/get_patientList.php")
-      .then((response) => {
-        setPatientList(response.data);
-      });
-  });
+    fetchData();
+  }, [patientList]);
 
   return (
     <div>

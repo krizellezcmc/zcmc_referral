@@ -28,6 +28,7 @@ import moment from "moment";
 import cbc from "../Assets/cbc2.png";
 import { Select } from "chakra-react-select";
 import { useParams } from "react-router-dom";
+import api from "../API/Api";
 
 function TagubilinForHospi() {
   const [patientName, setPatient] = useState("");
@@ -59,57 +60,50 @@ function TagubilinForHospi() {
 
   const { id } = useParams();
 
+  const fetchData = async () => {
+    let response = await api.get("/get_tagubilinhospi.php/${id}");
+    setPatient(response.data[0].patientName);
+    setAge(response.data[0].age);
+    setSex(response.data[0].sex);
+    setAddress(response.data[0].address);
+    setWard(response.data[0].ward);
+    setHrn(response.data[0].hrn);
+    setAdmissionDate(moment(response.data[0].admissionDate).format("LLL"));
+    setDischDiag(response.data[0].disch_diagnosis);
+    setDischDate(
+      response.data.dischdate === null
+        ? ""
+        : moment(response.data[0].dischdate).format("LLL")
+    );
+    setLaboratory(response.data[0].laboratory);
+    setXray(response.data[0].xray);
+    setCTScan(response.data[0].ctScan);
+    setMRI(response.data[0].mri);
+    setOthers(response.data[0].others);
+    setFollowUp(response.data[0].followupDate);
+    setTime(response.data[0].time);
+    setNeedBring(response.data[0].needToBring);
+    setNurse(response.data[0].nurse);
+    setResident(response.data[0].resident);
+    setMedId(response.data[0].FK_medicationId);
+    setObId(response.data[0].FK_breastfeedId);
+    setDiet(JSON.parse(response.data[0].health));
+    setOthersDiet(response.data[0].healthOthers);
+    setInstructions(JSON.parse(response.data[0].instructions));
+
+    let meds = await api.get("/get_tagubilinhospi.php", {
+      params: { mid: medId },
+    });
+    setMedications(meds.data);
+
+    let bfeed = await api.get("/get_obhospi.php", {
+      params: { mid: medId },
+    });
+    setBreastfeed(bfeed.data);
+  };
+
   useEffect(() => {
-    axios
-      .get(
-        `http://192.168.3.135/zcmc_referral_api/api/get_tagubilinhospi.php/${id}`
-      )
-      .then((response) => {
-        setPatient(response.data[0].patientName);
-        setAge(response.data[0].age);
-        setSex(response.data[0].sex);
-        setAddress(response.data[0].address);
-        setWard(response.data[0].ward);
-        setHrn(response.data[0].hrn);
-        setAdmissionDate(moment(response.data[0].admissionDate).format("LLL"));
-        setDischDiag(response.data[0].disch_diagnosis);
-        setDischDate(
-          response.data.dischdate === null
-            ? ""
-            : moment(response.data[0].dischdate).format("LLL")
-        );
-        setLaboratory(response.data[0].laboratory);
-        setXray(response.data[0].xray);
-        setCTScan(response.data[0].ctScan);
-        setMRI(response.data[0].mri);
-        setOthers(response.data[0].others);
-        setFollowUp(response.data[0].followupDate);
-        setTime(response.data[0].time);
-        setNeedBring(response.data[0].needToBring);
-        setNurse(response.data[0].nurse);
-        setResident(response.data[0].resident);
-        setMedId(response.data[0].FK_medicationId);
-        setObId(response.data[0].FK_breastfeedId);
-        setDiet(JSON.parse(response.data[0].health));
-        setOthersDiet(response.data[0].healthOthers);
-        setInstructions(JSON.parse(response.data[0].instructions));
-      });
-
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_medhospi.php/", {
-        params: { mid: medId },
-      })
-      .then((response) => {
-        setMedications(response.data);
-      });
-
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_obhospi.php/", {
-        params: { oid: obId },
-      })
-      .then((response) => {
-        setBreastfeed(response.data);
-      });
+    fetchData();
   }, [medId, obId, id]);
 
   return (

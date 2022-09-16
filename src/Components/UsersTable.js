@@ -41,12 +41,12 @@ import {
   BiUserCheck,
   BiTrash,
   BiSearch,
-  BiStop,
 } from "react-icons/bi";
 import { GoCheck, GoX } from "react-icons/go";
 import "../Styles/Table.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import api from "../API/Api";
 
 const UsersTable = () => {
   const [userData, setUserData] = useState([]);
@@ -64,23 +64,33 @@ const UsersTable = () => {
 
   const [search, setSearch] = useState("");
 
-  const getUserData = (Id) => {
+  const getUserData = async (Id) => {
     let params = {
       Id: Id,
     };
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_user_data.php", {
+
+    let response = await api.get(
+      "http://192.168.3.135/zcmc_referral_api/api/get_user_data.php",
+      {
         params,
-      })
-      .then((response) => {
-        setUserId(response.data[0].userId);
-        setLastName(response.data[0].lastName);
-        setFirstName(response.data[0].firstName);
-        setContact(response.data[0].contact);
-        setEmail(response.data[0].email);
-        setCode(response.data[0].code);
-        setHospital(response.data[0].name);
-      });
+      }
+    );
+
+    setUserId(response.data[0].userId);
+    setLastName(response.data[0].lastName);
+    setFirstName(response.data[0].firstName);
+    setContact(response.data[0].contact);
+    setEmail(response.data[0].email);
+    setCode(response.data[0].code);
+    setHospital(response.data[0].name);
+  };
+
+  const fetchData = async () => {
+    let response = await api.get("/get_verified_users.php");
+    setUserData(response.data);
+
+    let users = await api.get("/get_users.php");
+    setUserVerify(users.data);
   };
 
   const handleVerifyuser = (userId) => {
@@ -113,18 +123,6 @@ const UsersTable = () => {
       }
     });
   };
-  useEffect(() => {
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_verified_users.php")
-      .then(function (response) {
-        setUserData(response.data);
-      });
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_users.php")
-      .then(function (response) {
-        setUserVerify(response.data);
-      });
-  }, [userVerify]);
 
   const deleteUser = (id) => {
     Swal.fire({
@@ -181,6 +179,10 @@ const UsersTable = () => {
       }
     });
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [userVerify, userData]);
 
   return (
     <div>
