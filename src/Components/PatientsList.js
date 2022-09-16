@@ -36,6 +36,8 @@ import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
 import "../Styles/Table.css";
+import api from "../API/Api";
+
 import {
   BiCalendarEvent,
   BiSearch,
@@ -53,7 +55,7 @@ import { GoCheck, GoX } from "react-icons/go";
 import Swal from "sweetalert2";
 import CancelledModal from "./CancelledModal";
 
-const PatientsList = () => {
+const PatientsList = (props) => {
   let navigate = useNavigate();
   const [patients, setPatients] = useState([]);
   const [pendingPat, setPendingPat] = useState([]);
@@ -261,34 +263,33 @@ const PatientsList = () => {
       }
     });
   };
+
+  // const hey = async () => {
+  //   let response = await api.get("/sample.php");
+  //   console.log(response.data);
+  // };
+
+  const fetchData = async () => {
+    let pat = await api.get("/get_patients.php");
+    setPatients(pat.data);
+
+    let pending = await api.get("/get_pending_patients.php");
+    setPendingPat(pending.data);
+
+    let count = await api.get("/get_cancelled.php");
+    setCount(count.data);
+  };
+
   useEffect(() => {
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
-      .then(function (response) {
-        setPatients(response.data);
-      });
-
-    axios
-      .get(
-        "http://192.168.3.135/zcmc_referral_api/api/get_pending_patients.php"
-      )
-      .then(function (response) {
-        setPendingPat(response.data);
-      });
-
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_cancelled.php/")
-      .then((response) => {
-        setCount(response.data);
-      });
-  }, [pendingPat]);
+    fetchData();
+  }, [patients, pendingPat, count]);
 
   return (
     <div>
       <Grid templateColumns="repeat(9,1fr)" gap={4}>
         <GridItem colSpan={6}>
           <div className="table-container">
-            <h1 className="block">Referred Patients</h1>
+            <h1 className="block">Referred Patients </h1>
             <div
               style={{
                 display: "flex",
@@ -310,6 +311,8 @@ const PatientsList = () => {
                 />
               </InputGroup>
             </div>
+
+            {/* <Button onClick={hey}>Get Headers</Button> */}
 
             {!patients ? (
               <i style={{ alignContent: "center" }}>---No data found---</i>

@@ -54,7 +54,7 @@ function Login() {
       );
 
       setCookie("sessionId", JSON.stringify(response.data.session_id), "/");
-      // window.location.reload();
+      window.location.reload();
       sessionStorage.setItem("user", JSON.stringify(response.data.user));
 
       localStorage.setItem("user", JSON.stringify(response.data.user));

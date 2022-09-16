@@ -1120,21 +1120,17 @@ function TagubilinForm(props) {
 
           </Table> */}
 
-          {props.stat === 0 ? (
-            <Box style={{ float: "right", margin: "30px 0px" }}>
-              <Button
-                colorScheme="blue"
-                width="250px"
-                rightIcon={<BiSend />}
-                type="submit"
-                onClick={() => submit()}
-              >
-                Submit
-              </Button>
-            </Box>
-          ) : (
-            ""
-          )}
+          <Box style={{ float: "right", margin: "30px 0px" }}>
+            <Button
+              colorScheme="blue"
+              width="250px"
+              rightIcon={<BiSend />}
+              type="submit"
+              onClick={() => submit()}
+            >
+              Submit
+            </Button>
+          </Box>
         </form>
       </TableContainer>
     </div>

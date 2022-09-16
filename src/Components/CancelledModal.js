@@ -15,19 +15,16 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import axios from "axios";
-import moment from "moment";
-import { RefFindNode } from "@fluentui/react-component-ref";
+import api from "../API/Api";
 
 function CancelledModal(props) {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_cancelled.php/")
-      .then((response) => {
-        setList(response.data);
-      });
-  });
+    api.get("/get_cancelled.php").then((response) => {
+      setList(response.data);
+    });
+  }, [list]);
 
   return (
     <div>

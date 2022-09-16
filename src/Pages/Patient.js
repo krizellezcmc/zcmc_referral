@@ -3,7 +3,6 @@ import "../Styles/Home.css";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import PatientsList from "../Components/PatientsList";
-
 function Patient() {
   return (
     <div className="container">
