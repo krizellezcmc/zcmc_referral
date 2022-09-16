@@ -13,15 +13,17 @@ import {
   Link,
   Center,
 } from "@chakra-ui/react";
+import { useCookies } from "react-cookie";
+import api from "../API/Api";
 
 import { BiUser, BiLockAlt, BiRightArrowAlt } from "react-icons/bi";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
-import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 
 function Login() {
+  const [cookies, setCookie] = useCookies(["sessionId"]);
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const [counter, setCounter] = useState(1);
@@ -41,56 +43,61 @@ function Login() {
 
   let navigate = useNavigate();
   //SEND DATA TO API
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post("http://192.168.3.135/zcmc_referral_api/api/login.php", data)
-      .then(function (response) {
-        if (response.data.status === 1) {
-          // navigate("/");
-          window.location.reload();
-          // localStorage.setItem("logStat", true);
-          localStorage.setItem("user", JSON.stringify(response.data.user));
-        } else if (response.data.status === 2) {
-          toast({
-            position: "top",
-            title: response.data.message,
-            status: "warning",
-            duration: 2000,
-            isClosable: true,
-          });
-        } else if (response.data.status === 3) {
-          toast({
-            position: "top",
-            title: response.data.message,
-            status: "warning",
-            duration: 2000,
-            isClosable: true,
-          });
-        } else if (response.data.status === 5) {
-          navigate("/blocked");
-        } else {
-          let logs = 3 - response.data.logs;
-          toast({
-            position: "top",
-            title: logs === 0 ? "User blocked!" : "Invalid password.",
-            description:
-              logs === 0
-                ? "Contact the admin"
-                : "You have " + logs + " login attempt.",
-            status: "error",
-            duration: 2000,
-            isClosable: true,
-          });
-        }
+
+    let response = await api.post("/login.php", data);
+    if (response.data.status === 1) {
+      sessionStorage.setItem(
+        "sessionId",
+        JSON.stringify(response.data.session_id)
+      );
+
+      setCookie("sessionId", JSON.stringify(response.data.session_id), "/");
+      // window.location.reload();
+      sessionStorage.setItem("user", JSON.stringify(response.data.user));
+    } else if (response.data.status === 2) {
+      toast({
+        position: "top",
+        title: response.data.message,
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
       });
+    } else if (response.data.status === 3) {
+      toast({
+        position: "top",
+        title: response.data.message,
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+      });
+    } else if (response.data.status === 5) {
+      navigate("/blocked");
+    } else {
+      let logs = 3 - response.data.logs;
+      toast({
+        position: "top",
+        title: logs === 0 ? "User blocked!" : "Invalid password.",
+        description:
+          logs === 0
+            ? "Contact the admin"
+            : "You have " + logs + " login attempt.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+
+    console.log(response);
   };
 
   const toast = useToast();
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <Navigate to="/patientlist" />;
+    return <Navigate to="/patientList" />;
+    // return <Navigate to="/patientlist" />;
   }
 
   if (user?.role === "user") {
