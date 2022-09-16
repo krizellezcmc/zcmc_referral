@@ -31,6 +31,7 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { MdAlternateEmail } from "react-icons/md";
 import useAuth from "../Hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import api from "../API/Api";
 
 function Signup() {
   const [show, setShow] = React.useState(false);
@@ -109,12 +110,12 @@ function Signup() {
     }
   };
 
+  const fetchHospiData = async () => {
+    let hospiData = await api.get("/get_hospitals.php");
+    setHospitals(hospiData.data);
+  };
   useEffect(() => {
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_hospitals.php")
-      .then((response) => {
-        setHospitals(response.data);
-      });
+    fetchHospiData();
   }, [hospitals]);
 
   const { user } = useAuth();

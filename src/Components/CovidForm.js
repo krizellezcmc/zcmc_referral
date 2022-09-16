@@ -16,6 +16,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { BiCalendar, BiSend } from "react-icons/bi";
+import api from "../API/Api";
 function CovidForm(props) {
   const [patient, setPatient] = useState([]);
   const [selected, setSelected] = useState("");
@@ -80,25 +81,18 @@ function CovidForm(props) {
         console.log(response.data);
       });
   };
+  const fetchCovidData = async () => {
+    let pat = await api.get("/get_acceptedpats.php");
+    setPatient(pat.data);
+
+    let covid = await api.get("/get_covid_status.php");
+    setCovidData(covid.data);
+  };
 
   useEffect(() => {
     // const user = JSON.parse(localStorage.getItem("user"));
-
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_acceptedpats.php")
-      .then((response) => {
-        setPatient(response.data);
-      });
-
-    axios
-      .get(
-        "http://192.168.3.135/referral_local_backend/api/get_covid_status.php",
-        { params: { patientId: id } }
-      )
-      .then((response) => {
-        setCovidData(response.data);
-      });
-  }, [id]);
+    fetchCovidData();
+  }, [patient, covidData]);
 
   let toast = useToast();
 

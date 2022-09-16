@@ -45,6 +45,7 @@ import {
 import { BsEye, BsFile } from "react-icons/bs";
 import { TbCheckupList } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
+import api from "../API/Api";
 
 const ReferredPatients = () => {
   let navigate = useNavigate();
@@ -57,36 +58,26 @@ const ReferredPatients = () => {
 
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    setHospital(user.name);
+  const fetchPatient = async () => {
+    let pat = await api.get("/get_patients.php");
+    setPatients(pat.data);
+  };
 
-    // axios
-    //   .get("http://192.168.3.135/zcmc_referral_api/api/get_sheets.php/")
-    //   .then((response) => {
-    //     setRefPatients(response.data);
-    //   });
-
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_patients.php")
-      .then(function (response) {
-        setPatients(response.data);
-      });
-  });
-
-  const getDetails = (id) => {
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_details.php", {
-        params: { id: id },
-      })
-      .then(function (response) {
-        setDetails(response.data);
-      });
+  const getDetails = async (id) => {
+    let deets = await api.get("/get_details.php", { params: { id: id } });
+    setDetails(deets.data);
   };
 
   const navigateTagubilin = (id) => {
     navigate({ pathname: "/hospitagubilin/" + id });
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setHospital(user.name);
+
+    fetchPatient();
+  }, [patients]);
 
   return (
     <div className="table-container">

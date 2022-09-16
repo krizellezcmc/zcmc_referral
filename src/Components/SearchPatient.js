@@ -16,6 +16,7 @@ import {
 import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
 import Swal from "sweetalert2";
+import api from "../API/Api";
 
 function SearchPatient(props) {
   const [patient, setPatient] = useState([]);
@@ -96,34 +97,27 @@ function SearchPatient(props) {
     });
   };
 
+  const fetchPatData = async () => {
+    let pat = await api.get("/get_sheets.php", {
+      params: { hospital: hospital },
+    });
+    setPatient(pat.data);
+
+    let covidData = await api.get("/get_covid.php", {
+      params: { id: id },
+    });
+    setCovid(covidData.data);
+
+    let bizboxData = await api.get("/get_patient_data.php", {
+      params: { patientName: name, referredDate: refDate },
+    });
+    setBizbox(bizboxData.data);
+  };
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setHospital(user.name);
 
-    console.log(patient);
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_sheets.php", {
-        params: { hospital: hospital },
-      })
-      .then((response) => {
-        setPatient(response.data);
-      });
-
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_covid.php", {
-        params: { id: id },
-      })
-      .then((response) => {
-        setCovid(response.data);
-      });
-
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_patient_data.php", {
-        params: { patientName: name, referredDate: refDate },
-      })
-      .then((response) => {
-        setBizbox(response.data);
-      });
+    fetchPatData();
   }, [refDate, name, id, covid]);
 
   return (
