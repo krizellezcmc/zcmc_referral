@@ -100,44 +100,34 @@ const PatientsList = (props) => {
   const [status, setStatus] = useState("");
   const [count, setCount] = useState(0);
 
-  const getDetails = (id) => {
-    axios
-      .get("http://192.168.3.135/zcmc_referral_api/api/get_details.php", {
-        params: { id: id },
-      })
-      .then(function (response) {
-        setDetails(response.data);
-      });
+  const getDetails = async (id) => {
+    let deets = await api.get("/get_details.php", { params: { id: id } });
+    setDetails(deets.data);
   };
 
-  const getPendingDetails = (pid) => {
-    axios
-      .get(
-        "http://192.168.3.135/zcmc_referral_api/api/get_pending_details.php/",
-        {
-          params: { pid: pid },
-        }
-      )
-      .then(function (response) {
-        setPatientId(response.data[0].patientId);
-        setRefFacility(response.data[0].refFacility);
-        setRefDate(response.data[0].tstamp);
-        setLastName(response.data[0].lastname);
-        setFirstName(response.data[0].firstname);
-        setMiddleName(response.data[0].middleName);
-        setSex(response.data[0].sex);
-        setAdmitDate(response.data[0].dateAdmitted);
-        setRefType(response.data[0].refType);
-        setDisposition(response.data[0].disposition);
-        setSpecialization(response.data[0].specialization);
-        setLatestTemp(response.data[0].latestTemp);
-        setLatestBP(response.data[0].latestBp);
-        setLatestRespi(response.data[0].latestRespi);
-        setLatestPulse(response.data[0].latestPulse);
-        setLatestOxygen(response.data[0].latestOxygen);
-        setLatestGlasgow(response.data[0].latestGlasgow);
-        setStatus(response.data[0].status);
-      });
+  const getPendingDetails = async (pid) => {
+    let penDeets = await api.get("/get_pending_details.php", {
+      params: { pid: pid },
+    });
+
+    setPatientId(penDeets.data[0].patientId);
+    setRefFacility(penDeets.data[0].refFacility);
+    setRefDate(penDeets.data[0].tstamp);
+    setLastName(penDeets.data[0].lastname);
+    setFirstName(penDeets.data[0].firstname);
+    setMiddleName(penDeets.data[0].middleName);
+    setSex(penDeets.data[0].sex);
+    setAdmitDate(penDeets.data[0].dateAdmitted);
+    setRefType(penDeets.data[0].refType);
+    setDisposition(penDeets.data[0].disposition);
+    setSpecialization(penDeets.data[0].specialization);
+    setLatestTemp(penDeets.data[0].latestTemp);
+    setLatestBP(penDeets.data[0].latestBp);
+    setLatestRespi(penDeets.data[0].latestRespi);
+    setLatestPulse(penDeets.data[0].latestPulse);
+    setLatestOxygen(penDeets.data[0].latestOxygen);
+    setLatestGlasgow(penDeets.data[0].latestGlasgow);
+    setStatus(penDeets.data[0].status);
   };
 
   const handleAcceptPatient = (patId) => {
