@@ -2,6 +2,7 @@
   "name": "zcmc_referral",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://onehospitalcmd.online/",
   "dependencies": {
     "@chakra-ui/react": "^2.2.6",
     "@chakra-ui/table": "^2.0.6",
