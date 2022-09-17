@@ -53,6 +53,7 @@ const ReferredPatients = () => {
   const [hospital, setHospital] = useState("");
   const [patients, setPatients] = useState([]);
   const [details, setDetails] = useState([]);
+  const [taguId, setTaguId] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [search, setSearch] = useState("");
@@ -60,6 +61,9 @@ const ReferredPatients = () => {
   const fetchPatient = async () => {
     let pat = await api.get("/get_patients.php");
     setPatients(pat.data);
+
+    let tagu = await api.get("/get_tagubilinId.php");
+    setTaguId(tagu.data);
   };
 
   const getDetails = async (id) => {
@@ -195,7 +199,7 @@ const ReferredPatients = () => {
                               >
                                 View Details
                               </MenuItem>
-                              {pat.tagubilin === 0 ? (
+                              {pat.FK_psPatRegisters === taguId ? (
                                 ""
                               ) : (
                                 <MenuItem
