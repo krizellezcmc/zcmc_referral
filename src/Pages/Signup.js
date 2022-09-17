@@ -147,7 +147,7 @@ function Signup() {
               mb={5}
               textTransform="uppercase"
             >
-              Zamboanga City Medical Center
+              One Hospital Command Referral System
             </Text>
             <Box padding="" bg="white" mt={7}>
               <form onSubmit={register}>
