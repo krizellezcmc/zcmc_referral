@@ -53,7 +53,7 @@ const ReferredPatients = () => {
   const [hospital, setHospital] = useState("");
   const [patients, setPatients] = useState([]);
   const [details, setDetails] = useState([]);
-  const [taguId, setTaguId] = useState("");
+  const [taguId, setTaguId] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [search, setSearch] = useState("");
@@ -81,6 +81,7 @@ const ReferredPatients = () => {
 
     fetchPatient();
   }, [patients]);
+
 
   return (
     <div className="table-container">
@@ -199,20 +200,26 @@ const ReferredPatients = () => {
                               >
                                 View Details
                               </MenuItem>
-                              {pat.FK_psPatRegisters === taguId ? (
-                                ""
-                              ) : (
+                              
+                             {taguId.map((t,k)=>{
+                              return (
+                              t.PK_tagubilinId===pat.FK_psPatRegisters ?
+                              (
                                 <MenuItem
-                                  minH="40px"
-                                  fontSize="15px"
-                                  onClick={() => {
-                                    navigateTagubilin(pat.FK_psPatRegisters);
-                                  }}
-                                  icon={<BiFile />}
-                                >
-                                  View Tagubilin
-                                </MenuItem>
-                              )}
+                                minH="40px"
+                                fontSize="15px"
+                                onClick={() => {
+                                  navigateTagubilin(pat.FK_psPatRegisters);
+                                }}
+                                icon={<BiFile />}
+                              >
+                                View Tagubilin
+                              </MenuItem>
+                              ):""
+                              )
+                             })}
+                                  
+                         
                             </MenuList>
                           </Menu>
                         </Td>
