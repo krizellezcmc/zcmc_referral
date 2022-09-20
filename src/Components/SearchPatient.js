@@ -17,13 +17,16 @@ import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
 import Swal from "sweetalert2";
 import api from "../API/Api";
+import Loading from "./Spinner";
 
 function SearchPatient(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const [patient, setPatient] = useState([]);
   const [selected, setSelected] = useState("/");
   const [bizbox, setBizbox] = useState([]);
   const [hospital, setHospital] = useState("");
   const [covid, setCovid] = useState([]);
+  const [id, setId] = useState("");
 
   patient
     .filter((l) => l.refFacility === hospital.toUpperCase())
@@ -53,10 +56,6 @@ function SearchPatient(props) {
     });
 
   // Split
-  let data = selected.split("/");
-  let name = data[1];
-  let id = data[0];
-  const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
 
   const cancelReferral = (id) => {
     Swal.fire({
@@ -74,13 +73,10 @@ function SearchPatient(props) {
       },
     }).then(async (result) => {
       if (result.isConfirmed) {
-        let res = await api.post(
-          "http://192.168.3.135/zcmc_referral_api/api/cancel_referred_patient.php",
-          {
-            id: id,
-            reason: result.value,
-          }
-        );
+        let res = await api.post("/cancel_referred_patient.php", {
+          id: id,
+          reason: result.value,
+        });
 
         if (res.data.status === 1) {
           Swal.fire(
@@ -100,23 +96,41 @@ function SearchPatient(props) {
       params: { hospital: hospital },
     });
     setPatient(pat.data);
+  };
+
+  // SELECTED
+  const selectedText = async (e) => {
+    let data = e.split("/");
+    let name = data[1];
+    let selectedId = data[0];
+    setId(data[0]);
+    const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
+    setSelected(e);
+
+    setIsLoading(true);
 
     let covidData = await api.get("/get_covid.php", {
-      params: { id: id },
+      params: { id: selectedId },
     });
+
     setCovid(covidData.data);
 
     let bizboxData = await api.get("/get_patient_data.php", {
       params: { patientName: name, referredDate: refDate },
     });
     setBizbox(bizboxData.data);
+
+    if (covidData) {
+      setIsLoading(false);
+    }
   };
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setHospital(user.name);
 
     fetchPatData();
-  }, [refDate, name, id, covid, patient, bizbox]);
+  }, [hospital, id]);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -129,7 +143,7 @@ function SearchPatient(props) {
           closeMenuOnSelect={true}
           focusBorderColor="#058e46"
           onChange={(e) => {
-            setSelected(e.value);
+            selectedText(e.value);
           }}
           width="100%"
           x
@@ -627,7 +641,11 @@ function SearchPatient(props) {
                     padding: "30px",
                   }}
                 >
-                  {bizbox.length !== 0 ? (
+                  {isLoading ? (
+                    <Center mt={20}>
+                      <Loading />
+                    </Center>
+                  ) : bizbox !== 0 ? (
                     bizbox.map((d) => {
                       return (
                         <>

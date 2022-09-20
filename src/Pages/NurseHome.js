@@ -17,14 +17,15 @@ function NurseHome(props) {
   const [patientList, setPatientList] = useState([]);
   const [selected, setSelected] = useState("");
 
-  const fetchData = async () => {
+  const fetchData = async (e) => {
+    setSelected(e);
     let response = await api.get("/get_patientList.php");
     setPatientList(response.data);
   };
 
   useEffect(() => {
     fetchData();
-  }, [patientList]);
+  }, []);
 
   return (
     <div>
@@ -43,7 +44,7 @@ function NurseHome(props) {
                   closeMenuOnSelect={true}
                   focusBorderColor="#058e46"
                   onChange={(e) => {
-                    setSelected(e.value);
+                    fetchData(e.value);
                   }}
                   width="100%"
                   required

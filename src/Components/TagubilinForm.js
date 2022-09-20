@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import { BiMinus, BiSend } from "react-icons/bi";
-import axios from "axios";
+import localApi from "../API/LocalApi";
 import moment from "moment";
 import api from "../API/Api";
 import { Select } from "chakra-react-select";
@@ -222,8 +222,6 @@ function TagubilinForm(props) {
         ob: ob,
       })
     );
-
-    //
   };
 
   const handleCheck = (e, value) => {
@@ -250,8 +248,8 @@ function TagubilinForm(props) {
       setShow(false);
     }
   };
-  useEffect(() => {
-    axios.get("http://192.168.3.135/referral_local_backend/api/get_patient_info.php", {
+  const fetch = async () => {
+    let response = await localApi.get("/get_patient_info.php", {
       params: { id: props.id },
     })
     .then((response)=>{
@@ -275,12 +273,12 @@ function TagubilinForm(props) {
     setDischDate(
       response.data.dischdate === null ? "" : response.data.dischdate.date
     );
-
-    console.log(response.data);
     })
+  }
 
-
-  }, [diet, props.id]);
+  useEffect(() => {
+    fetch();
+  });
 
   return (
     <div
@@ -1135,5 +1133,4 @@ function TagubilinForm(props) {
     </div>
   );
 }
-
 export default TagubilinForm;

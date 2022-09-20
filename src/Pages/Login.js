@@ -96,7 +96,7 @@ function Login() {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <Navigate to="/patientList" />;
+    return <Navigate to="/patientlist" />;
   }
 
   if (user?.role === "user") {
@@ -134,7 +134,7 @@ function Login() {
               mb={5}
               textTransform="uppercase"
             >
-              Zamboanga City Medical Center
+              One Hospital Command
             </Text>
             <Box padding="" bg="white" mt={7}>
               <form onSubmit={handleSubmit}>
