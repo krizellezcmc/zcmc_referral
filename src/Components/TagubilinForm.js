@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import { BiMinus, BiSend } from "react-icons/bi";
-import axios from "axios";
+import localApi from "../API/LocalApi";
 import moment from "moment";
 import api from "../API/Api";
 import { Select } from "chakra-react-select";
@@ -222,8 +222,6 @@ function TagubilinForm(props) {
         ob: ob,
       })
     );
-
-    //
   };
 
   const handleCheck = (e, value) => {
@@ -250,8 +248,9 @@ function TagubilinForm(props) {
       setShow(false);
     }
   };
-  const fetchData = async () => {
-    let response = await api.get("/get_patient_info.php", {
+
+  const fetch = async () => {
+    let response = await localApi.get("/get_patient_info.php", {
       params: { id: props.id },
     });
 
@@ -278,8 +277,8 @@ function TagubilinForm(props) {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [diet, props.id]);
+    fetch();
+  });
 
   return (
     <div

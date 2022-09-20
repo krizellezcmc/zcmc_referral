@@ -23,10 +23,12 @@ import {
   useDisclosure,
   InputGroup,
   InputLeftElement,
+  Center,
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
 import api from "../API/Api";
 import { BiSave, BiSearch } from "react-icons/bi";
+import Loading from "./Spinner";
 
 const AddHospiForm = () => {
   const [hospiName, setHospiName] = useState("");
@@ -35,10 +37,16 @@ const AddHospiForm = () => {
   const [hospitals, setHospitals] = useState([]);
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetch = async () => {
+    setIsLoading(true);
     let response = await api.get("/get_hospitals.php");
-    setHospitals(response.data);
+
+    if (response) {
+      setHospitals(response.data);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +56,7 @@ const AddHospiForm = () => {
     });
 
     fetch();
-  }, [code, hospiName, hospitals]);
+  }, []);
 
   const sendHospiData = async () => {
     if (!hospiName || !code || code === 0) {
@@ -117,8 +125,10 @@ const AddHospiForm = () => {
             />
           </InputGroup>
         </div>
-        {!hospitals ? (
-          <i style={{ alignContent: "center" }}>---No data found---</i>
+        {isLoading ? (
+          <Center my={20}>
+            <Loading />
+          </Center>
         ) : (
           <TableContainer>
             <Table cellSpacing={0}>

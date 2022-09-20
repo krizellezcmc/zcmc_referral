@@ -31,6 +31,7 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  Center,
 } from "@chakra-ui/react";
 import {
   BiUser,
@@ -44,15 +45,15 @@ import {
 } from "react-icons/bi";
 import { GoCheck, GoX } from "react-icons/go";
 import "../Styles/Table.css";
-import axios from "axios";
 import Swal from "sweetalert2";
 import api from "../API/Api";
+import Spinner from "./Spinner";
 
 const UsersTable = () => {
   const [userData, setUserData] = useState([]);
   const [userVerify, setUserVerify] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const [isLoading, setIsLoading] = useState(false);
   //get user data
   const [userId, setUserId] = useState("");
   const [lastName, setLastName] = useState("");
@@ -83,11 +84,16 @@ const UsersTable = () => {
   };
 
   const fetchData = async () => {
+    setIsLoading(true);
     let response = await api.get("/get_verified_users.php");
     setUserData(response.data);
 
     let users = await api.get("/get_users.php");
     setUserVerify(users.data);
+
+    if (response) {
+      setIsLoading(false);
+    }
   };
 
   const handleVerifyuser = (userId) => {
@@ -171,7 +177,7 @@ const UsersTable = () => {
 
   useEffect(() => {
     fetchData();
-  }, [userVerify, userData]);
+  }, []);
 
   return (
     <div>
@@ -200,8 +206,10 @@ const UsersTable = () => {
                 />
               </InputGroup>
             </div>
-            {!userData ? (
-              <i style={{ alignContent: "center" }}>---No data found---</i>
+            {isLoading ? (
+              <Center my={16}>
+                <Spinner />
+              </Center>
             ) : (
               <TableContainer>
                 <Table cellSpacing={0}>

@@ -31,12 +31,14 @@ import {
   HStack,
   Spacer,
   Link,
+  Center,
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
 import "../Styles/Table.css";
 import api from "../API/Api";
+import Spinner from "./Spinner";
 
 import {
   BiCalendarEvent,
@@ -57,6 +59,9 @@ import CancelledModal from "./CancelledModal";
 
 const PatientsList = (props) => {
   let navigate = useNavigate();
+  const [IsLoadingCancelled, setIsLoadingCancelled] = useState(false);
+  const [IsLoadingDetails, setIsLoadingDetails] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [patients, setPatients] = useState([]);
   const [pendingPat, setPendingPat] = useState([]);
   // const [patDet, setPatDet]=useState([]);
@@ -101,8 +106,13 @@ const PatientsList = (props) => {
   const [count, setCount] = useState(0);
 
   const getDetails = async (id) => {
+    setIsLoadingDetails(true);
     let deets = await api.get("/get_details.php", { params: { id: id } });
     setDetails(deets.data);
+
+    if (deets) {
+      setIsLoadingDetails(false);
+    }
   };
 
   const getPendingDetails = async (pid) => {
@@ -141,20 +151,15 @@ const PatientsList = (props) => {
       confirmButtonText: "Accept",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .post(
-            "http://192.168.3.135/zcmc_referral_api/api/accept_referred_patient.php",
-            {
-              patId: patId,
-            }
-          )
-          .then((response) => {
-            if (response.data.status === 1) {
-              Swal.fire("Success!", "Record Successfully.", "success");
-            } else {
-              Swal.fire("Error!", "Something went wrong.", "error");
-            }
-          });
+        let response = api.post("/accept_referred_patient.php", {
+          patId: patId,
+        });
+
+        if (response.data.status === 1) {
+          Swal.fire("Success!", "Record Successfully.", "success");
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       }
     });
   };
@@ -218,7 +223,6 @@ const PatientsList = (props) => {
       text: "Please indicate reason for rejecting the referral",
       icon: "warning",
       input: "text",
-      // html:"<div class='b'><p>Please indicate reason for declining patient</p></div><input id='reason' class='swal2-input' required/>",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -248,12 +252,9 @@ const PatientsList = (props) => {
     });
   };
 
-  // const hey = async () => {
-  //   let response = await api.get("/sample.php");
-  //   console.log(response.data);
-  // };
-
   const fetchData = async () => {
+    setIsLoading(true);
+
     let pat = await api.get("/get_patients.php");
     setPatients(pat.data);
 
@@ -262,11 +263,15 @@ const PatientsList = (props) => {
 
     let count = await api.get("/get_cancelled.php");
     setCount(count.data);
+
+    if (pat) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchData();
-  }, [patients, pendingPat, count]);
+  }, []);
 
   return (
     <div>
@@ -298,8 +303,10 @@ const PatientsList = (props) => {
 
             {/* <Button onClick={hey}>Get Headers</Button> */}
 
-            {!patients ? (
-              <i style={{ alignContent: "center" }}>---No data found---</i>
+            {isLoading ? (
+              <Center my={20}>
+                <Spinner />
+              </Center>
             ) : (
               <TableContainer>
                 <Table cellSpacing={0}>
@@ -323,68 +330,78 @@ const PatientsList = (props) => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {patients
-                      .filter((val) => {
-                        if (search === "") {
-                          return val;
-                        } else if (
-                          val.patientName
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      })
-                      .map((pat) => {
-                        return (
-                          <>
-                            <Tr>
-                              <Td className="border">{pat.patientName}</Td>
-                              <Td className="border">
-                                {moment(pat.referredDate).format("LLL")}
-                              </Td>
-                              <Td className="border">{pat.referredFrom}</Td>
-                              <Td className="border">
-                                {pat.dischDate == null ? (
-                                  <Badge colorScheme="yellow">
-                                    {" "}
-                                    Not applicable
-                                  </Badge>
-                                ) : (
-                                  moment(pat.dischDate).format("LLL")
-                                )}
-                              </Td>
-                              <Td className="border">
-                                {pat.dischDate === null ? (
-                                  <Badge colorScheme="blue">+ Admitted</Badge>
-                                ) : (
-                                  <Badge colorScheme="red">- Discharged</Badge>
-                                )}
-                              </Td>
-                              <Td border="0" paddingTop="0" paddingBottom="0">
-                                <Tooltip
-                                  label="View"
-                                  aria-label="A tooltip"
-                                  bg="blue.400"
-                                  placement="right"
-                                >
-                                  <IconButton
-                                    style={{ margin: 0, padding: 0 }}
-                                    size="sm"
-                                    variant="outline"
-                                    colorScheme="blue"
-                                    onClick={() => {
-                                      onReferredOpen();
-                                      getDetails(pat.PK_patientId);
-                                    }}
-                                    icon={<BsEye fontSize="15px" />}
-                                  />
-                                </Tooltip>
-                              </Td>
-                            </Tr>
-                          </>
-                        );
-                      })}
+                    {!patients ? (
+                      <Tr>
+                        <Td colSpan={7} textAlign="center">
+                          Nothing to show
+                        </Td>
+                      </Tr>
+                    ) : (
+                      patients
+                        .filter((val) => {
+                          if (search === "") {
+                            return val;
+                          } else if (
+                            val.patientName
+                              .toLowerCase()
+                              .includes(search.toLowerCase())
+                          ) {
+                            return val;
+                          }
+                        })
+                        .map((pat) => {
+                          return (
+                            <>
+                              <Tr>
+                                <Td className="border">{pat.patientName}</Td>
+                                <Td className="border">
+                                  {moment(pat.referredDate).format("LLL")}
+                                </Td>
+                                <Td className="border">{pat.referredFrom}</Td>
+                                <Td className="border">
+                                  {pat.dischDate == null ? (
+                                    <Badge colorScheme="yellow">
+                                      {" "}
+                                      Not applicable
+                                    </Badge>
+                                  ) : (
+                                    moment(pat.dischDate).format("LLL")
+                                  )}
+                                </Td>
+                                <Td className="border">
+                                  {pat.dischDate === null ? (
+                                    <Badge colorScheme="blue">+ Admitted</Badge>
+                                  ) : (
+                                    <Badge colorScheme="red">
+                                      - Discharged
+                                    </Badge>
+                                  )}
+                                </Td>
+                                <Td border="0" paddingTop="0" paddingBottom="0">
+                                  <Tooltip
+                                    label="View"
+                                    aria-label="A tooltip"
+                                    bg="blue.400"
+                                    placement="right"
+                                  >
+                                    <IconButton
+                                      style={{ margin: 0, padding: 0 }}
+                                      size="sm"
+                                      variant="outline"
+                                      colorScheme="blue"
+                                      onClick={() => {
+                                        onReferredOpen();
+                                        getDetails(pat.PK_patientId);
+                                      }}
+                                      icon={<BsEye fontSize="15px" />}
+                                    />
+                                  </Tooltip>
+                                </Td>
+                              </Tr>
+                            </>
+                          );
+                        })
+                    )}
                   </Tbody>
                 </Table>
               </TableContainer>
@@ -478,145 +495,159 @@ const PatientsList = (props) => {
           <ModalHeader>Patient Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {details.map((d) => {
-              return (
-                <>
-                  <Grid templateColumns="repeat(2, 1fr)" mt={3}>
-                    <GridItem>
-                      <small
-                        style={{
-                          display: "flex",
-                          marginBottom: 4,
-                        }}
-                      >
-                        <BiUser style={{ marginRight: "5px", marginTop: 2 }} />
-                        <Text textTransform="uppercase">Patient name</Text>
-                      </small>
-                      <Text fontWeight="600">{d.patientName}</Text>
-                    </GridItem>
+            {IsLoadingDetails ? (
+              <Center my={20}>
+                <Spinner />
+              </Center>
+            ) : (
+              details.map((d) => {
+                return (
+                  <>
+                    <Grid templateColumns="repeat(2, 1fr)" mt={3}>
+                      <GridItem>
+                        <small
+                          style={{
+                            display: "flex",
+                            marginBottom: 4,
+                          }}
+                        >
+                          <BiUser
+                            style={{ marginRight: "5px", marginTop: 2 }}
+                          />
+                          <Text textTransform="uppercase">Patient name</Text>
+                        </small>
+                        <Text fontWeight="600">{d.patientName}</Text>
+                      </GridItem>
 
-                    <GridItem>
-                      <small
-                        style={{
-                          display: "flex",
-                          marginBottom: 4,
-                        }}
-                      >
-                        <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                        <Text textTransform="uppercase">Patient status</Text>
-                      </small>
-                      {d.dischDate === null ? (
-                        <Badge colorScheme="blue">Patient is admitted</Badge>
-                      ) : (
-                        <Badge colorScheme="red">Discharged</Badge>
-                      )}
-                    </GridItem>
-                  </Grid>
+                      <GridItem>
+                        <small
+                          style={{
+                            display: "flex",
+                            marginBottom: 4,
+                          }}
+                        >
+                          <BiStats
+                            style={{ marginRight: "5px", marginTop: 2 }}
+                          />
+                          <Text textTransform="uppercase">Patient status</Text>
+                        </small>
+                        {d.dischDate === null ? (
+                          <Badge colorScheme="blue">Patient is admitted</Badge>
+                        ) : (
+                          <Badge colorScheme="red">Discharged</Badge>
+                        )}
+                      </GridItem>
+                    </Grid>
 
-                  <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-                    <GridItem>
+                    <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                      <GridItem>
+                        <small style={{ display: "flex", marginBottom: 6 }}>
+                          <TbBuildingHospital
+                            style={{ marginRight: "5px", marginTop: 2 }}
+                          />
+                          <Text textTransform="uppercase">Referred from</Text>
+                        </small>
+                        <Text fontSize="15px">{d.referredFrom}</Text>
+                      </GridItem>
+                      <GridItem>
+                        <small style={{ display: "flex", marginBottom: 6 }}>
+                          <BiCalendarEvent
+                            style={{ marginRight: "5px", marginTop: 2 }}
+                          />
+                          <Text textTransform="uppercase">Referred date</Text>
+                        </small>
+                        <Text fontSize="15px">
+                          {moment(d.referredDate).format("lll")}
+                        </Text>
+                      </GridItem>
+                    </Grid>
+
+                    <Box mt={10}>
                       <small style={{ display: "flex", marginBottom: 6 }}>
-                        <TbBuildingHospital
+                        <TbCheckupList
                           style={{ marginRight: "5px", marginTop: 2 }}
                         />
-                        <Text textTransform="uppercase">Referred from</Text>
+                        <Text textTransform="uppercase">
+                          Discharge diagnosis
+                        </Text>
                       </small>
-                      <Text fontSize="15px">{d.referredFrom}</Text>
-                    </GridItem>
-                    <GridItem>
+
+                      <Box>
+                        {d.dischDiagnosis === "" ||
+                        d.dischDiagnosis === null ? (
+                          <Box p={3} bg="gray.50" borderRadius="5px">
+                            <Text fontSize="13px">Nothing to show</Text>
+                          </Box>
+                        ) : (
+                          <>
+                            <Box p={3} bg="gray.50" borderRadius="5px">
+                              <Text fontSize="13px">{d.dischDiagnosis}</Text>
+                            </Box>
+                          </>
+                        )}
+                      </Box>
+                    </Box>
+
+                    <Box mt={10}>
+                      <small style={{ display: "flex", marginBottom: 6 }}>
+                        <TbCheckupList
+                          style={{ marginRight: "5px", marginTop: 2 }}
+                        />
+                        <Text textTransform="uppercase">Final diagnosis</Text>
+                      </small>
+
+                      <Box>
+                        {d.finalDiagnosis === "" ||
+                        d.finalDiagnosis === null ? (
+                          <Box p={3} bg="gray.50" borderRadius="5px">
+                            <Text fontSize="13px">Nothing to show</Text>
+                          </Box>
+                        ) : (
+                          <>
+                            <Box p={3} bg="gray.50" borderRadius="5px">
+                              <Text fontSize="13px">{d.finalDiagnosis}</Text>
+                            </Box>
+                          </>
+                        )}
+                      </Box>
+                    </Box>
+
+                    <Box mt={10}>
                       <small style={{ display: "flex", marginBottom: 6 }}>
                         <BiCalendarEvent
                           style={{ marginRight: "5px", marginTop: 2 }}
                         />
-                        <Text textTransform="uppercase">Referred date</Text>
+                        <Text textTransform="uppercase">Discharge date</Text>
                       </small>
-                      <Text fontSize="15px">
-                        {moment(d.referredDate).format("lll")}
-                      </Text>
-                    </GridItem>
-                  </Grid>
 
-                  <Box mt={10}>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <TbCheckupList
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Discharge diagnosis</Text>
-                    </small>
-
-                    <Box>
-                      {d.dischDiagnosis === "" || d.dischDiagnosis === null ? (
-                        <Box p={3} bg="gray.50" borderRadius="5px">
-                          <Text fontSize="13px">Nothing to show</Text>
-                        </Box>
-                      ) : (
-                        <>
+                      <Box>
+                        {d.dischDate === "" || d.dischDate === null ? (
                           <Box p={3} bg="gray.50" borderRadius="5px">
-                            <Text fontSize="13px">{d.dischDiagnosis}</Text>
+                            <Text
+                              fontSize="13px"
+                              fontWeight="600"
+                              color="blue.500"
+                            >
+                              Patient is still admitted
+                            </Text>
                           </Box>
-                        </>
-                      )}
-                    </Box>
-                  </Box>
-
-                  <Box mt={10}>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <TbCheckupList
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Final diagnosis</Text>
-                    </small>
-
-                    <Box>
-                      {d.finalDiagnosis === "" || d.finalDiagnosis === null ? (
-                        <Box p={3} bg="gray.50" borderRadius="5px">
-                          <Text fontSize="13px">Nothing to show</Text>
-                        </Box>
-                      ) : (
-                        <>
-                          <Box p={3} bg="gray.50" borderRadius="5px">
-                            <Text fontSize="13px">{d.finalDiagnosis}</Text>
+                        ) : (
+                          <Box p={3} bg="red.50" borderRadius="5px">
+                            <Text
+                              fontSize=" 14px"
+                              color="red.600"
+                              fontWeight="600"
+                            >
+                              {moment(d.dischDate).format("lll")}
+                            </Text>
                           </Box>
-                        </>
-                      )}
+                        )}
+                      </Box>
                     </Box>
-                  </Box>
-
-                  <Box mt={10}>
-                    <small style={{ display: "flex", marginBottom: 6 }}>
-                      <BiCalendarEvent
-                        style={{ marginRight: "5px", marginTop: 2 }}
-                      />
-                      <Text textTransform="uppercase">Discharge date</Text>
-                    </small>
-
-                    <Box>
-                      {d.dischDate === "" || d.dischDate === null ? (
-                        <Box p={3} bg="gray.50" borderRadius="5px">
-                          <Text
-                            fontSize="13px"
-                            fontWeight="600"
-                            color="blue.500"
-                          >
-                            Patient is still admitted
-                          </Text>
-                        </Box>
-                      ) : (
-                        <Box p={3} bg="red.50" borderRadius="5px">
-                          <Text
-                            fontSize=" 14px"
-                            color="red.600"
-                            fontWeight="600"
-                          >
-                            {moment(d.dischDate).format("lll")}
-                          </Text>
-                        </Box>
-                      )}
-                    </Box>
-                  </Box>
-                </>
-              );
-            })}
+                  </>
+                );
+              })
+            )}
           </ModalBody>
 
           <ModalFooter>
