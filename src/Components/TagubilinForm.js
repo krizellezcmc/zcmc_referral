@@ -251,7 +251,7 @@ function TagubilinForm(props) {
   const fetch = async () => {
     let response = await localApi.get("/get_patient_info.php", {
       params: { id: props.id },
-    })
+    });
     setPatient(response.data.patientName);
     setAge(response.data.age);
     setSex(response.data.gender);
@@ -272,8 +272,7 @@ function TagubilinForm(props) {
     setDischDate(
       response.data.dischdate === null ? "" : response.data.dischdate.date
     );
-
-  }
+  };
 
   useEffect(() => {
     fetch();
@@ -1115,21 +1114,22 @@ function TagubilinForm(props) {
             </Tr>
 
           </Table> */}
--          {!dischDate ?
-          (
+          -{" "}
+          {!dischDate ? (
             <Box style={{ float: "right", margin: "30px 0px" }}>
-            <Button
-              colorScheme="blue"
-              width="250px"
-              rightIcon={<BiSend />}
-              type="submit"
-              onClick={() => submit()}
-            >
-              Submit
-            </Button>
-          </Box>
-          ):""}
-     
+              <Button
+                colorScheme="blue"
+                width="250px"
+                rightIcon={<BiSend />}
+                type="submit"
+                onClick={() => submit()}
+              >
+                Submit
+              </Button>
+            </Box>
+          ) : (
+            ""
+          )}
         </form>
       </TableContainer>
     </div>

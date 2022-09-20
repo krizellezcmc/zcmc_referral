@@ -7,9 +7,6 @@ let serverUrl = "http://localhost/referral_local_backend/api/";
 const localApi = axios.create({
   // withCredentials: true,
   baseURL: serverUrl,
-  headers: {
-    Authorization: `${JSON.parse(sessionStorage.getItem("sessionId"))}`,
-  },
 });
 
 export default localApi;
