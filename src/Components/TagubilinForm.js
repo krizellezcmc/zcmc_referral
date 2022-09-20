@@ -1115,7 +1115,7 @@ function TagubilinForm(props) {
             </Tr>
 
           </Table> */}
-          {!dischDate ?
+-          {!dischDate ?
           (
             <Box style={{ float: "right", margin: "30px 0px" }}>
             <Button
