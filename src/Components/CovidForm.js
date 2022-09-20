@@ -17,14 +17,17 @@ import {
 } from "@chakra-ui/react";
 import { BiCalendar, BiSend } from "react-icons/bi";
 import api from "../API/Api";
+import Loading from "./Spinner";
+import localApi from "../API/LocalApi";
 function CovidForm(props) {
   const [patient, setPatient] = useState([]);
   const [selected, setSelected] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState(1);
   const [swabDate, setSwabDate] = useState("");
   const [resultDate, setResultDate] = useState("");
   const [covidData, setCovidData] = useState("");
+  const [id, setId] = useState("");
 
   patient.forEach((element, key) => {
     patient[key]["label"] =
@@ -50,11 +53,6 @@ function CovidForm(props) {
       "/" +
       element.tstamp;
   });
-
-  let data = selected.split("/");
-  // let name = data[1];
-  let id = data[0];
-  // let refDate = data[2];
 
   const handleChange = (event) => {
     if (event.target.checked) {
@@ -86,18 +84,36 @@ function CovidForm(props) {
     }
   };
 
-  const fetchCovidData = async () => {
+  const fetchPat = async () => {
     let pat = await api.get("/get_acceptedpats.php");
     setPatient(pat.data);
+  };
 
-    let covid = await api.get("/get_covid_status.php");
+  const select = async (e) => {
+    setSelected(e.value);
+    setIsLoading(true);
+
+    let data = e.split("/");
+    let selectedId = data[0];
+    setId(data[0]);
+    // let refDate = data[2];
+
+    let covid = await localApi.get("/get_covid_status.php", {
+      params: {
+        patientId: selectedId,
+      },
+    });
     setCovidData(covid.data);
+
+    if (covid) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     // const user = JSON.parse(localStorage.getItem("user"));
-    fetchCovidData();
-  }, [patient, covidData]);
+    fetchPat();
+  }, [id]);
 
   let toast = useToast();
 
@@ -112,7 +128,7 @@ function CovidForm(props) {
           closeMenuOnSelect={true}
           focusBorderColor="#058e46"
           onChange={(e) => {
-            setSelected(e.value);
+            select(e.value);
           }}
           width="100%"
           required
@@ -200,36 +216,6 @@ function CovidForm(props) {
                 );
               })
             ) : (
-              /* {covidData.map((i, k) => {
-                  return (
-                    <>
-                      <Box w={350} bg="#f7f8fb" p={7} borderRadius={10}>
-                        <Text mb={1}>Result:</Text>
-
-                        <Badge
-                          fontSize="15px"
-                          variant="subtle"
-                          colorScheme={i.result === 1 ? "red" : "green"}
-                        >
-                          {i.result === 1 ? "Positive +" : "Negative -"}
-                        </Badge>
-
-                        <Text mt={9}>Swab Date:</Text>
-
-                        <Text fontWeight="600" mt={1}>
-                          {moment(i.swab_date).format("LLL")}
-                        </Text>
-
-                        <Text mt={9}>Result Date:</Text>
-
-                        <Text fontWeight="600" mt={1}>
-                          {moment(i.result_date).format("LLL")}
-                        </Text>
-                      </Box>
-                    </>
-                  );
-                })} */
-
               <>
                 <form onSubmit={submit}>
                   <Box w={350}>
