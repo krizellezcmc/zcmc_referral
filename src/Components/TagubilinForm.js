@@ -250,11 +250,11 @@ function TagubilinForm(props) {
       setShow(false);
     }
   };
-  const fetchData = async () => {
-    let response = await api.get("/get_patient_info.php", {
+  useEffect(() => {
+    axios.get("http://192.168.3.135/referral_local_backend/api/get_patient_info.php", {
       params: { id: props.id },
-    });
-
+    })
+    .then((response)=>{
     setPatient(response.data.patientName);
     setAge(response.data.age);
     setSex(response.data.gender);
@@ -275,10 +275,11 @@ function TagubilinForm(props) {
     setDischDate(
       response.data.dischdate === null ? "" : response.data.dischdate.date
     );
-  };
 
-  useEffect(() => {
-    fetchData();
+    console.log(response.data);
+    })
+
+
   }, [diet, props.id]);
 
   return (

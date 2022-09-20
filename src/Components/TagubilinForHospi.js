@@ -57,7 +57,9 @@ function TagubilinForHospi() {
   const { id } = useParams();
 
   const fetchData = async () => {
-    let response = await api.get(`/get_tagubilinhospi.php/${id}`);
+    let response = await api.get("/get_tagubilinhospi.php",{
+      params:{id:id}
+    });
 
     setPatient(response.data[0].patientName);
     setAge(response.data[0].age);
