@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Select } from "chakra-react-select";
-import axios from "axios";
 import moment from "moment";
 import {
   Text,
