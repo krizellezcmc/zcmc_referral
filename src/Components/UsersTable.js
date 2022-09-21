@@ -54,6 +54,7 @@ const UsersTable = () => {
   const [userVerify, setUserVerify] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingModal, setIsLoadingModal] = useState(false);
   //get user data
   const [userId, setUserId] = useState("");
   const [lastName, setLastName] = useState("");
@@ -66,6 +67,7 @@ const UsersTable = () => {
   const [search, setSearch] = useState("");
 
   const getUserData = async (Id) => {
+    setIsLoadingModal(true);
     let params = {
       Id: Id,
     };
@@ -74,13 +76,16 @@ const UsersTable = () => {
       params,
     });
 
-    setUserId(response.data[0].userId);
-    setLastName(response.data[0].lastName);
-    setFirstName(response.data[0].firstName);
-    setContact(response.data[0].contact);
-    setEmail(response.data[0].email);
-    setCode(response.data[0].code);
-    setHospital(response.data[0].name);
+    if (response) {
+      setIsLoadingModal(false);
+      setUserId(response.data[0].userId);
+      setLastName(response.data[0].lastName);
+      setFirstName(response.data[0].firstName);
+      setContact(response.data[0].contact);
+      setEmail(response.data[0].email);
+      setCode(response.data[0].accessCode);
+      setHospital(response.data[0].name);
+    }
   };
 
   const fetchData = async () => {
@@ -338,98 +343,105 @@ const UsersTable = () => {
           <ModalHeader>User Details</ModalHeader>
           <ModalCloseButton />
 
-          <ModalBody>
-            <Flex direction="column">
-              <FormControl mb={8}>
-                <div style={{ display: "flex" }}>
-                  <BiUser color="#058e46" fontSize="15px" />
-                  <FormLabel fontSize="12px" ml={2}>
-                    FULL NAME
-                  </FormLabel>
-                </div>
-                <Text fontWeight={500}>{firstName + " " + lastName}</Text>
-              </FormControl>
+          {isLoadingModal ? (
+            <Center mt={14} mb={20}>
+              <Spinner />
+            </Center>
+          ) : (
+            <>
+              <ModalBody>
+                <Flex direction="column">
+                  <FormControl mb={8}>
+                    <div style={{ display: "flex" }}>
+                      <BiUser color="#058e46" fontSize="15px" />
+                      <FormLabel fontSize="12px" ml={2}>
+                        FULL NAME
+                      </FormLabel>
+                    </div>
+                    <Text fontWeight={500}>{firstName + " " + lastName}</Text>
+                  </FormControl>
 
-              <HStack mb={8}>
-                <FormControl>
-                  <div style={{ display: "flex" }}>
-                    <BiPhone color="#058e46" fontSize="20px" />
-                    <FormLabel fontSize="12px" ml={2}>
-                      CONTACT NO
-                    </FormLabel>
-                  </div>
-                  <Text ml={2} fontWeight={500}>
-                    {contact}
-                  </Text>
-                </FormControl>
-                <FormControl>
-                  <div style={{ display: "flex" }}>
-                    <BiMailSend color="#058e46" fontSize="20px" />
-                    <FormLabel fontSize="12px" ml={2}>
-                      EMAIL
-                    </FormLabel>
-                  </div>
-                  <Text ml={2} fontWeight={500}>
-                    {email}
-                  </Text>
-                </FormControl>
-              </HStack>
+                  <HStack mb={8}>
+                    <FormControl>
+                      <div style={{ display: "flex" }}>
+                        <BiPhone color="#058e46" fontSize="20px" />
+                        <FormLabel fontSize="12px" ml={2}>
+                          CONTACT NO
+                        </FormLabel>
+                      </div>
+                      <Text ml={2} fontWeight={500}>
+                        {contact}
+                      </Text>
+                    </FormControl>
+                    <FormControl>
+                      <div style={{ display: "flex" }}>
+                        <BiMailSend color="#058e46" fontSize="20px" />
+                        <FormLabel fontSize="12px" ml={2}>
+                          EMAIL
+                        </FormLabel>
+                      </div>
+                      <Text ml={2} fontWeight={500}>
+                        {email}
+                      </Text>
+                    </FormControl>
+                  </HStack>
 
-              <HStack>
-                <FormControl>
-                  <div style={{ display: "flex" }}>
-                    <BiClinic color="#058e46" fontSize="20px" />
-                    <FormLabel fontSize="12px" ml={2}>
-                      HOSPITAL
-                    </FormLabel>
-                  </div>
-                  <Text ml={2} fontWeight={500}>
-                    {hospital}
-                  </Text>
-                </FormControl>
+                  <HStack>
+                    <FormControl>
+                      <div style={{ display: "flex" }}>
+                        <BiClinic color="#058e46" fontSize="20px" />
+                        <FormLabel fontSize="12px" ml={2}>
+                          HOSPITAL
+                        </FormLabel>
+                      </div>
+                      <Text ml={2} fontWeight={500}>
+                        {hospital}
+                      </Text>
+                    </FormControl>
 
-                <FormControl>
-                  <div style={{ display: "flex" }}>
-                    <BiLock color="#058e46" fontSize="20px" />
-                    <FormLabel fontSize="12px" ml={2}>
-                      ACCESS CODE
-                    </FormLabel>
-                  </div>
-                  <Text ml={2} fontWeight={500}>
-                    {code}
-                  </Text>
-                </FormControl>
-              </HStack>
-            </Flex>
-          </ModalBody>
-
-          <ModalFooter my={6}>
-            <Button
-              size="sm"
-              mr={3}
-              colorScheme="green"
-              onClick={() => {
-                handleVerifyuser(userId);
-              }}
-              leftIcon={<GoCheck fontSize="20px" />}
-            >
-              Verify
-            </Button>
-            <Button
-              size="sm"
-              mr={3}
-              colorScheme="red"
-              onClick={() => {
-                declineUser(userId);
-              }}
-              leftIcon={<GoX fontSize="20px" />}
-            >
-              Decline
-            </Button>
-            <Button onClick={onClose} variant="solid" size="sm">
-              Cancel
-            </Button>
-          </ModalFooter>
+                    <FormControl>
+                      <div style={{ display: "flex" }}>
+                        <BiLock color="#058e46" fontSize="20px" />
+                        <FormLabel fontSize="12px" ml={2}>
+                          ACCESS CODE
+                        </FormLabel>
+                      </div>
+                      <Text ml={2} fontWeight={500}>
+                        {code}
+                      </Text>
+                    </FormControl>
+                  </HStack>
+                </Flex>
+              </ModalBody>
+              <ModalFooter my={6}>
+                <Button
+                  size="sm"
+                  mr={3}
+                  colorScheme="green"
+                  onClick={() => {
+                    handleVerifyuser(userId);
+                  }}
+                  leftIcon={<GoCheck fontSize="20px" />}
+                >
+                  Verify
+                </Button>
+                <Button
+                  size="sm"
+                  mr={3}
+                  colorScheme="red"
+                  onClick={() => {
+                    declineUser(userId);
+                  }}
+                  leftIcon={<GoX fontSize="20px" />}
+                >
+                  Decline
+                </Button>
+                <Button onClick={onClose} variant="solid" size="sm">
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </>
+          )}
         </ModalContent>
       </Modal>
     </div>

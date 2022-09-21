@@ -105,6 +105,7 @@ const PatientsList = (props) => {
   const [latestGlasgow, setLatestGlasgow] = useState("");
   const [status, setStatus] = useState("");
   const [count, setCount] = useState(0);
+  const [isLoadingPending, setIsLoadingPending] = useState(false);
 
   const getDetails = async (id) => {
     setIsLoadingDetails(true);
@@ -117,28 +118,33 @@ const PatientsList = (props) => {
   };
 
   const getPendingDetails = async (pid) => {
+    setIsLoadingPending(true);
     let penDeets = await api.get("/get_pending_details.php", {
       params: { pid: pid },
     });
 
-    setPatientId(penDeets.data[0].patientId);
-    setRefFacility(penDeets.data[0].refFacility);
-    setRefDate(penDeets.data[0].tstamp);
-    setLastName(penDeets.data[0].lastname);
-    setFirstName(penDeets.data[0].firstname);
-    setMiddleName(penDeets.data[0].middleName);
-    setSex(penDeets.data[0].sex);
-    setAdmitDate(penDeets.data[0].dateAdmitted);
-    setRefType(penDeets.data[0].refType);
-    setDisposition(penDeets.data[0].disposition);
-    setSpecialization(penDeets.data[0].specialization);
-    setLatestTemp(penDeets.data[0].latestTemp);
-    setLatestBP(penDeets.data[0].latestBp);
-    setLatestRespi(penDeets.data[0].latestRespi);
-    setLatestPulse(penDeets.data[0].latestPulse);
-    setLatestOxygen(penDeets.data[0].latestOxygen);
-    setLatestGlasgow(penDeets.data[0].latestGlasgow);
-    setStatus(penDeets.data[0].status);
+    if (penDeets) {
+      setPatientId(penDeets.data[0].patientId);
+      setRefFacility(penDeets.data[0].refFacility);
+      setRefDate(penDeets.data[0].tstamp);
+      setLastName(penDeets.data[0].lastname);
+      setFirstName(penDeets.data[0].firstname);
+      setMiddleName(penDeets.data[0].middleName);
+      setSex(penDeets.data[0].sex);
+      setAdmitDate(penDeets.data[0].dateAdmitted);
+      setRefType(penDeets.data[0].refType);
+      setDisposition(penDeets.data[0].disposition);
+      setSpecialization(penDeets.data[0].specialization);
+      setLatestTemp(penDeets.data[0].latestTemp);
+      setLatestBP(penDeets.data[0].latestBp);
+      setLatestRespi(penDeets.data[0].latestRespi);
+      setLatestPulse(penDeets.data[0].latestPulse);
+      setLatestOxygen(penDeets.data[0].latestOxygen);
+      setLatestGlasgow(penDeets.data[0].latestGlasgow);
+      setStatus(penDeets.data[0].status);
+
+      setIsLoadingPending(false);
+    }
   };
 
   const handleAcceptPatient = (patId) => {
@@ -257,7 +263,7 @@ const PatientsList = (props) => {
     setIsLoading(true);
 
     let pat = await api.get("/get_patients.php");
-    console.log(pat.data);
+    setPatients(pat.data);
 
     let pending = await api.get("/get_pending_patients.php");
     setPendingPat(pending.data);
@@ -665,215 +671,238 @@ const PatientsList = (props) => {
         <ModalContent>
           <ModalHeader>Patient Details</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Grid templateColumns="repeat(2, 1fr)" mt={3}>
-              <GridItem>
-                <small
-                  style={{
-                    display: "flex",
-                    marginBottom: 4,
-                  }}
-                >
-                  <BiUser style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">Patient name</Text>
-                </small>
-                <Text fontWeight="600">
-                  {lastName + " " + firstName + " " + middleName}
-                </Text>
-              </GridItem>
+          {isLoadingPending ? (
+            <Center mb={20} mt={14}>
+              <Spinner />
+            </Center>
+          ) : (
+            <>
+              {" "}
+              <ModalBody>
+                <Grid templateColumns="repeat(2, 1fr)" mt={3}>
+                  <GridItem>
+                    <small
+                      style={{
+                        display: "flex",
+                        marginBottom: 4,
+                      }}
+                    >
+                      <BiUser style={{ marginRight: "5px", marginTop: 2 }} />
+                      <Text textTransform="uppercase">Patient name</Text>
+                    </small>
+                    <Text fontWeight="600">
+                      {lastName + " " + firstName + " " + middleName}
+                    </Text>
+                  </GridItem>
 
-              <GridItem>
-                <small
-                  style={{
-                    display: "flex",
-                    marginBottom: 4,
-                  }}
-                >
-                  {sex === "Male" ? (
-                    <BiMaleSign style={{ marginRight: "5px", marginTop: 2 }} />
-                  ) : (
-                    <BiFemaleSign
-                      style={{ marginRight: "5px", marginTop: 2 }}
-                    />
-                  )}
+                  <GridItem>
+                    <small
+                      style={{
+                        display: "flex",
+                        marginBottom: 4,
+                      }}
+                    >
+                      {sex === "Male" ? (
+                        <BiMaleSign
+                          style={{ marginRight: "5px", marginTop: 2 }}
+                        />
+                      ) : (
+                        <BiFemaleSign
+                          style={{ marginRight: "5px", marginTop: 2 }}
+                        />
+                      )}
 
-                  <Text textTransform="uppercase">Sex</Text>
-                </small>
-                <Badge colorScheme="red">{sex}</Badge>
-              </GridItem>
-            </Grid>
+                      <Text textTransform="uppercase">Sex</Text>
+                    </small>
+                    <Badge colorScheme="red">{sex}</Badge>
+                  </GridItem>
+                </Grid>
 
-            <Grid templateColumns="repeat(1, 1fr)" mt={10}>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <TbBuildingHospital
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
-                  <Text textTransform="uppercase">Referred from</Text>
-                </small>
-                <Text fontSize="15px">{refFacility}</Text>
-              </GridItem>
-            </Grid>
+                <Grid templateColumns="repeat(1, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <TbBuildingHospital
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Referred from</Text>
+                    </small>
+                    <Text fontSize="15px">{refFacility}</Text>
+                  </GridItem>
+                </Grid>
 
-            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
-                  <Text textTransform="uppercase">Referred date</Text>
-                </small>
-                <Text fontSize="15px">{moment(refDate).format("lll")}</Text>
-              </GridItem>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiCalendarEvent
-                    style={{ marginRight: "5px", marginTop: 2 }}
-                  />
-                  <Text textTransform="uppercase">Date Admitted</Text>
-                </small>
-                <Text fontSize="15px">{moment(admitDate).format("ll")}</Text>
-              </GridItem>
-            </Grid>
+                <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Referred date</Text>
+                    </small>
+                    <Text fontSize="15px">{moment(refDate).format("lll")}</Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiCalendarEvent
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Date Admitted</Text>
+                    </small>
+                    <Text fontSize="15px">
+                      {moment(admitDate).format("ll")}
+                    </Text>
+                  </GridItem>
+                </Grid>
 
-            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <TbCheckupList style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">Referral Type</Text>
-                </small>
+                <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <TbCheckupList
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Referral Type</Text>
+                    </small>
 
-                <Text fontSize="13px">{refType}</Text>
-              </GridItem>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <TbCheckupList style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">Disposition</Text>
-                </small>
-                <Text fontSize="13px">{disposition}</Text>
-              </GridItem>
-            </Grid>
+                    <Text fontSize="13px">{refType}</Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <TbCheckupList
+                        style={{ marginRight: "5px", marginTop: 2 }}
+                      />
+                      <Text textTransform="uppercase">Disposition</Text>
+                    </small>
+                    <Text fontSize="13px">{disposition}</Text>
+                  </GridItem>
+                </Grid>
 
-            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats
-                    stCalendarEventyle={{ marginRight: "5px", marginTop: 2 }}
-                  />
-                  <Text textTransform="uppercase">Latest V/S Temperature</Text>
-                </small>
-                <Text fontSize=" 14px" color="red.600" fontWeight="600">
-                  {latestTemp}
-                </Text>
-              </GridItem>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">
-                    Latest V/S Blood Pressure
-                  </Text>
-                </small>
-                <Text fontSize=" 14px" color="red.600" fontWeight="600">
-                  {latestBP}
-                </Text>
-              </GridItem>
-            </Grid>
+                <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiStats
+                        stCalendarEventyle={{
+                          marginRight: "5px",
+                          marginTop: 2,
+                        }}
+                      />
+                      <Text textTransform="uppercase">
+                        Latest V/S Temperature
+                      </Text>
+                    </small>
+                    <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                      {latestTemp}
+                    </Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                      <Text textTransform="uppercase">
+                        Latest V/S Blood Pressure
+                      </Text>
+                    </small>
+                    <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                      {latestBP}
+                    </Text>
+                  </GridItem>
+                </Grid>
 
-            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">
-                    Latest V/S Respiration Rate
-                  </Text>
-                </small>
-                <Text fontSize=" 14px" color="red.600" fontWeight="600">
-                  {latestRespi}
-                </Text>
-              </GridItem>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">Latest V/S Pulse Rate</Text>
-                </small>
-                <Text fontSize=" 14px" color="red.600" fontWeight="600">
-                  {latestPulse}
-                </Text>
-              </GridItem>
-            </Grid>
+                <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                      <Text textTransform="uppercase">
+                        Latest V/S Respiration Rate
+                      </Text>
+                    </small>
+                    <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                      {latestRespi}
+                    </Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                      <Text textTransform="uppercase">
+                        Latest V/S Pulse Rate
+                      </Text>
+                    </small>
+                    <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                      {latestPulse}
+                    </Text>
+                  </GridItem>
+                </Grid>
 
-            <Grid templateColumns="repeat(2, 1fr)" mt={10}>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">
-                    Latest V/S Oxygen Saturation
-                  </Text>
-                </small>
-                <Text fontSize=" 14px" color="red.600" fontWeight="600">
-                  {latestOxygen}
-                </Text>
-              </GridItem>
-              <GridItem>
-                <small style={{ display: "flex", marginBottom: 6 }}>
-                  <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                  <Text textTransform="uppercase">Glasgow Coma Scale</Text>
-                </small>
+                <Grid templateColumns="repeat(2, 1fr)" mt={10}>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                      <Text textTransform="uppercase">
+                        Latest V/S Oxygen Saturation
+                      </Text>
+                    </small>
+                    <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                      {latestOxygen}
+                    </Text>
+                  </GridItem>
+                  <GridItem>
+                    <small style={{ display: "flex", marginBottom: 6 }}>
+                      <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
+                      <Text textTransform="uppercase">Glasgow Coma Scale</Text>
+                    </small>
 
-                <Text fontSize=" 14px" color="red.600" fontWeight="600">
-                  {latestGlasgow}
-                </Text>
-              </GridItem>
-            </Grid>
-          </ModalBody>
-
-          <ModalFooter mt={4}>
-            {status === "pending" ? (
-              <>
-                <Button
-                  size="sm"
-                  mr={3}
-                  colorScheme="green"
-                  onClick={() => {
-                    handleAcceptPatient(patientId);
-                  }}
-                  leftIcon={<GoCheck fontSize="20px" />}
-                >
-                  Accept
-                </Button>
-                <Button
-                  size="sm"
-                  mr={3}
-                  colorScheme="red"
-                  onClick={() => {
-                    declineReferredPatient(patientId);
-                  }}
-                  leftIcon={<GoX fontSize="20px" />}
-                >
-                  Decline
-                </Button>
-                <Button
-                  colorScheme="blue"
-                  size="sm"
-                  mr={3}
-                  onClick={onPendingClose}
-                >
-                  Close
-                </Button>
-              </>
-            ) : (
-              <Button
-                colorScheme="blue"
-                size="sm"
-                mr={3}
-                onClick={() => {
-                  patientArrival(patientId);
-                }}
-              >
-                Patient Arrived
-              </Button>
-            )}
-          </ModalFooter>
+                    <Text fontSize=" 14px" color="red.600" fontWeight="600">
+                      {latestGlasgow}
+                    </Text>
+                  </GridItem>
+                </Grid>
+              </ModalBody>
+              <ModalFooter mt={4}>
+                {status === "pending" ? (
+                  <>
+                    <Button
+                      size="sm"
+                      mr={3}
+                      colorScheme="green"
+                      onClick={() => {
+                        handleAcceptPatient(patientId);
+                      }}
+                      leftIcon={<GoCheck fontSize="20px" />}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      size="sm"
+                      mr={3}
+                      colorScheme="red"
+                      onClick={() => {
+                        declineReferredPatient(patientId);
+                      }}
+                      leftIcon={<GoX fontSize="20px" />}
+                    >
+                      Decline
+                    </Button>
+                    <Button
+                      colorScheme="blue"
+                      size="sm"
+                      mr={3}
+                      onClick={onPendingClose}
+                    >
+                      Close
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    colorScheme="blue"
+                    size="sm"
+                    mr={3}
+                    onClick={() => {
+                      patientArrival(patientId);
+                    }}
+                  >
+                    Patient Arrived
+                  </Button>
+                )}
+              </ModalFooter>
+            </>
+          )}
         </ModalContent>
       </Modal>
 
