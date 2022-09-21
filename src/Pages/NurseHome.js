@@ -5,9 +5,7 @@ import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import TagubilinForm from "../Components/TagubilinForm";
 import { Select } from "chakra-react-select";
-import axios from "axios";
 import api from "../API/Api";
-import { pick } from "@reach/router/lib/utils";
 
 function NurseHome(props) {
   const refreshPage = () => {
@@ -19,8 +17,8 @@ function NurseHome(props) {
 
   const fetchData = async (e) => {
     setSelected(e);
-    let response = await api.get("/get_patientList.php");
-    setPatientList(response.data);
+    let pat = await api.get("/get_patientList.php");
+    setPatientList(pat.data);
   };
 
   useEffect(() => {
