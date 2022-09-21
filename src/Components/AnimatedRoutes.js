@@ -21,6 +21,7 @@ import AdminDashboard from "../Pages/AdminDashboard";
 import UserDashboard from "../Pages/UserDashboard";
 import HospiTagubilin from "../Pages/HospiTagubilin";
 import CancelledModal from "./CancelledModal";
+import Forbidden from "./Forbidden";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -30,6 +31,7 @@ const AnimatedRoutes = () => {
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
+          <Route path="/forbidden" element={<Forbidden />}></Route>
           <Route path="/" element={<Login />} />
           <Route path="/blocked" element={<Blocked />} />
           <Route path="/register" element={<Register />} />

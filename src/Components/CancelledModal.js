@@ -9,7 +9,7 @@ import {
   TableContainer,
   Center,
 } from "@chakra-ui/react";
-import axios from "axios";
+
 import api from "../API/Api";
 import Spinner from "./Spinner";
 

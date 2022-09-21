@@ -12,7 +12,6 @@ function IPCCHome(props) {
   return (
     <div>
       <div className="container">
-        <Sidebar />
         <div className="content">
           <Header />
           <div className="content-wrapper" style={{ padding: "30px" }}>
@@ -20,7 +19,8 @@ function IPCCHome(props) {
               variant="solid"
               leftIcon={<BiRefresh />}
               onClick={refreshPage}
-              mb={7}
+              mb={5}
+              ml={8}
             >
               Refresh Page
             </Button>

@@ -88,8 +88,6 @@ function Login() {
         isClosable: true,
       });
     }
-
-    console.log(response);
   };
 
   const toast = useToast();

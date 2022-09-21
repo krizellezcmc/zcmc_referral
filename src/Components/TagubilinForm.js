@@ -15,17 +15,16 @@ import {
   Box,
   Textarea,
   Button,
-  IconButton,
-  CheckboxGroup,
   HStack,
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import { BiMinus, BiSend } from "react-icons/bi";
-import localApi from "../API/LocalApi";
+// import localApi from "../API/LocalApi";
 import moment from "moment";
 import api from "../API/Api";
 import { Select } from "chakra-react-select";
 import TaguForNurse from "./TaguForNurse";
+import localApi from "../API/LocalApi";
 
 function TagubilinForm(props) {
   const [patientName, setPatient] = useState("");
@@ -1132,7 +1131,6 @@ function TagubilinForm(props) {
             </Tr>
 
           </Table> */}
-
             <Box style={{ float: "right", margin: "30px 0px" }}>
               <Button
                 colorScheme="blue"

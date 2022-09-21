@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../API/Api";
 import { useNavigate } from "react-router-dom";
 import {
   Table,
@@ -37,7 +38,7 @@ import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
 import "../Styles/Table.css";
-import api from "../API/Api";
+
 import Spinner from "./Spinner";
 
 import {
@@ -256,7 +257,7 @@ const PatientsList = (props) => {
     setIsLoading(true);
 
     let pat = await api.get("/get_patients.php");
-    setPatients(pat.data);
+    console.log(pat.data);
 
     let pending = await api.get("/get_pending_patients.php");
     setPendingPat(pending.data);

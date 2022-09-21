@@ -15,9 +15,10 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { BiCalendar, BiSend } from "react-icons/bi";
+import localApi from "../API/LocalApi";
 import api from "../API/Api";
 import Loading from "./Spinner";
-import localApi from "../API/LocalApi";
+
 function CovidForm(props) {
   const [patient, setPatient] = useState([]);
   const [selected, setSelected] = useState("");

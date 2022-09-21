@@ -1,12 +1,14 @@
 import axios from "axios";
-// axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = false;
 
-let serverUrl = "http://localhost/zcmc_referral_api/api/";
+const server = "https://zcmc-referral.online/api/";
+// const server = "http://192.168.3.135/zcmc_referral_api/api/";
+// const server = "https://zcmc-referral.herokuapp.com/api/";
 
 //Custom API to fetch data from the server using axios
 const api = axios.create({
   // withCredentials: true,
-  baseURL: serverUrl,
+  baseURL: server,
   headers: {
     Authorization: `${JSON.parse(sessionStorage.getItem("sessionId"))}`,
   },
