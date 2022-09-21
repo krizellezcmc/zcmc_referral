@@ -23,6 +23,7 @@ import { BiMinus, BiSend } from "react-icons/bi";
 import moment from "moment";
 import api from "../API/Api";
 import { Select } from "chakra-react-select";
+import localApi from "../API/LocalApi";
 
 function TagubilinForm(props) {
   const [patientName, setPatient] = useState("");
@@ -247,7 +248,7 @@ function TagubilinForm(props) {
     }
   };
   const fetch = async () => {
-    let response = await api.get("/get_patient_info.php", {
+    let response = await localApi.get("/get_patient_info.php", {
       params: { id: props.id },
     });
     setPatient(response.data.patientName);

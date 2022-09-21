@@ -1,8 +1,9 @@
 import axios from "axios";
-axios.defaults.withCredentials = false;
+// axios.defaults.withCredentials = false;
 
-let server = "https://zcmc-referral.online/api/";
-// let server = "http://192.168.3.135/zcmc_referral_api/api/";
+const server = "https://zcmc-referral.online/api/";
+// const server = "http://192.168.3.135/zcmc_referral_api/api/";
+// const server = "https://zcmc-referral.herokuapp.com/api/";
 
 //Custom API to fetch data from the server using axios
 const api = axios.create({
