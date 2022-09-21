@@ -5,9 +5,8 @@ import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import TagubilinForm from "../Components/TagubilinForm";
 import { Select } from "chakra-react-select";
-import axios from "axios";
+
 import api from "../API/Api";
-import { pick } from "@reach/router/lib/utils";
 
 function NurseHome(props) {
   const refreshPage = () => {

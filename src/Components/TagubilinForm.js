@@ -15,13 +15,11 @@ import {
   Box,
   Textarea,
   Button,
-  IconButton,
-  CheckboxGroup,
   HStack,
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import { BiMinus, BiSend } from "react-icons/bi";
-import localApi from "../API/LocalApi";
+// import localApi from "../API/LocalApi";
 import moment from "moment";
 import api from "../API/Api";
 import { Select } from "chakra-react-select";
@@ -249,7 +247,7 @@ function TagubilinForm(props) {
     }
   };
   const fetch = async () => {
-    let response = await localApi.get("/get_patient_info.php", {
+    let response = await api.get("/get_patient_info.php", {
       params: { id: props.id },
     });
     setPatient(response.data.patientName);

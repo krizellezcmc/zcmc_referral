@@ -2,7 +2,6 @@
   "name": "zcmc_referral",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://https://zcmc-referral.vercel.app/",
   "dependencies": {
     "@chakra-ui/react": "^2.2.6",
     "@chakra-ui/table": "^2.0.6",
