@@ -1,7 +1,22 @@
 import { Avatar, Box, HStack, Text, Stack, Circle } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import api from "../API/Api";
 
 function Comment(props) {
+  const [remarks, setRemarks] = useState([]);
+
+  const fetchComments = async () => {
+    let response = api.get("/get_comment.php", {
+      params: { patientId: props.patientId },
+    });
+
+    console.log(response.data);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
   return (
     <div>
       <Box my={7} w="100%">
@@ -46,7 +61,7 @@ function Comment(props) {
             color="gray.600"
             mt={5}
           >
-            - Jan 5, 2022 10:30 AM
+            Jan 5, 2022 10:30 AM
           </Text>
         </Box>
       </Box>
