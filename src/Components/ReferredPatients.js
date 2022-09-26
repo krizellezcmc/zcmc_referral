@@ -24,7 +24,6 @@ import {
   Text,
   Box,
   GridItem,
-  IconButton,
   Grid,
   Menu,
   MenuButton,
