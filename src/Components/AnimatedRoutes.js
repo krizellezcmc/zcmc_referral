@@ -20,9 +20,8 @@ import Blocked from "../Pages/Blocked";
 import AdminDashboard from "../Pages/AdminDashboard";
 import UserDashboard from "../Pages/UserDashboard";
 import HospiTagubilin from "../Pages/HospiTagubilin";
-import CancelledModal from "./CancelledModal";
 import Forbidden from "./Forbidden";
-import MentionSample from "./MentionSample";
+import OpcenHome from "../Pages/OpcenHome";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -32,7 +31,6 @@ const AnimatedRoutes = () => {
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
-          <Route path="/mention" element={<MentionSample />} />
           <Route path="/forbidden" element={<Forbidden />}></Route>
           <Route path="/" element={<Login />} />
           <Route path="/blocked" element={<Blocked />} />
@@ -40,6 +38,8 @@ const AnimatedRoutes = () => {
           <Route path="/tagubilinreport" element={<TagubilinPrescription />} />
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/user" element={<UserDashboard />}></Route>
+
+          <Route path="/opcen" element={<OpcenHome />}></Route>
 
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 

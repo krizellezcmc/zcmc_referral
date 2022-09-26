@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Select } from "chakra-react-select";
-import axios from "axios";
 import moment from "moment";
 import "../Styles/StatusBar.css";
 import {
@@ -18,6 +17,7 @@ import { TbCheckupList } from "react-icons/tb";
 import Swal from "sweetalert2";
 import api from "../API/Api";
 import Loading from "./Spinner";
+import Comment from "./Comment";
 
 function SearchPatient(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -152,7 +152,6 @@ function SearchPatient(props) {
           id="searchbar"
         />
       </div>
-
       {patient
         .filter((pat) => pat.patientId == id)
         .map((i, k) => {
@@ -848,14 +847,20 @@ function SearchPatient(props) {
                       >
                         Cancel Referral
                       </Button>
+                      IT
                     </>
                   )}
                 </GridItem>{" "}
               </Grid>
+              <Box mt={6} w="70%">
+                <Text fontSize="xl">Remarks</Text>
+                <Comment />
+                <Comment />
+              </Box>
+              ;
             </>
           );
-        })}
-
+        })}{" "}
       {/* // <Button onClick={find}>Find</Button> */}
     </div>
   );

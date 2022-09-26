@@ -40,7 +40,6 @@ function Home() {
               >
                 + Refer new patient
               </Button>
-
               <Button onClick={refreshPage} leftIcon={<BiRefresh />}>
                 Refresh
               </Button>
