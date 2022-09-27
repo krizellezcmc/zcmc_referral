@@ -32,6 +32,7 @@ const Sidebar = () => {
     setUserName(user.firstName + "  " + user.lastName);
     setRole(user.role);
   }, [username, referringFacility, role]);
+
   const { user } = useAuth();
 
   return (

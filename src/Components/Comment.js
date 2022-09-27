@@ -1,43 +1,31 @@
 import { Avatar, Box, HStack, Text, Stack, Circle } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import api from "../API/Api";
+import moment from "moment";
+import React from "react";
 
 function Comment(props) {
-  const [remarks, setRemarks] = useState([]);
-
-  const fetchComments = async () => {
-    let response = api.get("/get_comment.php", {
-      params: { patientId: props.patientId },
-    });
-
-    console.log(response.data);
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
   return (
     <div>
       <Box my={7} w="100%">
         <HStack>
           <Avatar
-            name="Dan Abrahmov"
-            src="https://bit.ly/dan-abramov"
+            name={props.user}
+            src="https://bit.ly/broken-link"
             size="md"
           />
           <Stack textAlign="start">
             <div>
               <HStack>
                 <Text fontSize="14px" fontWeight="600">
-                  John Doe
+                  {props.user}
                 </Text>
                 <Circle size="5px" bg="gray.600" />
-                <Text fontSize="12px"> 2 days ago</Text>
+                <Text fontSize="12px">
+                  {moment(props.date).startOf().fromNow()}
+                </Text>
               </HStack>
 
               <Text fontSize="12px" color="gray.600">
-                Zamboanga City Medical Center (Internal Medicine)
+                Zamboanga City Medical Center ({props.dept})
               </Text>
             </div>
           </Stack>
@@ -45,12 +33,7 @@ function Comment(props) {
 
         <Box>
           <Text mt={5} ml={14} fontSize="14px" textAlign="justify">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
+            {props.remark}
           </Text>
 
           <Text
@@ -59,12 +42,13 @@ function Comment(props) {
             fontStyle="italic"
             fontWeight="500"
             color="gray.600"
-            mt={5}
+            mt={3}
           >
-            Jan 5, 2022 10:30 AM
+            {moment(props.date).format("LLL")}
           </Text>
         </Box>
       </Box>
+      <hr />
     </div>
   );
 }

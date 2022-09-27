@@ -7,6 +7,7 @@ import {
   Badge,
   Box,
   Center,
+  Container,
   Tab,
   TabList,
   TabPanel,
@@ -17,16 +18,27 @@ import {
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
 import { Select } from "chakra-react-select";
+import useAuth from "../Hooks/useAuth";
 
 function OpcenHome() {
   const [showContent, setShowContent] = useState(false);
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState("");
-  const [user, setUser] = useState(125);
+  const [remarks, setRemarks] = useState([]);
+
+  const { user } = useAuth();
 
   const select = (e) => {
     setSelected(e);
     setShowContent(true);
+  };
+
+  const fetchComments = async () => {
+    let response = await api.get("/get_comment.php", {
+      params: { patientId: selected },
+    });
+
+    setRemarks(response.data);
   };
 
   const fetchPatients = async (e) => {
@@ -36,7 +48,8 @@ function OpcenHome() {
 
   useEffect(() => {
     fetchPatients();
-  }, []);
+    fetchComments();
+  }, [selected]);
 
   return (
     <div className="container">
@@ -61,29 +74,21 @@ function OpcenHome() {
           </Box>
 
           {showContent ? (
-            <Center>
-              <Tabs>
-                <Box
-                  bg="white"
-                  w="76%"
-                  style={{
-                    position: "fixed",
-                    zIndex: "0",
-                    paddingTop: "20px",
-                  }}
-                >
-                  <TabList>
-                    <Tab>Patient Referral</Tab>
-                    <Tab>
-                      <Text fontWeight="bold">
-                        Remarks
-                        <Badge ml="1.5" colorScheme="blue">
-                          0
-                        </Badge>
-                      </Text>
-                    </Tab>
-                  </TabList>
-                </Box>
+            <Container mt={10} maxW="container.lg">
+              <Tabs variant="enclosed">
+                <TabList mb="1em">
+                  <Tab>
+                    <Text>Patient Referral</Text>
+                  </Tab>
+                  <Tab>
+                    <Text>
+                      Remarks
+                      <Badge ml="1.5" colorScheme="blue">
+                        {remarks.length}
+                      </Badge>
+                    </Text>
+                  </Tab>
+                </TabList>
 
                 <TabPanels>
                   <TabPanel>
@@ -94,18 +99,28 @@ function OpcenHome() {
                     </Center>
                   </TabPanel>
                   <TabPanel>
-                    <Center mt={20} w="1400px">
-                      <Box px={20}>
-                        <AddComment patientId={selected} user={user} />
-                        <Box mx={5} p={3}>
-                          <Comment patientId={selected} />
-                        </Box>
+                    <Box>
+                      <AddComment patientId={selected} user={user?.userId} />
+
+                      <Box>
+                        {remarks.map((el, key) => {
+                          return (
+                            <>
+                              <Comment
+                                remark={el.remark}
+                                date={el.tstamp}
+                                user={el.firstName + " " + el.lastName}
+                                dept={el.department}
+                              />
+                            </>
+                          );
+                        })}
                       </Box>
-                    </Center>
+                    </Box>
                   </TabPanel>
                 </TabPanels>
               </Tabs>
-            </Center>
+            </Container>
           ) : (
             ""
           )}

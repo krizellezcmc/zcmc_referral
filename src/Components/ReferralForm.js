@@ -122,34 +122,35 @@ const ReferralForm = () => {
   const url = "/temp_referral.php";
 
   const postData = async () => {
-    const data = JSON.stringify(bowList);
-    const data1 = data.replaceAll("[", "");
-    const data2 = data1.replaceAll("]", "");
-    const data3 = data2.replaceAll('"', "");
-    setNewBowList(data3);
+    console.log({ gp, apgar, bow, ie });
+    // const data = JSON.stringify(bowList);
+    // const data1 = data.replaceAll("[", "");
+    // const data2 = data1.replaceAll("]", "");
+    // const data3 = data2.replaceAll('"', "");
+    // setNewBowList(data3);
 
-    const ie0 = ie.map(
-      (index) =>
-        index.cm +
-        ", " +
-        index.station +
-        ", " +
-        index.effacement +
-        ", " +
-        index.presentation
-    );
+    // const ie0 = ie.map(
+    //   (index) =>
+    //     index.cm +
+    //     ", " +
+    //     index.station +
+    //     ", " +
+    //     index.effacement +
+    //     ", " +
+    //     index.presentation
+    // );
 
-    const ieData = JSON.stringify(ie0);
-    const ieData1 = ieData.replaceAll("[", "");
-    const ieData2 = ieData1.replaceAll("]", "");
-    const ieData3 = ieData2.replaceAll('"', "");
-    setNewIe(ieData3);
+    // const ieData = JSON.stringify(ie0);
+    // const ieData1 = ieData.replaceAll("[", "");
+    // const ieData2 = ieData1.replaceAll("]", "");
+    // const ieData3 = ieData2.replaceAll('"', "");
+    // setNewIe(ieData3);
 
-    const gpData = JSON.stringify(gp);
-    const gpData1 = gpData.replaceAll("[", "");
-    const gpData2 = gpData1.replaceAll("]", "");
-    const gpData3 = gpData2.replaceAll('"', "");
-    setNewGp(gpData3);
+    // const gpData = JSON.stringify(gp);
+    // const gpData1 = gpData.replaceAll("[", "");
+    // const gpData2 = gpData1.replaceAll("]", "");
+    // const gpData3 = gpData2.replaceAll('"', "");
+    // setNewGp(gpData3);
 
     const patientId = uniqid(lastname.toLowerCase() + "_");
     if (
@@ -211,17 +212,16 @@ const ReferralForm = () => {
         endorsement: endorsement,
         userContact: userContact,
         reason: reason,
-        newGp: newGp,
+        newGp: JSON.stringify(gp),
         lmp: lmp,
         aog: aog,
         edc: edc,
         fht: fht,
         fh: fh,
         apgar: apgar,
-        newIe: newIe,
-        newBowList: newBowList,
+        newIe: JSON.stringify(ie),
+        newBowList: JSON.stringify(bow),
       });
-
       if (response.data.status === 1) {
         setLastName("");
         setFirstName("");
@@ -461,7 +461,8 @@ const ReferralForm = () => {
                 </label>
                 <input
                   type="date"
-                  onChange={(e) => setDateAdmitted(e.target.value)}
+                  value="2022-09-13"
+                  // onChange={(e) => setDateAdmitted(e.target.value)}
                   required
                 />
               </div>

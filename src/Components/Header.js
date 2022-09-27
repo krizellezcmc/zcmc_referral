@@ -6,11 +6,9 @@ import { IconButton } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../Hooks/useAuth";
-import api from "../API/Api";
 import { Circle } from "@chakra-ui/react";
 
-function Header() {
+function Header(props) {
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
   const [role, setRole] = useState("");
@@ -75,6 +73,12 @@ function Header() {
               <>
                 <span style={{ fontWeight: "500" }}>ZCMC IPCC</span>
                 <span>|</span>
+              </>
+            ) : role === "opcen" ? (
+              <>
+                <span style={{ fontWeight: "500" }}>
+                  {username} | ZCMC OPCEN
+                </span>
               </>
             ) : (
               <>
