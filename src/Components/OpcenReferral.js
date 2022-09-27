@@ -62,11 +62,20 @@ function OpcenReferral(props) {
   const [fht, setFht] = useState("");
   const [fh, setFh] = useState("");
   const [apgar, setApgar] = useState("");
-  // const [gp, setGp] = useState(["", "", ""]);
-  const [newIe, setNewIe] = useState("");
-  const [newBowList, setNewBowList] = useState("");
-  const [newGp, setNewGp] = useState("");
-
+  const [bowList, setBowList] = useState([]);
+  const [gp, setGp] = useState(["", "", ""]);
+  const [getGp, setGetGP] = useState(["", "", ""]);
+  const [ie, setIe] = useState([
+    {
+      cm: "",
+      station: "",
+      effacement: "",
+      presentation: "",
+    },
+  ]);
+  // const [newIe, setNewIe] = useState("");
+  // const [newBowList, setNewBowList] = useState("");
+  // const [newGp, setNewGp] = useState("");
   const toast = useToast();
 
   const refData = async () => {
@@ -104,11 +113,20 @@ function OpcenReferral(props) {
     setEndorsement(response.data.endorsement);
     setUserContact(response.data.userContact);
     setReason(response.data.reason);
+    setGetGP(response.data.GP);
+    setLmp(response.data.LMP);
+    setAog(response.data.AOG);
+    setEdc(response.data.EDC);
+    setFht(response.data.FHT);
+    setFh(response.data.FH);
+    setApgar(response.data.APGAR);
+    setIe(response.data.IE);
+    setBowList(response.data.bow);
+    setTimeStamp(response.data.timestamp);
   };
 
   const updateData = async () => {
     let response = await api.post("/update_temp_referral.php", {
-      timeStamp: timeStamp,
       patientId: props.patientId,
       username: opcenUser,
       referringFacility: referringFacility,
@@ -142,15 +160,12 @@ function OpcenReferral(props) {
       endorsement: endorsement,
       userContact: userContact,
       reason: reason,
-      newGp: newGp,
       lmp: lmp,
       aog: aog,
       edc: edc,
       fht: fht,
       fh: fh,
       apgar: apgar,
-      newIe: newIe,
-      newBowList: newBowList,
     });
     if (response.data.status === 1) {
       toast({
@@ -164,12 +179,12 @@ function OpcenReferral(props) {
     }
     console.log(response.data);
   };
-
   useEffect(() => {
     refData();
     const user = JSON.parse(localStorage.getItem("user"));
     setOpcenUserName(user.firstName + "  " + user.lastName);
   }, [props.patientId]);
+
   return (
     <div>
       <form>
@@ -372,74 +387,125 @@ function OpcenReferral(props) {
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Gravidity and Parity</FormLabel>
                       <HStack>
-                        <Text>G</Text>
-                        <Input
-                          type="text"
-                          borderBottom="1px"
-                          w={50}
-                          h={8}
-                          p={0}
-                        />
-                        <Text>P</Text>
-                        <Input type="text" borderBottom="1px" w={50} h={8} />
-                        <Text>(</Text>
-                        <Input type="text" borderBottom="1px" w={100} h={8} />
-                        <Text>)</Text>
+                        {/* {getGp.map((i, k) => {
+                          <>{i}</>;
+                        })} */}
+
+                        {JSON.parse(getGp).map((e, k) => {
+                          return (
+                            <>
+                              <Text>G</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                w={50}
+                                h={8}
+                                textAlign="center"
+                                value={e.G}
+                              />
+                              <Text>P</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                w={50}
+                                h={8}
+                                textAlign="center"
+                                value={e.P}
+                              />
+                              <Text>(</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                w={100}
+                                h={8}
+                                textAlign="center"
+                                value={e.GAP}
+                              />
+                              <Text>)</Text>
+                            </>
+                          );
+                        })}
                       </HStack>
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Last Menstrual Period</FormLabel>
-                      <Input type="text" />
+                      <Input type="text" value={lmp} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>AOG</FormLabel>
-                      <Input type="text" />
+                      <Input type="text" value={aog} />
                     </FormControl>
                   </HStack>
                   <HStack mt={5}>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>EDC</FormLabel>
-                      <Input type="text" />
+                      <Input type="text" value={edc} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Fetal Heart Tones</FormLabel>
-                      <Input type="text" />
+                      <Input type="text" value={fht} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Fundal Height</FormLabel>
-                      <Input type="text" />
+                      <Input type="text" value={fh} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Baby APGAR</FormLabel>
-                      <Input type="text" />
+                      <Input type="text" value={apgar} />
                     </FormControl>
                   </HStack>
                   <HStack mt={5}>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Internal Examination</FormLabel>
                       <HStack>
-                        <Input type="text" borderBottom="1px" w={80} h={8} />
-                        <Text fontSize={14}>cm</Text>
-                        <Input type="text" borderBottom="1px" w={80} h={8} />
-                        <Text fontSize={14}>station</Text>
-                        <Input type="text" borderBottom="1px" h={8} />
-                        <Text fontSize={14}>effacement</Text>
-                        <Input type="text" borderBottom="1px" h={8} />
-                        <Text fontSize={14}>presentation</Text>
+                        {JSON.parse(ie).map((i, k) => {
+                          return (
+                            <>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                w={80}
+                                h={8}
+                                value={i.cm}
+                              />
+                              <Text fontSize={14}>cm</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                w={80}
+                                h={8}
+                                value={i.station}
+                              />
+                              <Text fontSize={14}>station</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                h={8}
+                                value={i.effacement}
+                              />
+                              <Text fontSize={14}>effacement</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                h={8}
+                                value={i.presentation}
+                              />
+                              <Text fontSize={14}>presentation</Text>
+                            </>
+                          );
+                        })}
                       </HStack>
                     </FormControl>
                   </HStack>
                   <FormControl mt={5}>
                     <FormLabel fontSize={14}>Bow</FormLabel>
-                    <Checkbox size="md" ml={5}>
-                      Intact
-                    </Checkbox>
-                    <Checkbox size="md" ml={5}>
-                      Ruptured
-                    </Checkbox>
-                    <Checkbox size="md" ml={5}>
-                      Intubated
-                    </Checkbox>
+                    {JSON.parse(bowList).map((i, k) => {
+                      return (
+                        <Checkbox size="md" ml={5} isChecked={true}>
+                          {i}
+                        </Checkbox>
+                      );
+                    })}
                   </FormControl>
                 </Box>
               </>
@@ -494,7 +560,7 @@ function OpcenReferral(props) {
             </HStack>
             <HStack mt={5}>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>Glasgow coma Scale</FormLabel>
+                <FormLabel fontSize={14}>Glasgow Coma Scale</FormLabel>
                 <Input
                   variant="filled"
                   value={glasgow}
@@ -541,8 +607,9 @@ function OpcenReferral(props) {
               <Select
                 variant="filled"
                 onChange={(e) => setReason(e.target.value)}
+                value={reason}
               >
-                <option value={reason}>{reason}</option>
+                {/* <option value={reason}>{reason}</option> */}
                 <option value="Medical Center of Choice">
                   Medical Center of Choice
                 </option>
@@ -556,8 +623,14 @@ function OpcenReferral(props) {
               </Select>
             </FormControl>
           </Box>
-          <Text textAlign="right" fontSize={12} fontStyle="italic">
-            Last edited by: {username}
+          <Text
+            textAlign="right"
+            fontSize={13}
+            fontStyle="italic"
+            color="red.800"
+            fontWeight={500}
+          >
+            Last edited by {username} {moment(timeStamp).startOf().fromNow()}
           </Text>
           {/* </Box> */}
           <Button

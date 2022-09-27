@@ -74,7 +74,7 @@ function OpcenHome() {
           </Box>
 
           {showContent ? (
-            <Container mt={10} maxW="container.lg">
+            <Container mt={10} maxW="container.xl">
               <Tabs variant="enclosed">
                 <TabList mb="1em">
                   <Tab>
@@ -92,11 +92,9 @@ function OpcenHome() {
 
                 <TabPanels>
                   <TabPanel>
-                    <Center mt={20} w="1400px">
-                      <Box px={20}>
-                        <OpcenReferral patientId={selected} />
-                      </Box>
-                    </Center>
+                    <Box px={20}>
+                      <OpcenReferral patientId={selected} />
+                    </Box>
                   </TabPanel>
                   <TabPanel>
                     <Box>
