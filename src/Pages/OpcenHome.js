@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Home.css";
 import Header from "../Components/Header";
 import api from "../API/Api";
-import ReferralForm from "../Components/ReferralForm";
+import OpcenReferral from "../Components/OpcenReferral";
 import {
   Badge,
   Box,
@@ -89,7 +89,7 @@ function OpcenHome() {
                   <TabPanel>
                     <Center mt={20} w="1400px">
                       <Box px={20}>
-                        <ReferralForm />
+                        <OpcenReferral patientId={selected} />
                       </Box>
                     </Center>
                   </TabPanel>

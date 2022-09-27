@@ -22,6 +22,7 @@ import UserDashboard from "../Pages/UserDashboard";
 import HospiTagubilin from "../Pages/HospiTagubilin";
 import Forbidden from "./Forbidden";
 import OpcenHome from "../Pages/OpcenHome";
+import OpcenReferral from "./OpcenReferral";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -40,6 +41,7 @@ const AnimatedRoutes = () => {
           <Route path="/user" element={<UserDashboard />}></Route>
 
           <Route path="/opcen" element={<OpcenHome />}></Route>
+          <Route path="/opcenref" element={<OpcenReferral />}></Route>
 
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
