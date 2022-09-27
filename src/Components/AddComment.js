@@ -58,7 +58,7 @@ function AddComment(props) {
   return (
     <Box bg="gray.100" p={7} borderRadius={8}>
       <Textarea
-        rows={6}
+        rows={4}
         p={0}
         border="none"
         _focus={{
@@ -69,14 +69,16 @@ function AddComment(props) {
           boxShadow: "none",
         }}
         color="gray.900"
+        value={remark}
         onChange={(e) => setRemark(e.target.value)}
+        style={{ position: "inherit" }}
       />
 
       <Flex mt={5}>
         <Spacer />
-        <IconButton icon={<MdAttachFile />} bg="none" fontSize="20px" mr={2} />
+        {/* <IconButton icon={<MdAttachFile />} bg="none" fontSize="20px" mr={2} /> */}
         <Button onClick={addComment} colorScheme="blue" rightIcon={<BiSend />}>
-          Post
+          Post Remark
         </Button>
       </Flex>
     </Box>

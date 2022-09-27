@@ -108,6 +108,11 @@ function Login() {
   if (user?.role === "nurse") {
     return <Navigate to="/tagubilin" />;
   }
+
+  if (user?.role === "opcen") {
+    return <Navigate to="/opcen" />;
+  }
+
   return (
     <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
       <Center>
