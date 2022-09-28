@@ -18,7 +18,6 @@ import { TbCheckupList } from "react-icons/tb";
 import Swal from "sweetalert2";
 import api from "../API/Api";
 import Loading from "./Spinner";
-import Comment from "./Comment";
 
 function SearchPatient(props) {
   const [isLoading, setIsLoading] = useState(false);
