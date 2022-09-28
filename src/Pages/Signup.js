@@ -141,7 +141,7 @@ function Signup() {
         <Flex
           alignItems="center"
           justify="center"
-          height="580px"
+          height="620px"
           boxShadow="md"
           background="white"
           rounded="lg"

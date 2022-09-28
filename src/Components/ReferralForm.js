@@ -64,7 +64,13 @@ const ReferralForm = () => {
   const [fht, setFht] = useState("");
   const [fh, setFh] = useState("");
   const [apgar, setApgar] = useState("");
-  const [gp, setGp] = useState(["", "", ""]);
+  const [gp, setGp] = useState([
+    {
+      G: "",
+      P: "",
+      GAP: "",
+    },
+  ]);
   const [newIe, setNewIe] = useState("");
   const [newBowList, setNewBowList] = useState("");
   const [newGp, setNewGp] = useState("");
@@ -84,20 +90,11 @@ const ReferralForm = () => {
   ];
 
   const toast = useToast();
-  // function getAge(dateString) {
-  //   var today = new Date();
-  //   var birthDate = new Date(dateString);
-  //   var age = today.getFullYear() - birthDate.getFullYear();
-  //   var m = today.getMonth() - birthDate.getMonth();
-  //   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-  //     age--;
-  //   }
-  //   return age;
-  // }
 
-  const handleGap = (e, i) => {
+  const handleGap = (e) => {
+    const { name, value } = e.target;
     let temp = [...gp];
-    temp[i] = e.target.value;
+    temp[0][name] = value;
     setGp(temp);
   };
 
@@ -112,7 +109,7 @@ const ReferralForm = () => {
   const handleIE = (e) => {
     const { name, value } = e.target;
     let temp = [...ie];
-    temp[0][name] = value + " " + name;
+    temp[0][name] = value;
     setIe(temp);
   };
 
@@ -122,7 +119,6 @@ const ReferralForm = () => {
   const url = "/temp_referral.php";
 
   const postData = async () => {
-    console.log({ gp, apgar, bow, ie });
     // const data = JSON.stringify(bowList);
     // const data1 = data.replaceAll("[", "");
     // const data2 = data1.replaceAll("]", "");
@@ -220,7 +216,7 @@ const ReferralForm = () => {
         fh: fh,
         apgar: apgar,
         newIe: JSON.stringify(ie),
-        newBowList: JSON.stringify(bow),
+        newBowList: JSON.stringify(bowList),
       });
       if (response.data.status === 1) {
         setLastName("");
@@ -259,8 +255,8 @@ const ReferralForm = () => {
         setEdc("");
         setFht("");
         setFh("");
-        setNewIe("");
-        setNewBowList("");
+        setIe("");
+        setBowList("");
         toast({
           position: "top",
           title: "Record successfully.",
@@ -275,12 +271,12 @@ const ReferralForm = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
-  // POST TO SHEETS
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setReferringFacility(user.name.toUpperCase());
     setUserName(user.firstName + "  " + user.lastName);
+    console.log(bowList);
   });
 
   return (
@@ -461,8 +457,7 @@ const ReferralForm = () => {
                 </label>
                 <input
                   type="date"
-                  value="2022-09-13"
-                  // onChange={(e) => setDateAdmitted(e.target.value)}
+                  onChange={(e) => setDateAdmitted(e.target.value)}
                   required
                 />
               </div>
@@ -541,23 +536,23 @@ const ReferralForm = () => {
                         type="text"
                         style={{ width: "50px", textAlign: "center" }}
                         required
-                        name="g"
-                        onChange={(e) => handleGap(e, 0)}
+                        name="G"
+                        onChange={(e) => handleGap(e)}
                       />
                       <small>P</small>
                       <input
                         type="text"
-                        name="p"
+                        name="P"
                         style={{ width: "50px", textAlign: "center" }}
                         required
-                        onChange={(e) => handleGap(e, 1)}
+                        onChange={(e) => handleGap(e)}
                       />
                       <small>(</small>
                       <input
                         type="text"
-                        name="gap"
+                        name="GAP"
                         style={{ width: "150px", textAlign: "center" }}
-                        onChange={(e) => handleGap(e, 2)}
+                        onChange={(e) => handleGap(e)}
                         required
                       />
                       <small>)</small>

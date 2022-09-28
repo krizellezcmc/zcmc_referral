@@ -11,6 +11,7 @@ import {
   Flex,
   Button,
   Center,
+  Checkbox,
 } from "@chakra-ui/react";
 import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
@@ -400,7 +401,7 @@ function SearchPatient(props) {
                             </div>
                           </div>
 
-                          {i.Specialization === "Obstetrics And Gynecology" ? (
+                          {i.specialization === "Obstetrics And Gynecology" ? (
                             <>
                               <Text
                                 mb={3}
@@ -415,7 +416,55 @@ function SearchPatient(props) {
                                     Gravidity and Parity <span>*</span>
                                   </label>
 
-                                  <input disabled type="text" value={i.GP} />
+                                  <div style={{ display: "flex" }}>
+                                    {i.GP !== "" || i.GP !== null
+                                      ? JSON.parse(i.GP).map((el, key) => {
+                                          return (
+                                            <>
+                                              <div className="gp">
+                                                <small>G</small>
+                                                <input
+                                                  type="text"
+                                                  value={el.G}
+                                                  style={{
+                                                    width: "50px",
+                                                    textAlign: "center",
+                                                  }}
+                                                  required
+                                                />
+                                                <small>P</small>
+                                                <input
+                                                  type="text"
+                                                  style={{
+                                                    width: "50px",
+                                                    textAlign: "center",
+                                                  }}
+                                                  value={el.P}
+                                                  required
+                                                />
+                                                <small>(</small>
+                                                <input
+                                                  type="text"
+                                                  value={el.GAP}
+                                                  style={{
+                                                    width: "150px",
+                                                    textAlign: "center",
+                                                  }}
+                                                  required
+                                                />
+                                                <small
+                                                  style={{
+                                                    marginRight: "15px",
+                                                  }}
+                                                >
+                                                  )
+                                                </small>
+                                              </div>
+                                            </>
+                                          );
+                                        })
+                                      : ""}
+                                  </div>
                                 </div>
 
                                 <div className="input-container-3">
@@ -486,12 +535,77 @@ function SearchPatient(props) {
                                 <div className="input-container-2">
                                   <label>Internal Examination</label>
 
-                                  <input disabled value={i.IE} />
+                                  <div style={{ display: "flex" }}>
+                                    {JSON.parse(i.IE).map((el) => {
+                                      return (
+                                        <>
+                                          <input
+                                            style={{
+                                              width: "100%",
+                                              marginRight: "7px",
+                                            }}
+                                            disabled
+                                            value={el.cm}
+                                            required
+                                          />
+                                          <Text fontSize="13px" mt={5} mr={4}>
+                                            cm
+                                          </Text>
+                                          <input
+                                            style={{
+                                              width: "100%",
+                                              marginRight: "7px",
+                                            }}
+                                            disabled
+                                            value={el.station}
+                                            required
+                                          />
+                                          <Text fontSize="13px" mt={5} mr={4}>
+                                            station
+                                          </Text>
+                                          <input
+                                            style={{
+                                              width: "100%",
+                                              marginRight: "7px",
+                                            }}
+                                            disabled
+                                            value={el.effacement}
+                                            required
+                                          />
+                                          <Text fontSize="13px" mt={5} mr={4}>
+                                            effacement
+                                          </Text>
+                                          <input
+                                            style={{
+                                              width: "100%",
+                                              marginRight: "7px",
+                                            }}
+                                            disabled
+                                            value={el.presentation}
+                                            required
+                                          />
+                                          <Text fontSize="13px" mt={5} mr={4}>
+                                            presentation
+                                          </Text>
+                                        </>
+                                      );
+                                    })}
+                                  </div>
                                 </div>
-                                <div className="input-container-2">
+                                <div className="input-container-3">
                                   <label>Bow</label>
 
-                                  <input disabled value={i.bow} />
+                                  <div style={{ display: "flex" }}>
+                                    {JSON.parse(i.bow).map((el) => {
+                                      return (
+                                        <Checkbox mr={4} mt={4} isChecked>
+                                          <Text color="black" fontSize="13.5px">
+                                            {el}
+                                          </Text>
+                                        </Checkbox>
+                                      );
+                                    })}
+                                  </div>
                                 </div>
                               </div>
                             </>
@@ -850,17 +964,11 @@ function SearchPatient(props) {
                       IT
                     </>
                   )}
-                </GridItem>{" "}
+                </GridItem>
               </Grid>
-              <Box mt={6} w="70%">
-                <Text fontSize="xl">Remarks</Text>
-                <Comment />
-                <Comment />
-              </Box>
-              ;
             </>
           );
-        })}{" "}
+        })}
       {/* // <Button onClick={find}>Find</Button> */}
     </div>
   );

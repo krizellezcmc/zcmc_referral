@@ -97,7 +97,7 @@ function OpcenHome() {
                     </Box>
                   </TabPanel>
                   <TabPanel>
-                    <Box>
+                    <Container maxW="container.lg" px={20}>
                       <AddComment patientId={selected} user={user?.userId} />
 
                       <Box>
@@ -114,7 +114,7 @@ function OpcenHome() {
                           );
                         })}
                       </Box>
-                    </Box>
+                    </Container>
                   </TabPanel>
                 </TabPanels>
               </Tabs>

@@ -1,11 +1,19 @@
-import { Avatar, Box, HStack, Text, Stack, Circle } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  HStack,
+  Text,
+  Stack,
+  Circle,
+  Spacer,
+} from "@chakra-ui/react";
 import moment from "moment";
 import React from "react";
 
 function Comment(props) {
   return (
     <div>
-      <Box my={7} w="100%">
+      <Box my={8} w="100%">
         <HStack>
           <Avatar
             name={props.user}
@@ -29,22 +37,20 @@ function Comment(props) {
               </Text>
             </div>
           </Stack>
+          <Spacer />
+          <Text
+            fontSize="12px"
+            fontStyle="italic"
+            fontWeight="500"
+            color="gray.600"
+          >
+            {moment(props.date).format("LLL")}
+          </Text>
         </HStack>
 
         <Box>
           <Text mt={5} ml={14} fontSize="14px" textAlign="justify">
             {props.remark}
-          </Text>
-
-          <Text
-            textAlign="right"
-            fontSize="12px"
-            fontStyle="italic"
-            fontWeight="500"
-            color="gray.600"
-            mt={3}
-          >
-            {moment(props.date).format("LLL")}
           </Text>
         </Box>
       </Box>
