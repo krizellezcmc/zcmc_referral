@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
   Text,
-  useToast,
-  Button,
-  Checkbox,
+  Container,
+  Box,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
   HStack,
+  Button,
+  Textarea,
+  Select,
+  useToast,
+  Checkbox,
+  Flex,
+  Spacer,
   Link,
+  useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -13,7 +25,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
 } from "@chakra-ui/react";
 import "../Styles/ReferralForm.css";
 import moment from "moment";
@@ -276,85 +287,86 @@ const ReferralForm = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     setReferringFacility(user.name.toUpperCase());
     setUserName(user.firstName + "  " + user.lastName);
-    console.log(bowList);
   });
 
   return (
-    <form>
-      <div className="referral-form">
-        <div className="block">
-          <h1>Patient Information</h1>
+    <>
+      <Container p={5} maxW="1200px">
+        {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
+        <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={5}>
+          <Text fontSize="xl" textAlign="center" fontWeight={800}>
+            PATIENT INFORMATION
+          </Text>
+          <HStack mt={8}>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>Last Name</FormLabel>
 
-          <div className="inline-block">
-            <label>
-              Full name <span>*</span>
-            </label>
-            <div className="input-container">
-              <input
-                style={{ textTransform: "uppercase" }}
+              <Input
                 type="text"
+                variant="filled"
                 value={lastname}
-                className="lastname"
-                placeholder="Last name"
                 onChange={(e) => setLastName(e.target.value.toUpperCase())}
-                required
               />
-
-              <input
-                style={{ textTransform: "uppercase" }}
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>First Name</FormLabel>
+              <Input
                 type="text"
+                variant="filled"
                 value={firstname}
-                className="firstname"
-                placeholder="First name"
                 onChange={(e) => setFirstName(e.target.value.toUpperCase())}
-                required
               />
-
-              <input
-                style={{ textTransform: "uppercase" }}
+            </FormControl>
+            <FormControl>
+              <FormLabel>Middle Name</FormLabel>
+              <Input
                 type="text"
-                className="middlename"
-                placeholder="Middle name"
+                variant="filled"
                 value={middlename}
                 onChange={(e) => setMiddleName(e.target.value.toUpperCase())}
               />
-
-              <input
-                style={{ textTransform: "uppercase" }}
+            </FormControl>
+            <FormControl w={80}>
+              <FormLabel fontSize={14}>Suffix</FormLabel>
+              <Input
                 type="text"
+                variant="filled"
                 value={extendedName}
-                className="suffix"
-                placeholder="Suffix"
                 onChange={(e) => setExtendedName(e.target.value.toUpperCase())}
               />
-            </div>
-          </div>
-
-          <div className="inline-block-2">
-            <div className="input-container-4">
-              <label>Birthday</label>
-              <input
-                value={birthdate}
-                type="date"
-                onChange={(e) => setBirthdate(e.target.value)}
-              />
-            </div>
-
-            <div className="input-container-4">
-              <label>Sex</label>
-              <select value={sex} onChange={(e) => setSex(e.target.value)}>
+            </FormControl>
+          </HStack>
+          <HStack mt={5}>
+            <FormControl>
+              <FormLabel fontSize={14}>Birthday</FormLabel>
+              <HStack>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={moment(birthdate).format("LL")}
+                  onChange={(e) => setBirthdate(e.target.value)}
+                />
+              </HStack>
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Sex</FormLabel>
+              <Select
+                value={sex}
+                variant="filled"
+                onChange={(e) => setSex(e.target.value)}
+              >
                 <option value="" selected disabled>
                   Please Select
                 </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Prefer not to say">Prefer not to say</option>
-              </select>
-            </div>
-
-            <div className="input-container-4">
-              <label>Civil Status</label>
-              <select
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Civil Status</FormLabel>
+              <Select
+                variant="filled"
                 value={civilStatus}
                 onChange={(e) => setCivilStatus(e.target.value)}
               >
@@ -366,23 +378,23 @@ const ReferralForm = () => {
                 <option value="Separated">Separated</option>
                 <option value="Widow(er)">Widow(er)</option>
                 <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div className="input-container-4">
-              <label>Nationality</label>
-              <input
-                value={nationality}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Nationality</FormLabel>
+              <Input
                 type="text"
+                variant="filled"
+                value={nationality}
                 onChange={(e) => setNationality(e.target.value)}
               />
-            </div>
-          </div>
-
-          <div className="inline-block-2">
-            <div className="input-container-3">
-              <label>Religion</label>
-              <select
+            </FormControl>
+          </HStack>
+          <HStack mt={5}>
+            <FormControl>
+              <FormLabel fontSize={14}>Religion</FormLabel>
+              <Select
+                variant="filled"
                 value={religion}
                 onChange={(e) => setReligion(e.target.value)}
               >
@@ -393,459 +405,456 @@ const ReferralForm = () => {
                 <option value="Islam">Islam</option>
                 <option value="Protestant">Protestant</option>
                 <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div className="input-container-3">
-              <label>Occupation</label>
-              <input
-                value={occupation}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Occupation</FormLabel>
+              <Input
                 type="text"
+                variant="filled"
+                value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
               />
-            </div>
-
-            <div className="input-container-3">
-              <label>PhilHealth MDR</label>
-              <input
-                value={philhealth}
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>PhilHealth</FormLabel>
+              <Input
                 type="text"
+                variant="filled"
+                value={philhealth}
                 onChange={(e) => setPhilhealth(e.target.value)}
               />
-            </div>
-          </div>
+            </FormControl>
+          </HStack>
+          <FormControl mt={5}>
+            <FormLabel fontSize={14}>Address</FormLabel>
+            <Textarea
+              type="text"
+              variant="filled"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </FormControl>
+        </Box>
 
-          <div className="inline-block">
-            <label>Address</label>
-            <div className="input-container">
-              <textarea
-                value={address}
-                placeholder="Complete full address"
-                onChange={(e) => setAddress(e.target.value)}
-              ></textarea>
-            </div>
-          </div>
-          <div className="block">
-            <h1>Significant Watchers</h1>
+        <Box
+          borderWidth="1px"
+          borderColor="gray.300"
+          borderRadius="lg"
+          p={5}
+          mt={5}
+        >
+          <Text fontSize="xl" textAlign="center" fontWeight={800}>
+            SIGNIFICANT WATCHERS
+          </Text>
+          <HStack mt={8}>
+            <FormControl>
+              <FormLabel fontSize={14}>Next of Kin</FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={nextOfKin}
+                onChange={(e) => setNextOfKin(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Landline/Mobile/Email</FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </FormControl>
+          </HStack>
+        </Box>
 
-            <div className="inline-block-2">
-              <div className="input-container-2">
-                <label>Next of Kin</label>
-                <input
-                  value={nextOfKin}
-                  type="text"
-                  onChange={(e) => setNextOfKin(e.target.value)}
-                />
-              </div>
-
-              <div className="input-container-2">
-                <label>Landline/Mobile/Email</label>
-                <input
-                  value={contact}
-                  type="text"
-                  onChange={(e) => setContact(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="block">
-            <h1>Admitting Details</h1>
-            <div className="inline-block-2">
-              <div className="input-container-4">
-                <label>
-                  Date Admitted <span>*</span>
-                </label>
-                <input
-                  type="date"
-                  onChange={(e) => setDateAdmitted(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container-4">
-                <label>
-                  Referral Type <span>*</span>
-                </label>
-                <select
-                  onChange={(e) => setReferralType(e.target.value)}
-                  required
-                >
-                  <option value="" disabled selected>
-                    Please Select
-                  </option>
-                  <option value="COVID">COVID</option>
-                  <option value="NON-COVID">NON-COVID</option>
-                  <option value="COVID-SUSPECT">COVID-SUSPECT</option>
-                </select>
-              </div>
-
-              <div className="input-container-4">
-                <label>
-                  Disposition <span>*</span>
-                </label>
-                <select
-                  onChange={(e) => setDisposition(e.target.value)}
-                  required
-                >
-                  <option value="" disabled selected>
-                    Please Select
-                  </option>
-                  <option value="Moderate">Moderate</option>
-                  <option value="Mild">Mild</option>
-                  <option value="Severe">Severe</option>
-                  <option value="Critical">Critical</option>
-                </select>
-              </div>
-
-              <div className="input-container-4">
-                <label>
-                  Specialization <span>*</span>
-                </label>
-                <select
-                  onChange={(e) => setSpecialization(e.target.value)}
-                  required
-                >
-                  <option value="" disabled selected>
-                    Please Select
-                  </option>
-                  <option value="Internal Medicine">Internal Medicine</option>
-                  <option value="Pediatrics">Pediatrics</option>
-                  <option value="Surgery">Surgery</option>
-                  <option value="Obstetrics And Gynecology">
-                    Obstetrics And Gynecology
-                  </option>
-                  <option value="Psychiatry">Psychiatry</option>
-                </select>
-              </div>
-            </div>
-
-            {specialization === "Obstetrics And Gynecology" ? (
-              <>
-                <Text mb={3} fontSize="16px" textTransform="uppercase">
-                  For OB Cases:
+        <Box
+          borderWidth="1px"
+          borderColor="gray.300"
+          borderRadius="lg"
+          p={5}
+          mt={5}
+        >
+          <Text fontSize="xl" textAlign="center" fontWeight={800}>
+            ADMITTING DETAILS
+          </Text>
+          <HStack mt={8}>
+            <FormControl>
+              <FormLabel fontSize={14}>Date Admitted</FormLabel>
+              <Input
+                type="date"
+                variant="filled"
+                value={dateAdmitted}
+                onChange={(e) => setDateAdmitted(e.target.value)}
+              />
+            </FormControl>
+            <FormControl w={600}>
+              <FormLabel fontSize={14}>Referral Type</FormLabel>
+              <Select
+                variant="filled"
+                value={referralType}
+                onChange={(e) => setReferralType(e.target.value)}
+              >
+                <option value="" selected disabled>
+                  Please Select
+                </option>
+                <option value="COVID">COVID</option>
+                <option value="NON-COVID">NON-COVID</option>
+                <option value="COVID-SUSPECT">COVID-SUSPECT</option>
+              </Select>
+            </FormControl>
+            <FormControl w={500}>
+              <FormLabel fontSize={14}>Disposition</FormLabel>
+              <Select
+                variant="filled"
+                value={disposition}
+                onChange={(e) => setDisposition(e.target.value)}
+              >
+                <option value="" selected disabled>
+                  Please Select
+                </option>
+                <option value="Moderate">Moderate</option>
+                <option value="Mild">Mild</option>
+                <option value="Severe">Severe</option>
+                <option value="Critical">Critical</option>
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Specialization</FormLabel>
+              <Select
+                variant="filled"
+                value={specialization}
+                onChange={(e) => setSpecialization(e.target.value)}
+              >
+                <option value="" disabled selected>
+                  Please Select
+                </option>
+                <option value="Internal Medicine">Internal Medicine</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Obstetrics And Gynecology">
+                  Obstetrics And Gynecology
+                </option>
+                <option value="Psychiatry">Psychiatry</option>
+              </Select>
+            </FormControl>
+          </HStack>
+          {specialization === "Obstetrics And Gynecology" ? (
+            <>
+              <Box mt={10}>
+                <Text fontSize="xl" textAlign="center" fontWeight={800}>
+                  OB CASE
                 </Text>
-                <div className="inline-block-2">
-                  <div className="input-container-3">
-                    <label>
-                      Gravidity and Parity <span>*</span>
-                    </label>
-
-                    <div className="gp">
-                      <small>G</small>
-                      <input
+                <HStack mt={5}>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Gravidity and Parity</FormLabel>
+                    <HStack>
+                      <Text>G</Text>
+                      <Input
                         type="text"
-                        style={{ width: "50px", textAlign: "center" }}
-                        required
                         name="G"
+                        borderBottom="1px"
+                        w={50}
+                        h={8}
+                        textAlign="center"
                         onChange={(e) => handleGap(e)}
                       />
-                      <small>P</small>
-                      <input
+                      <Text>P</Text>
+                      <Input
                         type="text"
                         name="P"
-                        style={{ width: "50px", textAlign: "center" }}
-                        required
+                        borderBottom="1px"
+                        w={50}
+                        h={8}
+                        textAlign="center"
                         onChange={(e) => handleGap(e)}
                       />
-                      <small>(</small>
-                      <input
+                      <Text>(</Text>
+                      <Input
                         type="text"
                         name="GAP"
-                        style={{ width: "150px", textAlign: "center" }}
+                        borderBottom="1px"
+                        w={100}
+                        h={8}
+                        textAlign="center"
                         onChange={(e) => handleGap(e)}
-                        required
                       />
-                      <small>)</small>
-                    </div>
-                  </div>
-
-                  <div className="input-container-3">
-                    <label>
-                      Last Menstrual Period <span>*</span>
-                    </label>
-                    <input
-                      type="date"
-                      onChange={(e) => setLmp(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="input-container-3">
-                    <label>
-                      AOG <span>*</span>
-                    </label>
-                    <input
+                      <Text>)</Text>
+                    </HStack>
+                  </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Last Menstrual Period</FormLabel>
+                    <Input
                       type="text"
-                      onChange={(e) => setAog(e.target.value)}
-                      required
+                      value={lmp}
+                      onChange={(e) => {
+                        setLmp(e.target.value);
+                      }}
                     />
-                  </div>
-                </div>
-
-                <div className="inline-block-2">
-                  <div className="input-container-4">
-                    <label>
-                      EDC <span>*</span>
-                    </label>
-                    <input
+                  </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>AOG</FormLabel>
+                    <Input
+                      type="text"
+                      value={aog}
+                      onChange={(e) => {
+                        setAog(e.target.value);
+                      }}
+                    />
+                  </FormControl>
+                </HStack>
+                <HStack mt={5}>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>EDC</FormLabel>
+                    <Input
+                      type="text"
+                      value={edc}
                       onChange={(e) => setEdc(e.target.value)}
-                      type="text"
-                      required
                     />
-                  </div>
-                  <div className="input-container-4">
-                    <label>
-                      Fetal Heart Tones <span>*</span>
-                    </label>
-                    <input
+                  </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Fetal Heart Tones</FormLabel>
+                    <Input
+                      type="text"
+                      value={fht}
                       onChange={(e) => setFht(e.target.value)}
-                      type="text"
-                      required
                     />
-                  </div>
-
-                  <div className="input-container-4">
-                    <label>
-                      Fundal Height <span>*</span>
-                    </label>
-                    <input
+                  </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Fundal Height</FormLabel>
+                    <Input
                       type="text"
+                      value={fh}
                       onChange={(e) => setFh(e.target.value)}
-                      required
                     />
-                  </div>
-
-                  <div className="input-container-4">
-                    <label>
-                      Baby APGAR <span>*</span>
-                    </label>
-                    <input
+                  </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Baby APGAR</FormLabel>
+                    <Input
                       type="text"
+                      value={apgar}
                       onChange={(e) => setApgar(e.target.value)}
-                      required
                     />
-                  </div>
-                </div>
-
-                <div className="inline-block-2">
-                  <div className="">
-                    <label>Internal Examination</label>
-
-                    <div className="ie">
-                      <input
-                        type="number"
+                  </FormControl>
+                </HStack>
+                <HStack mt={5}>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Internal Examination</FormLabel>
+                    <HStack>
+                      <Input
+                        type="text"
                         name="cm"
-                        style={{ width: "60px", textAlign: "center" }}
+                        borderBottom="1px"
+                        w={80}
+                        h={8}
+                        textAlign="center"
                         onChange={(e) => handleIE(e)}
                       />
-                      <small>cm</small>
-                      <input
+                      <Text fontSize={14}>cm</Text>
+                      <Input
                         type="text"
                         name="station"
-                        style={{ width: "60px", textAlign: "center" }}
+                        borderBottom="1px"
+                        w={80}
+                        h={8}
+                        textAlign="center"
                         onChange={(e) => handleIE(e)}
                       />
-                      <small>station</small>
-                      <input
+                      <Text fontSize={14}>station</Text>
+                      <Input
                         type="text"
                         name="effacement"
-                        style={{ width: "90px", textAlign: "center" }}
+                        borderBottom="1px"
+                        h={8}
+                        textAlign="center"
                         onChange={(e) => handleIE(e)}
                       />
-                      <small>effacement</small>
-                      <input
+                      <Text fontSize={14}>effacement</Text>
+                      <Input
                         type="text"
                         name="presentation"
-                        style={{ width: "160px", textAlign: "center" }}
+                        borderBottom="1px"
+                        h={8}
+                        textAlign="center"
                         onChange={(e) => handleIE(e)}
                       />
-                      <small>presentation</small>
-                    </div>
-                  </div>
-                  <div className="input-container-bow">
-                    <label>Bow</label>
-                    <div className="bow">
-                      {bow.map((i, k) => {
-                        return (
-                          <>
-                            <input
-                              type="checkbox"
-                              value={i.value}
-                              onChange={(e) => {
-                                handleSelect(e, i.value);
-                              }}
-                            />
-                            <small>{i.value}</small>
-                          </>
-                        );
-                      })}
-                      {/* <input type="checkbox" /> <small>Ruptured</small>
-                  <input type="checkbox" /> <small>Intubated</small> */}
-                    </div>
-                  </div>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
-            <div className="inline-block-2" style={{ marginTop: "20px" }}>
-              <div className="input-container-5">
-                <label>
-                  Latest V/S-Temperature <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setTemperature(e.target.value)}
-                  required
-                />
-              </div>
+                      <Text fontSize={14}>presentation</Text>
+                    </HStack>
+                  </FormControl>
+                </HStack>
+                <FormControl mt={5}>
+                  <FormLabel fontSize={14}>Bow</FormLabel>
+                  {bow.map((i, k) => {
+                    return (
+                      <Checkbox
+                        size="sm"
+                        ml={5}
+                        value={i.value}
+                        onChange={(e) => {
+                          handleSelect(e, i.value);
+                        }}
+                      >
+                        {i.value}
+                      </Checkbox>
+                    );
+                  })}
+                </FormControl>
+              </Box>
+            </>
+          ) : (
+            ""
+          )}
+          <HStack mt={10}>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>
+                Latest V/S- <br></br>Temperature
+              </FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={temperature}
+                onChange={(e) => setTemperature(e.target.value)}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>
+                Latest V/S-Blood <br></br> Pressure
+              </FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={bloodPressure}
+                onChange={(e) => setBloodPressure(e.target.value)}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>Latest V/S-Respiration Rate</FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={respiRate}
+                onChange={(e) => setRespiRate(e.target.value)}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>
+                Latest V/S-Pulse <br></br>Rate
+              </FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={pulseRate}
+                onChange={(e) => setPulseRate(e.target.value)}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>Latest V/S-Oxygen Saturation</FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={oxygen}
+                onChange={(e) => setOxygen(e.target.value)}
+              />
+            </FormControl>
+          </HStack>
+          <HStack mt={5}>
+            <FormControl isRequired>
+              <FormLabel fontSize={14}>Glasgow Coma Scale</FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={glasgow}
+                onChange={(e) => setGlasgow(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Endorsement/Initial Care</FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={endorsement}
+                onChange={(e) => setEndorsement(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Resident on Duty/Contact #</FormLabel>
+              <Input
+                type="text"
+                variant="filled"
+                value={userContact}
+                onChange={(e) => setUserContact(e.target.value)}
+              />
+            </FormControl>
+          </HStack>
+          <HStack mt={5}>
+            <FormControl>
+              <FormLabel fontSize={14}>Chief Complaints</FormLabel>
+              <Textarea
+                variant="filled"
+                value={chiefComplaints}
+                onChange={(e) => setChiefComplaints(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Diagnosis</FormLabel>
+              <Textarea
+                variant="filled"
+                value={diagnosis}
+                onChange={(e) => setDiagnosis(e.target.value)}
+              />
+            </FormControl>
+          </HStack>
+          <FormControl mt={5} isRequired>
+            <FormLabel fontSize={14}> Reason for Referral</FormLabel>
+            <Select
+              variant="filled"
+              onChange={(e) => setReason(e.target.value)}
+              value={reason}
+            >
+              {/* <option value={reason}>{reason}</option> */}
+              <option value="" disabled selected>
+                Please Select
+              </option>
+              <option value="Medical Center of Choice">
+                Medical Center of Choice
+              </option>
+              <option value="Upgrade of Health Care">
+                Upgrade of Health Care
+              </option>
+              <option value="Financial/Cost of Care">
+                Financial/Cost of Care
+              </option>
+              <option value="Other">Other</option>
+            </Select>
+          </FormControl>
+        </Box>
 
-              <div className="input-container-5">
-                <label>
-                  Latest V/S-Blood Pressure <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setBloodPressure(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container-5">
-                <label>
-                  Latest V/S-Respiration Rate <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setRespiRate(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container-5">
-                <label>
-                  Latest V/S Pulse Rate <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setPulseRate(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container-5">
-                <label>
-                  Latest V/S-Oxygen Saturation <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setOxygen(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="inline-block-2">
-              <div className="input-container-3">
-                <label>
-                  Glasgow Coma Scale <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setGlasgow(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container-3">
-                <label>Endorsement/Initial Care</label>
-                <input
-                  type="text"
-                  onChange={(e) => setEndorsement(e.target.value)}
-                />
-              </div>
-
-              <div className="input-container-3">
-                <label>Resident on Duty/Contact #</label>
-                <input
-                  type="text"
-                  onChange={(e) => setUserContact(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="inline-block-2">
-              <div className="input-container-2">
-                <label>Chief Complaints</label>
-                <textarea
-                  onChange={(e) => setChiefComplaints(e.target.value)}
-                  style={{
-                    marginTop: "5px",
-                    minWidth: "0px",
-                    borderRadius: "5px",
-                    resize: "none",
-                  }}
-                ></textarea>
-              </div>
-
-              <div className="input-container-2">
-                <label>Diagnosis</label>
-                <textarea
-                  onChange={(e) => setDiagnosis(e.target.value)}
-                  style={{
-                    marginTop: "5px",
-                    minWidth: "0px",
-                    borderRadius: "5px",
-                    resize: "none",
-                  }}
-                ></textarea>
-              </div>
-            </div>
-
-            <div className="inline-block-2">
-              <div className="input-container-1">
-                <label>
-                  Reason for Referral <span>*</span>
-                </label>
-
-                <select onChange={(e) => setReason(e.target.value)}>
-                  <option value="" disabled selected>
-                    Please Select
-                  </option>
-                  <option value="Medical Center of Choice">
-                    Medical Center of Choice
-                  </option>
-                  <option value="Upgrade of Health Care">
-                    Upgrade of Health Care
-                  </option>
-                  <option value="Financial/Cost of Care">
-                    Financial/Cost of Care
-                  </option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </div>
-            <HStack mt={5}>
-              <Checkbox required></Checkbox>
-              <p style={{ fontSize: "14px", marginTop: "3px" }}>
-                The patient understands and accepts the terms and conditions of
-                the
-              </p>
-              <Link fontSize="14px" color="blue" onClick={onOpen} mt={3}>
-                Patient Agreement Form
-              </Link>
-            </HStack>
-            {/* CLOSE */}
-          </div>
-
-          <div className="resferral-btns">
-            <Button variant="solid" colorScheme="green" onClick={postData}>
-              Submit
-            </Button>
-          </div>
-          {/* CLOSING  TAG */}
-        </div>
-      </div>
+        <HStack mt={5} mb={5}>
+          <Checkbox></Checkbox>
+          <p style={{ fontSize: "14px", marginTop: "3px" }}>
+            The patient understands and accepts the terms and conditions of the
+          </p>
+          <Link fontSize="14px" color="blue" mt={3} onClick={onOpen}>
+            Patient Agreement Form
+          </Link>
+        </HStack>
+        <Flex>
+          <Spacer />
+          <Button
+            // isLoading={load}
+            // loadingText="Saving"
+            // spinnerPlacement="start"
+            colorScheme="teal"
+            variant="outline"
+            mt={5}
+            onClick={postData}
+            w={150}
+          >
+            Submit
+          </Button>
+        </Flex>
+      </Container>
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -854,111 +863,135 @@ const ReferralForm = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign="center">
+          <ModalHeader textAlign="center" mt={5}>
             <p style={{ fontWeight: "500", fontSize: "15px" }}>
               One Hospital Command
-            </p>{" "}
+            </p>
             Patient Agreement Form
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <p>
-              <strong>Introduction and Purpose:</strong> The ZCMC Regional
-              Telemedicine Center has been established to provide sound medical
-              advice to other healthcare providers through various
-              telecommunication systems available. This may involve live two-way
-              audio and video, patient pictures, medical images, patient’s
-              medical records and other things that may be pertinent to the
-              process of telemedicine. It does not have direct physical contact
-              with the parties involved and relies solely on the information
-              being given by the referring hospital. Electronic systems will
-              utilize network and software security protocols to protect patient
-              identity, privacy and confidentiality and to safeguard data and
-              prevent corruption of data against intentional or unintentional
-              corruption. <br />
-              <br />
-              <strong>Nature of the teleconsultation:</strong> It was explained
-              to me by my attending physician that an SMS, phone call, online
-              chat or video conferencing technology will be used to conduct the
-              telemedicine consultation. I understand that as in the
-              face-to-face consultation, my medical history along with my
-              laboratory test/s, imaging results and other documents pertinent
-              to my concerns will be shared by my attending physician to the
-              ZCMC telemedicine specialists. Moreover, I may be asked to show
-              certain body parts as may be considered important to form a
-              diagnosis. This is in view of the fact that the specialist we will
-              be referring to will not be in the same hospital as I am and would
-              not be able to perform the necessary physical examination on me.{" "}
-              <br />
-              <br />
-              <strong>Benefits:</strong> Through the use of teleconsultation, my
-              attending physicians will be able to concur with certain
-              specialists who will in turn aid them in obtaining a medical
-              evaluation and impression of my condition. I may receive guidance
-              on monitoring my condition and the next steps to do should my
-              condition change, specific prescription on what to take,
-              instructions on what laboratory and imaging tests to do. <br />
-              <br />
-              <strong>Potential Risks:</strong> I understand there are potential
-              risks in using this technology, including technical difficulties,
-              interruptions, poor transmission of images leading to misdiagnosis
-              and consequently mistreatment, no access to paper charts/medical
-              records, delays and deficiencies due to malfunction of electronic
-              equipment and software, unauthorized access leading to breach of
-              data privacy and confidentiality. <br />
-              <br />
-              All consultations are considered confidential but given the nature
-              of technology, I understand that despite using appropriate
-              measures, the ZCMC Telemedicine Regional Center OPD and other
-              related units cannot guarantee the safety of my personal data from
-              data hacking. Therefore, I cannot hold them liable for any data
-              that may be lost, corrupted, destroyed or intercepted or the
-              illegal use of my data arising from a breach in security. <br />
-              <br />
-              <strong>Data Privacy and Confidentiality:</strong> I agree to
-              share my personal data in order to facilitate scheduling of my
-              consultation and to be utilized for research purposes. I agree not
-              to record in video or audio format nor divulge the details of my
-              consultation in compliance with the Data Privacy Act of 2012.{" "}
-              <br />
-              <br />
-              <strong>Rights:</strong> I have the right to: 1. Terminate the
-              telemedicine teleconsultation at any time. 2. Be accompanied and
-              assisted by a family member or caregiver during the
-              teleconsultation. <br />
-              <br />
-              <strong>Limitations:</strong> The strength of network signal, the
-              speed of the internet,audibility of the sound, the presence of
-              background noise, clarity of the images, all affect the quality of
-              the telemedicine consultation. Physical examination as done in the
-              usual face-to-face consultation is not possible and is therefore a
-              big limitation to the process of making a diagnosis. <br />
-              <br /> <strong>In case of an urgent concern:</strong> It is my
-              doctor’s responsibility to refer me to the nearest Emergency Room
-              or hospital of my choice in case he/she deems my concern to be
-              urgent and would warrant immediate action and management. <br />
-              <br />I acknowledge that prior to engaging in such consultation
-              platform, I have been made fully aware of its purpose, scopes and
-              limitations. <br />
-              <br />I further acknowledge that consent was given to share my
-              medical history, records and laboratory results for the purpose of
-              discussion, in accordance with the RA 10173 Data Privacy Act.{" "}
-              <br />
-              <br />I further acknowledge that I am aware this virtual encounter
-              will be recorded and all details be kept confidential between my
-              attending physician and the ZCMC Telemedicine healthcare personnel
-              involved. <br />
-              <br />
-              I further acknowledge given that this is only a virtual consult,
-              the ZCMC Regional Telemedicine Center along with its doctors shall
-              not be held directly liable for my care or for any other untoward
-              events that may occur in between, thus freeing them from any legal
-              responsibilities in the future. <br />
-              <br />I fully understand the nature, processes, risks and benefits
-              of teleconsultation as they were shared in a language that I can
-              understand. I was given the opportunity to ask questions and my
-              questions were answered.
-            </p>
+          <ModalBody textAlign="justify">
+            <Box
+              borderWidth="1px"
+              borderColor="gray.300"
+              borderRadius="md"
+              backgroundColor="gray.100"
+              padding={5}
+              mt={5}
+            >
+              <p>
+                <strong>Introduction and Purpose:</strong> The ZCMC Regional
+                Telemedicine Center has been established to provide sound
+                medical advice to other healthcare providers through various
+                telecommunication systems available. This may involve live
+                two-way audio and video, patient pictures, medical images,
+                patient’s medical records and other things that may be pertinent
+                to the process of telemedicine. It does not have direct physical
+                contact with the parties involved and relies solely on the
+                information being given by the referring hospital. Electronic
+                systems will utilize network and software security protocols to
+                protect patient identity, privacy and confidentiality and to
+                safeguard data and prevent corruption of data against
+                intentional or unintentional corruption. <br />
+                <br />
+                <strong>Nature of the teleconsultation:</strong> It was
+                explained to me by my attending physician that an SMS, phone
+                call, online chat or video conferencing technology will be used
+                to conduct the telemedicine consultation. I understand that as
+                in the face-to-face consultation, my medical history along with
+                my laboratory test/s, imaging results and other documents
+                pertinent to my concerns will be shared by my attending
+                physician to the ZCMC telemedicine specialists. Moreover, I may
+                be asked to show certain body parts as may be considered
+                important to form a diagnosis. This is in view of the fact that
+                the specialist we will be referring to will not be in the same
+                hospital as I am and would not be able to perform the necessary
+                physical examination on me. <br />
+                <br />
+                <strong>Benefits:</strong> Through the use of teleconsultation,
+                my attending physicians will be able to concur with certain
+                specialists who will in turn aid them in obtaining a medical
+                evaluation and impression of my condition. I may receive
+                guidance on monitoring my condition and the next steps to do
+                should my condition change, specific prescription on what to
+                take, instructions on what laboratory and imaging tests to do.{" "}
+                <br />
+                <br />
+                <strong>Potential Risks:</strong> I understand there are
+                potential risks in using this technology, including technical
+                difficulties, interruptions, poor transmission of images leading
+                to misdiagnosis and consequently mistreatment, no access to
+                paper charts/medical records, delays and deficiencies due to
+                malfunction of electronic equipment and software, unauthorized
+                access leading to breach of data privacy and confidentiality.{" "}
+                <br />
+                <br />
+                All consultations are considered confidential but given the
+                nature of technology, I understand that despite using
+                appropriate measures, the ZCMC Telemedicine Regional Center OPD
+                and other related units cannot guarantee the safety of my
+                personal data from data hacking. Therefore, I cannot hold them
+                liable for any data that may be lost, corrupted, destroyed or
+                intercepted or the illegal use of my data arising from a breach
+                in security. <br />
+                <br />
+                <strong>Data Privacy and Confidentiality:</strong> I agree to
+                share my personal data in order to facilitate scheduling of my
+                consultation and to be utilized for research purposes. I agree
+                not to record in video or audio format nor divulge the details
+                of my consultation in compliance with the Data Privacy Act of
+                2012. <br />
+                <br />
+                <strong>Rights:</strong> I have the right to: 1. Terminate the
+                telemedicine teleconsultation at any time. 2. Be accompanied and
+                assisted by a family member or caregiver during the
+                teleconsultation. <br />
+                <br />
+                <strong>Limitations:</strong> The strength of network signal,
+                the speed of the internet,audibility of the sound, the presence
+                of background noise, clarity of the images, all affect the
+                quality of the telemedicine consultation. Physical examination
+                as done in the usual face-to-face consultation is not possible
+                and is therefore a big limitation to the process of making a
+                diagnosis. <br />
+              </p>
+            </Box>
+            <Box
+              borderWidth="1px"
+              borderColor="gray.300"
+              borderRadius="md"
+              backgroundColor="gray.100"
+              padding={5}
+              mt={5}
+            >
+              <p>
+                <strong>In case of an urgent concern:</strong> It is my doctor’s
+                responsibility to refer me to the nearest Emergency Room or
+                hospital of my choice in case he/she deems my concern to be
+                urgent and would warrant immediate action and management. <br />
+                <br />I acknowledge that prior to engaging in such consultation
+                platform, I have been made fully aware of its purpose, scopes
+                and limitations. <br />
+                <br />I further acknowledge that consent was given to share my
+                medical history, records and laboratory results for the purpose
+                of discussion, in accordance with the RA 10173 Data Privacy Act.{" "}
+                <br />
+                <br />I further acknowledge that I am aware this virtual
+                encounter will be recorded and all details be kept confidential
+                between my attending physician and the ZCMC Telemedicine
+                healthcare personnel involved. <br />
+                <br />
+                I further acknowledge given that this is only a virtual consult,
+                the ZCMC Regional Telemedicine Center along with its doctors
+                shall not be held directly liable for my care or for any other
+                untoward events that may occur in between, thus freeing them
+                from any legal responsibilities in the future. <br />
+                <br />I fully understand the nature, processes, risks and
+                benefits of teleconsultation as they were shared in a language
+                that I can understand. I was given the opportunity to ask
+                questions and my questions were answered.
+              </p>
+            </Box>
           </ModalBody>
 
           <ModalFooter>
@@ -968,7 +1001,7 @@ const ReferralForm = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </form>
+    </>
   );
 };
 
