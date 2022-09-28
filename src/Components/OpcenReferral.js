@@ -188,8 +188,7 @@ function OpcenReferral(props) {
   return (
     <div>
       <form>
-        {props.patientId}
-        <Container p={5} maxW="1000px">
+        <Container px={5} maxW="1000px">
           {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
           <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={5}>
             <Text fontSize="xl" textAlign="center" fontWeight={800}>

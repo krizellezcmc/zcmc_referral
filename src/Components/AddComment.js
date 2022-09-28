@@ -9,11 +9,11 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BiSend } from "react-icons/bi";
-import { MdAttachFile } from "react-icons/md";
 import api from "../API/Api";
 
 function AddComment(props) {
   const [remark, setRemark] = useState("");
+  const [load, setLoad] = useState(false);
 
   let toast = useToast();
 
@@ -27,31 +27,36 @@ function AddComment(props) {
         duration: 500,
         isClosable: true,
       });
-    }
-
-    let response = await api.post("/add_comment.php", {
-      patientId: props.patientId,
-      remark: remark,
-      user: props.user,
-    });
-
-    if (response.data.status === 1) {
-      setRemark("");
-      toast({
-        title: "Posted.",
-        description: "The remark has been posted.",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
     } else {
-      toast({
-        title: "Error.",
-        description: response.data.message,
-        status: "error",
-        duration: 2000,
-        isClosable: true,
+      setLoad(true);
+      let response = await api.post("/add_comment.php", {
+        patientId: props.patientId,
+        remark: remark,
+        user: props.user,
       });
+
+      if (response) {
+        setLoad(false);
+      }
+
+      if (response.data.status === 1) {
+        setRemark("");
+        toast({
+          title: "Posted.",
+          description: "The remark has been posted.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Error.",
+          description: response.data.message,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
     }
   };
 
@@ -77,7 +82,13 @@ function AddComment(props) {
       <Flex mt={5}>
         <Spacer />
         {/* <IconButton icon={<MdAttachFile />} bg="none" fontSize="20px" mr={2} /> */}
-        <Button onClick={addComment} colorScheme="blue" rightIcon={<BiSend />}>
+        <Button
+          onClick={addComment}
+          colorScheme="blue"
+          isLoading={load}
+          loadingText="Posting"
+          rightIcon={<BiSend />}
+        >
           Post Remark
         </Button>
       </Flex>
