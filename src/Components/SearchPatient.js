@@ -1,17 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Select } from "chakra-react-select";
 import moment from "moment";
 import "../Styles/StatusBar.css";
+import { Select } from "chakra-react-select";
 import {
   Box,
   Badge,
   Text,
   Grid,
   GridItem,
-  Flex,
   Button,
   Center,
+  Container,
+  FormControl,
+  FormLabel,
+  Input,
+  HStack,
+  Textarea,
   Checkbox,
+  Flex,
+  Spacer,
+  Link,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
@@ -27,6 +43,9 @@ function SearchPatient(props) {
   const [hospital, setHospital] = useState("");
   const [covid, setCovid] = useState([]);
   const [id, setId] = useState("");
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
 
   patient
     .filter((l) => l.refFacility === hospital.toUpperCase())
@@ -139,6 +158,7 @@ function SearchPatient(props) {
         <Select
           options={patient}
           placeholder="Search patient"
+          variant="flushed"
           selectedOptionStyle="check"
           closeMenuOnSelect={true}
           focusBorderColor="#058e46"
@@ -148,7 +168,6 @@ function SearchPatient(props) {
           width="100%"
           x
           required
-          useBasicStyles
           id="searchbar"
         />
       </div>
@@ -229,517 +248,493 @@ function SearchPatient(props) {
               </Center>
               <Grid templateColumns="repeat(3, 1fr)" gap={6}>
                 <GridItem colSpan={2}>
-                  <div className="referral-form-search">
-                    <div className="block">
-                      <Flex>
-                        <h1>Patient Information</h1>
-                      </Flex>
+                  <Container p={5} maxW="1200px">
+                    {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
+                    <Box
+                      borderWidth="1px"
+                      borderColor="gray.300"
+                      borderRadius="lg"
+                      p={5}
+                    >
+                      <Text fontSize="xl" textAlign="center" fontWeight={800}>
+                        PATIENT INFORMATION
+                      </Text>
+                      <HStack mt={8}>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>Last Name</FormLabel>
 
-                      <div className="inline-block">
-                        <label>
-                          Full name <span>*</span>
-                        </label>
-                        <div className="input-container">
-                          <input
-                            disabled
-                            style={{ textTransform: "uppercase" }}
+                          <Input
                             type="text"
-                            value={i.lastname}
-                            className="lastname"
-                            placeholder="Last name"
-                            required
-                          />
-                          <input
+                            variant="filled"
+                            value={i.lastname.toUpperCase()}
                             disabled
-                            style={{ textTransform: "uppercase" }}
-                            type="text"
-                            value={i.firstname}
-                            className="firstname"
                           />
-                          <input
+                        </FormControl>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>First Name</FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.firstname.toUpperCase()}
                             disabled
-                            style={{ textTransform: "uppercase" }}
-                            type="text"
-                            className="middlename"
-                            placeholder="Middle name"
-                            value={i.middleName}
                           />
-                          <input
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Middle Name</FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.middleName.toUpperCase()}
                             disabled
-                            style={{ textTransform: "uppercase" }}
-                            type="text"
-                            value={i.extended}
-                            className="suffix"
-                            placeholder="Suffix"
                           />
-                        </div>
-                        <div className="inline-block-2">
-                          <div className="input-container-4">
-                            <label>Birthday</label>
-                            <input
-                              disabled
-                              value={moment(i.birthdate).format("LL")}
+                        </FormControl>
+                        <FormControl w={80}>
+                          <FormLabel fontSize={14}>Suffix</FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.extended.toUpperCase()}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                      <HStack mt={5}>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Birthday</FormLabel>
+                          <HStack>
+                            <Input
                               type="text"
-                            />
-                          </div>
-
-                          <div className="input-container-4">
-                            <label>Sex</label>
-                            <input disabled value={i.sex} type="text" />
-                          </div>
-
-                          <div className="input-container-4">
-                            <label>Civil Status</label>
-                            <select value={i.civilStatus}>
-                              <option value={i.civilStatus} selected disabled>
-                                {i.CivilStatus}
-                              </option>
-                            </select>
-                          </div>
-
-                          <div className="input-container-4">
-                            <label>Nationality</label>
-                            <input disabled value={i.nationality} type="text" />
-                          </div>
-                        </div>
-                        <div className="inline-block-2">
-                          <div className="input-container-3">
-                            <label>Religion</label>
-                            <select value={i.religion}>
-                              <option value="" selected>
-                                {i.Religion}
-                              </option>
-                            </select>
-                          </div>
-
-                          <div className="input-container-3">
-                            <label>Occupation</label>
-                            <input disabled value={i.occupation} type="text" />
-                          </div>
-
-                          <div className="input-container-3">
-                            <label>PhilHealth MDR</label>
-                            <input disabled value={i.philhealth} type="text" />
-                          </div>
-                        </div>
-                        <div className="inline-block">
-                          <label>Address</label>
-                          <div className="input-container">
-                            <textarea
+                              variant="filled"
+                              value={moment(i.birthdate).format("LL")}
                               disabled
-                              rows="1"
-                              value={i.address}
-                            ></textarea>
-                          </div>
-                        </div>
-                        <div className="block">
-                          <h1>Significant Watchers</h1>
+                            />
+                          </HStack>
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Sex</FormLabel>
+                          <Input value={i.sex} variant="filled" disabled />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Civil Status</FormLabel>
+                          <Input
+                            variant="filled"
+                            value={i.civilStatus}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Nationality</FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.nationality}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                      <HStack mt={5}>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Religion</FormLabel>
+                          <Input variant="filled" value={i.religion} disabled />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Occupation</FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.occupation}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>PhilHealth</FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.philhealth}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                      <FormControl mt={5}>
+                        <FormLabel fontSize={14}>Address</FormLabel>
+                        <Textarea
+                          type="text"
+                          variant="filled"
+                          value={i.address}
+                          disabled
+                        />
+                      </FormControl>
+                    </Box>
 
-                          <div className="inline-block-2">
-                            <div className="input-container-2">
-                              <label>Next of Kin</label>
-                              <input disabled value={i.nextOfKin} type="text" />
-                            </div>
+                    <Box
+                      borderWidth="1px"
+                      borderColor="gray.300"
+                      borderRadius="lg"
+                      p={5}
+                      mt={5}
+                    >
+                      <Text fontSize="xl" textAlign="center" fontWeight={800}>
+                        SIGNIFICANT WATCHERS
+                      </Text>
+                      <HStack mt={8}>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Next of Kin</FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.nextOfkin}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>
+                            Landline/Mobile/Email
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.contactWatcher}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                    </Box>
 
-                            <div className="input-container-2">
-                              <label>Landline/Mobile/Email</label>
-                              <input
-                                disabled
-                                value={i.contactWatcher}
-                                type="text"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="block">
-                          <h1>Admitting Details</h1>
+                    <Box
+                      borderWidth="1px"
+                      borderColor="gray.300"
+                      borderRadius="lg"
+                      p={5}
+                      mt={5}
+                    >
+                      <Text fontSize="xl" textAlign="center" fontWeight={800}>
+                        ADMITTING DETAILS
+                      </Text>
+                      <HStack mt={8}>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Date Admitted</FormLabel>
+                          <Input
+                            type="date"
+                            variant="filled"
+                            value={i.dateAdmitted}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl w={600}>
+                          <FormLabel fontSize={14}>Referral Type</FormLabel>
+                          <Input variant="filled" value={i.refType} disabled />
+                        </FormControl>
+                        <FormControl w={500}>
+                          <FormLabel fontSize={14}>Disposition</FormLabel>
+                          <Input
+                            variant="filled"
+                            value={i.disposition}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Specialization</FormLabel>
+                          <Input
+                            variant="filled"
+                            value={i.specialization}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                      {i.specialization === "Obstetrics And Gynecology" ? (
+                        <>
+                          <Box mt={10}>
+                            <Text
+                              fontSize="xl"
+                              textAlign="center"
+                              fontWeight={800}
+                            >
+                              OB CASE
+                            </Text>
+                            <HStack mt={5}>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>
+                                  Gravidity and Parity
+                                </FormLabel>
+                                <HStack>
+                                  {i.GP !== "" || i.GP !== null
+                                    ? JSON.parse(i.GP).map((el, key) => {
+                                        return (
+                                          <>
+                                            <Text>G</Text>
+                                            <Input
+                                              type="text"
+                                              value={el.G}
+                                              borderBottom="1px"
+                                              w={50}
+                                              h={8}
+                                              textAlign="center"
+                                              disabled
+                                            />
+                                            <Text>P</Text>
+                                            <Input
+                                              type="text"
+                                              value={el.P}
+                                              borderBottom="1px"
+                                              w={50}
+                                              h={8}
+                                              textAlign="center"
+                                              disabled
+                                            />
+                                            <Text>(</Text>
+                                            <Input
+                                              type="text"
+                                              value={el.GAP}
+                                              borderBottom="1px"
+                                              w={100}
+                                              h={8}
+                                              textAlign="center"
+                                              disabled
+                                            />
+                                            <Text>)</Text>
+                                          </>
+                                        );
+                                      })
+                                    : ""}
+                                </HStack>
+                              </FormControl>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>
+                                  Last Menstrual Period
+                                </FormLabel>
+                                <Input type="text" value={i.LMP} disabled />
+                              </FormControl>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>AOG</FormLabel>
+                                <Input type="text" value={i.AOG} disabled />
+                              </FormControl>
+                            </HStack>
+                            <HStack mt={5}>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>EDC</FormLabel>
+                                <Input type="text" value={i.EDC} disabled />
+                              </FormControl>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>
+                                  Fetal Heart Tones
+                                </FormLabel>
+                                <Input type="text" value={i.FHT} disabled />
+                              </FormControl>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>
+                                  Fundal Height
+                                </FormLabel>
+                                <Input type="text" value={i.FH} disabled />
+                              </FormControl>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>Baby APGAR</FormLabel>
+                                <Input type="text" value={i.APGAR} disabled />
+                              </FormControl>
+                            </HStack>
+                            <HStack mt={5}>
+                              <FormControl isRequired>
+                                <FormLabel fontSize={14}>
+                                  Internal Examination
+                                </FormLabel>
+                                <HStack>
+                                  {JSON.parse(i.IE).map((el) => {
+                                    return (
+                                      <>
+                                        <Input
+                                          type="text"
+                                          borderBottom="1px"
+                                          w={80}
+                                          h={8}
+                                          textAlign="center"
+                                          disabled
+                                          value={el.cm}
+                                        />
+                                        <Text fontSize={14}>cm</Text>
+                                        <Input
+                                          type="text"
+                                          borderBottom="1px"
+                                          w={80}
+                                          h={8}
+                                          textAlign="center"
+                                          disabled
+                                          value={el.station}
+                                        />
+                                        <Text fontSize={14}>station</Text>
+                                        <Input
+                                          type="text"
+                                          borderBottom="1px"
+                                          h={8}
+                                          textAlign="center"
+                                          disabled
+                                          value={el.effacement}
+                                        />
+                                        <Text fontSize={14}>effacement</Text>
+                                        <Input
+                                          type="text"
+                                          borderBottom="1px"
+                                          h={8}
+                                          textAlign="center"
+                                          disabled
+                                          value={el.presentation}
+                                        />
+                                        <Text fontSize={14}>presentation</Text>
+                                      </>
+                                    );
+                                  })}
+                                </HStack>
+                              </FormControl>
+                            </HStack>
+                            <FormControl mt={5}>
+                              <FormLabel fontSize={14}>Bow</FormLabel>
+                              {JSON.parse(i.bow).map((el) => {
+                                return (
+                                  <Checkbox size="sm" ml={5} isChecked={true}>
+                                    {el}
+                                  </Checkbox>
+                                );
+                              })}
+                            </FormControl>
+                          </Box>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                      <HStack mt={10}>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>
+                            Latest V/S- <br></br>Temperature
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.latestTemp}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>
+                            Latest V/S-Blood <br></br> Pressure
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.latestBp}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>
+                            Latest V/S-Respiration Rate
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.latestRespi}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>
+                            Latest V/S-Pulse <br></br>Rate
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.latestPulse}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>
+                            Latest V/S-Oxygen Saturation
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.latestOxygen}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                      <HStack mt={5}>
+                        <FormControl isRequired>
+                          <FormLabel fontSize={14}>
+                            Glasgow Coma Scale
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.latestGlasgow}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>
+                            Endorsement/Initial Care
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.endorsement}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>
+                            Resident on Duty/Contact #
+                          </FormLabel>
+                          <Input
+                            type="text"
+                            variant="filled"
+                            value={i.userContact}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                      <HStack mt={5}>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Chief Complaints</FormLabel>
+                          <Textarea
+                            variant="filled"
+                            value={i.chiefComplaints}
+                            disabled
+                          />
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel fontSize={14}>Diagnosis</FormLabel>
+                          <Textarea
+                            variant="filled"
+                            value={i.diagnosis}
+                            disabled
+                          />
+                        </FormControl>
+                      </HStack>
+                      <FormControl mt={5} isRequired>
+                        <FormLabel fontSize={14}>
+                          {" "}
+                          Reason for Referral
+                        </FormLabel>
+                        <Input variant="filled" value={i.reason} disabled />
+                      </FormControl>
+                    </Box>
 
-                          <div className="inline-block-2">
-                            <div className="input-container-4">
-                              <label>
-                                Date Admitted <span>*</span>
-                              </label>
-                              <input
-                                disabled
-                                value={i.dateAdmitted}
-                                type="text"
-                              />
-                            </div>
-
-                            <div className="input-container-4">
-                              <label>
-                                Referral Type <span>*</span>
-                              </label>
-                              <select value={i.refType}>
-                                <option value={i.refType} disabled selected>
-                                  {i.refType}
-                                </option>
-                              </select>
-                            </div>
-
-                            <div className="input-container-4">
-                              <label>
-                                Disposition <span>*</span>
-                              </label>
-                              <select value={i.disposition}>
-                                <option disabled selected>
-                                  {i.disposition}
-                                </option>
-                              </select>
-                            </div>
-
-                            <div className="input-container-4">
-                              <label>
-                                Specialization <span>*</span>
-                              </label>
-                              <select value={i.Specialization}>
-                                <option disabled selected>
-                                  {i.specialization}
-                                </option>
-                              </select>
-                            </div>
-                          </div>
-
-                          {i.specialization === "Obstetrics And Gynecology" ? (
-                            <>
-                              <Text
-                                mb={3}
-                                fontSize="16px"
-                                textTransform="uppercase"
-                              >
-                                For OB Cases:
-                              </Text>
-                              <div className="inline-block-2">
-                                <div className="input-container-3">
-                                  <label>
-                                    Gravidity and Parity <span>*</span>
-                                  </label>
-
-                                  <div style={{ display: "flex" }}>
-                                    {i.GP !== "" || i.GP !== null
-                                      ? JSON.parse(i.GP).map((el, key) => {
-                                          return (
-                                            <>
-                                              <div className="gp">
-                                                <small>G</small>
-                                                <input
-                                                  type="text"
-                                                  value={el.G}
-                                                  style={{
-                                                    width: "50px",
-                                                    textAlign: "center",
-                                                  }}
-                                                  required
-                                                />
-                                                <small>P</small>
-                                                <input
-                                                  type="text"
-                                                  style={{
-                                                    width: "50px",
-                                                    textAlign: "center",
-                                                  }}
-                                                  value={el.P}
-                                                  required
-                                                />
-                                                <small>(</small>
-                                                <input
-                                                  type="text"
-                                                  value={el.GAP}
-                                                  style={{
-                                                    width: "150px",
-                                                    textAlign: "center",
-                                                  }}
-                                                  required
-                                                />
-                                                <small
-                                                  style={{
-                                                    marginRight: "15px",
-                                                  }}
-                                                >
-                                                  )
-                                                </small>
-                                              </div>
-                                            </>
-                                          );
-                                        })
-                                      : ""}
-                                  </div>
-                                </div>
-
-                                <div className="input-container-3">
-                                  <label>
-                                    Last Menstrual Period <span>*</span>
-                                  </label>
-                                  <input disabled value={i.LMP} required />
-                                </div>
-
-                                <div className="input-container-3">
-                                  <label>
-                                    AOG <span>*</span>
-                                  </label>
-                                  <input
-                                    disabled
-                                    type="text"
-                                    value={i.AOG}
-                                    required
-                                  />
-                                </div>
-                              </div>
-
-                              <div className="inline-block-2">
-                                <div className="input-container-4">
-                                  <label>
-                                    EDC <span>*</span>
-                                  </label>
-                                  <input disabled value={i.EDC} required />
-                                </div>
-                                <div className="input-container-4">
-                                  <label>
-                                    Fetal Heart Tones <span>*</span>
-                                  </label>
-                                  <input
-                                    disabled
-                                    type="text"
-                                    value={i.FHT}
-                                    required
-                                  />
-                                </div>
-
-                                <div className="input-container-4">
-                                  <label>
-                                    Fundal Height <span>*</span>
-                                  </label>
-                                  <input
-                                    disabled
-                                    type="text"
-                                    value={i.FH}
-                                    required
-                                  />
-                                </div>
-
-                                <div className="input-container-4">
-                                  <label>
-                                    Baby APGAR <span>*</span>
-                                  </label>
-                                  <input
-                                    disabled
-                                    type="text"
-                                    value={i.APGAR}
-                                    required
-                                  />
-                                </div>
-                              </div>
-
-                              <div className="inline-block-2">
-                                <div className="input-container-2">
-                                  <label>Internal Examination</label>
-
-                                  <div style={{ display: "flex" }}>
-                                    {JSON.parse(i.IE).map((el) => {
-                                      return (
-                                        <>
-                                          <input
-                                            style={{
-                                              width: "100%",
-                                              marginRight: "7px",
-                                            }}
-                                            disabled
-                                            value={el.cm}
-                                            required
-                                          />
-                                          <Text fontSize="13px" mt={5} mr={4}>
-                                            cm
-                                          </Text>
-                                          <input
-                                            style={{
-                                              width: "100%",
-                                              marginRight: "7px",
-                                            }}
-                                            disabled
-                                            value={el.station}
-                                            required
-                                          />
-                                          <Text fontSize="13px" mt={5} mr={4}>
-                                            station
-                                          </Text>
-                                          <input
-                                            style={{
-                                              width: "100%",
-                                              marginRight: "7px",
-                                            }}
-                                            disabled
-                                            value={el.effacement}
-                                            required
-                                          />
-                                          <Text fontSize="13px" mt={5} mr={4}>
-                                            effacement
-                                          </Text>
-                                          <input
-                                            style={{
-                                              width: "100%",
-                                              marginRight: "7px",
-                                            }}
-                                            disabled
-                                            value={el.presentation}
-                                            required
-                                          />
-                                          <Text fontSize="13px" mt={5} mr={4}>
-                                            presentation
-                                          </Text>
-                                        </>
-                                      );
-                                    })}
-                                  </div>
-                                </div>
-                                <div className="input-container-3">
-                                  <label>Bow</label>
-
-                                  <div style={{ display: "flex" }}>
-                                    {JSON.parse(i.bow).map((el) => {
-                                      return (
-                                        <Checkbox mr={4} mt={4} isChecked>
-                                          <Text color="black" fontSize="13.5px">
-                                            {el}
-                                          </Text>
-                                        </Checkbox>
-                                      );
-                                    })}
-                                  </div>
-                                </div>
-                              </div>
-                            </>
-                          ) : (
-                            ""
-                          )}
-
-                          <div className="inline-block-2">
-                            <div className="input-container-5">
-                              <label>
-                                Latest V/S-Temperature <span>*</span>
-                              </label>
-                              <input
-                                disabled
-                                value={i.latestTemp}
-                                type="text"
-                              />
-                            </div>
-
-                            <div className="input-container-5">
-                              <label>
-                                Latest V/S-Blood Pressure <span>*</span>
-                              </label>
-                              <input disabled value={i.latestBp} type="text" />
-                            </div>
-
-                            <div className="input-container-5">
-                              <label>
-                                Latest V/S-Respiration Rate <span>*</span>
-                              </label>
-                              <input
-                                disabled
-                                value={i.latestRespi}
-                                type="text"
-                              />
-                            </div>
-
-                            <div className="input-container-5">
-                              <label>
-                                Latest V/S Pulse Rate <span>*</span>
-                              </label>
-                              <input
-                                disabled
-                                value={i.latestPulse}
-                                type="text"
-                              />
-                            </div>
-
-                            <div className="input-container-5">
-                              <label>
-                                Latest V/S-Oxygen Saturation <span>*</span>
-                              </label>
-                              <input
-                                disabled
-                                value={i.latestOxygen}
-                                type="text"
-                              />
-                            </div>
-                          </div>
-
-                          <div className="inline-block-2">
-                            <div className="input-container-3">
-                              <label>
-                                Glasgow Coma Scale <span>*</span>
-                              </label>
-                              <input
-                                disabled
-                                value={i.latestGlasgow}
-                                type="text"
-                              />
-                            </div>
-
-                            <div className="input-container-3">
-                              <label>Endorsement/Initial Care</label>
-                              <input
-                                disabled
-                                value={i.endorsement}
-                                type="text"
-                              />
-                            </div>
-
-                            <div className="input-container-3">
-                              <label>Resident on Duty/Contact #</label>
-                              <input
-                                disabled
-                                value={i.userContact}
-                                type="text"
-                              />
-                            </div>
-                          </div>
-
-                          <div className="inline-block-2">
-                            <div className="input-container-2">
-                              <label>Chief Complaints</label>
-                              <textarea
-                                disabled
-                                value={i.chiefComplaints}
-                                style={{
-                                  marginTop: "5px",
-                                  minWidth: "0px",
-                                  borderRadius: "5px",
-                                  resize: "none",
-                                }}
-                              ></textarea>
-                            </div>
-
-                            <div className="input-container-2">
-                              <label>Diagnosis</label>
-                              <textarea
-                                disabled
-                                value={i.diagnosis}
-                                style={{
-                                  marginTop: "5px",
-                                  minWidth: "0px",
-                                  borderRadius: "5px",
-                                  resize: "none",
-                                }}
-                              ></textarea>
-                            </div>
-                          </div>
-
-                          <div className="inline-block-2">
-                            <div className="input-container-1">
-                              <label>Reason for Referral</label>
-                              <select value={i.ReasonforReferral}>
-                                <option value="" disabled selected>
-                                  {i.reason}
-                                </option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    <HStack mt={5} mb={5}>
+                      <Checkbox isChecked={true}></Checkbox>
+                      <p style={{ fontSize: "14px", marginTop: "3px" }}>
+                        The patient understands and accepts the terms and
+                        conditions of the
+                      </p>
+                      <Link
+                        fontSize="14px"
+                        color="blue"
+                        mt={3}
+                        onClick={onOpen}
+                      >
+                        Patient Agreement Form
+                      </Link>
+                    </HStack>
+                  </Container>
                 </GridItem>
                 <GridItem
                   p={3}
@@ -968,6 +963,152 @@ function SearchPatient(props) {
             </>
           );
         })}
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        scrollBehavior={scrollBehavior}
+        size="2xl"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign="center" mt={5}>
+            <p style={{ fontWeight: "500", fontSize: "15px" }}>
+              One Hospital Command
+            </p>
+            Patient Agreement Form
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody textAlign="justify">
+            <Box
+              borderWidth="1px"
+              borderColor="gray.300"
+              borderRadius="md"
+              backgroundColor="gray.100"
+              padding={5}
+              mt={5}
+            >
+              <p>
+                <strong>Introduction and Purpose:</strong> The ZCMC Regional
+                Telemedicine Center has been established to provide sound
+                medical advice to other healthcare providers through various
+                telecommunication systems available. This may involve live
+                two-way audio and video, patient pictures, medical images,
+                patient’s medical records and other things that may be pertinent
+                to the process of telemedicine. It does not have direct physical
+                contact with the parties involved and relies solely on the
+                information being given by the referring hospital. Electronic
+                systems will utilize network and software security protocols to
+                protect patient identity, privacy and confidentiality and to
+                safeguard data and prevent corruption of data against
+                intentional or unintentional corruption. <br />
+                <br />
+                <strong>Nature of the teleconsultation:</strong> It was
+                explained to me by my attending physician that an SMS, phone
+                call, online chat or video conferencing technology will be used
+                to conduct the telemedicine consultation. I understand that as
+                in the face-to-face consultation, my medical history along with
+                my laboratory test/s, imaging results and other documents
+                pertinent to my concerns will be shared by my attending
+                physician to the ZCMC telemedicine specialists. Moreover, I may
+                be asked to show certain body parts as may be considered
+                important to form a diagnosis. This is in view of the fact that
+                the specialist we will be referring to will not be in the same
+                hospital as I am and would not be able to perform the necessary
+                physical examination on me. <br />
+                <br />
+                <strong>Benefits:</strong> Through the use of teleconsultation,
+                my attending physicians will be able to concur with certain
+                specialists who will in turn aid them in obtaining a medical
+                evaluation and impression of my condition. I may receive
+                guidance on monitoring my condition and the next steps to do
+                should my condition change, specific prescription on what to
+                take, instructions on what laboratory and imaging tests to do.{" "}
+                <br />
+                <br />
+                <strong>Potential Risks:</strong> I understand there are
+                potential risks in using this technology, including technical
+                difficulties, interruptions, poor transmission of images leading
+                to misdiagnosis and consequently mistreatment, no access to
+                paper charts/medical records, delays and deficiencies due to
+                malfunction of electronic equipment and software, unauthorized
+                access leading to breach of data privacy and confidentiality.{" "}
+                <br />
+                <br />
+                All consultations are considered confidential but given the
+                nature of technology, I understand that despite using
+                appropriate measures, the ZCMC Telemedicine Regional Center OPD
+                and other related units cannot guarantee the safety of my
+                personal data from data hacking. Therefore, I cannot hold them
+                liable for any data that may be lost, corrupted, destroyed or
+                intercepted or the illegal use of my data arising from a breach
+                in security. <br />
+                <br />
+                <strong>Data Privacy and Confidentiality:</strong> I agree to
+                share my personal data in order to facilitate scheduling of my
+                consultation and to be utilized for research purposes. I agree
+                not to record in video or audio format nor divulge the details
+                of my consultation in compliance with the Data Privacy Act of
+                2012. <br />
+                <br />
+                <strong>Rights:</strong> I have the right to: 1. Terminate the
+                telemedicine teleconsultation at any time. 2. Be accompanied and
+                assisted by a family member or caregiver during the
+                teleconsultation. <br />
+                <br />
+                <strong>Limitations:</strong> The strength of network signal,
+                the speed of the internet,audibility of the sound, the presence
+                of background noise, clarity of the images, all affect the
+                quality of the telemedicine consultation. Physical examination
+                as done in the usual face-to-face consultation is not possible
+                and is therefore a big limitation to the process of making a
+                diagnosis. <br />
+              </p>
+            </Box>
+            <Box
+              borderWidth="1px"
+              borderColor="gray.300"
+              borderRadius="md"
+              backgroundColor="gray.100"
+              padding={5}
+              mt={5}
+            >
+              <p>
+                <strong>In case of an urgent concern:</strong> It is my doctor’s
+                responsibility to refer me to the nearest Emergency Room or
+                hospital of my choice in case he/she deems my concern to be
+                urgent and would warrant immediate action and management. <br />
+                <br />I acknowledge that prior to engaging in such consultation
+                platform, I have been made fully aware of its purpose, scopes
+                and limitations. <br />
+                <br />I further acknowledge that consent was given to share my
+                medical history, records and laboratory results for the purpose
+                of discussion, in accordance with the RA 10173 Data Privacy Act.{" "}
+                <br />
+                <br />I further acknowledge that I am aware this virtual
+                encounter will be recorded and all details be kept confidential
+                between my attending physician and the ZCMC Telemedicine
+                healthcare personnel involved. <br />
+                <br />
+                I further acknowledge given that this is only a virtual consult,
+                the ZCMC Regional Telemedicine Center along with its doctors
+                shall not be held directly liable for my care or for any other
+                untoward events that may occur in between, thus freeing them
+                from any legal responsibilities in the future. <br />
+                <br />I fully understand the nature, processes, risks and
+                benefits of teleconsultation as they were shared in a language
+                that I can understand. I was given the opportunity to ask
+                questions and my questions were answered.
+              </p>
+            </Box>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       {/* // <Button onClick={find}>Find</Button> */}
     </div>
   );
