@@ -6,7 +6,6 @@ import OpcenReferral from "../Components/OpcenReferral";
 import {
   Badge,
   Box,
-  Center,
   Container,
   Tab,
   TabList,
@@ -19,26 +18,33 @@ import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
 import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
+import Loading from "../Components/Spinner";
+import axios from "axios";
 
 function OpcenHome() {
   const [showContent, setShowContent] = useState(false);
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState("");
   const [remarks, setRemarks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useAuth();
 
   const select = (e) => {
     setSelected(e);
-    setShowContent(true);
+    setIsLoading(false);
   };
 
   const fetchComments = async () => {
+    setIsLoading(true);
     let response = await api.get("/get_comment.php", {
       params: { patientId: selected },
     });
-
     setRemarks(response.data);
+
+    if (response) {
+      setIsLoading(false);
+    }
   };
 
   const fetchPatients = async (e) => {
@@ -46,10 +52,21 @@ function OpcenHome() {
     setList(pat.data);
   };
 
+  if (!remarks) {
+    setIsLoading(true);
+  }
+
   useEffect(() => {
+    axios
+      .get("http://192.168.3.121/zcmc_referral_api/api/get_comment.php", {
+        params: { patientId: selected },
+      })
+      .then((response) => {
+        setRemarks(response.data);
+        setIsLoading(false);
+      });
     fetchPatients();
-    fetchComments();
-  }, [selected]);
+  });
 
   return (
     <div className="container">
@@ -73,7 +90,11 @@ function OpcenHome() {
             />
           </Box>
 
-          {showContent ? (
+          {isLoading ? (
+            <Container>
+              <Loading />
+            </Container>
+          ) : (
             <Container mt={10} maxW="container.xl">
               <Tabs variant="enclosed">
                 <TabList mb="1em">
@@ -119,8 +140,6 @@ function OpcenHome() {
                 </TabPanels>
               </Tabs>
             </Container>
-          ) : (
-            ""
           )}
         </div>
       </div>
