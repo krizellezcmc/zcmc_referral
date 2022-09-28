@@ -14,6 +14,8 @@ import {
   Select,
   useToast,
   Checkbox,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
 import api from "../API/Api";
 import moment from "moment";
@@ -196,28 +198,31 @@ function OpcenReferral(props) {
             </Text>
             <HStack mt={8}>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>Full Name</FormLabel>
-                <HStack>
-                  <Input
-                    variant="filled"
-                    value={lastname}
-                    onChange={(e) => setLastName(e.target.value.toUpperCase())}
-                  />
-                  <Input
-                    variant="filled"
-                    value={firstname}
-                    onChange={(e) => setFirstName(e.target.value.toUpperCase())}
-                  />
-                  <Input
-                    variant="filled"
-                    value={middlename}
-                    onChange={(e) =>
-                      setMiddleName(e.target.value.toUpperCase())
-                    }
-                  />
-                </HStack>
+                <FormLabel fontSize={14}>Last Name</FormLabel>
+
+                <Input
+                  variant="filled"
+                  value={lastname}
+                  onChange={(e) => setLastName(e.target.value.toUpperCase())}
+                />
               </FormControl>
-              <FormControl w={150}>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>First Name</FormLabel>
+                <Input
+                  variant="filled"
+                  value={firstname}
+                  onChange={(e) => setFirstName(e.target.value.toUpperCase())}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Middle Name</FormLabel>
+                <Input
+                  variant="filled"
+                  value={middlename}
+                  onChange={(e) => setMiddleName(e.target.value.toUpperCase())}
+                />
+              </FormControl>
+              <FormControl w={80}>
                 <FormLabel fontSize={14}>Suffix</FormLabel>
                 <Input
                   variant="filled"
@@ -242,19 +247,29 @@ function OpcenReferral(props) {
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Sex</FormLabel>
-                <Input
-                  variant="filled"
+                <Select
                   value={sex}
+                  variant="filled"
                   onChange={(e) => setSex(e.target.value)}
-                />
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </Select>
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Civil Status</FormLabel>
-                <Input
+                <Select
                   variant="filled"
                   value={civilStatus}
                   onChange={(e) => setCivilStatus(e.target.value)}
-                />
+                >
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Separated">Separated</option>
+                  <option value="Widow(er)">Widow(er)</option>
+                  <option value="Other">Other</option>
+                </Select>
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Nationality</FormLabel>
@@ -268,11 +283,16 @@ function OpcenReferral(props) {
             <HStack mt={5}>
               <FormControl>
                 <FormLabel fontSize={14}>Religion</FormLabel>
-                <Input
+                <Select
                   variant="filled"
                   value={religion}
                   onChange={(e) => setReligion(e.target.value)}
-                />
+                >
+                  <option value="Roman Catholic">Roman Catholic</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Protestant">Protestant</option>
+                  <option value="Other">Other</option>
+                </Select>
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Occupation</FormLabel>
@@ -353,19 +373,28 @@ function OpcenReferral(props) {
               </FormControl>
               <FormControl w={500}>
                 <FormLabel fontSize={14}>Referral Type</FormLabel>
-                <Input
+                <Select
                   variant="filled"
                   value={referralType}
                   onChange={(e) => setReferralType(e.target.value)}
-                />
+                >
+                  <option value="COVID">COVID</option>
+                  <option value="NON-COVID">NON-COVID</option>
+                  <option value="COVID-SUSPECT">COVID-SUSPECT</option>
+                </Select>
               </FormControl>
               <FormControl w={500}>
                 <FormLabel fontSize={14}>Disposition</FormLabel>
-                <Input
+                <Select
                   variant="filled"
                   value={disposition}
                   onChange={(e) => setDisposition(e.target.value)}
-                />
+                >
+                  <option value="Moderate">Moderate</option>
+                  <option value="Mild">Mild</option>
+                  <option value="Severe">Severe</option>
+                  <option value="Critical">Critical</option>
+                </Select>
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Specialization</FormLabel>
@@ -373,12 +402,13 @@ function OpcenReferral(props) {
                   variant="filled"
                   value={specialization}
                   onChange={(e) => setSpecialization(e.target.value)}
+                  disabled
                 />
               </FormControl>
             </HStack>
             {specialization === "Obstetrics And Gynecology" ? (
               <>
-                <Box mt={5}>
+                <Box mt={10}>
                   <Text fontSize="xl" textAlign="center" fontWeight={800}>
                     OB CASE
                   </Text>
@@ -386,71 +416,104 @@ function OpcenReferral(props) {
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Gravidity and Parity</FormLabel>
                       <HStack>
-                        {/* {getGp.map((i, k) => {
-                          <>{i}</>;
-                        })} */}
-
-                        {JSON.parse(getGp).map((e, k) => {
-                          return (
-                            <>
-                              <Text>G</Text>
-                              <Input
-                                type="text"
-                                borderBottom="1px"
-                                w={50}
-                                h={8}
-                                textAlign="center"
-                                value={e.G}
-                              />
-                              <Text>P</Text>
-                              <Input
-                                type="text"
-                                borderBottom="1px"
-                                w={50}
-                                h={8}
-                                textAlign="center"
-                                value={e.P}
-                              />
-                              <Text>(</Text>
-                              <Input
-                                type="text"
-                                borderBottom="1px"
-                                w={100}
-                                h={8}
-                                textAlign="center"
-                                value={e.GAP}
-                              />
-                              <Text>)</Text>
-                            </>
-                          );
-                        })}
+                        {getGp == "" || getGp == null ? (
+                          ""
+                        ) : (
+                          <>
+                            {JSON.parse(getGp).map((e, k) => {
+                              return (
+                                <>
+                                  <Text>G</Text>
+                                  <Input
+                                    type="text"
+                                    borderBottom="1px"
+                                    w={50}
+                                    h={8}
+                                    textAlign="center"
+                                    value={e.G}
+                                    isDisabled
+                                  />
+                                  <Text>P</Text>
+                                  <Input
+                                    type="text"
+                                    borderBottom="1px"
+                                    w={50}
+                                    h={8}
+                                    textAlign="center"
+                                    value={e.P}
+                                    isDisabled
+                                  />
+                                  <Text>(</Text>
+                                  <Input
+                                    type="text"
+                                    borderBottom="1px"
+                                    w={100}
+                                    h={8}
+                                    textAlign="center"
+                                    value={e.GAP}
+                                    isDisabled
+                                  />
+                                  <Text>)</Text>
+                                </>
+                              );
+                            })}
+                          </>
+                        )}
                       </HStack>
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Last Menstrual Period</FormLabel>
-                      <Input type="text" value={lmp} />
+                      <Input
+                        type="text"
+                        value={lmp}
+                        onChange={(e) => {
+                          setLmp(e.target.value);
+                        }}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>AOG</FormLabel>
-                      <Input type="text" value={aog} />
+                      <Input
+                        type="text"
+                        value={aog}
+                        onChange={(e) => {
+                          setAog(e.target.value);
+                        }}
+                      />
                     </FormControl>
                   </HStack>
                   <HStack mt={5}>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>EDC</FormLabel>
-                      <Input type="text" value={edc} />
+                      <Input
+                        type="text"
+                        value={edc}
+                        onChange={(e) => setEdc(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Fetal Heart Tones</FormLabel>
-                      <Input type="text" value={fht} />
+                      <Input
+                        type="text"
+                        value={fht}
+                        onChange={(e) => setFht(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Fundal Height</FormLabel>
-                      <Input type="text" value={fh} />
+                      <Input
+                        type="text"
+                        value={fh}
+                        onChange={(e) => setFh(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Baby APGAR</FormLabel>
-                      <Input type="text" value={apgar} />
+                      <Input
+                        type="text"
+                        value={apgar}
+                        onChange={(e) => setApgar(e.target.value)}
+                      />
                     </FormControl>
                   </HStack>
                   <HStack mt={5}>
@@ -466,6 +529,7 @@ function OpcenReferral(props) {
                                 w={80}
                                 h={8}
                                 value={i.cm}
+                                isDisabled
                               />
                               <Text fontSize={14}>cm</Text>
                               <Input
@@ -474,6 +538,7 @@ function OpcenReferral(props) {
                                 w={80}
                                 h={8}
                                 value={i.station}
+                                isDisabled
                               />
                               <Text fontSize={14}>station</Text>
                               <Input
@@ -481,6 +546,7 @@ function OpcenReferral(props) {
                                 borderBottom="1px"
                                 h={8}
                                 value={i.effacement}
+                                isDisabled
                               />
                               <Text fontSize={14}>effacement</Text>
                               <Input
@@ -488,6 +554,7 @@ function OpcenReferral(props) {
                                 borderBottom="1px"
                                 h={8}
                                 value={i.presentation}
+                                isDisabled
                               />
                               <Text fontSize={14}>presentation</Text>
                             </>
@@ -500,7 +567,7 @@ function OpcenReferral(props) {
                     <FormLabel fontSize={14}>Bow</FormLabel>
                     {JSON.parse(bowList).map((i, k) => {
                       return (
-                        <Checkbox size="md" ml={5} isChecked={true}>
+                        <Checkbox size="sm" ml={5} isChecked={true}>
                           {i}
                         </Checkbox>
                       );
@@ -623,7 +690,7 @@ function OpcenReferral(props) {
             </FormControl>
           </Box>
           <Text
-            textAlign="right"
+            textAlign="left"
             fontSize={13}
             fontStyle="italic"
             color="red.800"
@@ -632,14 +699,18 @@ function OpcenReferral(props) {
             Last edited by {username} {moment(timeStamp).startOf().fromNow()}
           </Text>
           {/* </Box> */}
-          <Button
-            colorScheme="teal"
-            variant="outline"
-            mt={5}
-            onClick={updateData}
-          >
-            Save
-          </Button>
+          <Flex>
+            <Spacer />
+            <Button
+              colorScheme="teal"
+              variant="outline"
+              mt={5}
+              onClick={updateData}
+              w={150}
+            >
+              Save
+            </Button>
+          </Flex>
         </Container>
       </form>
     </div>
