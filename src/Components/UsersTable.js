@@ -189,7 +189,9 @@ const UsersTable = () => {
       <Grid templateColumns="repeat(8,1fr)" gap={4}>
         <GridItem colSpan={5} bg="white">
           <div className="table-container">
-            <h1 className="block">Verified Users</h1>
+            <Text fontSize={20} fontWeight={800} mb={5}>
+              VERIFIED USERS
+            </Text>
             <div
               style={{
                 display: "flex",
@@ -208,6 +210,12 @@ const UsersTable = () => {
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search user"
                   width="400px"
+                  _hover={{ borderColor: "green" }}
+                  _focus={{
+                    boxShadow: "none",
+                    outline: "none",
+                    borderColor: "green",
+                  }}
                 />
               </InputGroup>
             </div>
@@ -287,9 +295,9 @@ const UsersTable = () => {
 
         <GridItem colSpan={3}>
           <div className="side-container" style={{ padding: "15px" }}>
-            <h1 style={{ marginBottom: "10px" }}>
-              <b>For Verification</b>
-            </h1>
+            <Text fontWeight={800} mb={10}>
+              FOR VERIFICATION
+            </Text>
 
             <VStack spacing={2}>
               {userVerify.length !== 0 ? (

@@ -23,10 +23,8 @@ import HospiTagubilin from "../Pages/HospiTagubilin";
 import Forbidden from "./Forbidden";
 import OpcenHome from "../Pages/OpcenHome";
 import OpcenReferral from "./OpcenReferral";
-import Verify from "../Pages/Verify";
-import Recover from "../Pages/Recover";
-import ForgotPassword from "../Pages/ForgotPassword";
-import Success from "../Pages/Success";
+import OpcenTable from "./OpcenTable";
+import OpcenHome2 from "../Pages/OpcenHome2";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -42,8 +40,10 @@ const AnimatedRoutes = () => {
           <Route path="/recover" element={<Recover />} />
           <Route path="/success" element={<Success />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/newpassword" element={<ForgotPassword />} />
-          <Route path="/tagubilinreport" element={<TagubilinPrescription />} />
+          <Route
+            path="/tagubilinreport/:id"
+            element={<TagubilinPrescription />}
+          />
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/user" element={<UserDashboard />}></Route>
 
@@ -51,6 +51,9 @@ const AnimatedRoutes = () => {
 
           <Route path="/opcen" element={<OpcenHome />}></Route>
           <Route path="/opcenref" element={<OpcenReferral />}></Route>
+          <Route path="/patientlist" element={<Patient />} />
+          <Route path="/opcentable" element={<OpcenTable />}></Route>
+          <Route path="/opcenhome/:id" element={<OpcenHome2 />}></Route>
 
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
@@ -79,7 +82,6 @@ const AnimatedRoutes = () => {
             <Route path="/admindashboard" element={<AdminDashboard />} />
             <Route path="/addhospital" element={<AddHospital />} />
             <Route path="/verifyuser" element={<VerifyUser />} />
-            <Route path="/patientlist" element={<Patient />} />
           </Route>
         </Route>
       </Routes>

@@ -24,6 +24,7 @@ import {
   InputGroup,
   InputLeftElement,
   Center,
+  Text,
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
 import api from "../API/Api";
@@ -109,7 +110,9 @@ const AddHospiForm = () => {
   return (
     <>
       <div className="table-container ">
-        <h1 className="block">List of Hospitals</h1>
+        <Text fontWeight={800} fontSize={20} mb={5}>
+          REFERRING HOSPITALS
+        </Text>
         <div className="add-hospital-btn" style={{ marginBottom: "25px" }}>
           <InputGroup>
             <InputLeftElement
@@ -122,6 +125,12 @@ const AddHospiForm = () => {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search hospital"
               width="400px"
+              _hover={{ borderColor: "green" }}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+                borderColor: "green",
+              }}
             />
           </InputGroup>
         </div>

@@ -96,7 +96,9 @@ const ReferredPatients = () => {
 
   return (
     <div className="table-container">
-      <h1 className="block">Referred Patients</h1>
+      <Text fontWeight={800} fontSize={20} mb={5}>
+        REFERRERD PATIENTS
+      </Text>
       <div
         style={{
           display: "flex",
@@ -115,6 +117,12 @@ const ReferredPatients = () => {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search User"
             width="400px"
+            _hover={{ borderColor: "green" }}
+            _focus={{
+              boxShadow: "none",
+              outline: "none",
+              borderColor: "green",
+            }}
           />
         </InputGroup>
         <Button
@@ -124,7 +132,7 @@ const ReferredPatients = () => {
             navigate("/home");
           }}
         >
-          + Refer patient
+          + Refer Patient
         </Button>
       </div>
       {isLoading ? (

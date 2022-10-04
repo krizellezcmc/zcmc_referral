@@ -11,6 +11,7 @@ import {
   HiUsers,
   HiOutlineUserAdd,
   HiUserGroup,
+  HiDocumentAdd,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -60,13 +61,6 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </li> */}
 
-            <li
-              className={path.includes("patientlist") ? "active" : ""}
-              onClick={() => navigate("/patientlist")}
-            >
-              <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
-              <span>Patient List</span>
-            </li>
             <li
               className={path.includes("verifyuser") ? "active" : ""}
               onClick={() => navigate("/verifyuser")}
@@ -139,6 +133,29 @@ const Sidebar = () => {
             >
               <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
               <span>Account Settings</span>
+            </li>
+          </>
+        ) : role === "opcen" ? (
+          <>
+            <li
+              className={path.includes("patientlist") ? "active" : ""}
+              onClick={() => navigate("/patientlist")}
+            >
+              <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
+              <span>Patient List</span>
+            </li>
+            <li
+              className={path.includes("opcen") ? "active" : ""}
+              onClick={() => navigate("/opcen")}
+            >
+              <p>
+                {path.includes("verifyuser") ? (
+                  <HiDocumentAdd />
+                ) : (
+                  <HiDocumentAdd />
+                )}
+              </p>
+              <span>Referrals</span>
             </li>
           </>
         ) : (

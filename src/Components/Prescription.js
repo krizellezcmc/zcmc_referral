@@ -6,25 +6,20 @@ import "../Styles/DisplayReport.css";
 import "../Styles/Prescription.css";
 import { Button } from "@chakra-ui/react";
 import moment from "moment";
+import api from "../API/Api";
 
-function Prescription() {
-  const [refName, setRefName] = useState("");
-  const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
-  const [ward, setWard] = useState("");
+function Prescription(props) {
   const [med, setMed] = useState([]);
-  const [resident, setResident] = useState("");
   // const [counter, setCounter]=useState(0);
-
+  const getMeds = async () => {
+    let meds = await api.get("/get_medhospi.php", {
+      params: { mid: props.medId },
+    });
+    setMed(meds.data);
+  };
   useEffect(() => {
-    let refpatient = JSON.parse(localStorage.getItem("refpatient"));
-    setRefName(refpatient.patientName);
-    setAge(refpatient.age);
-    setSex(refpatient.sex);
-    setWard(refpatient.ward);
-    setMed(refpatient.medications);
-    setResident(refpatient.resident);
-  }, []);
+    getMeds();
+  }, [med]);
 
   var zcmcLogo = require("../Assets/zcmc-logo.png");
   var dohLogo = require("../Assets/doh-logo.png");
@@ -60,29 +55,29 @@ function Prescription() {
           </div>
           <div style={{ marginTop: "10px" }}>
             <p className="pfullname">Patient's Name :</p>
-            <p className="pfullname-line">{refName}</p>
+            <p className="pfullname-line">{props.name}</p>
           </div>
           <p className="pdetails">Age :</p>
-          {!age ? (
+          {!props.age ? (
             <p className="pdetails-line">--</p>
           ) : (
-            <p className="pdetails-line">{age}</p>
+            <p className="pdetails-line">{props.age}</p>
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Sex :
           </p>
-          {!sex ? (
+          {!props.sex ? (
             <p className="pdetails-line">-</p>
           ) : (
-            <p className="pward-line">{sex}</p>
+            <p className="pward-line">{props.sex}</p>
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Ward :
           </p>
-          {!ward ? (
+          {!props.ward ? (
             <p className="pward-line">--</p>
           ) : (
-            <p className="pward-line">{ward}</p>
+            <p className="pward-line">{props.ward}</p>
           )}
 
           <p className="pdetails" style={{ marginLeft: "20px" }}>
@@ -134,7 +129,7 @@ function Prescription() {
             </div>
             <div>
               <p className="signature-label">Printed Name</p>
-              <p className="sign-line">{resident} MD</p>
+              <p className="sign-line">{props.resident} MD</p>
             </div>
             <div>
               <p className="signature-label">License No.</p>
@@ -226,29 +221,29 @@ function Prescription() {
           </div>
           <div style={{ marginTop: "5px" }}>
             <p className="pfullname">Patient's Name:</p>
-            <p className="pfullname-line">{refName}</p>
+            <p className="pfullname-line">{props.name}</p>
           </div>
           <p className="pdetails">Age:</p>
-          {!age ? (
+          {!props.age ? (
             <p className="pdetails-line">--</p>
           ) : (
-            <p className="pdetails-line">{age}</p>
+            <p className="pdetails-line">{props.age}</p>
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Sex:
           </p>
-          {!sex ? (
+          {!props.sex ? (
             <p className="pdetails-line">-</p>
           ) : (
-            <p className="pward-line">{sex}</p>
+            <p className="pward-line">{props.sex}</p>
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Ward:
           </p>
-          {!ward ? (
+          {!props.ward ? (
             <p className="pward-line">--</p>
           ) : (
-            <p className="pward-line">{ward}</p>
+            <p className="pward-line">{props.ward}</p>
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             OPD:
@@ -308,7 +303,7 @@ function Prescription() {
             </div>
             <div>
               <p className="signature-label">Printed Name</p>
-              <p className="sign-line">{resident} MD</p>
+              <p className="sign-line">{props.resident} MD</p>
             </div>
             <div>
               <p className="signature-label">License No.</p>

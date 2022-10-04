@@ -38,7 +38,7 @@ import Loading from "./Spinner";
 function SearchPatient(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [patient, setPatient] = useState([]);
-  const [selected, setSelected] = useState("/");
+  // const [selected, setSelected] = useState("/");
   const [bizbox, setBizbox] = useState([]);
   const [hospital, setHospital] = useState("");
   const [covid, setCovid] = useState([]);
@@ -110,13 +110,6 @@ function SearchPatient(props) {
     });
   };
 
-  const fetchPatData = async () => {
-    let pat = await api.get("/get_sheets.php", {
-      params: { hospital: hospital },
-    });
-    setPatient(pat.data);
-  };
-
   // SELECTED
   const selectedText = async (e) => {
     let data = e.split("/");
@@ -124,7 +117,7 @@ function SearchPatient(props) {
     let selectedId = data[0];
     setId(data[0]);
     const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
-    setSelected(e);
+    // setSelected(e);
 
     setIsLoading(true);
 
@@ -148,31 +141,36 @@ function SearchPatient(props) {
     const user = JSON.parse(localStorage.getItem("user"));
     setHospital(user.name);
 
+    const fetchPatData = async () => {
+      let pat = await api.get("/get_sheets.php", {
+        params: { hospital: hospital },
+      });
+      setPatient(pat.data);
+    };
     fetchPatData();
   }, [hospital, id]);
 
   return (
     <div style={{ padding: "20px" }}>
-      <div style={{ width: "700px" }}>
-        <Text>Search Patient</Text>
-        <Select
-          options={patient}
-          placeholder="Search patient"
-          variant="flushed"
-          selectedOptionStyle="check"
-          closeMenuOnSelect={true}
-          focusBorderColor="#058e46"
-          onChange={(e) => {
-            selectedText(e.value);
-          }}
-          width="100%"
-          x
-          required
-          id="searchbar"
-        />
-      </div>
+      <Text fontWeight={500}>Search Patient</Text>
+
+      <Select
+        options={patient}
+        placeholder="Search patient"
+        variant="flushed"
+        selectedOptionStyle="check"
+        closeMenuOnSelect={true}
+        focusBorderColor="#058e46"
+        onChange={(e) => {
+          selectedText(e.value);
+        }}
+        width="100%"
+        required
+        id="searchbar"
+      />
+
       {patient
-        .filter((pat) => pat.patientId == id)
+        .filter((pat) => pat.patientId === id)
         .map((i, k) => {
           return (
             <>
@@ -207,7 +205,7 @@ function SearchPatient(props) {
                       </>
                     )}
 
-                    {bizbox.length == 0 ? (
+                    {bizbox.length === 0 ? (
                       <>
                         <li>Admitted</li>
                         <li>Discharged</li>
@@ -226,13 +224,7 @@ function SearchPatient(props) {
                               >
                                 Admitted
                               </li>
-                            </>
-                          );
-                        })}
 
-                        {bizbox.map((d) => {
-                          return (
-                            <>
                               <li
                                 className={d.dischDate !== null ? "active" : ""}
                               >
@@ -305,7 +297,7 @@ function SearchPatient(props) {
                             <Input
                               type="text"
                               variant="filled"
-                              value={moment(i.birthdate).format("LL")}
+                              value={i.birthdate}
                               disabled
                             />
                           </HStack>
@@ -669,17 +661,7 @@ function SearchPatient(props) {
                             disabled
                           />
                         </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>
-                            Endorsement/Initial Care
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            value={i.endorsement}
-                            disabled
-                          />
-                        </FormControl>
+
                         <FormControl>
                           <FormLabel fontSize={14}>
                             Resident on Duty/Contact #
@@ -692,6 +674,17 @@ function SearchPatient(props) {
                           />
                         </FormControl>
                       </HStack>
+                      <FormControl>
+                        <FormLabel fontSize={14}>
+                          Endorsement/Initial Care
+                        </FormLabel>
+                        <Textarea
+                          type="text"
+                          variant="filled"
+                          value={i.endorsement}
+                          disabled
+                        />
+                      </FormControl>
                       <HStack mt={5}>
                         <FormControl>
                           <FormLabel fontSize={14}>Chief Complaints</FormLabel>
@@ -752,7 +745,7 @@ function SearchPatient(props) {
                     <Center mt={20}>
                       <Loading />
                     </Center>
-                  ) : bizbox !== 0 ? (
+                  ) : bizbox.length !== 0 ? (
                     bizbox.map((d) => {
                       return (
                         <>
@@ -955,7 +948,6 @@ function SearchPatient(props) {
                       >
                         Cancel Referral
                       </Button>
-                      IT
                     </>
                   )}
                 </GridItem>

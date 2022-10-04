@@ -33,7 +33,7 @@ function OpcenReferral(props) {
   const newDate = moment().format("LLL");
   const [timeStamp, setTimeStamp] = useState(newDate);
   const [opcenUser, setOpcenUserName] = useState("");
-  const [username, setUserName] = useState("");
+  const [userName, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
   const [lastname, setLastName] = useState("");
   const [firstname, setFirstName] = useState("");
@@ -84,6 +84,11 @@ function OpcenReferral(props) {
       presentation: "",
     },
   ]);
+  const [hpi, setHPI] = useState("");
+  const [ppf, setPPF] = useState("");
+  const [ivf, setIVF] = useState("");
+  const [meds, setMeds] = useState("");
+  const [lab, setLab] = useState("");
   // const [newIe, setNewIe] = useState("");
   // const [newBowList, setNewBowList] = useState("");
   // const [newGp, setNewGp] = useState("");
@@ -136,6 +141,11 @@ function OpcenReferral(props) {
     setApgar(response.data.APGAR);
     setIe(response.data.IE);
     setBowList(response.data.bow);
+    setHPI(response.data.HPI);
+    setPPF(response.data.PPF);
+    setIVF(response.data.IVF);
+    setMeds(response.data.MEDS);
+    setLab(response.data.LAB);
     setTimeStamp(response.data.timestamp);
   };
 
@@ -181,6 +191,11 @@ function OpcenReferral(props) {
       fht: fht,
       fh: fh,
       apgar: apgar,
+      hpi: hpi,
+      ppf: ppf,
+      ivf: ivf,
+      meds: meds,
+      lab: lab,
     });
     if (response) {
       setLoad(false);
@@ -255,9 +270,9 @@ function OpcenReferral(props) {
               <FormLabel fontSize={14}>Birthday</FormLabel>
               <HStack>
                 <Input
-                  type="text"
+                  type="date"
                   variant="filled"
-                  value={moment(birthdate).format("LL")}
+                  value={birthdate}
                   onChange={(e) => setBirthdate(e.target.value)}
                 />
               </HStack>
@@ -660,15 +675,7 @@ function OpcenReferral(props) {
                 onChange={(e) => setGlasgow(e.target.value)}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Endorsement/Initial Care</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={endorsement}
-                onChange={(e) => setEndorsement(e.target.value)}
-              />
-            </FormControl>
+
             <FormControl>
               <FormLabel fontSize={14}>Resident on Duty/Contact #</FormLabel>
               <Input
@@ -679,6 +686,15 @@ function OpcenReferral(props) {
               />
             </FormControl>
           </HStack>
+          <FormControl mt={5}>
+            <FormLabel fontSize={14}>Endorsement/Initial Care</FormLabel>
+            <Textarea
+              type="text"
+              variant="filled"
+              value={endorsement}
+              onChange={(e) => setEndorsement(e.target.value)}
+            />
+          </FormControl>
           <HStack mt={5}>
             <FormControl>
               <FormLabel fontSize={14}>Chief Complaints</FormLabel>
@@ -717,42 +733,97 @@ function OpcenReferral(props) {
               <option value="Other">Other</option>
             </Select>
           </FormControl>
+          <HStack mt={5}>
+            <FormControl>
+              <FormLabel fontSize={14}>History Present Illness</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={hpi}
+                onChange={(e) => setHPI(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Pertinent PE Findings</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={ppf}
+                onChange={(e) => setPPF(e.target.value)}
+              />
+            </FormControl>
+          </HStack>
+          <HStack mt={5}>
+            <FormControl>
+              <FormLabel fontSize={14}>IVF</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={ivf}
+                onChange={(e) => setIVF(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize={14}>Medications</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={meds}
+                onChange={(e) => setMeds(e.target.value)}
+              />
+            </FormControl>
+          </HStack>
+          <FormControl mt={5}>
+            <FormLabel fontSize={14}>Laboratory</FormLabel>
+            <Textarea
+              type="text"
+              variant="filled"
+              value={lab}
+              onChange={(e) => setLab(e.target.value)}
+            />
+          </FormControl>
         </Box>
 
-        <HStack mt={5} mb={5}>
-          <Checkbox isChecked={true}></Checkbox>
-          <p style={{ fontSize: "14px", marginTop: "3px" }}>
-            The patient understands and accepts the terms and conditions of the
-          </p>
-          <Link fontSize="14px" color="blue" mt={3} onClick={onOpen}>
-            Patient Agreement Form
-          </Link>
-        </HStack>
-
-        <Text
-          textAlign="left"
-          fontSize={13}
-          fontStyle="italic"
-          color="red.800"
-          fontWeight={500}
-        >
-          Last edited by {username} {moment(timeStamp).startOf().fromNow()}
-        </Text>
-        <Flex>
-          <Spacer />
-          <Button
-            isLoading={load}
-            loadingText="Saving"
-            spinnerPlacement="start"
-            colorScheme="teal"
-            variant="outline"
-            mt={5}
-            onClick={updateData}
-            w={150}
-          >
-            Save
-          </Button>
-        </Flex>
+        {!userName ? (
+          ""
+        ) : (
+          <>
+            <HStack mt={5} mb={5}>
+              <Checkbox isChecked={true}></Checkbox>
+              <p style={{ fontSize: "14px", marginTop: "3px" }}>
+                The patient understands and accepts the terms and conditions of
+                the
+              </p>
+              <Link fontSize="14px" color="blue" mt={3} onClick={onOpen}>
+                Patient Agreement Form
+              </Link>
+            </HStack>
+            <Text
+              textAlign="left"
+              fontSize={13}
+              fontStyle="italic"
+              color="red.800"
+              fontWeight={500}
+            >
+              Last edited by {userName} {moment(timeStamp).startOf().fromNow()}
+            </Text>
+            <Flex>
+              <Spacer />
+              <Button
+                isLoading={load}
+                loadingText="Saving"
+                spinnerPlacement="start"
+                colorScheme="teal"
+                variant="outline"
+                mt={5}
+                onClick={updateData}
+                w={150}
+              >
+                Save
+              </Button>
+            </Flex>
+          </>
+        )}
       </Container>
       <Modal
         isOpen={isOpen}

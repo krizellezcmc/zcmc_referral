@@ -18,17 +18,10 @@
 
 .border {
   border-width: 1px;
-  border-color: #aaaaaa;
+  border-color: #202020;
   border-style: solid;
   padding: 10px;
   font-size: 13px;
-}
-
-.block h1 {
-  font-weight: 500;
-  font-size: 18px;
-  color: #272727;
-  margin-bottom: 20px;
 }
 
 .table-hospital-container {

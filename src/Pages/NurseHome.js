@@ -33,7 +33,7 @@ function NurseHome(props) {
           <Header />
           <div className="content-wrapper" style={{ padding: "30px" }}>
             <HStack mb={7}>
-              <Text>Search Patient</Text>
+              <Text fontWeight={500}>Search Patient :</Text>
               <div style={{ width: "500px" }}>
                 <Select
                   options={patientList}
