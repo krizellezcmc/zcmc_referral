@@ -30,6 +30,7 @@ import "../Styles/ReferralForm.css";
 import moment from "moment";
 import uniqid from "uniqid";
 import api from "../API/Api";
+import { TextArea } from "semantic-ui-react";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");
@@ -45,7 +46,7 @@ const ReferralForm = () => {
   const [age, setAge] = useState("");
 
   const [civilStatus, setCivilStatus] = useState("");
-  const [nationality, setNationality] = useState("Filipino");
+  const [nationality, setNationality] = useState("");
   const [religion, setReligion] = useState("");
   const [occupation, setOccupation] = useState("");
   const [philhealth, setPhilhealth] = useState("");
@@ -82,9 +83,9 @@ const ReferralForm = () => {
       GAP: "",
     },
   ]);
-  const [newIe, setNewIe] = useState("");
-  const [newBowList, setNewBowList] = useState("");
-  const [newGp, setNewGp] = useState("");
+  // const [newIe, setNewIe] = useState("");
+  // const [newBowList, setNewBowList] = useState("");
+  // const [newGp, setNewGp] = useState("");
   const [ie, setIe] = useState([
     {
       cm: "",
@@ -95,9 +96,9 @@ const ReferralForm = () => {
   ]);
 
   const bow = [
-    { value: "intact" },
-    { value: "ruptured" },
-    { value: "intubated" },
+    { value: "Intact" },
+    { value: "Ruptured" },
+    { value: "Leaking" },
   ];
 
   const toast = useToast();
@@ -287,7 +288,7 @@ const ReferralForm = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     setReferringFacility(user.name.toUpperCase());
     setUserName(user.firstName + "  " + user.lastName);
-  });
+  }, []);
 
   return (
     <>
@@ -341,9 +342,9 @@ const ReferralForm = () => {
               <FormLabel fontSize={14}>Birthday</FormLabel>
               <HStack>
                 <Input
-                  type="text"
+                  type="date"
                   variant="filled"
-                  value={moment(birthdate).format("LL")}
+                  value={birthdate}
                   onChange={(e) => setBirthdate(e.target.value)}
                 />
               </HStack>
@@ -768,15 +769,7 @@ const ReferralForm = () => {
                 onChange={(e) => setGlasgow(e.target.value)}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Endorsement/Initial Care</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={endorsement}
-                onChange={(e) => setEndorsement(e.target.value)}
-              />
-            </FormControl>
+
             <FormControl>
               <FormLabel fontSize={14}>Resident on Duty/Contact #</FormLabel>
               <Input
@@ -787,6 +780,15 @@ const ReferralForm = () => {
               />
             </FormControl>
           </HStack>
+          <FormControl mt={5}>
+            <FormLabel fontSize={14}>Endorsement/Initial Care</FormLabel>
+            <Textarea
+              type="text"
+              variant="filled"
+              value={endorsement}
+              onChange={(e) => setEndorsement(e.target.value)}
+            />
+          </FormControl>
           <HStack mt={5}>
             <FormControl>
               <FormLabel fontSize={14}>Chief Complaints</FormLabel>

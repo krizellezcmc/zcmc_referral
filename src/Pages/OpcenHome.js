@@ -13,6 +13,8 @@ import {
   TabPanels,
   Tabs,
   Text,
+  HStack,
+  Divider,
 } from "@chakra-ui/react";
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
@@ -20,6 +22,8 @@ import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
 import Loading from "../Components/Spinner";
 import axios from "axios";
+import Sidebar from "../Components/Sidebar";
+import OpcenTable from "../Components/OpcenTable";
 
 function OpcenHome() {
   const [showContent, setShowContent] = useState(false);
@@ -33,19 +37,20 @@ function OpcenHome() {
   const select = (e) => {
     setSelected(e);
     setIsLoading(false);
+    setShowContent(true);
   };
 
-  const fetchComments = async () => {
-    setIsLoading(true);
-    let response = await api.get("/get_comment.php", {
-      params: { patientId: selected },
-    });
-    setRemarks(response.data);
+  // const fetchComments = async () => {
+  //   setIsLoading(true);
+  //   let response = await api.get("/get_comment.php", {
+  //     params: { patientId: selected },
+  //   });
+  //   setRemarks(response.data);
 
-    if (response) {
-      setIsLoading(false);
-    }
-  };
+  //   if (response) {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const fetchPatients = async (e) => {
     let pat = await api.get("/get_list.php");
@@ -66,14 +71,15 @@ function OpcenHome() {
         setIsLoading(false);
       });
     fetchPatients();
-  });
+  }, [list, selected, remarks]);
 
   return (
     <div className="container">
+      <Sidebar />
       <div className="content">
         <Header />
         <div className="">
-          <Box w="700px" p={5}>
+          {/* <Box w="700px" p={5}>
             <Select
               style={{ position: "fixed", zIndex: "50" }}
               options={list}
@@ -88,58 +94,129 @@ function OpcenHome() {
               required
               useBasicStyles
             />
-          </Box>
+          </Box> */}
+          <Container maxW="80%" mt={5}>
+            <Box
+              w="100%"
+              bg="white"
+              borderRadius="lg"
+              padding={1}
+              border="1px"
+              borderColor="gray.300"
+              boxShadow="lg"
+              py={3}
+            >
+              <HStack>
+                <Box w="100%" textAlign="center">
+                  <Text fontWeight="800" fontSize="13.5px">
+                    PATIENT
+                  </Text>
+                </Box>
 
-          {isLoading ? (
-            <Container>
-              <Loading />
-            </Container>
+                <Box w="100%" textAlign="center">
+                  <Text fontWeight="800" fontSize="13.5px">
+                    HOSPITAL
+                  </Text>
+                </Box>
+                <Box w="100%" textAlign="center">
+                  <Text fontWeight="800" fontSize="13.5px">
+                    REFERRED DATE AND TIME
+                  </Text>
+                </Box>
+                <Box w="100%" textAlign="center">
+                  <Text fontWeight="800" fontSize="13.5px">
+                    STATUS
+                  </Text>
+                </Box>
+              </HStack>
+            </Box>
+            <Box
+              w="100%"
+              bg="white"
+              borderRadius="md"
+              border="1px"
+              borderColor="gray.300"
+              boxShadow="base"
+              mt={3}
+            >
+              {list.map((e, k) => {
+                return (
+                  <>
+                    <OpcenTable
+                      name={e.label}
+                      value={e.value}
+                      gender={e.gender}
+                      facility={e.facility}
+                      date={e.date}
+                      status={e.status}
+                      service={e.specialization}
+                    />
+                  </>
+                );
+              })}
+            </Box>
+            <Divider />
+          </Container>
+
+          {!showContent ? (
+            ""
           ) : (
-            <Container mt={10} maxW="container.xl">
-              <Tabs variant="enclosed">
-                <TabList mb="1em">
-                  <Tab>
-                    <Text>Patient Referral</Text>
-                  </Tab>
-                  <Tab>
-                    <Text>
-                      Remarks
-                      <Badge ml="1.5" colorScheme="blue">
-                        {remarks.length}
-                      </Badge>
-                    </Text>
-                  </Tab>
-                </TabList>
+            <>
+              {isLoading ? (
+                <Container>
+                  <Loading />
+                </Container>
+              ) : (
+                <Container mt={10} maxW="container.xl">
+                  <Tabs variant="enclosed">
+                    <TabList mb="1em">
+                      <Tab>
+                        <Text>Patient Referral</Text>
+                      </Tab>
+                      <Tab>
+                        <Text>
+                          Remarks
+                          <Badge ml="1.5" colorScheme="blue">
+                            {remarks.length}
+                          </Badge>
+                        </Text>
+                      </Tab>
+                    </TabList>
 
-                <TabPanels>
-                  <TabPanel>
-                    <Box px={20}>
-                      <OpcenReferral patientId={selected} />
-                    </Box>
-                  </TabPanel>
-                  <TabPanel>
-                    <Container maxW="container.lg" px={20}>
-                      <AddComment patientId={selected} user={user?.userId} />
+                    <TabPanels>
+                      <TabPanel>
+                        <Box px={20}>
+                          <OpcenReferral patientId={selected} />
+                        </Box>
+                      </TabPanel>
+                      <TabPanel>
+                        <Container maxW="container.lg" px={20}>
+                          <AddComment
+                            patientId={selected}
+                            user={user?.userId}
+                          />
 
-                      <Box>
-                        {remarks.map((el, key) => {
-                          return (
-                            <>
-                              <Comment
-                                remark={el.remark}
-                                date={el.tstamp}
-                                user={el.firstName + " " + el.lastName}
-                                dept={el.department}
-                              />
-                            </>
-                          );
-                        })}
-                      </Box>
-                    </Container>
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
-            </Container>
+                          <Box>
+                            {remarks.map((el, key) => {
+                              return (
+                                <>
+                                  <Comment
+                                    remark={el.remark}
+                                    date={el.tstamp}
+                                    user={el.firstName + " " + el.lastName}
+                                    dept={el.department}
+                                  />
+                                </>
+                              );
+                            })}
+                          </Box>
+                        </Container>
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                </Container>
+              )}
+            </>
           )}
         </div>
       </div>

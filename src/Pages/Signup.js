@@ -35,13 +35,13 @@ import { Navigate } from "react-router-dom";
 import api from "../API/Api";
 
 function Signup() {
-  const specialization = [
-    { label: "Obstetrics And Gynecology", value: "Obstetrics And Gynecology" },
-    { label: "Internal Medicine", value: "Internal Medicine" },
-    { label: "Pediatrics", value: "Pediatrics" },
-    { label: "Surgery", value: "Surgery" },
-    { label: "Psychiatry", value: "Psychiatry" },
-  ];
+  // const specialization = [
+  //   { label: "Obstetrics And Gynecology", value: "Obstetrics And Gynecology" },
+  //   { label: "Internal Medicine", value: "Internal Medicine" },
+  //   { label: "Pediatrics", value: "Pediatrics" },
+  //   { label: "Surgery", value: "Surgery" },
+  //   { label: "Psychiatry", value: "Psychiatry" },
+  // ];
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -53,7 +53,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [hospitalCode, setHospitalCode] = useState(0);
   const [accessCode, setAccessCode] = useState(0);
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState("OPCEN");
   const [hospitals, setHospitals] = useState([]); //Hospital List
 
   // Toast and navigate
@@ -313,18 +313,7 @@ function Signup() {
                 {hospitalCode == 1 ? (
                   <Grid mt={5}>
                     <GridItem>
-                      <Select
-                        options={specialization}
-                        placeholder="Choose your Department"
-                        selectedOptionStyle="check"
-                        closeMenuOnSelect={true}
-                        focusBorderColor="#058e46"
-                        onChange={(e) => {
-                          setDepartment(e.value);
-                        }}
-                        required
-                        useBasicStyles
-                      />
+                      <Input value={department} required disabled />
                     </GridItem>
                   </Grid>
                 ) : (

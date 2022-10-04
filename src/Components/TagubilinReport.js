@@ -8,6 +8,10 @@ import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Prescription from "./Prescription";
 import { FaArrowLeft } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import moment from "moment";
+import api from "../API/Api";
+import { BiArrowBack } from "react-icons/bi";
 
 function TagubilinReport() {
   const [refName, setRefName] = useState("");
@@ -35,39 +39,61 @@ function TagubilinReport() {
   const [dietList, setDietList] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const [breastfeed, setBreastfeed] = useState([]);
-  const [ob, setOb] = useState("");
+  const [obId, setObId] = useState("");
+  const [medId, setMedId] = useState("");
 
   let navigate = useNavigate();
 
+  const { id } = useParams("id");
+
+  const fetchData = async () => {
+    let response = await api.get("/get_nursetagu.php", {
+      params: { id: id },
+    });
+    console.log(id);
+
+    setRefName(response.data[0].patientName);
+    setAge(response.data[0].age);
+    setSex(response.data[0].sex);
+    setAddress(response.data[0].address);
+    setWard(response.data[0].ward);
+    setHrn(response.data[0].hrn);
+    setAdmit(moment(response.data[0].admissionDate).format("LLL"));
+    setDiagnosis(response.data[0].disch_diagnosis);
+    setDischarge(
+      response.data.dischdate === null
+        ? ""
+        : moment(response.data[0].dischdate).format("LLL")
+    );
+    setLab(response.data[0].laboratory);
+    setXray(response.data[0].xray);
+    setCTScan(response.data[0].ctScan);
+    setMRI(response.data[0].mri);
+    setOthers(response.data[0].others);
+    setFollowUp(response.data[0].followupDate);
+    setTime(response.data[0].time);
+    setNeedBring(response.data[0].needToBring);
+    setNurse(response.data[0].nurse);
+    setResident(response.data[0].resident);
+    setMedId(response.data[0].FK_medicationId);
+    setObId(response.data[0].FK_breastfeedId);
+    setDietList(JSON.parse(response.data[0].health));
+    setHealthOthers(response.data[0].healthOthers);
+    setInstructions(JSON.parse(response.data[0].instructions));
+
+    let meds = await api.get("/get_medhospi.php", {
+      params: { mid: medId },
+    });
+    setMed(meds.data);
+
+    let bfeed = await api.get("/get_obhospi.php", {
+      params: { oid: obId },
+    });
+    setBreastfeed(bfeed.data);
+  };
   useEffect(() => {
-    let refpatient = JSON.parse(localStorage.getItem("refpatient"));
-    setRefName(refpatient.patientName);
-    setAge(refpatient.age);
-    setSex(refpatient.sex);
-    setWard(refpatient.ward);
-    setHrn(refpatient.hrn);
-    setAddress(refpatient.address);
-    setAdmit(refpatient.admissionDate);
-    setDischarge(refpatient.dischDate);
-    setDiagnosis(refpatient.dischDiag);
-    setLab(refpatient.laboratory);
-    setXray(refpatient.xray);
-    setCTScan(refpatient.ctScan);
-    setMRI(refpatient.mri);
-    setOthers(refpatient.others);
-    setHomeMed(refpatient.homemed);
-    setMed(refpatient.medications);
-    setFollowUp(refpatient.followUp);
-    setTime(refpatient.time);
-    setNeedBring(refpatient.needBring);
-    setNurse(refpatient.nurse);
-    setResident(refpatient.resident);
-    setDietList(refpatient.diet);
-    setHealthOthers(refpatient.healthOthers);
-    setInstructions(refpatient.instructions);
-    setOb(refpatient.ob);
-    setBreastfeed(refpatient.breastfeed);
-  }, []);
+    fetchData();
+  }, [id]);
 
   var zcmcLogo = require("../Assets/zcmc-logo.png");
   var dohLogo = require("../Assets/doh-logo.png");
@@ -216,7 +242,7 @@ function TagubilinReport() {
             </td>
           </tr>
 
-          {!homemed ? (
+          {!medId ? (
             <tr>
               <td className="med-header" colSpan="5">
                 <div className="med-box">
@@ -354,7 +380,7 @@ function TagubilinReport() {
               </p>
             </td>
           </tr>
-          {!ob ? (
+          {!breastfeed ? (
             ""
           ) : (
             <>
@@ -854,12 +880,12 @@ function TagubilinReport() {
       <div style={{ float: "left" }}>
         <Button
           variant="solid"
-          colorScheme="teal"
+          colorScheme="green"
           size="md"
-          leftIcon={<FaArrowLeft />}
+          leftIcon={<BiArrowBack />}
           onClick={() => back()}
         >
-          Back to Tagubilin Form
+          Back
         </Button>
         <br></br>
         <Button
@@ -968,7 +994,7 @@ function TagubilinReport() {
               </td>
             </tr>
 
-            {!homemed ? (
+            {!medId ? (
               <tr>
                 <td className="dmed-header" colSpan="5">
                   <div className="dmed-box">
@@ -1097,7 +1123,7 @@ function TagubilinReport() {
             </tr>
 
             {/* //OB THINGS */}
-            {!ob ? (
+            {!breastfeed ? (
               ""
             ) : (
               <>
@@ -1522,7 +1548,15 @@ function TagubilinReport() {
       </div>
 
       {/* //PRESCRIPTION */}
-      <Prescription />
+
+      <Prescription
+        name={refName}
+        age={age}
+        sex={sex}
+        ward={ward}
+        medId={medId}
+        resident={resident}
+      />
     </div>
   );
 }

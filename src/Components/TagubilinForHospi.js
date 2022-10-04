@@ -20,12 +20,14 @@ import {
   HStack,
   Stack,
   Center,
+  Link,
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import moment from "moment";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../API/Api";
 import Loading from "./Spinner";
+import { BiArrowBack, BiReceipt } from "react-icons/bi";
 
 function TagubilinForHospi() {
   const [isLoading, setIsLoading] = useState(false);
@@ -60,9 +62,9 @@ function TagubilinForHospi() {
 
   const fetchData = async () => {
     setIsLoading(true);
-    let response = await api.get("/get_tagubilinhospi.php", {
-      params: { id: id },
-    });
+    let response = await api.get(`/get_tagubilinhospi.php/${id}`);
+
+    console.log(response.data);
 
     setPatient(response.data[0].patientName);
     setAge(response.data[0].age);
@@ -107,7 +109,10 @@ function TagubilinForHospi() {
       setIsLoading(false);
     }
   };
-
+  const navigate = useNavigate();
+  function handleClick() {
+    navigate("/referredpatient");
+  }
   useEffect(() => {
     fetchData();
   }, [medId, obId]);
@@ -121,6 +126,15 @@ function TagubilinForHospi() {
         marginBottom: "50px",
       }}
     >
+      <Button
+        onClick={handleClick}
+        colorScheme="green"
+        mb={10}
+        leftIcon={<BiArrowBack />}
+      >
+        Back
+      </Button>
+
       {isLoading ? (
         <Center style={{ marginTop: "400px" }}>
           <Loading />

@@ -285,7 +285,9 @@ const PatientsList = (props) => {
       <Grid templateColumns="repeat(9,1fr)" gap={4}>
         <GridItem colSpan={6}>
           <div className="table-container">
-            <h1 className="block">Referred Patients </h1>
+            <Text fontWeight={800} fontSize={20} mb={5}>
+              REFERRED PATIENTS
+            </Text>
             <div
               style={{
                 display: "flex",
@@ -304,6 +306,12 @@ const PatientsList = (props) => {
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search patient"
                   width="400px"
+                  _hover={{ borderColor: "green" }}
+                  _focus={{
+                    boxShadow: "none",
+                    outline: "none",
+                    borderColor: "green",
+                  }}
                 />
               </InputGroup>
             </div>
@@ -419,9 +427,7 @@ const PatientsList = (props) => {
         <GridItem colSpan={3}>
           <div className="side-container" style={{ padding: "15px" }}>
             <HStack mb={5}>
-              <h1>
-                <b>Pending Patients</b>
-              </h1>
+              <Text fontWeight={800}>PENDING PATIENTS</Text>
               <Spacer />
               <Link
                 fontSize="14px"

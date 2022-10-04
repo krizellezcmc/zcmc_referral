@@ -120,7 +120,7 @@ function CovidForm(props) {
   return (
     <div style={{ padding: "30px" }}>
       <div style={{ width: "700px" }}>
-        <Text mb={2}>Search Patient</Text>
+        <Text fontWeight={500}>Search Patient</Text>
         <Select
           options={patient}
           placeholder="Search patient"

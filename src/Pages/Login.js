@@ -94,7 +94,7 @@ function Login() {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <Navigate to="/patientlist" />;
+    return <Navigate to="/verifyuser" />;
   }
 
   if (user?.role === "user") {

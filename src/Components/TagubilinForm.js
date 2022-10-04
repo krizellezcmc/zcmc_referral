@@ -187,7 +187,7 @@ function TagubilinForm(props) {
     });
 
     if (response) {
-      window.location.href = "/tagubilinreport";
+      window.location.href = `/tagubilinreport/${patRegister}`;
     }
 
     localStorage.setItem(
@@ -248,35 +248,36 @@ function TagubilinForm(props) {
       setShow(false);
     }
   };
-  const fetch = async () => {
-    let response = await localApi.get("/get_patient_info.php", {
-      params: { id: props.id },
-    });
-    setPatient(response.data.patientName);
-    setAge(response.data.age);
-    setSex(response.data.gender);
-    setWard(response.data.ward);
-    setHrn(response.data.hrn);
-    setAddress(response.data.address);
-    setAdmissionDate(
-      response.data.admissionDate === null
-        ? ""
-        : response.data.admissionDate.date
-    );
-    setPatRegister(response.data.patRegister);
-    setDischDiag(
-      response.data.dischdiagnosis === ""
-        ? response.data.finaldiagnosis
-        : response.data.dischdiagnosis
-    );
-    setDischDate(
-      response.data.dischdate === null ? "" : response.data.dischdate.date
-    );
-  };
 
   useEffect(() => {
+    const fetch = async () => {
+      let response = await localApi.get("/get_patient_info.php", {
+        params: { id: props.id },
+      });
+      console.log(props.id);
+      setPatient(response.data.patientName);
+      setAge(response.data.age);
+      setSex(response.data.gender);
+      setWard(response.data.ward);
+      setHrn(response.data.hrn);
+      setAddress(response.data.address);
+      setAdmissionDate(
+        response.data.admissionDate === null
+          ? ""
+          : response.data.admissionDate.date
+      );
+      setPatRegister(response.data.patRegister);
+      setDischDiag(
+        response.data.dischdiagnosis === ""
+          ? response.data.finaldiagnosis
+          : response.data.dischdiagnosis
+      );
+      setDischDate(
+        response.data.dischdate === null ? "" : response.data.dischdate.date
+      );
+    };
     fetch();
-  });
+  }, [props.id]);
 
   return (
     <div
@@ -287,7 +288,7 @@ function TagubilinForm(props) {
         marginBottom: "50px",
       }}
     >
-      {!dischDate ? (
+      {dischDate === "" || dischDate === null ? (
         <TableContainer>
           <form onSubmit={submit}>
             <Table variant="unstyled" cellSpacing={0}>
