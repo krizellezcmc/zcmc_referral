@@ -147,7 +147,7 @@ function Signup() {
           rounded="lg"
         >
           <Flex direction="column" p="10" width="800px">
-            <Text fontSize="3xl" fontWeight="500">
+            <Text fontSize="3xl" fontWeight="500" color="green.600">
               Registration
             </Text>
             <Text

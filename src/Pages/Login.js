@@ -127,14 +127,15 @@ function Login() {
         >
           <Flex direction="column" p="5" rounded="md" width="460px">
             <Box bgColor="white"></Box>
-            <Text fontSize="3xl" fontWeight="500">
+            <Text fontSize="3xl" fontWeight="600" color="green.600">
               Sign in
             </Text>
             <Text
               fontSize="sm"
-              fontWeight="300"
+              fontWeight="400"
               mt={2}
               mb={5}
+              color="gray.700"
               textTransform="uppercase"
             >
               One Hospital Command
