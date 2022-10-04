@@ -23,6 +23,10 @@ import HospiTagubilin from "../Pages/HospiTagubilin";
 import Forbidden from "./Forbidden";
 import OpcenHome from "../Pages/OpcenHome";
 import OpcenReferral from "./OpcenReferral";
+import Verify from "../Pages/Verify";
+import Recover from "../Pages/Recover";
+import ForgotPassword from "../Pages/ForgotPassword";
+import Success from "../Pages/Success";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -35,10 +39,15 @@ const AnimatedRoutes = () => {
           <Route path="/forbidden" element={<Forbidden />}></Route>
           <Route path="/" element={<Login />} />
           <Route path="/blocked" element={<Blocked />} />
+          <Route path="/recover" element={<Recover />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/newpassword" element={<ForgotPassword />} />
           <Route path="/tagubilinreport" element={<TagubilinPrescription />} />
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/user" element={<UserDashboard />}></Route>
+
+          <Route path="/recovery" element={<Verify />}></Route>
 
           <Route path="/opcen" element={<OpcenHome />}></Route>
           <Route path="/opcenref" element={<OpcenReferral />}></Route>
