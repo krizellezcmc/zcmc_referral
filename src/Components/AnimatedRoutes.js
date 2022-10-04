@@ -25,6 +25,9 @@ import OpcenHome from "../Pages/OpcenHome";
 import OpcenReferral from "./OpcenReferral";
 import OpcenTable from "./OpcenTable";
 import OpcenHome2 from "../Pages/OpcenHome2";
+import Recover from "../Pages/Recover";
+import Success from "../Pages/Success";
+import Verify from "../Pages/Verify";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
