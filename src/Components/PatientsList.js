@@ -33,11 +33,18 @@ import {
   Spacer,
   Link,
   Center,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
 import "../Styles/Patients.css";
 import "../Styles/Table.css";
+import { Select } from "chakra-react-select";
 
 import Spinner from "./Spinner";
 
@@ -85,6 +92,11 @@ const PatientsList = (props) => {
     onClose: onCancelledClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isDeclinedOpen,
+    onOpen: onDeclinedOpen,
+    onClose: onDeclinedClose,
+  } = useDisclosure();
   //get pending patient data
   const [patientId, setPatientId] = useState("");
   const [refFacility, setRefFacility] = useState("");
@@ -106,6 +118,12 @@ const PatientsList = (props) => {
   const [status, setStatus] = useState("");
   const [count, setCount] = useState(0);
   const [isLoadingPending, setIsLoadingPending] = useState(false);
+
+  const [reason, setReason] = useState("");
+  const [selectRef, setSelectedRef] = useState("");
+  const [hospitals, setHospitals] = useState([]);
+
+  let toast = useToast();
 
   const getDetails = async (id) => {
     setIsLoadingDetails(true);
@@ -224,39 +242,23 @@ const PatientsList = (props) => {
     });
   };
 
-  const declineReferredPatient = (id) => {
-    onPendingClose(true);
-    Swal.fire({
-      text: "Please indicate reason for rejecting the referral",
-      icon: "warning",
-      input: "text",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Reject",
-      preConfirm: (data) => {
-        if (!data) {
-          Swal.showValidationMessage(`Request failed`);
-        }
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let response = api.post("/decline_referred_patient.php", {
-          id: id,
-          reason: result.value,
-        });
-
-        if (response.data.status === 1) {
-          Swal.fire(
-            "Rejected!",
-            "You successfully rejected the referral.",
-            "success"
-          );
-        } else {
-          Swal.fire("Error!", "Something went wrong.", "error");
-        }
-      }
+  const submit = async () => {
+    let decline = await api.post("/transfer.php", {
+      patientId: patientId,
+      referredTo: selectRef,
+      reason: reason,
     });
+    if (decline.data.status === 1) {
+      toast({
+        position: "top",
+        title: decline.data.message,
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+      setReason("");
+      onDeclinedClose();
+    }
   };
 
   const fetchData = async () => {
@@ -277,6 +279,11 @@ const PatientsList = (props) => {
   };
 
   useEffect(() => {
+    const getHospitals = async () => {
+      let response = await api.get("/get_local_hospitals.php");
+      setHospitals(response.data);
+    };
+    getHospitals();
     fetchData();
   }, []);
 
@@ -672,7 +679,12 @@ const PatientsList = (props) => {
       </Modal>
 
       {/* MODAL VIEW DETAILS - PENDING */}
-      <Modal isOpen={isPendingOpen} onClose={onPendingClose} size="2xl">
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isPendingOpen}
+        onClose={onPendingClose}
+        size="2xl"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Patient Details</ModalHeader>
@@ -879,11 +891,11 @@ const PatientsList = (props) => {
                       mr={3}
                       colorScheme="red"
                       onClick={() => {
-                        declineReferredPatient(patientId);
+                        onPendingClose();
+                        onDeclinedOpen();
                       }}
-                      leftIcon={<GoX fontSize="20px" />}
                     >
-                      Decline
+                      Refuse and Transfer
                     </Button>
                     <Button
                       colorScheme="blue"
@@ -913,7 +925,12 @@ const PatientsList = (props) => {
       </Modal>
 
       {/* MODAL VIEW DETAILS */}
-      <Modal isOpen={isCancelledOpen} onClose={onCancelledClose} size="6xl">
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isCancelledOpen}
+        onClose={onCancelledClose}
+        size="6xl"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Cancelled Referrals</ModalHeader>
@@ -924,6 +941,57 @@ const PatientsList = (props) => {
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onCancelledClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isDeclinedOpen}
+        onClose={onDeclinedClose}
+        size="2xl"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Refuse and Transfer Referral</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl isRequired>
+              <FormLabel>Reason</FormLabel>
+              <Textarea
+                type="text"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+              />
+            </FormControl>
+            <FormControl mt={5} isRequired>
+              <FormLabel>Refer to</FormLabel>
+              <Select
+                options={hospitals}
+                placeholder="Select Hospital"
+                variant="flushed"
+                selectedOptionStyle="check"
+                closeMenuOnSelect={true}
+                focusBorderColor="#058e46"
+                onChange={(e) => {
+                  setSelectedRef(e.value);
+                }}
+                required
+              />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="green" size="sm" onClick={submit}>
+              Submit
+            </Button>
+            <Button
+              colorScheme="blue"
+              size="sm"
+              ml={3}
+              onClick={onDeclinedClose}
+            >
               Close
             </Button>
           </ModalFooter>

@@ -71,7 +71,7 @@ function OpcenHome() {
         setIsLoading(false);
       });
     fetchPatients();
-  }, [list, selected, remarks]);
+  }, [selected]);
 
   return (
     <div className="container">
@@ -139,7 +139,7 @@ function OpcenHome() {
               boxShadow="base"
               mt={3}
             >
-              {list.map((e, k) => {
+              {list.map((e) => {
                 return (
                   <>
                     <OpcenTable

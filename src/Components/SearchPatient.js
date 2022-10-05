@@ -258,6 +258,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.lastname.toUpperCase()}
                             disabled
                           />
@@ -267,6 +268,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.firstname.toUpperCase()}
                             disabled
                           />
@@ -276,6 +278,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.middleName.toUpperCase()}
                             disabled
                           />
@@ -285,6 +288,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.extended.toUpperCase()}
                             disabled
                           />
@@ -297,6 +301,7 @@ function SearchPatient(props) {
                             <Input
                               type="text"
                               variant="filled"
+                              fontWeight={800}
                               value={i.birthdate}
                               disabled
                             />
@@ -304,12 +309,18 @@ function SearchPatient(props) {
                         </FormControl>
                         <FormControl>
                           <FormLabel fontSize={14}>Sex</FormLabel>
-                          <Input value={i.sex} variant="filled" disabled />
+                          <Input
+                            value={i.sex}
+                            variant="filled"
+                            fontWeight={800}
+                            disabled
+                          />
                         </FormControl>
                         <FormControl>
                           <FormLabel fontSize={14}>Civil Status</FormLabel>
                           <Input
                             variant="filled"
+                            fontWeight={800}
                             value={i.civilStatus}
                             disabled
                           />
@@ -319,6 +330,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.nationality}
                             disabled
                           />
@@ -327,13 +339,19 @@ function SearchPatient(props) {
                       <HStack mt={5}>
                         <FormControl>
                           <FormLabel fontSize={14}>Religion</FormLabel>
-                          <Input variant="filled" value={i.religion} disabled />
+                          <Input
+                            variant="filled"
+                            value={i.religion}
+                            fontWeight={800}
+                            disabled
+                          />
                         </FormControl>
                         <FormControl>
                           <FormLabel fontSize={14}>Occupation</FormLabel>
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.occupation}
                             disabled
                           />
@@ -343,6 +361,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.philhealth}
                             disabled
                           />
@@ -353,6 +372,7 @@ function SearchPatient(props) {
                         <Textarea
                           type="text"
                           variant="filled"
+                          fontWeight={800}
                           value={i.address}
                           disabled
                         />
@@ -375,6 +395,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.nextOfkin}
                             disabled
                           />
@@ -386,6 +407,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.contactWatcher}
                             disabled
                           />
@@ -409,18 +431,25 @@ function SearchPatient(props) {
                           <Input
                             type="date"
                             variant="filled"
+                            fontWeight={800}
                             value={i.dateAdmitted}
                             disabled
                           />
                         </FormControl>
                         <FormControl w={600}>
                           <FormLabel fontSize={14}>Referral Type</FormLabel>
-                          <Input variant="filled" value={i.refType} disabled />
+                          <Input
+                            variant="filled"
+                            value={i.refType}
+                            fontWeight={800}
+                            disabled
+                          />
                         </FormControl>
                         <FormControl w={500}>
                           <FormLabel fontSize={14}>Disposition</FormLabel>
                           <Input
                             variant="filled"
+                            fontWeight={800}
                             value={i.disposition}
                             disabled
                           />
@@ -429,6 +458,7 @@ function SearchPatient(props) {
                           <FormLabel fontSize={14}>Specialization</FormLabel>
                           <Input
                             variant="filled"
+                            fontWeight={800}
                             value={i.specialization}
                             disabled
                           />
@@ -457,6 +487,7 @@ function SearchPatient(props) {
                                             <Text>G</Text>
                                             <Input
                                               type="text"
+                                              fontWeight={800}
                                               value={el.G}
                                               borderBottom="1px"
                                               w={50}
@@ -467,6 +498,7 @@ function SearchPatient(props) {
                                             <Text>P</Text>
                                             <Input
                                               type="text"
+                                              fontWeight={800}
                                               value={el.P}
                                               borderBottom="1px"
                                               w={50}
@@ -477,6 +509,7 @@ function SearchPatient(props) {
                                             <Text>(</Text>
                                             <Input
                                               type="text"
+                                              fontWeight={800}
                                               value={el.GAP}
                                               borderBottom="1px"
                                               w={100}
@@ -495,33 +528,63 @@ function SearchPatient(props) {
                                 <FormLabel fontSize={14}>
                                   Last Menstrual Period
                                 </FormLabel>
-                                <Input type="text" value={i.LMP} disabled />
+                                <Input
+                                  type="text"
+                                  value={i.LMP}
+                                  fontWeight={800}
+                                  disabled
+                                />
                               </FormControl>
                               <FormControl isRequired>
                                 <FormLabel fontSize={14}>AOG</FormLabel>
-                                <Input type="text" value={i.AOG} disabled />
+                                <Input
+                                  type="text"
+                                  value={i.AOG}
+                                  fontWeight={800}
+                                  disabled
+                                />
                               </FormControl>
                             </HStack>
                             <HStack mt={5}>
                               <FormControl isRequired>
                                 <FormLabel fontSize={14}>EDC</FormLabel>
-                                <Input type="text" value={i.EDC} disabled />
+                                <Input
+                                  type="text"
+                                  value={i.EDC}
+                                  fontWeight={800}
+                                  disabled
+                                />
                               </FormControl>
                               <FormControl isRequired>
                                 <FormLabel fontSize={14}>
                                   Fetal Heart Tones
                                 </FormLabel>
-                                <Input type="text" value={i.FHT} disabled />
+                                <Input
+                                  type="text"
+                                  value={i.FHT}
+                                  fontWeight={800}
+                                  disabled
+                                />
                               </FormControl>
                               <FormControl isRequired>
                                 <FormLabel fontSize={14}>
                                   Fundal Height
                                 </FormLabel>
-                                <Input type="text" value={i.FH} disabled />
+                                <Input
+                                  type="text"
+                                  value={i.FH}
+                                  fontWeight={800}
+                                  disabled
+                                />
                               </FormControl>
                               <FormControl isRequired>
                                 <FormLabel fontSize={14}>Baby APGAR</FormLabel>
-                                <Input type="text" value={i.APGAR} disabled />
+                                <Input
+                                  type="text"
+                                  value={i.APGAR}
+                                  fontWeight={800}
+                                  disabled
+                                />
                               </FormControl>
                             </HStack>
                             <HStack mt={5}>
@@ -540,6 +603,7 @@ function SearchPatient(props) {
                                           h={8}
                                           textAlign="center"
                                           disabled
+                                          fontWeight={800}
                                           value={el.cm}
                                         />
                                         <Text fontSize={14}>cm</Text>
@@ -550,6 +614,7 @@ function SearchPatient(props) {
                                           h={8}
                                           textAlign="center"
                                           disabled
+                                          fontWeight={800}
                                           value={el.station}
                                         />
                                         <Text fontSize={14}>station</Text>
@@ -559,6 +624,7 @@ function SearchPatient(props) {
                                           h={8}
                                           textAlign="center"
                                           disabled
+                                          fontWeight={800}
                                           value={el.effacement}
                                         />
                                         <Text fontSize={14}>effacement</Text>
@@ -568,6 +634,7 @@ function SearchPatient(props) {
                                           h={8}
                                           textAlign="center"
                                           disabled
+                                          fontWeight={800}
                                           value={el.presentation}
                                         />
                                         <Text fontSize={14}>presentation</Text>
@@ -581,7 +648,12 @@ function SearchPatient(props) {
                               <FormLabel fontSize={14}>Bow</FormLabel>
                               {JSON.parse(i.bow).map((el) => {
                                 return (
-                                  <Checkbox size="sm" ml={5} isChecked={true}>
+                                  <Checkbox
+                                    size="sm"
+                                    ml={5}
+                                    isChecked={true}
+                                    fontWeight={800}
+                                  >
                                     {el}
                                   </Checkbox>
                                 );
@@ -600,6 +672,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.latestTemp}
                             disabled
                           />
@@ -611,6 +684,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.latestBp}
                             disabled
                           />
@@ -622,6 +696,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.latestRespi}
                             disabled
                           />
@@ -633,6 +708,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.latestPulse}
                             disabled
                           />
@@ -644,6 +720,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.latestOxygen}
                             disabled
                           />
@@ -657,6 +734,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.latestGlasgow}
                             disabled
                           />
@@ -669,6 +747,7 @@ function SearchPatient(props) {
                           <Input
                             type="text"
                             variant="filled"
+                            fontWeight={800}
                             value={i.userContact}
                             disabled
                           />
@@ -681,6 +760,7 @@ function SearchPatient(props) {
                         <Textarea
                           type="text"
                           variant="filled"
+                          fontWeight={800}
                           value={i.endorsement}
                           disabled
                         />
@@ -690,6 +770,7 @@ function SearchPatient(props) {
                           <FormLabel fontSize={14}>Chief Complaints</FormLabel>
                           <Textarea
                             variant="filled"
+                            fontWeight={800}
                             value={i.chiefComplaints}
                             disabled
                           />
@@ -698,6 +779,7 @@ function SearchPatient(props) {
                           <FormLabel fontSize={14}>Diagnosis</FormLabel>
                           <Textarea
                             variant="filled"
+                            fontWeight={800}
                             value={i.diagnosis}
                             disabled
                           />
@@ -708,7 +790,12 @@ function SearchPatient(props) {
                           {" "}
                           Reason for Referral
                         </FormLabel>
-                        <Input variant="filled" value={i.reason} disabled />
+                        <Input
+                          variant="filled"
+                          value={i.reason}
+                          fontWeight={800}
+                          disabled
+                        />
                       </FormControl>
                     </Box>
 
