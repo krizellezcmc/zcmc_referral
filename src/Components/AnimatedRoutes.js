@@ -28,6 +28,7 @@ import OpcenHome2 from "../Pages/OpcenHome2";
 import Recover from "../Pages/Recover";
 import Success from "../Pages/Success";
 import Verify from "../Pages/Verify";
+import Transfererd from "../Pages/Transfererd";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -57,7 +58,7 @@ const AnimatedRoutes = () => {
           <Route path="/patientlist" element={<Patient />} />
           <Route path="/opcentable" element={<OpcenTable />}></Route>
           <Route path="/opcenhome/:id" element={<OpcenHome2 />}></Route>
-
+          <Route path="/transfer" element={<Transfererd />}></Route>
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
           {/* Nurse Routes*/}

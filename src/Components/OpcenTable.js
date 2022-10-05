@@ -34,7 +34,7 @@ function OpcenTable(props) {
         }}
       >
         <HStack>
-          <Box w="100%" textAlign="left" ml={8}>
+          <Box w="100%" textAlign="center">
             <Text fontWeight="900" fontSize="13px">
               {props.name}
             </Text>

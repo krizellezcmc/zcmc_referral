@@ -12,6 +12,8 @@ import {
   HiOutlineUserAdd,
   HiUserGroup,
   HiDocumentAdd,
+  HiArrowRight,
+  HiOutlineUserRemove,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -156,6 +158,19 @@ const Sidebar = () => {
                 )}
               </p>
               <span>Referrals</span>
+            </li>
+            <li
+              className={path.includes("transfer") ? "active" : ""}
+              onClick={() => navigate("/transfer")}
+            >
+              <p>
+                {path.includes("/trasnfer") ? (
+                  <HiOutlineUserRemove />
+                ) : (
+                  <HiOutlineUserRemove />
+                )}
+              </p>
+              <span>Transferred Patients</span>
             </li>
           </>
         ) : (
