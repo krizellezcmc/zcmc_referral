@@ -116,7 +116,6 @@ function OpcenHome2(props) {
       .then((response) => {
         setRemarks(response.data);
         // setIsLoading(false);
-        console.log(response.data);
       });
 
     const getHospitals = async () => {
@@ -200,7 +199,7 @@ function OpcenHome2(props) {
                           <>
                             <Comment
                               remark={el.remark}
-                              date={el.remark_stamp}
+                              date={el.remark_tstamp}
                               user={el.firstName + " " + el.lastName}
                               dept={el.department}
                             />

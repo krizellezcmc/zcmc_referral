@@ -96,14 +96,14 @@ function Recover() {
               variant={"solid"}
             />
           </Box>
-          <Box mx={5}>
+          {/* <Box mx={5}>
             <Alert status="error" variant="subtle">
               <AlertIcon />
               <Text fontWeight={500} color="red.600" fontSize="14.5px">
                 Your account is temporarily locked.
               </Text>
             </Alert>
-          </Box>
+          </Box> */}
           <Text mt={6} mb={6} mx={6} color="gray.600">
             Enter the email associated with your account to receive a
             verification code.

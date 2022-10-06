@@ -14,10 +14,17 @@ import {
   HiDocumentAdd,
   HiArrowRight,
   HiOutlineUserRemove,
+  HiUserRemove,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
-import { BiGrid, BiGridAlt, BiMenu, BiWrench } from "react-icons/bi";
+import {
+  BiGrid,
+  BiGridAlt,
+  BiMenu,
+  BiUserMinus,
+  BiWrench,
+} from "react-icons/bi";
 import useAuth from "../Hooks/useAuth";
 
 const Sidebar = () => {
@@ -208,6 +215,19 @@ const Sidebar = () => {
                 )}
               </p>
               <span>Referred Patients</span>
+            </li>
+            <li
+              className={path.includes("referrals") ? "active" : ""}
+              onClick={() => navigate("/referrals")}
+            >
+              <p>
+                {path.includes("referrals") ? (
+                  <HiOutlineUserRemove />
+                ) : (
+                  <HiOutlineUserRemove />
+                )}
+              </p>
+              <span>Referrals</span>
             </li>
             <li
               className={path.includes("changepass") ? "active" : ""}
