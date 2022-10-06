@@ -32,18 +32,19 @@ const Sidebar = () => {
   const [referringFacility, setReferringFacility] = useState("");
   const [role, setRole] = useState("");
   const [open, setOpen] = useState(false);
+  const [local, setLocal] = useState("");
   let navigate = useNavigate();
 
   const path = window.location.pathname;
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    setReferringFacility(user.name);
-    setUserName(user.firstName + "  " + user.lastName);
-    setRole(user.role);
-  }, [username, referringFacility, role]);
-
   const { user } = useAuth();
+  useEffect(() => {
+    const userr = JSON.parse(localStorage.getItem("user"));
+    setReferringFacility(userr.name);
+    setUserName(userr.firstName + "  " + userr.lastName);
+    setRole(userr.role);
+
+    setLocal(user.local);
+  }, [username, referringFacility, role]);
 
   return (
     <div className={open ? "sidebar" : "sidebar close"}>
@@ -216,19 +217,25 @@ const Sidebar = () => {
               </p>
               <span>Referred Patients</span>
             </li>
-            <li
-              className={path.includes("referrals") ? "active" : ""}
-              onClick={() => navigate("/referrals")}
-            >
-              <p>
-                {path.includes("referrals") ? (
-                  <HiOutlineUserRemove />
-                ) : (
-                  <HiOutlineUserRemove />
-                )}
-              </p>
-              <span>Referrals</span>
-            </li>
+            {local === 0 ? (
+              ""
+            ) : (
+              <>
+                <li
+                  className={path.includes("referrals") ? "active" : ""}
+                  onClick={() => navigate("/referrals")}
+                >
+                  <p>
+                    {path.includes("referrals") ? (
+                      <HiOutlineUserRemove />
+                    ) : (
+                      <HiOutlineUserRemove />
+                    )}
+                  </p>
+                  <span>Referrals</span>
+                </li>
+              </>
+            )}
             <li
               className={path.includes("changepass") ? "active" : ""}
               onClick={() => navigate("/changepass")}

@@ -17,8 +17,6 @@ import {
   HStack,
   Textarea,
   Checkbox,
-  Flex,
-  Spacer,
   Link,
   useDisclosure,
   Modal,
@@ -28,12 +26,22 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useToast,
 } from "@chakra-ui/react";
 import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
 import Swal from "sweetalert2";
 import api from "../API/Api";
 import Loading from "./Spinner";
+import useAuth from "../Hooks/useAuth";
+import axios from "axios";
+import AddComment from "../Components/AddComment";
+import Comment from "../Components/Comment";
 
 function SearchPatient(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,9 +51,12 @@ function SearchPatient(props) {
   const [hospital, setHospital] = useState("");
   const [covid, setCovid] = useState([]);
   const [id, setId] = useState("");
+  const [remarks, setRemarks] = useState([]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+
+  const { user } = useAuth();
 
   patient
     .filter((l) => l.refFacility === hospital.toUpperCase())
@@ -138,8 +149,8 @@ function SearchPatient(props) {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    setHospital(user.name);
+    const userr = JSON.parse(localStorage.getItem("user"));
+    setHospital(userr.name);
 
     const fetchPatData = async () => {
       let pat = await api.get("/get_sheets.php", {
@@ -147,6 +158,12 @@ function SearchPatient(props) {
       });
       setPatient(pat.data);
     };
+    axios
+      .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
+      .then((response) => {
+        setRemarks(response.data);
+        // setIsLoading(false);
+      });
     fetchPatData();
   }, [hospital, id]);
 
@@ -155,6 +172,7 @@ function SearchPatient(props) {
       <Text fontWeight={500}>Search Patient</Text>
 
       <Select
+        // styles={{ position: "fixed", zIndex: "50" }}
         options={patient}
         placeholder="Search patient"
         variant="flushed"
@@ -238,807 +256,986 @@ function SearchPatient(props) {
                   </ul>
                 </Box>
               </Center>
-              <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-                <GridItem colSpan={2}>
-                  <Container p={5} maxW="1200px">
-                    {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
-                    <Box
-                      borderWidth="1px"
-                      borderColor="gray.300"
-                      borderRadius="lg"
-                      p={5}
-                    >
-                      <Text fontSize="xl" textAlign="center" fontWeight={800}>
-                        PATIENT INFORMATION
-                      </Text>
-                      <HStack mt={8}>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>Last Name</FormLabel>
 
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.lastname.toUpperCase()}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>First Name</FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.firstname.toUpperCase()}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel>Middle Name</FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.middleName.toUpperCase()}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl w={80}>
-                          <FormLabel fontSize={14}>Suffix</FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.extended.toUpperCase()}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                      <HStack mt={5}>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Birthday</FormLabel>
-                          <HStack>
-                            <Input
-                              type="text"
-                              variant="filled"
-                              fontWeight={800}
-                              value={i.birthdate}
-                              disabled
-                            />
-                          </HStack>
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Sex</FormLabel>
-                          <Input
-                            value={i.sex}
-                            variant="filled"
-                            fontWeight={800}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Civil Status</FormLabel>
-                          <Input
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.civilStatus}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Nationality</FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.nationality}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                      <HStack mt={5}>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Religion</FormLabel>
-                          <Input
-                            variant="filled"
-                            value={i.religion}
-                            fontWeight={800}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Occupation</FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.occupation}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>PhilHealth</FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.philhealth}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                      <FormControl mt={5}>
-                        <FormLabel fontSize={14}>Address</FormLabel>
-                        <Textarea
-                          type="text"
-                          variant="filled"
-                          fontWeight={800}
-                          value={i.address}
-                          disabled
-                        />
-                      </FormControl>
-                    </Box>
-
-                    <Box
-                      borderWidth="1px"
-                      borderColor="gray.300"
-                      borderRadius="lg"
-                      p={5}
-                      mt={5}
-                    >
-                      <Text fontSize="xl" textAlign="center" fontWeight={800}>
-                        SIGNIFICANT WATCHERS
+              <Container mt={10} maxW="100%">
+                <Tabs variant="enclosed">
+                  <TabList mb="1em">
+                    <Tab>
+                      <Text>Patient Referral</Text>
+                    </Tab>
+                    <Tab>
+                      <Text>
+                        Remarks
+                        <Badge ml="1.5" colorScheme="blue">
+                          {remarks.length}
+                        </Badge>
                       </Text>
-                      <HStack mt={8}>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Next of Kin</FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.nextOfkin}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>
-                            Landline/Mobile/Email
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.contactWatcher}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                    </Box>
-
-                    <Box
-                      borderWidth="1px"
-                      borderColor="gray.300"
-                      borderRadius="lg"
-                      p={5}
-                      mt={5}
-                    >
-                      <Text fontSize="xl" textAlign="center" fontWeight={800}>
-                        ADMITTING DETAILS
-                      </Text>
-                      <HStack mt={8}>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Date Admitted</FormLabel>
-                          <Input
-                            type="date"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.dateAdmitted}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl w={600}>
-                          <FormLabel fontSize={14}>Referral Type</FormLabel>
-                          <Input
-                            variant="filled"
-                            value={i.refType}
-                            fontWeight={800}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl w={500}>
-                          <FormLabel fontSize={14}>Disposition</FormLabel>
-                          <Input
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.disposition}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Specialization</FormLabel>
-                          <Input
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.specialization}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                      {i.specialization === "Obstetrics And Gynecology" ? (
-                        <>
-                          <Box mt={10}>
-                            <Text
-                              fontSize="xl"
-                              textAlign="center"
-                              fontWeight={800}
+                    </Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+                        <GridItem colSpan={2}>
+                          <Container p={5} maxW="1200px">
+                            {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
+                            <Box
+                              borderWidth="1px"
+                              borderColor="gray.300"
+                              borderRadius="lg"
+                              p={5}
                             >
-                              OB CASE
-                            </Text>
-                            <HStack mt={5}>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>
-                                  Gravidity and Parity
-                                </FormLabel>
-                                <HStack>
-                                  {i.GP !== "" || i.GP !== null
-                                    ? JSON.parse(i.GP).map((el, key) => {
-                                        return (
-                                          <>
-                                            <Text>G</Text>
-                                            <Input
-                                              type="text"
-                                              fontWeight={800}
-                                              value={el.G}
-                                              borderBottom="1px"
-                                              w={50}
-                                              h={8}
-                                              textAlign="center"
-                                              disabled
-                                            />
-                                            <Text>P</Text>
-                                            <Input
-                                              type="text"
-                                              fontWeight={800}
-                                              value={el.P}
-                                              borderBottom="1px"
-                                              w={50}
-                                              h={8}
-                                              textAlign="center"
-                                              disabled
-                                            />
-                                            <Text>(</Text>
-                                            <Input
-                                              type="text"
-                                              fontWeight={800}
-                                              value={el.GAP}
-                                              borderBottom="1px"
-                                              w={100}
-                                              h={8}
-                                              textAlign="center"
-                                              disabled
-                                            />
-                                            <Text>)</Text>
-                                          </>
-                                        );
-                                      })
-                                    : ""}
-                                </HStack>
-                              </FormControl>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>
-                                  Last Menstrual Period
-                                </FormLabel>
-                                <Input
-                                  type="text"
-                                  value={i.LMP}
-                                  fontWeight={800}
-                                  disabled
-                                />
-                              </FormControl>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>AOG</FormLabel>
-                                <Input
-                                  type="text"
-                                  value={i.AOG}
-                                  fontWeight={800}
-                                  disabled
-                                />
-                              </FormControl>
-                            </HStack>
-                            <HStack mt={5}>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>EDC</FormLabel>
-                                <Input
-                                  type="text"
-                                  value={i.EDC}
-                                  fontWeight={800}
-                                  disabled
-                                />
-                              </FormControl>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>
-                                  Fetal Heart Tones
-                                </FormLabel>
-                                <Input
-                                  type="text"
-                                  value={i.FHT}
-                                  fontWeight={800}
-                                  disabled
-                                />
-                              </FormControl>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>
-                                  Fundal Height
-                                </FormLabel>
-                                <Input
-                                  type="text"
-                                  value={i.FH}
-                                  fontWeight={800}
-                                  disabled
-                                />
-                              </FormControl>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>Baby APGAR</FormLabel>
-                                <Input
-                                  type="text"
-                                  value={i.APGAR}
-                                  fontWeight={800}
-                                  disabled
-                                />
-                              </FormControl>
-                            </HStack>
-                            <HStack mt={5}>
-                              <FormControl isRequired>
-                                <FormLabel fontSize={14}>
-                                  Internal Examination
-                                </FormLabel>
-                                <HStack>
-                                  {JSON.parse(i.IE).map((el) => {
-                                    return (
-                                      <>
-                                        <Input
-                                          type="text"
-                                          borderBottom="1px"
-                                          w={80}
-                                          h={8}
-                                          textAlign="center"
-                                          disabled
-                                          fontWeight={800}
-                                          value={el.cm}
-                                        />
-                                        <Text fontSize={14}>cm</Text>
-                                        <Input
-                                          type="text"
-                                          borderBottom="1px"
-                                          w={80}
-                                          h={8}
-                                          textAlign="center"
-                                          disabled
-                                          fontWeight={800}
-                                          value={el.station}
-                                        />
-                                        <Text fontSize={14}>station</Text>
-                                        <Input
-                                          type="text"
-                                          borderBottom="1px"
-                                          h={8}
-                                          textAlign="center"
-                                          disabled
-                                          fontWeight={800}
-                                          value={el.effacement}
-                                        />
-                                        <Text fontSize={14}>effacement</Text>
-                                        <Input
-                                          type="text"
-                                          borderBottom="1px"
-                                          h={8}
-                                          textAlign="center"
-                                          disabled
-                                          fontWeight={800}
-                                          value={el.presentation}
-                                        />
-                                        <Text fontSize={14}>presentation</Text>
-                                      </>
-                                    );
-                                  })}
-                                </HStack>
-                              </FormControl>
-                            </HStack>
-                            <FormControl mt={5}>
-                              <FormLabel fontSize={14}>Bow</FormLabel>
-                              {JSON.parse(i.bow).map((el) => {
-                                return (
-                                  <Checkbox
-                                    size="sm"
-                                    ml={5}
-                                    isChecked={true}
+                              <Text
+                                fontSize="xl"
+                                textAlign="center"
+                                fontWeight={800}
+                              >
+                                PATIENT INFORMATION
+                              </Text>
+                              <HStack mt={8}>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>Last Name</FormLabel>
+
+                                  <Input
+                                    type="text"
+                                    variant="filled"
                                     fontWeight={800}
-                                  >
-                                    {el}
-                                  </Checkbox>
-                                );
-                              })}
-                            </FormControl>
-                          </Box>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                      <HStack mt={10}>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>
-                            Latest V/S- <br></br>Temperature
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.latestTemp}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>
-                            Latest V/S-Blood <br></br> Pressure
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.latestBp}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>
-                            Latest V/S-Respiration Rate
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.latestRespi}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>
-                            Latest V/S-Pulse <br></br>Rate
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.latestPulse}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>
-                            Latest V/S-Oxygen Saturation
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.latestOxygen}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                      <HStack mt={5}>
-                        <FormControl isRequired>
-                          <FormLabel fontSize={14}>
-                            Glasgow Coma Scale
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.latestGlasgow}
-                            disabled
-                          />
-                        </FormControl>
-
-                        <FormControl>
-                          <FormLabel fontSize={14}>
-                            Resident on Duty/Contact #
-                          </FormLabel>
-                          <Input
-                            type="text"
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.userContact}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                      <FormControl>
-                        <FormLabel fontSize={14}>
-                          Endorsement/Initial Care
-                        </FormLabel>
-                        <Textarea
-                          type="text"
-                          variant="filled"
-                          fontWeight={800}
-                          value={i.endorsement}
-                          disabled
-                        />
-                      </FormControl>
-                      <HStack mt={5}>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Chief Complaints</FormLabel>
-                          <Textarea
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.chiefComplaints}
-                            disabled
-                          />
-                        </FormControl>
-                        <FormControl>
-                          <FormLabel fontSize={14}>Diagnosis</FormLabel>
-                          <Textarea
-                            variant="filled"
-                            fontWeight={800}
-                            value={i.diagnosis}
-                            disabled
-                          />
-                        </FormControl>
-                      </HStack>
-                      <FormControl mt={5} isRequired>
-                        <FormLabel fontSize={14}>
-                          {" "}
-                          Reason for Referral
-                        </FormLabel>
-                        <Input
-                          variant="filled"
-                          value={i.reason}
-                          fontWeight={800}
-                          disabled
-                        />
-                      </FormControl>
-                    </Box>
-
-                    <HStack mt={5} mb={5}>
-                      <Checkbox isChecked={true}></Checkbox>
-                      <p style={{ fontSize: "14px", marginTop: "3px" }}>
-                        The patient understands and accepts the terms and
-                        conditions of the
-                      </p>
-                      <Link
-                        fontSize="14px"
-                        color="blue"
-                        mt={3}
-                        onClick={onOpen}
-                      >
-                        Patient Agreement Form
-                      </Link>
-                    </HStack>
-                  </Container>
-                </GridItem>
-                <GridItem
-                  p={3}
-                  style={{
-                    width: "100%",
-                    marginTop: "20px",
-                    height: "auto",
-                    boxShadow:
-                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
-                    borderRadius: "5px",
-                    padding: "30px",
-                  }}
-                >
-                  {isLoading ? (
-                    <Center mt={20}>
-                      <Loading />
-                    </Center>
-                  ) : bizbox.length !== 0 ? (
-                    bizbox.map((d) => {
-                      return (
-                        <>
-                          <Text
-                            style={{
-                              display: "flex",
-                              marginBottom: 4,
-                              fontWeight: "600",
-                            }}
-                            mb={6}
-                          >
-                            <BiIdCard
-                              style={{ marginRight: "5px", marginTop: 2 }}
-                            />
-                            <Text textTransform="uppercase" mb={6}>
-                              Patient ID: {d.patId}
-                            </Text>
-                          </Text>
-
-                          {/* COVID */}
-
-                          <Text
-                            textTransform="uppercase"
-                            fontSize="15px"
-                            fontWeight="500"
-                          >
-                            COVID:{" "}
-                            {covid === null ? (
-                              <Badge colorScheme="gray">No result</Badge>
-                            ) : covid["result"] === 1 ? (
-                              <Badge colorScheme="red">POSITIVE +</Badge>
-                            ) : (
-                              <Badge colorScheme="blue">negative -</Badge>
-                            )}
-                          </Text>
-                          <br />
-
-                          <Text
-                            style={{
-                              display: "flex",
-                              marginBottom: 4,
-                              marginTop: 10,
-                            }}
-                          >
-                            <BiCalendarEvent
-                              style={{ marginRight: "5px", marginTop: 2 }}
-                            />
-                            <Text textTransform="uppercase">Referred date</Text>
-                          </Text>
-                          <Text fontSize="15px">
-                            <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
-                              {moment(d.referredDate).format("lll")}
+                                    value={i.lastname.toUpperCase()}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>
+                                    First Name
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.firstname.toUpperCase()}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel>Middle Name</FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.middleName.toUpperCase()}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl w={80}>
+                                  <FormLabel fontSize={14}>Suffix</FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.extended.toUpperCase()}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                              <HStack mt={5}>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>Birthday</FormLabel>
+                                  <HStack>
+                                    <Input
+                                      type="text"
+                                      variant="filled"
+                                      fontWeight={800}
+                                      value={i.birthdate}
+                                      disabled
+                                    />
+                                  </HStack>
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>Sex</FormLabel>
+                                  <Input
+                                    value={i.sex}
+                                    variant="filled"
+                                    fontWeight={800}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Civil Status
+                                  </FormLabel>
+                                  <Input
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.civilStatus}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Nationality
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.nationality}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                              <HStack mt={5}>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>Religion</FormLabel>
+                                  <Input
+                                    variant="filled"
+                                    value={i.religion}
+                                    fontWeight={800}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Occupation
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.occupation}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    PhilHealth
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.philhealth}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                              <FormControl mt={5}>
+                                <FormLabel fontSize={14}>Address</FormLabel>
+                                <Textarea
+                                  type="text"
+                                  variant="filled"
+                                  fontWeight={800}
+                                  value={i.address}
+                                  disabled
+                                />
+                              </FormControl>
                             </Box>
-                          </Text>
 
-                          <Box mt={10}>
-                            <Text style={{ display: "flex", marginBottom: 4 }}>
-                              <TbCheckupList
-                                style={{ marginRight: "5px", marginTop: 2 }}
-                              />
-                              <Text textTransform="uppercase">
-                                Discharge diagnosis
+                            <Box
+                              borderWidth="1px"
+                              borderColor="gray.300"
+                              borderRadius="lg"
+                              p={5}
+                              mt={5}
+                            >
+                              <Text
+                                fontSize="xl"
+                                textAlign="center"
+                                fontWeight={800}
+                              >
+                                SIGNIFICANT WATCHERS
                               </Text>
-                            </Text>
+                              <HStack mt={8}>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Next of Kin
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.nextOfkin}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Landline/Mobile/Email
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.contactWatcher}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                            </Box>
 
-                            <Box>
-                              {d.dischDiagnosis === "" ||
-                              d.dischDiagnosis === null ? (
-                                <Box p={3} bg="gray.50" borderRadius="5px">
-                                  <Text fontSize="13px">Nothing to show</Text>
-                                </Box>
-                              ) : (
+                            <Box
+                              borderWidth="1px"
+                              borderColor="gray.300"
+                              borderRadius="lg"
+                              p={5}
+                              mt={5}
+                            >
+                              <Text
+                                fontSize="xl"
+                                textAlign="center"
+                                fontWeight={800}
+                              >
+                                ADMITTING DETAILS
+                              </Text>
+                              <HStack mt={8}>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Date Admitted
+                                  </FormLabel>
+                                  <Input
+                                    type="date"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.dateAdmitted}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl w={600}>
+                                  <FormLabel fontSize={14}>
+                                    Referral Type
+                                  </FormLabel>
+                                  <Input
+                                    variant="filled"
+                                    value={i.refType}
+                                    fontWeight={800}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl w={500}>
+                                  <FormLabel fontSize={14}>
+                                    Disposition
+                                  </FormLabel>
+                                  <Input
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.disposition}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Specialization
+                                  </FormLabel>
+                                  <Input
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.specialization}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                              {i.specialization ===
+                              "Obstetrics And Gynecology" ? (
                                 <>
-                                  <Box p={3} bg="gray.50" borderRadius="5px">
-                                    <Text fontSize="13px">
-                                      {d.dischDiagnosis}
+                                  <Box mt={10}>
+                                    <Text
+                                      fontSize="xl"
+                                      textAlign="center"
+                                      fontWeight={800}
+                                    >
+                                      OB CASE
                                     </Text>
+                                    <HStack mt={5}>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>
+                                          Gravidity and Parity
+                                        </FormLabel>
+                                        <HStack>
+                                          {i.GP !== "" || i.GP !== null
+                                            ? JSON.parse(i.GP).map(
+                                                (el, key) => {
+                                                  return (
+                                                    <>
+                                                      <Text>G</Text>
+                                                      <Input
+                                                        type="text"
+                                                        fontWeight={800}
+                                                        value={el.G}
+                                                        borderBottom="1px"
+                                                        w={50}
+                                                        h={8}
+                                                        textAlign="center"
+                                                        disabled
+                                                      />
+                                                      <Text>P</Text>
+                                                      <Input
+                                                        type="text"
+                                                        fontWeight={800}
+                                                        value={el.P}
+                                                        borderBottom="1px"
+                                                        w={50}
+                                                        h={8}
+                                                        textAlign="center"
+                                                        disabled
+                                                      />
+                                                      <Text>(</Text>
+                                                      <Input
+                                                        type="text"
+                                                        fontWeight={800}
+                                                        value={el.GAP}
+                                                        borderBottom="1px"
+                                                        w={100}
+                                                        h={8}
+                                                        textAlign="center"
+                                                        disabled
+                                                      />
+                                                      <Text>)</Text>
+                                                    </>
+                                                  );
+                                                }
+                                              )
+                                            : ""}
+                                        </HStack>
+                                      </FormControl>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>
+                                          Last Menstrual Period
+                                        </FormLabel>
+                                        <Input
+                                          type="text"
+                                          value={i.LMP}
+                                          fontWeight={800}
+                                          disabled
+                                        />
+                                      </FormControl>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>AOG</FormLabel>
+                                        <Input
+                                          type="text"
+                                          value={i.AOG}
+                                          fontWeight={800}
+                                          disabled
+                                        />
+                                      </FormControl>
+                                    </HStack>
+                                    <HStack mt={5}>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>EDC</FormLabel>
+                                        <Input
+                                          type="text"
+                                          value={i.EDC}
+                                          fontWeight={800}
+                                          disabled
+                                        />
+                                      </FormControl>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>
+                                          Fetal Heart Tones
+                                        </FormLabel>
+                                        <Input
+                                          type="text"
+                                          value={i.FHT}
+                                          fontWeight={800}
+                                          disabled
+                                        />
+                                      </FormControl>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>
+                                          Fundal Height
+                                        </FormLabel>
+                                        <Input
+                                          type="text"
+                                          value={i.FH}
+                                          fontWeight={800}
+                                          disabled
+                                        />
+                                      </FormControl>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>
+                                          Baby APGAR
+                                        </FormLabel>
+                                        <Input
+                                          type="text"
+                                          value={i.APGAR}
+                                          fontWeight={800}
+                                          disabled
+                                        />
+                                      </FormControl>
+                                    </HStack>
+                                    <HStack mt={5}>
+                                      <FormControl isRequired>
+                                        <FormLabel fontSize={14}>
+                                          Internal Examination
+                                        </FormLabel>
+                                        <HStack>
+                                          {JSON.parse(i.IE).map((el) => {
+                                            return (
+                                              <>
+                                                <Input
+                                                  type="text"
+                                                  borderBottom="1px"
+                                                  w={80}
+                                                  h={8}
+                                                  textAlign="center"
+                                                  disabled
+                                                  fontWeight={800}
+                                                  value={el.cm}
+                                                />
+                                                <Text fontSize={14}>cm</Text>
+                                                <Input
+                                                  type="text"
+                                                  borderBottom="1px"
+                                                  w={80}
+                                                  h={8}
+                                                  textAlign="center"
+                                                  disabled
+                                                  fontWeight={800}
+                                                  value={el.station}
+                                                />
+                                                <Text fontSize={14}>
+                                                  station
+                                                </Text>
+                                                <Input
+                                                  type="text"
+                                                  borderBottom="1px"
+                                                  h={8}
+                                                  textAlign="center"
+                                                  disabled
+                                                  fontWeight={800}
+                                                  value={el.effacement}
+                                                />
+                                                <Text fontSize={14}>
+                                                  effacement
+                                                </Text>
+                                                <Input
+                                                  type="text"
+                                                  borderBottom="1px"
+                                                  h={8}
+                                                  textAlign="center"
+                                                  disabled
+                                                  fontWeight={800}
+                                                  value={el.presentation}
+                                                />
+                                                <Text fontSize={14}>
+                                                  presentation
+                                                </Text>
+                                              </>
+                                            );
+                                          })}
+                                        </HStack>
+                                      </FormControl>
+                                    </HStack>
+                                    <FormControl mt={5}>
+                                      <FormLabel fontSize={14}>Bow</FormLabel>
+                                      {JSON.parse(i.bow).map((el) => {
+                                        return (
+                                          <Checkbox
+                                            size="sm"
+                                            ml={5}
+                                            isChecked={true}
+                                            fontWeight={800}
+                                          >
+                                            {el}
+                                          </Checkbox>
+                                        );
+                                      })}
+                                    </FormControl>
                                   </Box>
                                 </>
-                              )}
-                            </Box>
-                          </Box>
-
-                          <Box mt={10}>
-                            <Text style={{ display: "flex", marginBottom: 4 }}>
-                              <TbCheckupList
-                                style={{ marginRight: "5px", marginTop: 2 }}
-                              />
-                              <Text textTransform="uppercase">
-                                Final diagnosis
-                              </Text>
-                            </Text>
-
-                            <Box>
-                              {d.finalDiagnosis === "" ||
-                              d.finalDiagnosis === null ? (
-                                <Box p={3} bg="gray.50" borderRadius="5px">
-                                  <Text fontSize="13px">Nothing to show</Text>
-                                </Box>
                               ) : (
+                                ""
+                              )}
+                              <HStack mt={10}>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>
+                                    Latest V/S- <br></br>Temperature
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.latestTemp}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>
+                                    Latest V/S-Blood <br></br> Pressure
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.latestBp}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>
+                                    Latest V/S-Respiration Rate
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.latestRespi}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>
+                                    Latest V/S-Pulse <br></br>Rate
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.latestPulse}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>
+                                    Latest V/S-Oxygen Saturation
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.latestOxygen}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                              <HStack mt={5}>
+                                <FormControl isRequired>
+                                  <FormLabel fontSize={14}>
+                                    Glasgow Coma Scale
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.latestGlasgow}
+                                    disabled
+                                  />
+                                </FormControl>
+
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Resident on Duty/Contact #
+                                  </FormLabel>
+                                  <Input
+                                    type="text"
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.userContact}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                              <FormControl>
+                                <FormLabel fontSize={14}>
+                                  Endorsement/Initial Care
+                                </FormLabel>
+                                <Textarea
+                                  type="text"
+                                  variant="filled"
+                                  fontWeight={800}
+                                  value={i.endorsement}
+                                  disabled
+                                />
+                              </FormControl>
+                              <HStack mt={5}>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>
+                                    Chief Complaints
+                                  </FormLabel>
+                                  <Textarea
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.chiefComplaints}
+                                    disabled
+                                  />
+                                </FormControl>
+                                <FormControl>
+                                  <FormLabel fontSize={14}>Diagnosis</FormLabel>
+                                  <Textarea
+                                    variant="filled"
+                                    fontWeight={800}
+                                    value={i.diagnosis}
+                                    disabled
+                                  />
+                                </FormControl>
+                              </HStack>
+                              <FormControl mt={5} isRequired>
+                                <FormLabel fontSize={14}>
+                                  {" "}
+                                  Reason for Referral
+                                </FormLabel>
+                                <Input
+                                  variant="filled"
+                                  value={i.reason}
+                                  fontWeight={800}
+                                  disabled
+                                />
+                              </FormControl>
+                            </Box>
+
+                            <HStack mt={5} mb={5}>
+                              <Checkbox isChecked={true}></Checkbox>
+                              <p style={{ fontSize: "14px", marginTop: "3px" }}>
+                                The patient understands and accepts the terms
+                                and conditions of the
+                              </p>
+                              <Link
+                                fontSize="14px"
+                                color="blue"
+                                mt={3}
+                                onClick={onOpen}
+                              >
+                                Patient Agreement Form
+                              </Link>
+                            </HStack>
+                          </Container>
+                        </GridItem>
+                        <GridItem
+                          p={3}
+                          style={{
+                            width: "100%",
+                            marginTop: "20px",
+                            height: "auto",
+                            boxShadow:
+                              "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                            borderRadius: "5px",
+                            padding: "30px",
+                          }}
+                        >
+                          {isLoading ? (
+                            <Center mt={20}>
+                              <Loading />
+                            </Center>
+                          ) : bizbox.length !== 0 ? (
+                            bizbox.map((d) => {
+                              return (
                                 <>
-                                  <Box p={3} bg="gray.50" borderRadius="5px">
-                                    <Text fontSize="13px">
-                                      {d.finalDiagnosis}
+                                  <Text
+                                    style={{
+                                      display: "flex",
+                                      marginBottom: 4,
+                                      fontWeight: "600",
+                                    }}
+                                    mb={6}
+                                  >
+                                    <BiIdCard
+                                      style={{
+                                        marginRight: "5px",
+                                        marginTop: 2,
+                                      }}
+                                    />
+                                    <Text textTransform="uppercase" mb={6}>
+                                      Patient ID: {d.patId}
                                     </Text>
+                                  </Text>
+
+                                  {/* COVID */}
+
+                                  <Text
+                                    textTransform="uppercase"
+                                    fontSize="15px"
+                                    fontWeight="500"
+                                  >
+                                    COVID:{" "}
+                                    {covid === null ? (
+                                      <Badge colorScheme="gray">
+                                        No result
+                                      </Badge>
+                                    ) : covid["result"] === 1 ? (
+                                      <Badge colorScheme="red">
+                                        POSITIVE +
+                                      </Badge>
+                                    ) : (
+                                      <Badge colorScheme="blue">
+                                        negative -
+                                      </Badge>
+                                    )}
+                                  </Text>
+                                  <br />
+
+                                  <Text
+                                    style={{
+                                      display: "flex",
+                                      marginBottom: 4,
+                                      marginTop: 10,
+                                    }}
+                                  >
+                                    <BiCalendarEvent
+                                      style={{
+                                        marginRight: "5px",
+                                        marginTop: 2,
+                                      }}
+                                    />
+                                    <Text textTransform="uppercase">
+                                      Referred date
+                                    </Text>
+                                  </Text>
+                                  <Text fontSize="15px">
+                                    <Box
+                                      p={3}
+                                      bg="gray.50"
+                                      borderRadius="5px"
+                                      mb={6}
+                                    >
+                                      {moment(d.referredDate).format("lll")}
+                                    </Box>
+                                  </Text>
+
+                                  <Box mt={10}>
+                                    <Text
+                                      style={{
+                                        display: "flex",
+                                        marginBottom: 4,
+                                      }}
+                                    >
+                                      <TbCheckupList
+                                        style={{
+                                          marginRight: "5px",
+                                          marginTop: 2,
+                                        }}
+                                      />
+                                      <Text textTransform="uppercase">
+                                        Discharge diagnosis
+                                      </Text>
+                                    </Text>
+
+                                    <Box>
+                                      {d.dischDiagnosis === "" ||
+                                      d.dischDiagnosis === null ? (
+                                        <Box
+                                          p={3}
+                                          bg="gray.50"
+                                          borderRadius="5px"
+                                        >
+                                          <Text fontSize="13px">
+                                            Nothing to show
+                                          </Text>
+                                        </Box>
+                                      ) : (
+                                        <>
+                                          <Box
+                                            p={3}
+                                            bg="gray.50"
+                                            borderRadius="5px"
+                                          >
+                                            <Text fontSize="13px">
+                                              {d.dischDiagnosis}
+                                            </Text>
+                                          </Box>
+                                        </>
+                                      )}
+                                    </Box>
+                                  </Box>
+
+                                  <Box mt={10}>
+                                    <Text
+                                      style={{
+                                        display: "flex",
+                                        marginBottom: 4,
+                                      }}
+                                    >
+                                      <TbCheckupList
+                                        style={{
+                                          marginRight: "5px",
+                                          marginTop: 2,
+                                        }}
+                                      />
+                                      <Text textTransform="uppercase">
+                                        Final diagnosis
+                                      </Text>
+                                    </Text>
+
+                                    <Box>
+                                      {d.finalDiagnosis === "" ||
+                                      d.finalDiagnosis === null ? (
+                                        <Box
+                                          p={3}
+                                          bg="gray.50"
+                                          borderRadius="5px"
+                                        >
+                                          <Text fontSize="13px">
+                                            Nothing to show
+                                          </Text>
+                                        </Box>
+                                      ) : (
+                                        <>
+                                          <Box
+                                            p={3}
+                                            bg="gray.50"
+                                            borderRadius="5px"
+                                          >
+                                            <Text fontSize="13px">
+                                              {d.finalDiagnosis}
+                                            </Text>
+                                          </Box>
+                                        </>
+                                      )}
+                                    </Box>
+                                  </Box>
+
+                                  <Box mt={10}>
+                                    <Text
+                                      style={{
+                                        display: "flex",
+                                        marginBottom: 6,
+                                      }}
+                                    >
+                                      <BiCalendarEvent
+                                        style={{
+                                          marginRight: "5px",
+                                          marginTop: 2,
+                                        }}
+                                      />
+                                      <Text textTransform="uppercase">
+                                        Discharge date
+                                      </Text>
+                                    </Text>
+
+                                    <Box>
+                                      {d.dischDate === "" ||
+                                      d.dischDate === null ? (
+                                        <Box
+                                          p={3}
+                                          bg="gray.50"
+                                          borderRadius="5px"
+                                        >
+                                          <Text
+                                            fontSize="13px"
+                                            fontWeight="600"
+                                            color="blue.500"
+                                          >
+                                            Patient is still admitted
+                                          </Text>
+                                        </Box>
+                                      ) : (
+                                        <Box
+                                          p={3}
+                                          bg="red.50"
+                                          borderRadius="5px"
+                                        >
+                                          <Text
+                                            fontSize=" 14px"
+                                            color="red.600"
+                                            fontWeight="600"
+                                          >
+                                            {moment(d.dischDate).format("lll")}
+                                          </Text>
+                                        </Box>
+                                      )}
+                                    </Box>
                                   </Box>
                                 </>
-                              )}
-                            </Box>
-                          </Box>
-
-                          <Box mt={10}>
-                            <Text style={{ display: "flex", marginBottom: 6 }}>
-                              <BiCalendarEvent
-                                style={{ marginRight: "5px", marginTop: 2 }}
-                              />
-                              <Text textTransform="uppercase">
-                                Discharge date
+                              );
+                            })
+                          ) : i.status === "cancelled" ? (
+                            <>
+                              {" "}
+                              <Box p={3} bg="red.50" borderRadius="5px" mb={6}>
+                                <Text
+                                  fontSize="15px"
+                                  fontWeight="600"
+                                  color="red.500"
+                                >
+                                  Referral Cancelled
+                                </Text>
+                                <Text mt={5} fontSize="15px">
+                                  <b>Reason:</b> <i>{i.rejectReason}</i>
+                                </Text>
+                              </Box>
+                            </>
+                          ) : i.status === "arrived" ? (
+                            <>
+                              {" "}
+                              <Text
+                                style={{
+                                  display: "flex",
+                                  marginBottom: 4,
+                                }}
+                              >
+                                <BiStats
+                                  style={{ marginRight: "5px", marginTop: 2 }}
+                                />
+                                <Text textTransform="uppercase">
+                                  Patient status
+                                </Text>
                               </Text>
-                            </Text>
+                              <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
+                                <Text
+                                  fontSize="13px"
+                                  fontWeight="600"
+                                  color="blue.500"
+                                >
+                                  Not yet available
+                                </Text>
+                              </Box>
+                            </>
+                          ) : (
+                            <>
+                              <Text
+                                style={{
+                                  display: "flex",
+                                  marginBottom: 4,
+                                }}
+                              >
+                                <BiStats
+                                  style={{ marginRight: "5px", marginTop: 2 }}
+                                />
+                                <Text textTransform="uppercase">
+                                  Patient status
+                                </Text>
+                              </Text>
+                              <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
+                                <Text
+                                  fontSize="13px"
+                                  fontWeight="600"
+                                  color="blue.500"
+                                >
+                                  Pending referral
+                                </Text>
+                              </Box>
+                              <Button
+                                size="sm"
+                                colorScheme="red"
+                                variant="solid"
+                                onClick={() => cancelReferral(id)}
+                              >
+                                Cancel Referral
+                              </Button>
+                            </>
+                          )}
+                        </GridItem>
+                      </Grid>
+                    </TabPanel>
+                    <TabPanel>
+                      <Container maxW="container.lg" px={20}>
+                        <AddComment patientId={id} user={user?.userId} />
 
-                            <Box>
-                              {d.dischDate === "" || d.dischDate === null ? (
-                                <Box p={3} bg="gray.50" borderRadius="5px">
-                                  <Text
-                                    fontSize="13px"
-                                    fontWeight="600"
-                                    color="blue.500"
-                                  >
-                                    Patient is still admitted
-                                  </Text>
-                                </Box>
-                              ) : (
-                                <Box p={3} bg="red.50" borderRadius="5px">
-                                  <Text
-                                    fontSize=" 14px"
-                                    color="red.600"
-                                    fontWeight="600"
-                                  >
-                                    {moment(d.dischDate).format("lll")}
-                                  </Text>
-                                </Box>
-                              )}
-                            </Box>
-                          </Box>
-                        </>
-                      );
-                    })
-                  ) : i.status === "cancelled" ? (
-                    <>
-                      {" "}
-                      <Box p={3} bg="red.50" borderRadius="5px" mb={6}>
-                        <Text fontSize="15px" fontWeight="600" color="red.500">
-                          Referral Cancelled
-                        </Text>
-                        <Text mt={5} fontSize="15px">
-                          <b>Reason:</b> <i>{i.rejectReason}</i>
-                        </Text>
-                      </Box>
-                    </>
-                  ) : i.status === "arrived" ? (
-                    <>
-                      {" "}
-                      <Text
-                        style={{
-                          display: "flex",
-                          marginBottom: 4,
-                        }}
-                      >
-                        <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                        <Text textTransform="uppercase">Patient status</Text>
-                      </Text>
-                      <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
-                        <Text fontSize="13px" fontWeight="600" color="blue.500">
-                          Not yet available
-                        </Text>
-                      </Box>
-                    </>
-                  ) : (
-                    <>
-                      <Text
-                        style={{
-                          display: "flex",
-                          marginBottom: 4,
-                        }}
-                      >
-                        <BiStats style={{ marginRight: "5px", marginTop: 2 }} />
-                        <Text textTransform="uppercase">Patient status</Text>
-                      </Text>
-                      <Box p={3} bg="gray.50" borderRadius="5px" mb={6}>
-                        <Text fontSize="13px" fontWeight="600" color="blue.500">
-                          Pending referral
-                        </Text>
-                      </Box>
-                      <Button
-                        size="sm"
-                        colorScheme="red"
-                        variant="solid"
-                        onClick={() => cancelReferral(id)}
-                      >
-                        Cancel Referral
-                      </Button>
-                    </>
-                  )}
-                </GridItem>
-              </Grid>
+                        <Box>
+                          {remarks.map((el, key) => {
+                            return (
+                              <>
+                                <Comment
+                                  remark={el.remark}
+                                  date={el.remark_tstamp}
+                                  user={el.firstName + " " + el.lastName}
+                                  dept={hospital}
+                                />
+                              </>
+                            );
+                          })}
+                        </Box>
+                      </Container>
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </Container>
             </>
           );
         })}
