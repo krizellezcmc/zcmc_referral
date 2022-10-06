@@ -39,6 +39,9 @@ function OpcenTable(props) {
               {props.name}
             </Text>
             <Text fontSize="12px" fontWeight={500}>
+              Age: {props.age}
+            </Text>
+            <Text fontSize="12px" fontWeight={500}>
               Gender: {props.gender}
             </Text>
             <Text fontSize="12px" fontWeight={500}>

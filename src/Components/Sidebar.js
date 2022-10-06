@@ -140,13 +140,6 @@ const Sidebar = () => {
         ) : role === "opcen" ? (
           <>
             <li
-              className={path.includes("patientlist") ? "active" : ""}
-              onClick={() => navigate("/patientlist")}
-            >
-              <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
-              <span>Patient List</span>
-            </li>
-            <li
               className={path.includes("opcen") ? "active" : ""}
               onClick={() => navigate("/opcen")}
             >
@@ -159,6 +152,14 @@ const Sidebar = () => {
               </p>
               <span>Referrals</span>
             </li>
+            <li
+              className={path.includes("patientlist") ? "active" : ""}
+              onClick={() => navigate("/patientlist")}
+            >
+              <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
+              <span>Patient List</span>
+            </li>
+
             <li
               className={path.includes("transfer") ? "active" : ""}
               onClick={() => navigate("/transfer")}

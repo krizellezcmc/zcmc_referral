@@ -110,7 +110,7 @@ function Login() {
   }
 
   if (user?.role === "opcen") {
-    return <Navigate to="/patientlist" />;
+    return <Navigate to="/opcen" />;
   }
 
   return (

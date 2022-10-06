@@ -31,6 +31,7 @@ import moment from "moment";
 import uniqid from "uniqid";
 import api from "../API/Api";
 import { TextArea } from "semantic-ui-react";
+import { getImageListItemBarUtilityClass } from "@mui/material";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");
@@ -125,6 +126,16 @@ const ReferralForm = () => {
     setIe(temp);
   };
 
+  function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
   // const url =
   //   "https://script.google.com/macros/s/AKfycbyDuFLupqdcyp7z3lbGbfwNX79SZlbm9d84n2uPDijo6cXuO_fw_7PwYSL1tOkxhL-I5g/exec?action=postData";
 
@@ -196,7 +207,7 @@ const ReferralForm = () => {
         extendedName: extendedName,
         sex: sex,
         birthdate: birthdate,
-        age: age,
+        age: getAge(birthdate),
         civilStatus: civilStatus,
         nationality: nationality,
         religion: religion,
@@ -481,7 +492,7 @@ const ReferralForm = () => {
             ADMITTING DETAILS
           </Text>
           <HStack mt={8}>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel fontSize={14}>Date Admitted</FormLabel>
               <Input
                 type="date"
@@ -490,7 +501,7 @@ const ReferralForm = () => {
                 onChange={(e) => setDateAdmitted(e.target.value)}
               />
             </FormControl>
-            <FormControl w={600}>
+            <FormControl w={600} isRequired>
               <FormLabel fontSize={14}>Referral Type</FormLabel>
               <Select
                 variant="filled"
@@ -505,7 +516,7 @@ const ReferralForm = () => {
                 <option value="COVID-SUSPECT">COVID-SUSPECT</option>
               </Select>
             </FormControl>
-            <FormControl w={500}>
+            <FormControl w={500} isRequired>
               <FormLabel fontSize={14}>Disposition</FormLabel>
               <Select
                 variant="filled"
@@ -521,7 +532,7 @@ const ReferralForm = () => {
                 <option value="Critical">Critical</option>
               </Select>
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel fontSize={14}>Specialization</FormLabel>
               <Select
                 variant="filled"

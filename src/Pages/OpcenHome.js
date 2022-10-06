@@ -139,25 +139,32 @@ function OpcenHome() {
               boxShadow="base"
               mt={3}
             >
-              {list.map((e) => {
-                return (
-                  <>
-                    <OpcenTable
-                      name={e.label}
-                      value={e.value}
-                      gender={e.gender}
-                      facility={e.facility}
-                      date={e.date}
-                      status={e.status}
-                      service={e.specialization}
-                    />
-                  </>
-                );
-              })}
+              {!list ? (
+                <Text textAlign="center">---Nothing to Show---</Text>
+              ) : (
+                <>
+                  {list.map((e) => {
+                    return (
+                      <>
+                        <OpcenTable
+                          name={e.label}
+                          value={e.value}
+                          gender={e.gender}
+                          facility={e.facility}
+                          date={e.date}
+                          status={e.status}
+                          service={e.specialization}
+                          age={e.age}
+                        />
+                      </>
+                    );
+                  })}
+                </>
+              )}
             </Box>
             <Divider />
           </Container>
-
+          {/* 
           {!showContent ? (
             ""
           ) : (
@@ -217,7 +224,7 @@ function OpcenHome() {
                 </Container>
               )}
             </>
-          )}
+          )} */}
         </div>
       </div>
     </div>
