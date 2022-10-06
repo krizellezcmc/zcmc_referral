@@ -28,7 +28,9 @@ import OpcenHome2 from "../Pages/OpcenHome2";
 import Recover from "../Pages/Recover";
 import Success from "../Pages/Success";
 import Verify from "../Pages/Verify";
-import Transfererd from "../Pages/Transfererd";
+import Transferred from "../Pages/Transferred";
+import Referrals from "../Pages/Referrals";
+import ReferralHome from "../Pages/ReferralHome";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -58,7 +60,7 @@ const AnimatedRoutes = () => {
           <Route path="/patientlist" element={<Patient />} />
           <Route path="/opcentable" element={<OpcenTable />}></Route>
           <Route path="/opcenhome/:id" element={<OpcenHome2 />}></Route>
-          <Route path="/transfer" element={<Transfererd />}></Route>
+          <Route path="/transfer" element={<Transferred />}></Route>
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
           {/* Nurse Routes*/}
@@ -71,6 +73,8 @@ const AnimatedRoutes = () => {
             <Route path="/home" element={<AdminHome />} />
             <Route path="/referredpatient" element={<ReferredPatient />} />
             <Route path="/hospitagubilin/:id" element={<HospiTagubilin />} />
+            <Route path="/referrals" element={<Referrals />} />
+            <Route path="/referrals/:id" element={<ReferralHome />}></Route>
           </Route>
 
           {/* IPCC Routes */}

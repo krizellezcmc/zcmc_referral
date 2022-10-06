@@ -13,24 +13,19 @@ import {
   TabPanels,
   Tabs,
   Text,
-  HStack,
-  Divider,
-  Link,
-  Flex,
   Button,
 } from "@chakra-ui/react";
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
-import { Select } from "chakra-react-select";
+
 import useAuth from "../Hooks/useAuth";
-import Loading from "../Components/Spinner";
+
 import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 import { useParams, useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 
-function OpcenHome2(props) {
-  const [selected, setSelected] = useState("");
+function ReferralHome(props) {
   const [remarks, setRemarks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,15 +35,16 @@ function OpcenHome2(props) {
   const navigate = useNavigate();
 
   function homeOpcen() {
-    navigate("/opcen");
+    navigate("/home");
   }
 
   useEffect(() => {
     axios
-      .get(`http://192.168.3.121/zcmc_referral_api/api/get_comment.php/${id}`)
+      .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
       .then((response) => {
         setRemarks(response.data);
         // setIsLoading(false);
+        console.log(response.data);
       });
   }, [id]);
   return (
@@ -124,4 +120,4 @@ function OpcenHome2(props) {
   );
 }
 
-export default OpcenHome2;
+export default ReferralHome;

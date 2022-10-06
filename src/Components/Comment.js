@@ -44,7 +44,8 @@ function Comment(props) {
             fontWeight="500"
             color="gray.600"
           >
-            {moment(props.date).format("LLL")}
+            {props.date}
+            {/* {moment(props.date).format("LLL")} */}
           </Text>
         </HStack>
 
