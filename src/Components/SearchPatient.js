@@ -1235,6 +1235,59 @@ function SearchPatient(props) {
                           </>
                         ) : i.status === "referred" ? (
                           ""
+                        ) : i.status === "accepted" ? (
+                          <>
+                            <GridItem
+                              p={3}
+                              style={{
+                                width: "100%",
+                                marginTop: "20px",
+                                height: "auto",
+                                boxShadow:
+                                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                borderRadius: "5px",
+                                padding: "30px",
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  display: "flex",
+                                  marginBottom: 4,
+                                }}
+                              >
+                                <BiStats
+                                  style={{ marginRight: "5px", marginTop: 2 }}
+                                />
+                                <Text textTransform="uppercase">
+                                  Referral status
+                                </Text>
+                              </Text>
+                              <Box
+                                p={3}
+                                bg="green.50"
+                                borderRadius="5px"
+                                mb={6}
+                                mt={2}
+                              >
+                                <Text
+                                  fontSize="13px"
+                                  fontWeight="600"
+                                  color="green.500"
+                                >
+                                  Referral has been accepted by Zamboanga City
+                                  Medical Center
+                                </Text>
+                              </Box>
+                              <Button
+                                size="sm"
+                                colorScheme="red"
+                                variant="solid"
+                                onClick={() => cancelReferral(id)}
+                              >
+                                Cancel Referral
+                              </Button>
+                            </GridItem>
+                          </>
                         ) : (
                           <>
                             <GridItem

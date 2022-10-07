@@ -124,8 +124,10 @@ function OpcenHome() {
               boxShadow="base"
               mt={3}
             >
-              {!list ? (
-                <Text textAlign="center">---Nothing to Show---</Text>
+              {list.length === 0 ? (
+                <Box p={2}>
+                  <Text textAlign="center">---Nothing to Show---</Text>
+                </Box>
               ) : (
                 <>
                   {list.map((e) => {
