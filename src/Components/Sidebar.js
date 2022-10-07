@@ -32,7 +32,7 @@ const Sidebar = () => {
   const [referringFacility, setReferringFacility] = useState("");
   const [role, setRole] = useState("");
   const [open, setOpen] = useState(false);
-  const [local, setLocal] = useState("");
+
   let navigate = useNavigate();
 
   const path = window.location.pathname;
@@ -42,8 +42,6 @@ const Sidebar = () => {
     setReferringFacility(userr.name);
     setUserName(userr.firstName + "  " + userr.lastName);
     setRole(userr.role);
-
-    setLocal(user.local);
   }, [username, referringFacility, role]);
 
   return (
@@ -217,7 +215,7 @@ const Sidebar = () => {
               </p>
               <span>Referred Patients</span>
             </li>
-            {local === 0 ? (
+            {user.local === 0 ? (
               ""
             ) : (
               <>

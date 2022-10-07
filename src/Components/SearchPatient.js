@@ -1287,7 +1287,7 @@ function SearchPatient(props) {
                           {remarks.map((el, key) => {
                             return (
                               <>
-                                {el.department === "OPCEN" ? (
+                                {el.role === "opcen" ? (
                                   <Comment
                                     remark={el.remark}
                                     date={el.remark_tstamp}
@@ -1301,7 +1301,7 @@ function SearchPatient(props) {
                                     remark={el.remark}
                                     date={el.remark_tstamp}
                                     user={el.firstName + " " + el.lastName}
-                                    dept={hospital}
+                                    dept={el.name}
                                   />
                                 )}
                               </>
