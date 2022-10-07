@@ -31,15 +31,9 @@ function Comment(props) {
                   {moment(props.date).startOf().fromNow()}
                 </Text>
               </HStack>
-              {props.dept === "OPCEN" ? (
-                <Text fontSize="12px" color="gray.600">
-                  Zamboanga City Medical Center ({props.dept})
-                </Text>
-              ) : (
-                <Text fontSize="12px" color="gray.600">
-                  {props.dept}
-                </Text>
-              )}
+              <Text fontSize="12px" color="gray.600">
+                {props.dept}
+              </Text>
             </div>
           </Stack>
           <Spacer />
