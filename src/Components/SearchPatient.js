@@ -193,7 +193,7 @@ function SearchPatient(props) {
           return (
             <>
               <Center>
-                <Box mt={20} w="70%">
+                <Box mt={20} w="80%">
                   <ul id="progress">
                     <li
                       className={
@@ -206,51 +206,61 @@ function SearchPatient(props) {
                     >
                       Pending
                     </li>
-                    {i.status === "cancelled" ? (
-                      <li className="out">Cancelled</li>
+
+                    {i.status === "referred" ? (
+                      <li className="active" style={{ width: "auto" }}>
+                        Referred to {i.name}
+                      </li>
                     ) : (
                       <>
-                        {" "}
-                        <li
-                          className={
-                            bizbox.length === 0 && i.status === "arrived"
-                              ? "active"
-                              : ""
-                          }
-                        >
-                          Arrived
-                        </li>
-                      </>
-                    )}
+                        {i.status === "cancelled" ? (
+                          <li className="out">Cancelled</li>
+                        ) : (
+                          <>
+                            {" "}
+                            <li
+                              className={
+                                bizbox.length === 0 && i.status === "arrived"
+                                  ? "active"
+                                  : ""
+                              }
+                            >
+                              Arrived
+                            </li>
+                          </>
+                        )}
+                        {bizbox.length === 0 ? (
+                          <>
+                            <li>Admitted</li>
+                            <li>Discharged</li>
+                          </>
+                        ) : (
+                          <>
+                            {bizbox.map((d) => {
+                              return (
+                                <>
+                                  <li
+                                    className={
+                                      d.dischDate === null || d.dischDate === ""
+                                        ? "active"
+                                        : ""
+                                    }
+                                  >
+                                    Admitted
+                                  </li>
 
-                    {bizbox.length === 0 ? (
-                      <>
-                        <li>Admitted</li>
-                        <li>Discharged</li>
-                      </>
-                    ) : (
-                      <>
-                        {bizbox.map((d) => {
-                          return (
-                            <>
-                              <li
-                                className={
-                                  d.dischDate === null || d.dischDate === ""
-                                    ? "active"
-                                    : ""
-                                }
-                              >
-                                Admitted
-                              </li>
-
-                              <li
-                                className={d.dischDate !== null ? "active" : ""}
-                              >
-                                Discharged
-                              </li>
-                            </>
-                          );
-                        })}
+                                  <li
+                                    className={
+                                      d.dischDate !== null ? "active" : ""
+                                    }
+                                  >
+                                    Discharged
+                                  </li>
+                                </>
+                              );
+                            })}
+                          </>
+                        )}
                       </>
                     )}
                   </ul>
@@ -275,7 +285,7 @@ function SearchPatient(props) {
                   <TabPanels>
                     <TabPanel>
                       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-                        <GridItem colSpan={2}>
+                        <GridItem colSpan={i.status === "referred" ? 1 : 2}>
                           <Container p={5} maxW="1200px">
                             {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
                             <Box
@@ -897,26 +907,27 @@ function SearchPatient(props) {
                             </HStack>
                           </Container>
                         </GridItem>
-                        <GridItem
-                          p={3}
-                          style={{
-                            width: "100%",
-                            marginTop: "20px",
-                            height: "auto",
-                            boxShadow:
-                              "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
-                            borderRadius: "5px",
-                            padding: "30px",
-                          }}
-                        >
-                          {isLoading ? (
-                            <Center mt={20}>
-                              <Loading />
-                            </Center>
-                          ) : bizbox.length !== 0 ? (
-                            bizbox.map((d) => {
-                              return (
-                                <>
+
+                        {isLoading ? (
+                          <Center mt={20}>
+                            <Loading />
+                          </Center>
+                        ) : bizbox.length !== 0 ? (
+                          bizbox.map((d) => {
+                            return (
+                              <>
+                                <GridItem
+                                  p={3}
+                                  style={{
+                                    width: "100%",
+                                    marginTop: "20px",
+                                    height: "auto",
+                                    boxShadow:
+                                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                    borderRadius: "5px",
+                                    padding: "30px",
+                                  }}
+                                >
                                   <Text
                                     style={{
                                       display: "flex",
@@ -1131,12 +1142,24 @@ function SearchPatient(props) {
                                       )}
                                     </Box>
                                   </Box>
-                                </>
-                              );
-                            })
-                          ) : i.status === "cancelled" ? (
-                            <>
-                              {" "}
+                                </GridItem>
+                              </>
+                            );
+                          })
+                        ) : i.status === "cancelled" ? (
+                          <>
+                            <GridItem
+                              p={3}
+                              style={{
+                                width: "100%",
+                                marginTop: "20px",
+                                height: "auto",
+                                boxShadow:
+                                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                borderRadius: "5px",
+                                padding: "30px",
+                              }}
+                            >
                               <Box p={3} bg="red.50" borderRadius="5px" mb={6}>
                                 <Text
                                   fontSize="15px"
@@ -1149,10 +1172,22 @@ function SearchPatient(props) {
                                   <b>Reason:</b> <i>{i.rejectReason}</i>
                                 </Text>
                               </Box>
-                            </>
-                          ) : i.status === "arrived" ? (
-                            <>
-                              {" "}
+                            </GridItem>
+                          </>
+                        ) : i.status === "arrived" ? (
+                          <>
+                            <GridItem
+                              p={3}
+                              style={{
+                                width: "100%",
+                                marginTop: "20px",
+                                height: "auto",
+                                boxShadow:
+                                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                borderRadius: "5px",
+                                padding: "30px",
+                              }}
+                            >
                               <Text
                                 style={{
                                   display: "flex",
@@ -1175,9 +1210,24 @@ function SearchPatient(props) {
                                   Not yet available
                                 </Text>
                               </Box>
-                            </>
-                          ) : (
-                            <>
+                            </GridItem>
+                          </>
+                        ) : i.status === "referred" ? (
+                          ""
+                        ) : (
+                          <>
+                            <GridItem
+                              p={3}
+                              style={{
+                                width: "100%",
+                                marginTop: "20px",
+                                height: "auto",
+                                boxShadow:
+                                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                borderRadius: "5px",
+                                padding: "30px",
+                              }}
+                            >
                               <Text
                                 style={{
                                   display: "flex",
@@ -1208,9 +1258,9 @@ function SearchPatient(props) {
                               >
                                 Cancel Referral
                               </Button>
-                            </>
-                          )}
-                        </GridItem>
+                            </GridItem>
+                          </>
+                        )}
                       </Grid>
                     </TabPanel>
                     <TabPanel>
