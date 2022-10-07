@@ -42,8 +42,6 @@ const Sidebar = () => {
     setReferringFacility(userr.name);
     setUserName(userr.firstName + "  " + userr.lastName);
     setRole(userr.role);
-
-    setLocal(user.local);
   }, [username, referringFacility, role]);
 
   return (
@@ -217,7 +215,7 @@ const Sidebar = () => {
               </p>
               <span>Referred Patients</span>
             </li>
-            {local === 0 ? (
+            {user.local === 0 ? (
               ""
             ) : (
               <>
