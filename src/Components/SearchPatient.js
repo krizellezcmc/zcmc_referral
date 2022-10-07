@@ -171,7 +171,7 @@ function SearchPatient(props) {
         // setIsLoading(false);
       });
     fetchPatData();
-  }, [hospital, id]);
+  }, [hospital, id, remarks]);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -294,7 +294,14 @@ function SearchPatient(props) {
                   </TabList>
                   <TabPanels>
                     <TabPanel>
-                      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+                      <Grid
+                        templateColumns={
+                          i.status === "referred"
+                            ? "repeat(1, 1fr)"
+                            : "repeat(3, 1fr)"
+                        }
+                        gap={6}
+                      >
                         <GridItem colSpan={i.status === "referred" ? 1 : 2}>
                           <Container p={5} maxW="1200px">
                             {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
