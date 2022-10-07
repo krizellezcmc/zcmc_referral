@@ -56,7 +56,7 @@ function OpcenHome() {
         setIsLoading(false);
       });
     fetchPatients();
-  }, [selected]);
+  }, [selected, remarks]);
 
   return (
     <div className="container">

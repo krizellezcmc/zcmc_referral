@@ -70,6 +70,8 @@ const ReferredPatients = () => {
     if (pat) {
       setPatients(pat.data);
       setIsLoading(false);
+
+      console.log(patients);
     }
   };
 
@@ -97,7 +99,7 @@ const ReferredPatients = () => {
   return (
     <div className="table-container">
       <Text fontWeight={800} fontSize={20} mb={5}>
-        REFERRERD PATIENTS
+        REFERRED PATIENTS
       </Text>
       <div
         style={{
@@ -163,7 +165,7 @@ const ReferredPatients = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {patients.length === 0 ? (
+                {!patients ? (
                   <Tr>
                     <Td colSpan={7} textAlign="center">
                       <Text fontSize="15px" fontWeight="300">
@@ -263,7 +265,13 @@ const ReferredPatients = () => {
                           </Tr>
                         </>
                       ) : (
-                        ""
+                        <Tr>
+                          <Td colSpan={7} textAlign="center">
+                            <Text fontSize="15px" fontWeight="300">
+                              Nothing to show
+                            </Text>
+                          </Td>
+                        </Tr>
                       );
                     })
                 )}

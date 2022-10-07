@@ -156,7 +156,6 @@ function SearchPatient(props) {
     const userr = JSON.parse(localStorage.getItem("user"));
     setHospital(userr.name);
 
-    console.log(status);
     const fetchPatData = async () => {
       let pat = await api.get("/get_sheets.php", {
         params: { hospital: hospital },
