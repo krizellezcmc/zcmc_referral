@@ -32,8 +32,8 @@ import {
 import { useEffect, useState } from "react";
 import api from "../API/Api";
 import { BiClinic } from "react-icons/bi";
-import { MdSettings, MdLocalHospital, MdBuildCircle } from "react-icons/md";
 import { Select } from "chakra-react-select";
+import useAuth from "../Hooks/useAuth";
 
 function TransferredRef(props) {
   const [patDetails, setPatDetails] = useState([]);
@@ -60,30 +60,32 @@ function TransferredRef(props) {
   } = useDisclosure();
 
   let toast = useToast();
+  const { user } = useAuth();
+
+  const getHistory = async (patId) => {
+    onViewOpen();
+    let history = await api.get("/get_transfer_history.php", {
+      params: { patientId: patId },
+    });
+    setHistoryDetails(history.data);
+    setStatus(history.data[0].status);
+    setRefHospi(history.data[0].name);
+  };
 
   useEffect(() => {
     const getList = async () => {
       let response = await api.get("/get_transfer_details.php");
       setPatDetails(response.data);
-      setPatId(response.data[0].patientId);
-      setRefHospi(response.data[0].refFacility);
-      setStatus(response.data[0].r_status);
     };
-    const getHistory = async () => {
-      let history = await api.get("/get_transfer_history.php", {
-        params: { patientId: patId },
-      });
-      setHistoryDetails(history.data);
-    };
+
     const getHospitals = async () => {
       let response = await api.get("/get_local_hospitals.php");
       setHospitals(response.data);
     };
 
     getList();
-    getHistory();
     getHospitals();
-  }, [patId]);
+  }, []);
 
   const submit = async () => {
     console.log(patId);
@@ -167,7 +169,9 @@ function TransferredRef(props) {
                         borderColor: "green",
                       }}
                       py={3}
-                      onClick={onViewOpen}
+                      onClick={() => {
+                        getHistory(e.patientId);
+                      }}
                     >
                       <HStack>
                         <Box w="100%" textAlign="center">
@@ -236,7 +240,7 @@ function TransferredRef(props) {
                   {historyDetails.map((r, k) => {
                     return (
                       <>
-                        {r.r_status === "waiting" ? (
+                        {r.status === "waiting" ? (
                           <>
                             <Box>
                               <Text fontWeight={500} fontSize="14px">

@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  HStack,
-  Spacer,
-  Text,
-  Container,
-  Badge,
-  Divider,
-} from "@chakra-ui/react";
+import { Box, HStack, Text, Badge, Divider } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 

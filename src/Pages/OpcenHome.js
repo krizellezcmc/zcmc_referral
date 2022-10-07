@@ -2,23 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Home.css";
 import Header from "../Components/Header";
 import api from "../API/Api";
-import OpcenReferral from "../Components/OpcenReferral";
-import {
-  Badge,
-  Box,
-  Container,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  HStack,
-  Divider,
-} from "@chakra-ui/react";
-import AddComment from "../Components/AddComment";
-import Comment from "../Components/Comment";
-import { Select } from "chakra-react-select";
+import { Box, Container, Text, HStack, Divider } from "@chakra-ui/react";
+
 import useAuth from "../Hooks/useAuth";
 import Loading from "../Components/Spinner";
 import axios from "axios";

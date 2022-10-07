@@ -5,8 +5,6 @@ import {
   Box,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Input,
   HStack,
   Button,
@@ -30,8 +28,6 @@ import "../Styles/ReferralForm.css";
 import moment from "moment";
 import uniqid from "uniqid";
 import api from "../API/Api";
-import { TextArea } from "semantic-ui-react";
-import { getImageListItemBarUtilityClass } from "@mui/material";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");

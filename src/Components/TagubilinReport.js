@@ -7,7 +7,6 @@ import "../Styles/Prescription.css";
 import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Prescription from "./Prescription";
-import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import api from "../API/Api";

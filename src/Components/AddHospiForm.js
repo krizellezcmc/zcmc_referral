@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/ReferralForm.css";
-import axios from "axios";
 import {
   Table,
   Thead,

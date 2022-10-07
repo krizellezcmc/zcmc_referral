@@ -13,21 +13,16 @@ import {
   Grid,
   Input,
   Box,
-  Textarea,
   Button,
-  IconButton,
-  CheckboxGroup,
   HStack,
-  Stack,
   Center,
-  Link,
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../API/Api";
 import Loading from "./Spinner";
-import { BiArrowBack, BiReceipt } from "react-icons/bi";
+import { BiArrowBack } from "react-icons/bi";
 
 function TagubilinForHospi() {
   const [isLoading, setIsLoading] = useState(false);

@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import axios from "axios";
 import { BiWrench } from "react-icons/bi";
 import api from "../API/Api";
 

@@ -31,9 +31,8 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  useToast,
 } from "@chakra-ui/react";
-import { BiCalendarEvent, BiIdCard, BiStats, BiUser } from "react-icons/bi";
+import { BiCalendarEvent, BiIdCard, BiStats } from "react-icons/bi";
 import { TbCheckupList } from "react-icons/tb";
 import Swal from "sweetalert2";
 import api from "../API/Api";

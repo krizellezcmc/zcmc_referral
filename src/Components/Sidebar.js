@@ -12,19 +12,11 @@ import {
   HiOutlineUserAdd,
   HiUserGroup,
   HiDocumentAdd,
-  HiArrowRight,
   HiOutlineUserRemove,
-  HiUserRemove,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
-import {
-  BiGrid,
-  BiGridAlt,
-  BiMenu,
-  BiUserMinus,
-  BiWrench,
-} from "react-icons/bi";
+import { BiWrench } from "react-icons/bi";
 import useAuth from "../Hooks/useAuth";
 
 const Sidebar = () => {
@@ -215,7 +207,7 @@ const Sidebar = () => {
               </p>
               <span>Referred Patients</span>
             </li>
-            {user.local === 0 ? (
+            {user?.local === 0 ? (
               ""
             ) : (
               <>

@@ -16,7 +16,6 @@ import {
   HStack,
   Center,
   Button,
-  Link,
 } from "@chakra-ui/react";
 import "../Styles/Tagubilin.css";
 import moment from "moment";

@@ -123,7 +123,7 @@ function OpcenHome2(props) {
       setHospitals(response.data);
     };
     getHospitals();
-  }, [id]);
+  }, [id, remarks]);
   return (
     <div className="container">
       <Sidebar />
@@ -197,12 +197,21 @@ function OpcenHome2(props) {
                       {remarks.map((el, key) => {
                         return (
                           <>
-                            <Comment
-                              remark={el.remark}
-                              date={el.remark_tstamp}
-                              user={el.firstName + " " + el.lastName}
-                              dept={el.department}
-                            />
+                            {el.role === "opcen" ? (
+                              <Comment
+                                remark={el.remark}
+                                date={el.remark_tstamp}
+                                user={el.firstName + " " + el.lastName}
+                                dept={"Zamboanga City Medical Center (OPCEN)"}
+                              />
+                            ) : (
+                              <Comment
+                                remark={el.remark}
+                                date={el.remark_tstamp}
+                                user={el.firstName + " " + el.lastName}
+                                dept={el.name}
+                              />
+                            )}
                           </>
                         );
                       })}
