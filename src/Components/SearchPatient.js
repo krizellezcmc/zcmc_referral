@@ -52,6 +52,7 @@ function SearchPatient(props) {
   const [covid, setCovid] = useState([]);
   const [id, setId] = useState("");
   const [remarks, setRemarks] = useState([]);
+  const [status, setStatus] = useState(""); //for getting status if cancelled
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
@@ -82,7 +83,10 @@ function SearchPatient(props) {
         element.middleName +
         " " +
         "/" +
-        element.tstamp;
+        element.tstamp +
+        " " +
+        "/" +
+        element.status;
     });
 
   // Split
@@ -127,6 +131,7 @@ function SearchPatient(props) {
     let name = data[1];
     let selectedId = data[0];
     setId(data[0]);
+    setStatus(data[3]);
     const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
     // setSelected(e);
 
@@ -152,6 +157,7 @@ function SearchPatient(props) {
     const userr = JSON.parse(localStorage.getItem("user"));
     setHospital(userr.name);
 
+    console.log(status);
     const fetchPatData = async () => {
       let pat = await api.get("/get_sheets.php", {
         params: { hospital: hospital },
@@ -273,14 +279,18 @@ function SearchPatient(props) {
                     <Tab>
                       <Text>Patient Referral</Text>
                     </Tab>
-                    <Tab>
-                      <Text>
-                        Remarks
-                        <Badge ml="1.5" colorScheme="blue">
-                          {remarks.length}
-                        </Badge>
-                      </Text>
-                    </Tab>
+                    {i.status === "cancelled" ? (
+                      ""
+                    ) : (
+                      <Tab>
+                        <Text>
+                          Remarks
+                          <Badge ml="1.5" colorScheme="blue">
+                            {remarks.length}
+                          </Badge>
+                        </Text>
+                      </Tab>
+                    )}
                   </TabList>
                   <TabPanels>
                     <TabPanel>
@@ -566,7 +576,7 @@ function SearchPatient(props) {
                                           Gravidity and Parity
                                         </FormLabel>
                                         <HStack>
-                                          {i.GP !== "" || i.GP !== null
+                                          {i.GP
                                             ? JSON.parse(i.GP).map(
                                                 (el, key) => {
                                                   return (
@@ -683,77 +693,83 @@ function SearchPatient(props) {
                                           Internal Examination
                                         </FormLabel>
                                         <HStack>
-                                          {JSON.parse(i.IE).map((el) => {
-                                            return (
-                                              <>
-                                                <Input
-                                                  type="text"
-                                                  borderBottom="1px"
-                                                  w={80}
-                                                  h={8}
-                                                  textAlign="center"
-                                                  disabled
-                                                  fontWeight={800}
-                                                  value={el.cm}
-                                                />
-                                                <Text fontSize={14}>cm</Text>
-                                                <Input
-                                                  type="text"
-                                                  borderBottom="1px"
-                                                  w={80}
-                                                  h={8}
-                                                  textAlign="center"
-                                                  disabled
-                                                  fontWeight={800}
-                                                  value={el.station}
-                                                />
-                                                <Text fontSize={14}>
-                                                  station
-                                                </Text>
-                                                <Input
-                                                  type="text"
-                                                  borderBottom="1px"
-                                                  h={8}
-                                                  textAlign="center"
-                                                  disabled
-                                                  fontWeight={800}
-                                                  value={el.effacement}
-                                                />
-                                                <Text fontSize={14}>
-                                                  effacement
-                                                </Text>
-                                                <Input
-                                                  type="text"
-                                                  borderBottom="1px"
-                                                  h={8}
-                                                  textAlign="center"
-                                                  disabled
-                                                  fontWeight={800}
-                                                  value={el.presentation}
-                                                />
-                                                <Text fontSize={14}>
-                                                  presentation
-                                                </Text>
-                                              </>
-                                            );
-                                          })}
+                                          {i.IE
+                                            ? JSON.parse(i.IE).map((el) => {
+                                                return (
+                                                  <>
+                                                    <Input
+                                                      type="text"
+                                                      borderBottom="1px"
+                                                      w={80}
+                                                      h={8}
+                                                      textAlign="center"
+                                                      disabled
+                                                      fontWeight={800}
+                                                      value={el.cm}
+                                                    />
+                                                    <Text fontSize={14}>
+                                                      cm
+                                                    </Text>
+                                                    <Input
+                                                      type="text"
+                                                      borderBottom="1px"
+                                                      w={80}
+                                                      h={8}
+                                                      textAlign="center"
+                                                      disabled
+                                                      fontWeight={800}
+                                                      value={el.station}
+                                                    />
+                                                    <Text fontSize={14}>
+                                                      station
+                                                    </Text>
+                                                    <Input
+                                                      type="text"
+                                                      borderBottom="1px"
+                                                      h={8}
+                                                      textAlign="center"
+                                                      disabled
+                                                      fontWeight={800}
+                                                      value={el.effacement}
+                                                    />
+                                                    <Text fontSize={14}>
+                                                      effacement
+                                                    </Text>
+                                                    <Input
+                                                      type="text"
+                                                      borderBottom="1px"
+                                                      h={8}
+                                                      textAlign="center"
+                                                      disabled
+                                                      fontWeight={800}
+                                                      value={el.presentation}
+                                                    />
+                                                    <Text fontSize={14}>
+                                                      presentation
+                                                    </Text>
+                                                  </>
+                                                );
+                                              })
+                                            : ""}
                                         </HStack>
                                       </FormControl>
                                     </HStack>
                                     <FormControl mt={5}>
                                       <FormLabel fontSize={14}>Bow</FormLabel>
-                                      {JSON.parse(i.bow).map((el) => {
-                                        return (
-                                          <Checkbox
-                                            size="sm"
-                                            ml={5}
-                                            isChecked={true}
-                                            fontWeight={800}
-                                          >
-                                            {el}
-                                          </Checkbox>
-                                        );
-                                      })}
+                                      {i.bow
+                                        ? JSON.parse(i.bow).map((el) => {
+                                            return (
+                                              <Checkbox
+                                                size="sm"
+                                                ml={5}
+                                                isChecked={true}
+                                                fontWeight={800}
+                                              >
+                                                {el}
+                                              </Checkbox>
+                                            );
+                                          })
+                                        : ""}
                                     </FormControl>
                                   </Box>
                                 </>
