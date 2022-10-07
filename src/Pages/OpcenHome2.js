@@ -42,11 +42,18 @@ import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 import { useParams, useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
-import { GoArrowSmallUp, GoArrowUp, GoCheck, GoX } from "react-icons/go";
+import {
+  GoArrowSmallUp,
+  GoArrowUp,
+  GoCheck,
+  GoMarkdown,
+  GoX,
+} from "react-icons/go";
 import Swal from "sweetalert2";
+import { HiArrowDown } from "react-icons/hi";
 
 function OpcenHome2(props) {
-  const [selected, setSelected] = useState("");
+  const [patientStat, setPatientStat] = useState("");
   const [remarks, setRemarks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -58,6 +65,7 @@ function OpcenHome2(props) {
   const [reason, setReason] = useState("");
   const [selectRef, setSelectedRef] = useState("");
   const [hospitals, setHospitals] = useState([]);
+  const [data, setData] = useState([]);
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -88,9 +96,52 @@ function OpcenHome2(props) {
           Swal.fire("Error!", "Something went wrong.", "error");
         }
       }
-      console.log(patId);
     });
   };
+
+  const patientArrival = async () => {
+    Swal.fire({
+      text: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let res = await api.post(
+          "http://192.168.3.135/zcmc_referral_api/api/arrived_referred_patient.php",
+          {
+            patId: id,
+          }
+        );
+
+        if (res) {
+          console.log(res.data, data);
+          if (res.data.status === 1) {
+            fetch(
+              "https://script.google.com/macros/s/AKfycbyxewj4ORHUXIxYuxtkxwnapk8DfQjczGG-iX331VhUe3DEBPWdJXOxqwpaOggRGVzITg/exec?action=postData",
+              {
+                method: "POST",
+                body: JSON.stringify(data),
+              }
+            ).then((response) => {
+              if (response) {
+                Swal.fire("Success!", "Record Successfully.", "success");
+              } else {
+                Swal.fire("Error!", "Something went wrong.", "error");
+              }
+            });
+          } else {
+            Swal.fire("Error!", "Something went wrong.", "error");
+          }
+        } else {
+          console.log("Something went wrong!");
+        }
+      }
+    });
+  };
+
   const submit = async () => {
     let decline = await api.post("/transfer.php", {
       patientId: id,
@@ -110,6 +161,16 @@ function OpcenHome2(props) {
     }
   };
 
+  const getDetails = async () => {
+    let details = await api.get("/get_pending_ref.php", {
+      params: { id: id },
+    });
+    if (details) {
+      setData(details.data);
+      setPatientStat(details.data.status);
+    }
+  };
+
   useEffect(() => {
     axios
       .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
@@ -123,6 +184,7 @@ function OpcenHome2(props) {
       setHospitals(response.data);
     };
     getHospitals();
+    getDetails();
   }, [id, remarks]);
   return (
     <div className="container">
@@ -140,23 +202,40 @@ function OpcenHome2(props) {
           </Button>
           {/* <Box float="right" p={10}> */}
           <Box float="right">
-            <Button
-              colorScheme="green"
-              mr={3}
-              leftIcon={<GoCheck fontSize="20px" />}
-              onClick={() => {
-                handleAcceptPatient(id);
-              }}
-            >
-              Accept
-            </Button>
-            <Button
-              colorScheme="red"
-              leftIcon={<GoArrowUp fontSize="20px" />}
-              onClick={onDeclinedOpen}
-            >
-              Transfer
-            </Button>
+            {patientStat === "accepted" ? (
+              <Button
+                colorScheme="blue"
+                mr={3}
+                leftIcon={<HiArrowDown fontSize="20px" />}
+                onClick={() => {
+                  patientArrival();
+                }}
+              >
+                Patient Arrived
+              </Button>
+            ) : patientStat === "arrived" ? (
+              ""
+            ) : (
+              <>
+                <Button
+                  colorScheme="green"
+                  mr={3}
+                  leftIcon={<GoCheck fontSize="20px" />}
+                  onClick={() => {
+                    handleAcceptPatient(id);
+                  }}
+                >
+                  Accept
+                </Button>
+                <Button
+                  colorScheme="red"
+                  leftIcon={<GoArrowUp fontSize="20px" />}
+                  onClick={onDeclinedOpen}
+                >
+                  Transfer
+                </Button>
+              </>
+            )}
           </Box>
         </Box>
         {/* </Box> */}

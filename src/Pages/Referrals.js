@@ -119,6 +119,7 @@ function Referrals(props) {
 
   useEffect(() => {
     getReferrals();
+    console.log(data);
   }, []);
 
   return (
@@ -172,69 +173,77 @@ function Referrals(props) {
                 boxShadow="base"
                 mt={3}
               >
-                {data.map((e, k) => {
-                  return (
-                    <>
-                      <Box
-                        as="button"
-                        w="100%"
-                        _hover={{
-                          background: "green.50",
-                          color: "black",
-                          borderTop: "2px",
-                          borderColor: "green",
-                        }}
-                        py={3}
-                        onClick={() => {
-                          e.statRoute === "accepted"
-                            ? viewMore(e.patientId)
-                            : onOpen();
-                          setSelected(e.patientId);
-                        }}
-                      >
-                        <HStack>
-                          <Box w="100%" textAlign="center">
-                            <Text fontWeight="900" fontSize="13px">
-                              {e.lastname +
-                                ", " +
-                                e.firstname +
-                                " " +
-                                e.middleName}
-                            </Text>
-                            <Text fontSize="12px" fontWeight={500}>
-                              Gender: {e.sex}{" "}
-                            </Text>
-                            <Text fontSize="12px" fontWeight={500}>
-                              Specialization: {e.specialization}
-                            </Text>
-                          </Box>
-                          {/* 
+                {data.length === 0 ? (
+                  <Box p={5}>
+                    <Text textAlign="center">---Nothing to Show---</Text>
+                  </Box>
+                ) : (
+                  <>
+                    {data.map((e, k) => {
+                      return (
+                        <>
+                          <Box
+                            as="button"
+                            w="100%"
+                            _hover={{
+                              background: "green.50",
+                              color: "black",
+                              borderTop: "2px",
+                              borderColor: "green",
+                            }}
+                            py={3}
+                            onClick={() => {
+                              e.statRoute === "accepted"
+                                ? viewMore(e.patientId)
+                                : onOpen();
+                              setSelected(e.patientId);
+                            }}
+                          >
+                            <HStack>
+                              <Box w="100%" textAlign="center">
+                                <Text fontWeight="900" fontSize="13px">
+                                  {e.lastname +
+                                    ", " +
+                                    e.firstname +
+                                    " " +
+                                    e.middleName}
+                                </Text>
+                                <Text fontSize="12px" fontWeight={500}>
+                                  Gender: {e.sex}{" "}
+                                </Text>
+                                <Text fontSize="12px" fontWeight={500}>
+                                  Specialization: {e.specialization}
+                                </Text>
+                              </Box>
+                              {/* 
                           <Box w="100%" textAlign="center">
                             <Text fontWeight="500" fontSize="13px">
                               {e.name}
                             </Text>
                           </Box> */}
-                          <Box w="100%" textAlign="center">
-                            <Text fontWeight="500" fontSize="13px">
-                              {e.refFacility}
-                            </Text>
+                              <Box w="100%" textAlign="center">
+                                <Text fontWeight="500" fontSize="13px">
+                                  {e.refFacility}
+                                </Text>
+                              </Box>
+                              <Box w="100%" textAlign="center">
+                                <Badge
+                                  variant="subtle"
+                                  fontWeight="bolder"
+                                  fontSize="13px"
+                                  colorScheme="green"
+                                >
+                                  {e.status}
+                                </Badge>
+                              </Box>
+                            </HStack>
                           </Box>
-                          <Box w="100%" textAlign="center">
-                            <Badge
-                              variant="subtle"
-                              fontWeight="bolder"
-                              fontSize="13px"
-                              colorScheme="green"
-                            >
-                              {e.status}
-                            </Badge>
-                          </Box>
-                        </HStack>
-                      </Box>
-                      <Divider />
-                    </>
-                  );
-                })}
+                          <Divider />
+                        </>
+                      );
+                    })}
+                  </>
+                )}
               </Box>
             </Container>
             <Modal isOpen={isOpen} onClose={onClose} size="3xl">
