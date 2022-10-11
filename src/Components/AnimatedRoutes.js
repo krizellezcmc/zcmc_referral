@@ -31,6 +31,7 @@ import Verify from "../Pages/Verify";
 import Transferred from "../Pages/Transferred";
 import Referrals from "../Pages/Referrals";
 import ReferralHome from "../Pages/ReferralHome";
+import Sample from "../Pages/Sample";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -46,6 +47,7 @@ const AnimatedRoutes = () => {
           <Route path="/recover" element={<Recover />} />
           <Route path="/success" element={<Success />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/sample" element={<Sample />} />
           <Route
             path="/tagubilinreport/:id"
             element={<TagubilinPrescription />}
