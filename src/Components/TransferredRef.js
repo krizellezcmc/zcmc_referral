@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   HStack,
-  Spacer,
   Text,
   Container,
   Badge,
@@ -16,22 +15,19 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  List,
-  ListItem,
-  ListIcon,
   Stack,
-  Center,
   Flex,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Textarea,
   useToast,
+  InputGroup,
+  InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import api from "../API/Api";
-import { BiClinic } from "react-icons/bi";
+import { BiClinic, BiSearch } from "react-icons/bi";
 import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
 
@@ -46,6 +42,8 @@ function TransferredRef(props) {
   const [refReason, setRefReason] = useState("");
   const [selectRef, setSelectedRef] = useState("");
   const [hospitals, setHospitals] = useState([]);
+
+  const [search, setSearch] = useState("");
 
   const {
     isOpen: isViewOpen,
@@ -111,6 +109,28 @@ function TransferredRef(props) {
   return (
     <div>
       <Container maxW="80%">
+        <Box py={5}>
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<BiSearch color="gray.300" />}
+            />
+            <Input
+              fontSize="13px"
+              type="text"
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search patient"
+              width="400px"
+              _hover={{ borderColor: "green" }}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+                borderColor: "green",
+              }}
+            />
+          </InputGroup>
+        </Box>
+
         <Box
           w="100%"
           bg="white"
@@ -158,66 +178,80 @@ function TransferredRef(props) {
             <Text textAlign="center">---Nothing to Show---</Text>
           ) : (
             <>
-              {patDetails.map((e, k) => {
-                return (
-                  <>
-                    <Box
-                      as="button"
-                      w="100%"
-                      _hover={{
-                        background: "green.50",
-                        color: "black",
-                        borderTop: "2px",
-                        borderColor: "green",
-                      }}
-                      py={3}
-                      onClick={() => {
-                        getHistory(e.patientId);
-                      }}
-                    >
-                      <HStack>
-                        <Box w="100%" textAlign="center">
-                          <Text fontWeight="900" fontSize="13px">
-                            {e.lastname +
-                              ", " +
-                              e.firstname +
-                              " " +
-                              e.middleName}
-                          </Text>
-                          <Text fontSize="12px" fontWeight={500}>
-                            Gender: {e.sex}
-                          </Text>
-                          <Text fontSize="12px" fontWeight={500}>
-                            Specialization: {e.specialization}
-                          </Text>
-                        </Box>
+              {patDetails
+                .filter((val) => {
+                  if (search === "") {
+                    return val;
+                  } else if (
+                    val.lastname.toLowerCase().includes(search.toLowerCase()) ||
+                    val.refFacility
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) ||
+                    val.status.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((e, k) => {
+                  return (
+                    <>
+                      <Box
+                        as="button"
+                        w="100%"
+                        _hover={{
+                          background: "green.50",
+                          color: "black",
+                          borderTop: "2px",
+                          borderColor: "green",
+                        }}
+                        py={3}
+                        onClick={() => {
+                          getHistory(e.patientId);
+                        }}
+                      >
+                        <HStack>
+                          <Box w="100%" textAlign="center">
+                            <Text fontWeight="900" fontSize="13px">
+                              {e.lastname +
+                                ", " +
+                                e.firstname +
+                                " " +
+                                e.middleName}
+                            </Text>
+                            <Text fontSize="12px" fontWeight={500}>
+                              Gender: {e.sex}
+                            </Text>
+                            <Text fontSize="12px" fontWeight={500}>
+                              Specialization: {e.specialization}
+                            </Text>
+                          </Box>
 
-                        <Box w="100%" textAlign="center">
-                          <Text fontWeight="500" fontSize="13px">
-                            {e.name}
-                          </Text>
-                        </Box>
-                        <Box w="100%" textAlign="center">
-                          <Text fontWeight="500" fontSize="13px">
-                            {e.refFacility}
-                          </Text>
-                        </Box>
-                        <Box w="100%" textAlign="center">
-                          <Badge
-                            variant="subtle"
-                            fontWeight="bolder"
-                            fontSize="13px"
-                            colorScheme="green"
-                          >
-                            {e.r_status}
-                          </Badge>
-                        </Box>
-                      </HStack>
-                    </Box>
-                    <Divider />
-                  </>
-                );
-              })}
+                          <Box w="100%" textAlign="center">
+                            <Text fontWeight="500" fontSize="13px">
+                              {e.name}
+                            </Text>
+                          </Box>
+                          <Box w="100%" textAlign="center">
+                            <Text fontWeight="500" fontSize="13px">
+                              {e.refFacility}
+                            </Text>
+                          </Box>
+                          <Box w="100%" textAlign="center">
+                            <Badge
+                              variant="subtle"
+                              fontWeight="bolder"
+                              fontSize="13px"
+                              colorScheme="green"
+                            >
+                              {e.r_status}
+                            </Badge>
+                          </Box>
+                        </HStack>
+                      </Box>
+                      <Divider />
+                    </>
+                  );
+                })}
             </>
           )}
         </Box>

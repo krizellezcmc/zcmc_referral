@@ -2,13 +2,24 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Home.css";
 import Header from "../Components/Header";
 import api from "../API/Api";
-import { Box, Container, Text, HStack, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Text,
+  HStack,
+  Divider,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  Spacer,
+} from "@chakra-ui/react";
 
 import useAuth from "../Hooks/useAuth";
 import Loading from "../Components/Spinner";
 import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 import OpcenTable from "../Components/OpcenTable";
+import { BiSearch } from "react-icons/bi";
 
 function OpcenHome() {
   const [showContent, setShowContent] = useState(false);
@@ -17,24 +28,14 @@ function OpcenHome() {
   const [remarks, setRemarks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [search, setSearch] = useState("");
+
   const { user } = useAuth();
 
-  const select = (e) => {
-    setSelected(e);
-    setIsLoading(false);
-    setShowContent(true);
-  };
-
-  // const fetchComments = async () => {
-  //   setIsLoading(true);
-  //   let response = await api.get("/get_comment.php", {
-  //     params: { patientId: selected },
-  //   });
-  //   setRemarks(response.data);
-
-  //   if (response) {
-  //     setIsLoading(false);
-  //   }
+  // const select = (e) => {
+  //   setSelected(e);
+  //   setIsLoading(false);
+  //   setShowContent(true);
   // };
 
   const fetchPatients = async (e) => {
@@ -64,23 +65,29 @@ function OpcenHome() {
       <div className="content">
         <Header />
         <div className="">
-          {/* <Box w="700px" p={5}>
-            <Select
-              style={{ position: "fixed", zIndex: "50" }}
-              options={list}
-              placeholder="Search patient"
-              selectedOptionStyle="check"
-              closeMenuOnSelect={true}
-              focusBorderColor="#058e46"
-              onChange={(e) => {
-                select(e.value);
-              }}
-              width="70%"
-              required
-              useBasicStyles
-            />
-          </Box> */}
           <Container maxW="80%" mt={5}>
+            <Box py={5}>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<BiSearch color="gray.300" />}
+                />
+                <Input
+                  fontSize="13px"
+                  type="text"
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search patient"
+                  width="400px"
+                  _hover={{ borderColor: "green" }}
+                  _focus={{
+                    boxShadow: "none",
+                    outline: "none",
+                    borderColor: "green",
+                  }}
+                />
+              </InputGroup>
+            </Box>
+
             <Box
               w="100%"
               bg="white"
@@ -129,22 +136,38 @@ function OpcenHome() {
                 </Box>
               ) : (
                 <>
-                  {list.map((e) => {
-                    return (
-                      <>
-                        <OpcenTable
-                          name={e.label}
-                          value={e.value}
-                          gender={e.gender}
-                          facility={e.facility}
-                          date={e.date}
-                          status={e.status}
-                          service={e.specialization}
-                          age={e.age}
-                        />
-                      </>
-                    );
-                  })}
+                  {list
+                    .filter((val) => {
+                      if (search === "") {
+                        return val;
+                      } else if (
+                        val.label
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        val.facility
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        val.status.toLowerCase().includes(search.toLowerCase())
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((e) => {
+                      return (
+                        <>
+                          <OpcenTable
+                            name={e.label}
+                            value={e.value}
+                            gender={e.gender}
+                            facility={e.facility}
+                            date={e.date}
+                            status={e.status}
+                            service={e.specialization}
+                            age={e.age}
+                          />
+                        </>
+                      );
+                    })}
                 </>
               )}
             </Box>

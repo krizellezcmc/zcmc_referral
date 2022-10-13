@@ -14,9 +14,6 @@ import {
   Tabs,
   Text,
   HStack,
-  Divider,
-  Link,
-  Flex,
   Button,
   useDisclosure,
   Modal,
@@ -28,11 +25,8 @@ import {
   ModalCloseButton,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Textarea,
   useToast,
-  Spacer,
 } from "@chakra-ui/react";
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
@@ -43,15 +37,9 @@ import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 import { useParams, useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
-import {
-  GoArrowSmallUp,
-  GoArrowUp,
-  GoCheck,
-  GoMarkdown,
-  GoX,
-} from "react-icons/go";
+import { GoArrowUp, GoCheck } from "react-icons/go";
 import Swal from "sweetalert2";
-import { HiArrowDown } from "react-icons/hi";
+import moment from "moment";
 
 function OpcenHome2(props) {
   const [patientStat, setPatientStat] = useState("");
@@ -66,7 +54,7 @@ function OpcenHome2(props) {
   const [reason, setReason] = useState("");
   const [selectRef, setSelectedRef] = useState("");
   const [hospitals, setHospitals] = useState([]);
-  const [data, setData] = useState([]);
+  const [arrivalTime, setArrivalTime] = useState("");
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -100,49 +88,6 @@ function OpcenHome2(props) {
     });
   };
 
-  const patientArrival = async () => {
-    Swal.fire({
-      text: "Are you sure?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Confirm",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        let res = await api.post(
-          "http://192.168.3.135/zcmc_referral_api/api/arrived_referred_patient.php",
-          {
-            patId: id,
-          }
-        );
-
-        if (res) {
-          console.log(res.data, data);
-          if (res.data.status === 1) {
-            fetch(
-              "https://script.google.com/macros/s/AKfycbyxewj4ORHUXIxYuxtkxwnapk8DfQjczGG-iX331VhUe3DEBPWdJXOxqwpaOggRGVzITg/exec?action=postData",
-              {
-                method: "POST",
-                body: JSON.stringify(data),
-              }
-            ).then((response) => {
-              if (response) {
-                Swal.fire("Success!", "Record Successfully.", "success");
-              } else {
-                Swal.fire("Error!", "Something went wrong.", "error");
-              }
-            });
-          } else {
-            Swal.fire("Error!", "Something went wrong.", "error");
-          }
-        } else {
-          console.log("Something went wrong!");
-        }
-      }
-    });
-  };
-
   const submit = async () => {
     let decline = await api.post("/transfer.php", {
       patientId: id,
@@ -167,8 +112,8 @@ function OpcenHome2(props) {
       params: { id: id },
     });
     if (details) {
-      setData(details.data);
       setPatientStat(details.data.status);
+      setArrivalTime(details.data.arrival_time);
     }
   };
 
@@ -203,20 +148,7 @@ function OpcenHome2(props) {
           </Button>
           {/* <Box float="right" p={10}> */}
           <Box float="right">
-            {patientStat === "accepted" ? (
-              <Button
-                colorScheme="blue"
-                mr={3}
-                leftIcon={<HiArrowDown fontSize="20px" />}
-                onClick={() => {
-                  patientArrival();
-                }}
-              >
-                Patient Arrived
-              </Button>
-            ) : patientStat === "arrived" ? (
-              ""
-            ) : (
+            {patientStat === "pending" ? (
               <>
                 <Button
                   colorScheme="green"
@@ -236,6 +168,29 @@ function OpcenHome2(props) {
                   Transfer
                 </Button>
               </>
+            ) : patientStat === "arrived" ? (
+              <Box
+                width="100%"
+                padding={3}
+                borderRadius="lg"
+                border="1px"
+                borderColor="green.500"
+              >
+                <HStack>
+                  <Text fontSize="13px">Status:</Text>
+                  <Text color="green" fontSize="13px" fontWeight={500}>
+                    ARRIVED
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text fontSize="13px">Date and Time:</Text>
+                  <Text fontSize="13px" color="green" fontWeight={400}>
+                    {moment(arrivalTime).format("LLL")}
+                  </Text>
+                </HStack>
+              </Box>
+            ) : (
+              ""
             )}
           </Box>
         </Box>
