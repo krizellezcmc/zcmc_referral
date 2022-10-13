@@ -179,7 +179,7 @@ function SearchPatient(props) {
         // styles={{ position: "fixed", zIndex: "50" }}
         options={patient}
         placeholder="Search patient"
-        variant="flushed"
+        // variant="flushed"
         selectedOptionStyle="check"
         closeMenuOnSelect={true}
         focusBorderColor="#058e46"

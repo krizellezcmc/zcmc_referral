@@ -23,7 +23,7 @@ const Sidebar = () => {
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
   const [role, setRole] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   let navigate = useNavigate();
 
@@ -40,7 +40,11 @@ const Sidebar = () => {
     <div className={open ? "sidebar" : "sidebar close"}>
       <div className="sidebar-header">
         <div onClick={() => setOpen(!open)} className="menu-burger">
-          {open ? <HiChevronDoubleRight /> : <HiChevronDoubleLeft />}
+          {open ? (
+            <HiChevronDoubleRight color="white" />
+          ) : (
+            <HiChevronDoubleLeft color="white" />
+          )}
         </div>
       </div>
 
@@ -155,7 +159,7 @@ const Sidebar = () => {
               onClick={() => navigate("/patientlist")}
             >
               <p>{path.includes("verifyuser") ? <HiUsers /> : <HiUsers />}</p>
-              <span>Patient List</span>
+              <span>Admitted Referrals</span>
             </li>
 
             <li
@@ -169,7 +173,7 @@ const Sidebar = () => {
                   <HiOutlineUserRemove />
                 )}
               </p>
-              <span>Transferred Patients</span>
+              <span>Transferred Referrals</span>
             </li>
           </>
         ) : (
@@ -237,13 +241,17 @@ const Sidebar = () => {
         )}
       </ul>
 
-      <div className="sidebar-user">
-        <img src={Nouser} alt="User Avatar" />
-        <div className="user">
-          <h1>{role === "admin" ? "ADMIN" : username}</h1>
-          <small>{referringFacility}</small>
+      {role === "opcen" ? (
+        <div className="sidebar-user">
+          <img src={Nouser} alt="User Avatar" />
+          <div className="user">
+            <h1>{role === "admin" ? "ADMIN" : username}</h1>
+            <small>{referringFacility}</small>
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

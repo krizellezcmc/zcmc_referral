@@ -32,6 +32,7 @@ import {
   FormHelperText,
   Textarea,
   useToast,
+  Spacer,
 } from "@chakra-ui/react";
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
@@ -191,7 +192,7 @@ function OpcenHome2(props) {
       <Sidebar />
       <div className="content">
         <Header />
-        <Box w="95%" bg="white" p={5} zIndex={50} pos="fixed">
+        <Box w="85%" bg="white" p={5} zIndex={50} pos="fixed">
           <Button
             onClick={homeOpcen}
             variant="outline"
@@ -265,7 +266,7 @@ function OpcenHome2(props) {
               <TabPanels>
                 <TabPanel>
                   <Box px={20}>
-                    <OpcenReferral patientId={id} />
+                    <OpcenReferral patientId={id} status={patientStat} />
                   </Box>
                 </TabPanel>
                 <TabPanel>

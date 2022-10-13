@@ -40,6 +40,10 @@ import {
   Textarea,
   useToast,
   Container,
+  Alert,
+  AlertTitle,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
 import moment from "moment";
 import axios from "axios";
@@ -136,113 +140,6 @@ const PatientsList = (props) => {
     }
   };
 
-  // const getPendingDetails = async (pid) => {
-  //   setIsLoadingPending(true);
-  //   let penDeets = await api.get("/get_pending_details.php", {
-  //     params: { pid: pid },
-  //   });
-
-  //   if (penDeets) {
-  //     setPatientId(penDeets.data[0].patientId);
-  //     setRefFacility(penDeets.data[0].refFacility);
-  //     setRefDate(penDeets.data[0].tstamp);
-  //     setLastName(penDeets.data[0].lastname);
-  //     setFirstName(penDeets.data[0].firstname);
-  //     setMiddleName(penDeets.data[0].middleName);
-  //     setSex(penDeets.data[0].sex);
-  //     setAdmitDate(penDeets.data[0].dateAdmitted);
-  //     setRefType(penDeets.data[0].refType);
-  //     setDisposition(penDeets.data[0].disposition);
-  //     setSpecialization(penDeets.data[0].specialization);
-  //     setLatestTemp(penDeets.data[0].latestTemp);
-  //     setLatestBP(penDeets.data[0].latestBp);
-  //     setLatestRespi(penDeets.data[0].latestRespi);
-  //     setLatestPulse(penDeets.data[0].latestPulse);
-  //     setLatestOxygen(penDeets.data[0].latestOxygen);
-  //     setLatestGlasgow(penDeets.data[0].latestGlasgow);
-  //     setStatus(penDeets.data[0].status);
-
-  //     setIsLoadingPending(false);
-  //   }
-  // };
-
-  // const handleAcceptPatient = (patId) => {
-  //   onPendingClose(true);
-  //   Swal.fire({
-  //     text: "Are you sure you want to accept this patient?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Accept",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       let response = api.post("/accept_referred_patient.php", {
-  //         patId: patId,
-  //       });
-
-  //       if (response.data.status === 1) {
-  //         Swal.fire("Success!", "Record Successfully.", "success");
-  //       } else {
-  //         Swal.fire("Error!", "Something went wrong.", "error");
-  //       }
-  //     }
-  //   });
-  // };
-
-  // // PATIENT ARRIVAL
-  // const patientArrival = (patId) => {
-  //   onPendingClose(true);
-  //   Swal.fire({
-  //     text: "Are you sure?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Confirm",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .post(
-  //           "http://192.168.3.135/zcmc_referral_api/api/arrived_referred_patient.php",
-  //           {
-  //             patId: patId,
-  //           }
-  //         )
-  //         .then((response) => {
-  //           if (response.data.status === 1) {
-  //             axios
-  //               .get(
-  //                 "http://192.168.3.135/zcmc_referral_api/api/get_pending_ref.php",
-  //                 {
-  //                   params: { id: patId },
-  //                 }
-  //               )
-  //               .then((response) => {
-  //                 let data = JSON.stringify(response.data);
-
-  //                 fetch(
-  //                   "https://script.google.com/macros/s/AKfycbyb0W56u9pJPRkCwP9__1kKWLVoMOQaMWUoP4o5d5rFc17JEUKFbvPJ1sxK2CIye-BBCg/exec?action=postData",
-  //                   {
-  //                     method: "POST",
-  //                     body: data,
-  //                   }
-  //                 ).then(async (response) => {
-  //                   if (response) {
-  //                     Swal.fire("Success!", "Record Successfully.", "success");
-  //                   } else {
-  //                     Swal.fire("Error!", "Something went wrong.", "error");
-  //                   }
-  //                 });
-  //               });
-  //           } else {
-  //             Swal.fire("Error!", "Something went wrong.", "error");
-  //           }
-  //         });
-  //     }
-  //   });
-  // };
-
   const submit = async () => {
     let decline = await api.post("/transfer.php", {
       patientId: patientId,
@@ -304,9 +201,23 @@ const PatientsList = (props) => {
             </Link>
           </Box>
 
-          <Text fontWeight={800} fontSize={20} mb={5}>
+          <Text fontWeight={800} fontSize={20} mb={2}>
             REFERRED PATIENTS
           </Text>
+          <Alert
+            status="info"
+            variant="left-accent"
+            borderRadius="lg"
+            py={1.5}
+            width="30%"
+            mb={5}
+          >
+            <AlertIcon />
+            <AlertTitle fontSize={13}>Note:</AlertTitle>
+            <AlertDescription fontSize={12}>
+              The following patients are retrieved from Bizbox.
+            </AlertDescription>
+          </Alert>
 
           <div
             style={{

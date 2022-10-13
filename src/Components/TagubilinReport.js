@@ -49,7 +49,6 @@ function TagubilinReport() {
     let response = await api.get("/get_nursetagu.php", {
       params: { id: id },
     });
-    console.log(id);
 
     setRefName(response.data[0].patientName);
     setAge(response.data[0].age);

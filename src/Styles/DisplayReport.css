@@ -128,6 +128,7 @@
   text-align: center;
   border: 1px solid black;
   font-size: 12px;
+  font-weight: bolder;
   padding: 0px 0px 10px 0px;
 }
 .dmed-cell {
@@ -135,6 +136,7 @@
   text-align: center;
   border: 1px solid black;
   font-size: 12px;
+
   padding: 0px 0px 10px 0px;
 }
 #dpara {
