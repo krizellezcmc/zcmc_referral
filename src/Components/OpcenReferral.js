@@ -807,18 +807,22 @@ function OpcenReferral(props) {
             </Text>
             <Flex>
               <Spacer />
-              <Button
-                isLoading={load}
-                loadingText="Saving"
-                spinnerPlacement="start"
-                colorScheme="teal"
-                variant="outline"
-                mt={5}
-                onClick={updateData}
-                w={150}
-              >
-                Save
-              </Button>
+              {props.status === "arrived" ? (
+                ""
+              ) : (
+                <Button
+                  isLoading={load}
+                  loadingText="Saving"
+                  spinnerPlacement="start"
+                  colorScheme="teal"
+                  variant="outline"
+                  mt={5}
+                  onClick={updateData}
+                  w={150}
+                >
+                  Save
+                </Button>
+              )}
             </Flex>
           </>
         )}

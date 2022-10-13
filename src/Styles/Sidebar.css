@@ -4,7 +4,7 @@
   max-width: 280px;
   height: 100vh;
   overflow-y: auto;
-  background: #f7f8fb;
+  background: #4a7659;
   overflow-x: hidden;
   position: sticky;
   top: 0;
@@ -61,8 +61,8 @@
 }
 
 .menu-burger {
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +75,7 @@
 
 .menu-burger:hover {
   transition: 0.1s ease-in-out;
-  background: rgb(224, 224, 224);
+  background: rgb(0, 0, 0, 0.3);
 }
 
 .sidebar-header img {
@@ -107,7 +107,7 @@
   align-items: center;
   padding-left: 20px;
   font-size: 15px;
-  color: #646464;
+  color: #ebebeb;
   cursor: pointer;
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
@@ -151,20 +151,21 @@
 .sidebar-user {
   width: 100%;
   height: 90px;
-  border-top: 1px solid #dfdfdf;
+  /* border-top: 1px solid #dfdfdf; */
   display: flex;
   align-items: center;
   padding: 0px 20px;
+  background-color: #8fc0a9;
 }
 
 .sidebar-user img {
-  width: 33px;
-  min-width: 30px;
-  height: 33px;
-  min-height: 30px;
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
+  min-height: 35px;
   border-radius: 50%;
-  border: 2px solid #d3d3d3;
-  background: #eee;
+  border: 2px solid #eee;
+  background: #4a7659;
   object-fit: cover;
   object-position: center;
   margin-right: 10px;
@@ -177,15 +178,19 @@
 }
 
 .user h1 {
-  color: #272727;
+  color: #4a7659;
   font-size: 14px;
   font-weight: 600;
 }
 
 .user p {
   font-size: 12px;
-  color: #808080;
+  color: #4a7659;
   font-weight: 400;
+}
+
+.user small {
+  color: #4a7659;
 }
 
 @media screen and (max-width: 768px) {

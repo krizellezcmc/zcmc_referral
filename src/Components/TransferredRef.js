@@ -76,6 +76,8 @@ function TransferredRef(props) {
     const getList = async () => {
       let response = await api.get("/get_transfer_details.php");
       setPatDetails(response.data);
+
+      console.log(patDetails);
     };
 
     const getHospitals = async () => {
@@ -113,10 +115,9 @@ function TransferredRef(props) {
           w="100%"
           bg="white"
           borderRadius="lg"
-          padding={1}
           border="1px"
           borderColor="gray.300"
-          boxShadow="lg"
+          boxShadow="md"
           py={3}
         >
           <HStack>
@@ -150,9 +151,10 @@ function TransferredRef(props) {
           border="1px"
           borderColor="gray.300"
           boxShadow="base"
-          mt={3}
+          mt={2}
+          py={3}
         >
-          {!patDetails ? (
+          {patDetails.length === 0 ? (
             <Text textAlign="center">---Nothing to Show---</Text>
           ) : (
             <>

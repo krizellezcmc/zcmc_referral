@@ -85,10 +85,9 @@ function OpcenHome() {
               w="100%"
               bg="white"
               borderRadius="lg"
-              padding={1}
               border="1px"
               borderColor="gray.300"
-              boxShadow="lg"
+              boxShadow="md"
               py={3}
             >
               <HStack>
@@ -122,7 +121,7 @@ function OpcenHome() {
               border="1px"
               borderColor="gray.300"
               boxShadow="base"
-              mt={3}
+              mt={2}
             >
               {list.length === 0 ? (
                 <Box p={2}>
