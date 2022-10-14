@@ -152,23 +152,34 @@ function SearchPatient(props) {
     }
   };
 
+  const comments = async () => {
+    setIsLoading(true);
+    let comment = await api.get(`/get_comment.php/${id}`);
+    if (comment) {
+      setRemarks(comment.data);
+      setIsLoading(false);
+    }
+  };
+
+  const fetchPatData = async () => {
+    let pat = await api.get("/get_sheets.php", {
+      params: { hospital: hospital },
+    });
+    setPatient(pat.data);
+  };
+
   useEffect(() => {
     const userr = JSON.parse(localStorage.getItem("user"));
     setHospital(userr.name);
 
-    const fetchPatData = async () => {
-      let pat = await api.get("/get_sheets.php", {
-        params: { hospital: hospital },
-      });
-      setPatient(pat.data);
-    };
-    axios
-      .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
-      .then((response) => {
-        setRemarks(response.data);
-        // setIsLoading(false);
-      });
+    // axios
+    //   .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
+    //   .then((response) => {
+    //     setRemarks(response.data);
+    //     // setIsLoading(false);
+    //   });
     fetchPatData();
+    comments();
   }, [hospital, id, remarks]);
 
   return (

@@ -74,9 +74,9 @@ function OpcenHome2(props) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Accept",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        let response = api.post("/accept_referred_patient.php", {
+        let response = await api.post("/accept_referred_patient.php", {
           patId: patId,
         });
 

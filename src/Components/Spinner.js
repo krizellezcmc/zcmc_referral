@@ -8,7 +8,7 @@ function Loading(props) {
         thickness="5px"
         speed="0.55s"
         emptyColor="gray.200"
-        color="blue.500"
+        color="green.500"
         size="xl"
       />
     </div>
