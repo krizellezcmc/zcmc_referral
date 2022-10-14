@@ -50,6 +50,15 @@ function OpcenHome() {
     }
   };
 
+  const comments = async () => {
+    // setIsLoading(true);
+    let comment = await api.get(`/get_comment.php/${selected}`);
+    if (comment) {
+      setRemarks(comment.data);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     // axios
     //   .get("http://192.168.3.121/zcmc_referral_api/api/get_comment.php", {
@@ -59,6 +68,7 @@ function OpcenHome() {
     //     setRemarks(response.data);
     //     setIsLoading(false);
     //   });
+    comments();
     fetchPatients();
   }, [selected]);
 
@@ -141,7 +151,9 @@ function OpcenHome() {
                 <>
                   {list.length === 0 ? (
                     <Box p={2}>
-                      <Text textAlign="center">--- Nothing to Show ---</Text>
+                      <Text textAlign="center" fontSize={13}>
+                        --- Nothing to Show ---
+                      </Text>
                     </Box>
                   ) : (
                     <>
