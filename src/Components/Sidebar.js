@@ -13,6 +13,11 @@ import {
   HiUserGroup,
   HiDocumentAdd,
   HiOutlineUserRemove,
+  HiViewGrid,
+  HiOutlineViewGrid,
+  HiOutlineDocumentAdd,
+  HiUserRemove,
+  HiOutlineUserGroup,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -142,6 +147,19 @@ const Sidebar = () => {
         ) : role === "opcen" ? (
           <>
             <li
+              className={path.includes("admindashboard") ? "active" : ""}
+              onClick={() => navigate("/admindashboard")}
+            >
+              <p>
+                {path.includes("admindashboard") ? (
+                  <HiViewGrid />
+                ) : (
+                  <HiOutlineViewGrid />
+                )}
+              </p>
+              <span>Admin Dashboard</span>
+            </li>
+            <li
               className={path.includes("opcen") ? "active" : ""}
               onClick={() => navigate("/opcen")}
             >
@@ -149,7 +167,7 @@ const Sidebar = () => {
                 {path.includes("verifyuser") ? (
                   <HiDocumentAdd />
                 ) : (
-                  <HiDocumentAdd />
+                  <HiOutlineDocumentAdd />
                 )}
               </p>
               <span>Referrals</span>
@@ -168,7 +186,7 @@ const Sidebar = () => {
             >
               <p>
                 {path.includes("/trasnfer") ? (
-                  <HiOutlineUserRemove />
+                  <HiUserRemove />
                 ) : (
                   <HiOutlineUserRemove />
                 )}
@@ -206,7 +224,7 @@ const Sidebar = () => {
                 {path.includes("verifyuser") ? (
                   <HiUserGroup />
                 ) : (
-                  <HiUserGroup />
+                  <HiOutlineUserGroup />
                 )}
               </p>
               <span>Referred Patients</span>
@@ -221,7 +239,7 @@ const Sidebar = () => {
                 >
                   <p>
                     {path.includes("referrals") ? (
-                      <HiOutlineUserRemove />
+                      <HiUserRemove />
                     ) : (
                       <HiOutlineUserRemove />
                     )}
