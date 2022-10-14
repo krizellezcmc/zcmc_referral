@@ -44,6 +44,7 @@ function Signup() {
   // ];
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const [isLoading, setIsLoading] = useState(false);
 
   // DATA TO SEND
   const [firstName, setFirstName] = useState("");
@@ -73,6 +74,7 @@ function Signup() {
         isClosable: true,
       });
     } else {
+      setIsLoading(true);
       let response = await api.post("/register.php", {
         firstName: firstName,
         lastName: lastName,
@@ -83,6 +85,10 @@ function Signup() {
         accessCode: accessCode,
         department: department,
       });
+
+      if (response) {
+        setIsLoading(false);
+      }
 
       if (response.data.status === 1) {
         toast({
@@ -336,6 +342,7 @@ function Signup() {
                   }}
                   fontWeight="400"
                   rightIcon={<BiRightArrowAlt />}
+                  isLoading={isLoading}
                 >
                   Register
                 </Button>
