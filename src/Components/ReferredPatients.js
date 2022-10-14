@@ -165,11 +165,12 @@ const ReferredPatients = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {!patients ? (
+                {patients.length === 0 ? (
                   <Tr>
+                    ipcc
                     <Td colSpan={7} textAlign="center">
-                      <Text fontSize="15px" fontWeight="300">
-                        Nothing to show
+                      <Text fontSize={13} fontWeight="300">
+                        --- Nothing to show ---
                       </Text>
                     </Td>
                   </Tr>

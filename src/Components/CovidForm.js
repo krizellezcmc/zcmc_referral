@@ -72,7 +72,7 @@ function CovidForm(props) {
       patId: id,
     });
 
-    if (response) {
+    if (response.data.status === 1) {
       toast({
         position: "top",
         title: "Success!",
@@ -81,12 +81,22 @@ function CovidForm(props) {
         duration: 3000,
         isClosable: true,
       });
+    } else {
+      toast({
+        position: "top",
+        title: "Error!",
+        description: "Failed to update.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
   const fetchPat = async () => {
     let pat = await api.get("/get_acceptedpats.php");
     setPatient(pat.data);
+    console.log(pat.data);
   };
 
   const select = async (e) => {

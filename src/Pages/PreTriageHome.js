@@ -10,24 +10,19 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  Center,
 } from "@chakra-ui/react";
 import Header from "../Components/Header";
 import api from "../API/Api";
 import Swal from "sweetalert2";
 import { BiSearch } from "react-icons/bi";
+import Loading from "../Components/Spinner";
 
 function PreTriageHome(props) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [load, setLoad] = useState(false);
   const [list, setList] = useState([]);
-
   const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    const getList = async () => {
-      let response = await api.get("/get_accepted_triage.php");
-      setList(response.data);
-    };
-    getList();
-  });
 
   const patientArrival = async (id) => {
     Swal.fire({
@@ -39,6 +34,7 @@ function PreTriageHome(props) {
       confirmButtonText: "Confirm",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setLoad(true);
         let res = await api.post("/arrived_referred_patient.php", {
           patId: id,
         });
@@ -58,6 +54,7 @@ function PreTriageHome(props) {
                 }
               ).then((response) => {
                 if (response) {
+                  setLoad(false);
                   Swal.fire("Success!", "Record Successfully.", "success");
                 } else {
                   Swal.fire("Error!", "Something went wrong.", "error");
@@ -73,6 +70,17 @@ function PreTriageHome(props) {
       }
     });
   };
+  const getList = async () => {
+    setIsLoading(true);
+    let response = await api.get("/get_accepted_triage.php");
+    if (response) {
+      setList(response.data);
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getList();
+  }, []);
 
   return (
     <div className="container">
@@ -83,7 +91,7 @@ function PreTriageHome(props) {
             <Text fontWeight="bolder" fontSize="20px">
               INCOMING PATIENTS
             </Text>
-            <Box py={5}>
+            <Box pt={8}>
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
@@ -148,98 +156,118 @@ function PreTriageHome(props) {
               boxShadow="base"
               mt={2}
             >
-              {list.length === 0 ? (
-                <Box p={2}>
-                  <Text textAlign="center">---Nothing to Show---</Text>
-                </Box>
+              {isLoading ? (
+                <Center my={20}>
+                  <Loading />
+                </Center>
               ) : (
                 <>
-                  {list
-                    .filter((val) => {
-                      if (search === "") {
-                        return val;
-                      } else if (
-                        val.lastname
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        val.refFacility
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        val.status.toLowerCase().includes(search.toLowerCase())
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((e) => {
-                      return (
-                        <>
-                          <Box
-                            w="100%"
-                            _hover={{
-                              background: "green.50",
-                              color: "black",
-                              borderTop: "2px",
-                              borderColor: "green",
-                            }}
-                            py={3}
-                            //   onClick={() => {
-                            //     naviOpcenH2(props.value);
-                            //   }}
-                          >
-                            <HStack>
-                              <Box w="100%" textAlign="center" p={2}>
-                                <Text fontWeight="900" fontSize="13px" mb={1}>
-                                  {e.lastname +
-                                    ", " +
-                                    e.firstname +
-                                    ", " +
-                                    e.middleName}
-                                </Text>
+                  {list.length === 0 ? (
+                    <Box py={4}>
+                      <Text textAlign="center" fontSize={14}>
+                        ---Nothing to Show---
+                      </Text>
+                    </Box>
+                  ) : (
+                    <>
+                      {list
+                        .filter((val) => {
+                          if (search === "") {
+                            return val;
+                          } else if (
+                            val.lastname
+                              .toLowerCase()
+                              .includes(search.toLowerCase()) ||
+                            val.refFacility
+                              .toLowerCase()
+                              .includes(search.toLowerCase()) ||
+                            val.status
+                              .toLowerCase()
+                              .includes(search.toLowerCase())
+                          ) {
+                            return val;
+                          }
+                        })
+                        .map((e) => {
+                          return (
+                            <>
+                              <Box
+                                w="100%"
+                                _hover={{
+                                  background: "green.50",
+                                  color: "black",
+                                  borderTop: "2px",
+                                  borderColor: "green",
+                                }}
+                                py={3}
+                                //   onClick={() => {
+                                //     naviOpcenH2(props.value);
+                                //   }}
+                              >
+                                <HStack>
+                                  <Box w="100%" textAlign="center" p={2}>
+                                    <Text
+                                      fontWeight="900"
+                                      fontSize="13px"
+                                      mb={1}
+                                    >
+                                      {e.lastname +
+                                        ", " +
+                                        e.firstname +
+                                        ", " +
+                                        e.middleName}
+                                    </Text>
 
-                                <Text fontSize="12px" fontWeight={800}>
-                                  Referral Date and Time:
-                                </Text>
-                                <Text fontSize="12px" fontWeight={500}>
-                                  {e.tstamp}
-                                </Text>
-                                <Text fontSize="12px" fontWeight={800}>
-                                  Referral Type:
-                                </Text>
-                                <Text fontSize="12px" fontWeight={500}>
-                                  {e.refType}
-                                </Text>
-                              </Box>
+                                    <Text fontSize="12px" fontWeight={800}>
+                                      Referral Date and Time:
+                                    </Text>
+                                    <Text fontSize="12px" fontWeight={500}>
+                                      {e.tstamp}
+                                    </Text>
+                                    <Text fontSize="12px" fontWeight={800}>
+                                      Referral Type:
+                                    </Text>
+                                    <Text fontSize="12px" fontWeight={500}>
+                                      {e.refType}
+                                    </Text>
+                                  </Box>
 
-                              <Box w="100%" textAlign="center">
-                                <Text fontWeight="500" fontSize="13px">
-                                  {e.refFacility}
-                                </Text>
+                                  <Box w="100%" textAlign="center">
+                                    <Text fontWeight="500" fontSize="13px">
+                                      {e.refFacility}
+                                    </Text>
+                                  </Box>
+                                  <Box w="100%" textAlign="center">
+                                    <Badge
+                                      variant="subtle"
+                                      fontWeight="bolder"
+                                      fontSize="13px"
+                                      colorScheme="green"
+                                    >
+                                      {e.status}
+                                    </Badge>
+                                  </Box>
+                                  <Box w="100%" textAlign="center">
+                                    <Button
+                                      size="sm"
+                                      colorScheme="green"
+                                      onClick={() =>
+                                        patientArrival(e.patientId)
+                                      }
+                                      isLoading={load}
+                                      loadingText="Loading"
+                                    >
+                                      Arrived
+                                    </Button>
+                                  </Box>
+                                </HStack>
                               </Box>
-                              <Box w="100%" textAlign="center">
-                                <Badge
-                                  variant="subtle"
-                                  fontWeight="bolder"
-                                  fontSize="13px"
-                                  colorScheme="green"
-                                >
-                                  {e.status}
-                                </Badge>
-                              </Box>
-                              <Box w="100%" textAlign="center">
-                                <Button
-                                  size="sm"
-                                  colorScheme="green"
-                                  onClick={() => patientArrival(e.patientId)}
-                                >
-                                  Arrived
-                                </Button>
-                              </Box>
-                            </HStack>
-                          </Box>
-                          <Divider />
-                        </>
-                      );
-                    })}
+                              <Divider />
+                            </>
+                          );
+                        })}
+                    </>
+                  )}
                 </>
               )}
             </Box>

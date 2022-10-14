@@ -44,6 +44,7 @@ import Comment from "../Components/Comment";
 
 function SearchPatient(props) {
   const [isLoading, setIsLoading] = useState(false);
+  // const [isLoadingList, setIsLoadingList] = useState(false);
   const [patient, setPatient] = useState([]);
   // const [selected, setSelected] = useState("/");
   const [bizbox, setBizbox] = useState([]);
@@ -153,11 +154,11 @@ function SearchPatient(props) {
   };
 
   const comments = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     let comment = await api.get(`/get_comment.php/${id}`);
     if (comment) {
       setRemarks(comment.data);
-      setIsLoading(false);
+      //  setIsLoading(false);
     }
   };
 
@@ -165,7 +166,9 @@ function SearchPatient(props) {
     let pat = await api.get("/get_sheets.php", {
       params: { hospital: hospital },
     });
-    setPatient(pat.data);
+    if (pat) {
+      setPatient(pat.data);
+    }
   };
 
   useEffect(() => {
