@@ -65,6 +65,7 @@ const AnimatedRoutes = () => {
           <Route path="/opcenhome/:id" element={<OpcenHome2 />}></Route>
           <Route path="/transfer" element={<Transferred />}></Route>
           <Route path="/pretriage" element={<PreTriageHome />}></Route>
+          <Route path="/admindashboard" element={<AdminDashboard />} />
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
           {/* Nurse Routes*/}
@@ -91,7 +92,6 @@ const AnimatedRoutes = () => {
 
           {/* Admin Routes */}
           <Route element={<ProtectedRoutes user={user} role="admin" />}>
-            <Route path="/admindashboard" element={<AdminDashboard />} />
             <Route path="/addhospital" element={<AddHospital />} />
             <Route path="/verifyuser" element={<VerifyUser />} />
           </Route>

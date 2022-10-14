@@ -117,7 +117,7 @@ function Login() {
   }
 
   if (user?.role === "opcen") {
-    return <Navigate to="/opcen" />;
+    return <Navigate to="/admindashboard" />;
   }
   if (user?.role === "triage") {
     return <Navigate to="/pretriage" />;
