@@ -1,7 +1,8 @@
 import axios from "axios";
 // axios.defaults.withCredentials = false;
 
-const server = "http://192.168.3.135/zcmc_referral_api/api/";
+const server = "http://onehospitalcmd-online.preview-domain.com/";
+// const server = "http://192.168.3.135/zcmc_referral_api/api/";
 // const server = "http://192.168.3.121/zcmc_referral_api/api/";
 // const server = "https://zcmc-referral.herokuapp.com/api/";
 
