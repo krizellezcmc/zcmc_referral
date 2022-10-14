@@ -23,11 +23,14 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Center,
 } from "@chakra-ui/react";
 import api from "../API/Api";
 import moment from "moment";
+import Loading from "./Spinner";
 
 function OpcenReferral(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const newDate = moment().format("LLL");
   const [timeStamp, setTimeStamp] = useState(newDate);
   const [opcenUser, setOpcenUserName] = useState("");
@@ -96,55 +99,59 @@ function OpcenReferral(props) {
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
 
   const refData = async () => {
+    setIsLoading(true);
     let response = await api.get("/get_pending_ref.php", {
       params: { id: props.patientId },
     });
-    setUserName(response.data.username);
-    setReferringFacility(response.data.refFacility);
-    setLastName(response.data.lastname);
-    setFirstName(response.data.firstname);
-    setMiddleName(response.data.middleName);
-    setExtendedName(response.data.extended);
-    setSex(response.data.sex);
-    setBirthdate(response.data.birthdate);
-    setCivilStatus(response.data.civilStatus);
-    setNationality(response.data.nationality);
-    setReligion(response.data.religion);
-    setOccupation(response.data.occupation);
-    setPhilhealth(response.data.philhealth);
-    setAddress(response.data.address);
-    setNextOfKin(response.data.nextOfkin);
-    setContact(response.data.contactWatcher);
-    setDateAdmitted(response.data.dateAdmitted);
-    setReferralType(response.data.refType);
-    setDisposition(response.data.disposition);
-    setSpecialization(response.data.specialization);
-    setTemperature(response.data.latestTemp);
-    setBloodPressure(response.data.latestBp);
-    setRespiRate(response.data.latestRespi);
-    setPulseRate(response.data.latestPulse);
-    setOxygen(response.data.latestOxygen);
-    setGlasgow(response.data.latestGlasgow);
-    setChiefComplaints(response.data.chiefComplaints);
-    setDiagnosis(response.data.diagnosis);
-    setEndorsement(response.data.endorsement);
-    setUserContact(response.data.userContact);
-    setReason(response.data.reason);
-    setGetGP(response.data.GP);
-    setLmp(response.data.LMP);
-    setAog(response.data.AOG);
-    setEdc(response.data.EDC);
-    setFht(response.data.FHT);
-    setFh(response.data.FH);
-    setApgar(response.data.APGAR);
-    setIe(response.data.IE);
-    setBowList(response.data.bow);
-    setHPI(response.data.HPI);
-    setPPF(response.data.PPF);
-    setIVF(response.data.IVF);
-    setMeds(response.data.MEDS);
-    setLab(response.data.LAB);
-    setTimeStamp(response.data.timestamp);
+    if (response) {
+      setIsLoading(false);
+      setUserName(response.data.username);
+      setReferringFacility(response.data.refFacility);
+      setLastName(response.data.lastname);
+      setFirstName(response.data.firstname);
+      setMiddleName(response.data.middleName);
+      setExtendedName(response.data.extended);
+      setSex(response.data.sex);
+      setBirthdate(response.data.birthdate);
+      setCivilStatus(response.data.civilStatus);
+      setNationality(response.data.nationality);
+      setReligion(response.data.religion);
+      setOccupation(response.data.occupation);
+      setPhilhealth(response.data.philhealth);
+      setAddress(response.data.address);
+      setNextOfKin(response.data.nextOfkin);
+      setContact(response.data.contactWatcher);
+      setDateAdmitted(response.data.dateAdmitted);
+      setReferralType(response.data.refType);
+      setDisposition(response.data.disposition);
+      setSpecialization(response.data.specialization);
+      setTemperature(response.data.latestTemp);
+      setBloodPressure(response.data.latestBp);
+      setRespiRate(response.data.latestRespi);
+      setPulseRate(response.data.latestPulse);
+      setOxygen(response.data.latestOxygen);
+      setGlasgow(response.data.latestGlasgow);
+      setChiefComplaints(response.data.chiefComplaints);
+      setDiagnosis(response.data.diagnosis);
+      setEndorsement(response.data.endorsement);
+      setUserContact(response.data.userContact);
+      setReason(response.data.reason);
+      setGetGP(response.data.GP);
+      setLmp(response.data.LMP);
+      setAog(response.data.AOG);
+      setEdc(response.data.EDC);
+      setFht(response.data.FHT);
+      setFh(response.data.FH);
+      setApgar(response.data.APGAR);
+      setIe(response.data.IE);
+      setBowList(response.data.bow);
+      setHPI(response.data.HPI);
+      setPPF(response.data.PPF);
+      setIVF(response.data.IVF);
+      setMeds(response.data.MEDS);
+      setLab(response.data.LAB);
+      setTimeStamp(response.data.timestamp);
+    }
   };
 
   const updateData = async () => {
@@ -208,7 +215,6 @@ function OpcenReferral(props) {
         isClosable: true,
       });
     }
-    console.log(response.data);
   };
   useEffect(() => {
     refData();
@@ -218,615 +224,632 @@ function OpcenReferral(props) {
 
   return (
     <div>
-      <Container p={5} maxW="1000px">
-        {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
-        <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={5}>
-          <Text fontSize="xl" textAlign="center" fontWeight={800}>
-            PATIENT INFORMATION
-          </Text>
-          <HStack mt={8}>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>Last Name</FormLabel>
+      {isLoading ? (
+        <Center mt={20}>
+          <Loading />
+        </Center>
+      ) : (
+        <Container p={5} maxW="1000px">
+          {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
+          <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={5}>
+            <Text fontSize="xl" textAlign="center" fontWeight={800}>
+              PATIENT INFORMATION
+            </Text>
+            <HStack mt={8}>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>Last Name</FormLabel>
 
-              <Input
-                type="text"
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={lastname}
+                  onChange={(e) => setLastName(e.target.value.toUpperCase())}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>First Name</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={firstname}
+                  onChange={(e) => setFirstName(e.target.value.toUpperCase())}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Middle Name</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={middlename}
+                  onChange={(e) => setMiddleName(e.target.value.toUpperCase())}
+                />
+              </FormControl>
+              <FormControl w={80}>
+                <FormLabel fontSize={14}>Suffix</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={extendedName}
+                  onChange={(e) =>
+                    setExtendedName(e.target.value.toUpperCase())
+                  }
+                />
+              </FormControl>
+            </HStack>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>Birthday</FormLabel>
+                <HStack>
+                  <Input
+                    type="date"
+                    variant="filled"
+                    value={birthdate}
+                    onChange={(e) => setBirthdate(e.target.value)}
+                  />
+                </HStack>
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Sex</FormLabel>
+                <Select
+                  value={sex}
+                  variant="filled"
+                  onChange={(e) => setSex(e.target.value)}
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Civil Status</FormLabel>
+                <Select
+                  variant="filled"
+                  value={civilStatus}
+                  onChange={(e) => setCivilStatus(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Please Select
+                  </option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Separated">Separated</option>
+                  <option value="Widow(er)">Widow(er)</option>
+                  <option value="Other">Other</option>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Nationality</FormLabel>
+                <Input
+                  variant="filled"
+                  value={nationality}
+                  onChange={(e) => setNationality(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>Religion</FormLabel>
+                <Select
+                  variant="filled"
+                  value={religion}
+                  onChange={(e) => setReligion(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Please Select
+                  </option>
+                  <option value="Roman Catholic">Roman Catholic</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Protestant">Protestant</option>
+                  <option value="Other">Other</option>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Occupation</FormLabel>
+                <Input
+                  variant="filled"
+                  value={occupation}
+                  onChange={(e) => setOccupation(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>PhilHealth</FormLabel>
+                <Input
+                  variant="filled"
+                  value={philhealth}
+                  onChange={(e) => setPhilhealth(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <FormControl mt={5}>
+              <FormLabel fontSize={14}>Address</FormLabel>
+              <Textarea
                 variant="filled"
-                value={lastname}
-                onChange={(e) => setLastName(e.target.value.toUpperCase())}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </FormControl>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>First Name</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={firstname}
-                onChange={(e) => setFirstName(e.target.value.toUpperCase())}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Middle Name</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={middlename}
-                onChange={(e) => setMiddleName(e.target.value.toUpperCase())}
-              />
-            </FormControl>
-            <FormControl w={80}>
-              <FormLabel fontSize={14}>Suffix</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={extendedName}
-                onChange={(e) => setExtendedName(e.target.value.toUpperCase())}
-              />
-            </FormControl>
-          </HStack>
-          <HStack mt={5}>
-            <FormControl>
-              <FormLabel fontSize={14}>Birthday</FormLabel>
-              <HStack>
+          </Box>
+
+          <Box
+            borderWidth="1px"
+            borderColor="gray.300"
+            borderRadius="lg"
+            p={5}
+            mt={5}
+          >
+            <Text fontSize="xl" textAlign="center" fontWeight={800}>
+              SIGNIFICANT WATCHERS
+            </Text>
+            <HStack mt={8}>
+              <FormControl>
+                <FormLabel fontSize={14}>Next of Kin</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={nextOfKin}
+                  onChange={(e) => setNextOfKin(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Landline/Mobile/Email</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+          </Box>
+
+          <Box
+            borderWidth="1px"
+            borderColor="gray.300"
+            borderRadius="lg"
+            p={5}
+            mt={5}
+          >
+            <Text fontSize="xl" textAlign="center" fontWeight={800}>
+              ADMITTING DETAILS
+            </Text>
+            <HStack mt={8}>
+              <FormControl>
+                <FormLabel fontSize={14}>Date Admitted</FormLabel>
                 <Input
                   type="date"
                   variant="filled"
-                  value={birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
+                  value={dateAdmitted}
+                  onChange={(e) => setDateAdmitted(e.target.value)}
                 />
-              </HStack>
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Sex</FormLabel>
-              <Select
-                value={sex}
-                variant="filled"
-                onChange={(e) => setSex(e.target.value)}
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Prefer not to say">Prefer not to say</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Civil Status</FormLabel>
-              <Select
-                variant="filled"
-                value={civilStatus}
-                onChange={(e) => setCivilStatus(e.target.value)}
-              >
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-                <option value="Separated">Separated</option>
-                <option value="Widow(er)">Widow(er)</option>
-                <option value="Other">Other</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Nationality</FormLabel>
-              <Input
-                variant="filled"
-                value={nationality}
-                onChange={(e) => setNationality(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-          <HStack mt={5}>
-            <FormControl>
-              <FormLabel fontSize={14}>Religion</FormLabel>
-              <Select
-                variant="filled"
-                value={religion}
-                onChange={(e) => setReligion(e.target.value)}
-              >
-                <option value="Roman Catholic">Roman Catholic</option>
-                <option value="Islam">Islam</option>
-                <option value="Protestant">Protestant</option>
-                <option value="Other">Other</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Occupation</FormLabel>
-              <Input
-                variant="filled"
-                value={occupation}
-                onChange={(e) => setOccupation(e.target.value)}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>PhilHealth</FormLabel>
-              <Input
-                variant="filled"
-                value={philhealth}
-                onChange={(e) => setPhilhealth(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-          <FormControl mt={5}>
-            <FormLabel fontSize={14}>Address</FormLabel>
-            <Textarea
-              variant="filled"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </FormControl>
-        </Box>
-
-        <Box
-          borderWidth="1px"
-          borderColor="gray.300"
-          borderRadius="lg"
-          p={5}
-          mt={5}
-        >
-          <Text fontSize="xl" textAlign="center" fontWeight={800}>
-            SIGNIFICANT WATCHERS
-          </Text>
-          <HStack mt={8}>
-            <FormControl>
-              <FormLabel fontSize={14}>Next of Kin</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={nextOfKin}
-                onChange={(e) => setNextOfKin(e.target.value)}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Landline/Mobile/Email</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={contact}
-                onChange={(e) => setContact(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-        </Box>
-
-        <Box
-          borderWidth="1px"
-          borderColor="gray.300"
-          borderRadius="lg"
-          p={5}
-          mt={5}
-        >
-          <Text fontSize="xl" textAlign="center" fontWeight={800}>
-            ADMITTING DETAILS
-          </Text>
-          <HStack mt={8}>
-            <FormControl>
-              <FormLabel fontSize={14}>Date Admitted</FormLabel>
-              <Input
-                type="date"
-                variant="filled"
-                value={dateAdmitted}
-                onChange={(e) => setDateAdmitted(e.target.value)}
-              />
-            </FormControl>
-            <FormControl w={500}>
-              <FormLabel fontSize={14}>Referral Type</FormLabel>
-              <Select
-                variant="filled"
-                value={referralType}
-                onChange={(e) => setReferralType(e.target.value)}
-              >
-                <option value="COVID">COVID</option>
-                <option value="NON-COVID">NON-COVID</option>
-                <option value="COVID-SUSPECT">COVID-SUSPECT</option>
-              </Select>
-            </FormControl>
-            <FormControl w={500}>
-              <FormLabel fontSize={14}>Disposition</FormLabel>
-              <Select
-                variant="filled"
-                value={disposition}
-                onChange={(e) => setDisposition(e.target.value)}
-              >
-                <option value="Moderate">Moderate</option>
-                <option value="Mild">Mild</option>
-                <option value="Severe">Severe</option>
-                <option value="Critical">Critical</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Specialization</FormLabel>
-              <Input
-                variant="filled"
-                value={specialization}
-                onChange={(e) => setSpecialization(e.target.value)}
-                disabled
-              />
-            </FormControl>
-          </HStack>
-          {specialization === "Obstetrics And Gynecology" ? (
-            <>
-              <Box mt={10}>
-                <Text fontSize="xl" textAlign="center" fontWeight={800}>
-                  OB CASE
-                </Text>
-                <HStack mt={5}>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>Gravidity and Parity</FormLabel>
-                    <HStack>
-                      {getGp === "" || getGp === null ? (
-                        ""
-                      ) : (
-                        <>
-                          {JSON.parse(getGp).map((e, k) => {
-                            return (
-                              <>
-                                <Text>G</Text>
-                                <Input
-                                  type="text"
-                                  borderBottom="1px"
-                                  w={50}
-                                  h={8}
-                                  textAlign="center"
-                                  value={e.G}
-                                  isDisabled
-                                />
-                                <Text>P</Text>
-                                <Input
-                                  type="text"
-                                  borderBottom="1px"
-                                  w={50}
-                                  h={8}
-                                  textAlign="center"
-                                  value={e.P}
-                                  isDisabled
-                                />
-                                <Text>(</Text>
-                                <Input
-                                  type="text"
-                                  borderBottom="1px"
-                                  w={100}
-                                  h={8}
-                                  textAlign="center"
-                                  value={e.GAP}
-                                  isDisabled
-                                />
-                                <Text>)</Text>
-                              </>
-                            );
-                          })}
-                        </>
-                      )}
-                    </HStack>
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>Last Menstrual Period</FormLabel>
-                    <Input
-                      type="text"
-                      value={lmp}
-                      onChange={(e) => {
-                        setLmp(e.target.value);
-                      }}
-                    />
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>AOG</FormLabel>
-                    <Input
-                      type="text"
-                      value={aog}
-                      onChange={(e) => {
-                        setAog(e.target.value);
-                      }}
-                    />
-                  </FormControl>
-                </HStack>
-                <HStack mt={5}>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>EDC</FormLabel>
-                    <Input
-                      type="text"
-                      value={edc}
-                      onChange={(e) => setEdc(e.target.value)}
-                    />
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>Fetal Heart Tones</FormLabel>
-                    <Input
-                      type="text"
-                      value={fht}
-                      onChange={(e) => setFht(e.target.value)}
-                    />
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>Fundal Height</FormLabel>
-                    <Input
-                      type="text"
-                      value={fh}
-                      onChange={(e) => setFh(e.target.value)}
-                    />
-                  </FormControl>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>Baby APGAR</FormLabel>
-                    <Input
-                      type="text"
-                      value={apgar}
-                      onChange={(e) => setApgar(e.target.value)}
-                    />
-                  </FormControl>
-                </HStack>
-                <HStack mt={5}>
-                  <FormControl isRequired>
-                    <FormLabel fontSize={14}>Internal Examination</FormLabel>
-                    <HStack>
-                      {JSON.parse(ie).map((i, k) => {
-                        return (
-                          <>
-                            <Input
-                              type="text"
-                              borderBottom="1px"
-                              w={80}
-                              h={8}
-                              value={i.cm}
-                              textAlign="center"
-                              isDisabled
-                            />
-                            <Text fontSize={14}>cm</Text>
-                            <Input
-                              type="text"
-                              borderBottom="1px"
-                              w={80}
-                              h={8}
-                              value={i.station}
-                              textAlign="center"
-                              isDisabled
-                            />
-                            <Text fontSize={14}>station</Text>
-                            <Input
-                              type="text"
-                              borderBottom="1px"
-                              h={8}
-                              value={i.effacement}
-                              textAlign="center"
-                              isDisabled
-                            />
-                            <Text fontSize={14}>effacement</Text>
-                            <Input
-                              type="text"
-                              borderBottom="1px"
-                              h={8}
-                              value={i.presentation}
-                              textAlign="center"
-                              isDisabled
-                            />
-                            <Text fontSize={14}>presentation</Text>
-                          </>
-                        );
-                      })}
-                    </HStack>
-                  </FormControl>
-                </HStack>
-                <FormControl mt={5}>
-                  <FormLabel fontSize={14}>Bow</FormLabel>
-                  {JSON.parse(bowList).map((i, k) => {
-                    return (
-                      <Checkbox size="sm" ml={5} isChecked={true}>
-                        {i}
-                      </Checkbox>
-                    );
-                  })}
-                </FormControl>
-              </Box>
-            </>
-          ) : (
-            ""
-          )}
-          <HStack mt={10}>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>Latest V/S-Temperature</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={temperature}
-                onChange={(e) => setTemperature(e.target.value)}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>Latest V/S-Blood Pressure</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={bloodPressure}
-                onChange={(e) => setBloodPressure(e.target.value)}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>Latest V/S-Respiration Rate</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={respiRate}
-                onChange={(e) => setRespiRate(e.target.value)}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>
-                Latest V/S-Pulse <br></br>Rate
-              </FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={pulseRate}
-                onChange={(e) => setPulseRate(e.target.value)}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>Latest V/S-Oxygen Saturation</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={oxygen}
-                onChange={(e) => setOxygen(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-          <HStack mt={5}>
-            <FormControl isRequired>
-              <FormLabel fontSize={14}>Glasgow Coma Scale</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={glasgow}
-                onChange={(e) => setGlasgow(e.target.value)}
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel fontSize={14}>Resident on Duty/Contact #</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={userContact}
-                onChange={(e) => setUserContact(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-          <FormControl mt={5}>
-            <FormLabel fontSize={14}>Endorsement/Initial Care</FormLabel>
-            <Textarea
-              type="text"
-              variant="filled"
-              value={endorsement}
-              onChange={(e) => setEndorsement(e.target.value)}
-            />
-          </FormControl>
-          <HStack mt={5}>
-            <FormControl>
-              <FormLabel fontSize={14}>Chief Complaints</FormLabel>
-              <Textarea
-                variant="filled"
-                value={chiefComplaints}
-                onChange={(e) => setChiefComplaints(e.target.value)}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Diagnosis</FormLabel>
-              <Textarea
-                variant="filled"
-                value={diagnosis}
-                onChange={(e) => setDiagnosis(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-          <FormControl mt={5} isRequired>
-            <FormLabel fontSize={14}> Reason for Referral</FormLabel>
-            <Select
-              variant="filled"
-              onChange={(e) => setReason(e.target.value)}
-              value={reason}
-            >
-              {/* <option value={reason}>{reason}</option> */}
-              <option value="Medical Center of Choice">
-                Medical Center of Choice
-              </option>
-              <option value="Upgrade of Health Care">
-                Upgrade of Health Care
-              </option>
-              <option value="Financial/Cost of Care">
-                Financial/Cost of Care
-              </option>
-              <option value="Other">Other</option>
-            </Select>
-          </FormControl>
-          <HStack mt={5}>
-            <FormControl>
-              <FormLabel fontSize={14}>History Present Illness</FormLabel>
-              <Textarea
-                type="text"
-                variant="filled"
-                value={hpi}
-                onChange={(e) => setHPI(e.target.value)}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Pertinent PE Findings</FormLabel>
-              <Textarea
-                type="text"
-                variant="filled"
-                value={ppf}
-                onChange={(e) => setPPF(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-          <HStack mt={5}>
-            <FormControl>
-              <FormLabel fontSize={14}>IVF</FormLabel>
-              <Textarea
-                type="text"
-                variant="filled"
-                value={ivf}
-                onChange={(e) => setIVF(e.target.value)}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize={14}>Medications</FormLabel>
-              <Textarea
-                type="text"
-                variant="filled"
-                value={meds}
-                onChange={(e) => setMeds(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-          <FormControl mt={5}>
-            <FormLabel fontSize={14}>Laboratory</FormLabel>
-            <Textarea
-              type="text"
-              variant="filled"
-              value={lab}
-              onChange={(e) => setLab(e.target.value)}
-            />
-          </FormControl>
-        </Box>
-
-        {!userName ? (
-          ""
-        ) : (
-          <>
-            <HStack mt={5} mb={5}>
-              <Checkbox isChecked={true}></Checkbox>
-              <p style={{ fontSize: "14px", marginTop: "3px" }}>
-                The patient understands and accepts the terms and conditions of
-                the
-              </p>
-              <Link fontSize="14px" color="blue" mt={3} onClick={onOpen}>
-                Patient Agreement Form
-              </Link>
-            </HStack>
-            <Text
-              textAlign="left"
-              fontSize={13}
-              fontStyle="italic"
-              color="red.800"
-              fontWeight={500}
-            >
-              Last edited by {userName} {moment(timeStamp).startOf().fromNow()}
-            </Text>
-            <Flex>
-              <Spacer />
-              {props.status === "arrived" ? (
-                ""
-              ) : (
-                <Button
-                  isLoading={load}
-                  loadingText="Saving"
-                  spinnerPlacement="start"
-                  colorScheme="teal"
-                  variant="outline"
-                  mt={5}
-                  onClick={updateData}
-                  w={150}
+              </FormControl>
+              <FormControl w={500}>
+                <FormLabel fontSize={14}>Referral Type</FormLabel>
+                <Select
+                  variant="filled"
+                  value={referralType}
+                  onChange={(e) => setReferralType(e.target.value)}
                 >
-                  Save
-                </Button>
-              )}
-            </Flex>
-          </>
-        )}
-      </Container>
+                  <option value="COVID">COVID</option>
+                  <option value="NON-COVID">NON-COVID</option>
+                  <option value="COVID-SUSPECT">COVID-SUSPECT</option>
+                </Select>
+              </FormControl>
+              <FormControl w={500}>
+                <FormLabel fontSize={14}>Disposition</FormLabel>
+                <Select
+                  variant="filled"
+                  value={disposition}
+                  onChange={(e) => setDisposition(e.target.value)}
+                >
+                  <option value="Moderate">Moderate</option>
+                  <option value="Mild">Mild</option>
+                  <option value="Severe">Severe</option>
+                  <option value="Critical">Critical</option>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Specialization</FormLabel>
+                <Input
+                  variant="filled"
+                  value={specialization}
+                  onChange={(e) => setSpecialization(e.target.value)}
+                  disabled
+                />
+              </FormControl>
+            </HStack>
+            {specialization === "Obstetrics And Gynecology" ? (
+              <>
+                <Box mt={10}>
+                  <Text fontSize="xl" textAlign="center" fontWeight={800}>
+                    OB CASE
+                  </Text>
+                  <HStack mt={5}>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>Gravidity and Parity</FormLabel>
+                      <HStack>
+                        {getGp === "" || getGp === null ? (
+                          ""
+                        ) : (
+                          <>
+                            {JSON.parse(getGp).map((e, k) => {
+                              return (
+                                <>
+                                  <Text>G</Text>
+                                  <Input
+                                    type="text"
+                                    borderBottom="1px"
+                                    w={50}
+                                    h={8}
+                                    textAlign="center"
+                                    value={e.G}
+                                    isDisabled
+                                  />
+                                  <Text>P</Text>
+                                  <Input
+                                    type="text"
+                                    borderBottom="1px"
+                                    w={50}
+                                    h={8}
+                                    textAlign="center"
+                                    value={e.P}
+                                    isDisabled
+                                  />
+                                  <Text>(</Text>
+                                  <Input
+                                    type="text"
+                                    borderBottom="1px"
+                                    w={100}
+                                    h={8}
+                                    textAlign="center"
+                                    value={e.GAP}
+                                    isDisabled
+                                  />
+                                  <Text>)</Text>
+                                </>
+                              );
+                            })}
+                          </>
+                        )}
+                      </HStack>
+                    </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>Last Menstrual Period</FormLabel>
+                      <Input
+                        type="text"
+                        value={lmp}
+                        onChange={(e) => {
+                          setLmp(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>AOG</FormLabel>
+                      <Input
+                        type="text"
+                        value={aog}
+                        onChange={(e) => {
+                          setAog(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                  </HStack>
+                  <HStack mt={5}>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>EDC</FormLabel>
+                      <Input
+                        type="text"
+                        value={edc}
+                        onChange={(e) => setEdc(e.target.value)}
+                      />
+                    </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>Fetal Heart Tones</FormLabel>
+                      <Input
+                        type="text"
+                        value={fht}
+                        onChange={(e) => setFht(e.target.value)}
+                      />
+                    </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>Fundal Height</FormLabel>
+                      <Input
+                        type="text"
+                        value={fh}
+                        onChange={(e) => setFh(e.target.value)}
+                      />
+                    </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>Baby APGAR</FormLabel>
+                      <Input
+                        type="text"
+                        value={apgar}
+                        onChange={(e) => setApgar(e.target.value)}
+                      />
+                    </FormControl>
+                  </HStack>
+                  <HStack mt={5}>
+                    <FormControl isRequired>
+                      <FormLabel fontSize={14}>Internal Examination</FormLabel>
+                      <HStack>
+                        {JSON.parse(ie).map((i, k) => {
+                          return (
+                            <>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                w={80}
+                                h={8}
+                                value={i.cm}
+                                textAlign="center"
+                                isDisabled
+                              />
+                              <Text fontSize={14}>cm</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                w={80}
+                                h={8}
+                                value={i.station}
+                                textAlign="center"
+                                isDisabled
+                              />
+                              <Text fontSize={14}>station</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                h={8}
+                                value={i.effacement}
+                                textAlign="center"
+                                isDisabled
+                              />
+                              <Text fontSize={14}>effacement</Text>
+                              <Input
+                                type="text"
+                                borderBottom="1px"
+                                h={8}
+                                value={i.presentation}
+                                textAlign="center"
+                                isDisabled
+                              />
+                              <Text fontSize={14}>presentation</Text>
+                            </>
+                          );
+                        })}
+                      </HStack>
+                    </FormControl>
+                  </HStack>
+                  <FormControl mt={5}>
+                    <FormLabel fontSize={14}>Bow</FormLabel>
+                    {JSON.parse(bowList).map((i, k) => {
+                      return (
+                        <Checkbox size="sm" ml={5} isChecked={true}>
+                          {i}
+                        </Checkbox>
+                      );
+                    })}
+                  </FormControl>
+                </Box>
+              </>
+            ) : (
+              ""
+            )}
+            <HStack mt={10}>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>Latest V/S-Temperature</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={temperature}
+                  onChange={(e) => setTemperature(e.target.value)}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>Latest V/S-Blood Pressure</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={bloodPressure}
+                  onChange={(e) => setBloodPressure(e.target.value)}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>Latest V/S-Respiration Rate</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={respiRate}
+                  onChange={(e) => setRespiRate(e.target.value)}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>
+                  Latest V/S-Pulse <br></br>Rate
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={pulseRate}
+                  onChange={(e) => setPulseRate(e.target.value)}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>
+                  Latest V/S-Oxygen Saturation
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={oxygen}
+                  onChange={(e) => setOxygen(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <HStack mt={5}>
+              <FormControl isRequired>
+                <FormLabel fontSize={14}>Glasgow Coma Scale</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={glasgow}
+                  onChange={(e) => setGlasgow(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel fontSize={14}>Resident on Duty/Contact #</FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={userContact}
+                  onChange={(e) => setUserContact(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <FormControl mt={5}>
+              <FormLabel fontSize={14}>Endorsement/Initial Care</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={endorsement}
+                onChange={(e) => setEndorsement(e.target.value)}
+              />
+            </FormControl>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>Chief Complaints</FormLabel>
+                <Textarea
+                  variant="filled"
+                  value={chiefComplaints}
+                  onChange={(e) => setChiefComplaints(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Diagnosis</FormLabel>
+                <Textarea
+                  variant="filled"
+                  value={diagnosis}
+                  onChange={(e) => setDiagnosis(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <FormControl mt={5} isRequired>
+              <FormLabel fontSize={14}> Reason for Referral</FormLabel>
+              <Select
+                variant="filled"
+                onChange={(e) => setReason(e.target.value)}
+                value={reason}
+              >
+                {/* <option value={reason}>{reason}</option> */}
+                <option value="Medical Center of Choice">
+                  Medical Center of Choice
+                </option>
+                <option value="Upgrade of Health Care">
+                  Upgrade of Health Care
+                </option>
+                <option value="Financial/Cost of Care">
+                  Financial/Cost of Care
+                </option>
+                <option value="Other">Other</option>
+              </Select>
+            </FormControl>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>History Present Illness</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={hpi}
+                  onChange={(e) => setHPI(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Pertinent PE Findings</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={ppf}
+                  onChange={(e) => setPPF(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>IVF</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={ivf}
+                  onChange={(e) => setIVF(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Medications</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={meds}
+                  onChange={(e) => setMeds(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <FormControl mt={5}>
+              <FormLabel fontSize={14}>Laboratory</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={lab}
+                onChange={(e) => setLab(e.target.value)}
+              />
+            </FormControl>
+          </Box>
+
+          {!userName ? (
+            ""
+          ) : (
+            <>
+              <HStack mt={5} mb={5}>
+                <Checkbox isChecked={true}></Checkbox>
+                <p style={{ fontSize: "14px", marginTop: "3px" }}>
+                  The patient understands and accepts the terms and conditions
+                  of the
+                </p>
+                <Link fontSize="14px" color="blue" mt={3} onClick={onOpen}>
+                  Patient Agreement Form
+                </Link>
+              </HStack>
+              <Text
+                textAlign="left"
+                fontSize={13}
+                fontStyle="italic"
+                color="red.800"
+                fontWeight={500}
+              >
+                Last edited by {userName}{" "}
+                {moment(timeStamp).startOf().fromNow()}
+              </Text>
+              <Flex>
+                <Spacer />
+                {props.status === "arrived" ? (
+                  ""
+                ) : (
+                  <Button
+                    isLoading={load}
+                    loadingText="Saving"
+                    spinnerPlacement="start"
+                    colorScheme="teal"
+                    variant="outline"
+                    mt={5}
+                    onClick={updateData}
+                    w={150}
+                  >
+                    Save
+                  </Button>
+                )}
+              </Flex>
+            </>
+          )}
+        </Container>
+      )}
       <Modal
         isOpen={isOpen}
         onClose={onClose}

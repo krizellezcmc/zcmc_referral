@@ -97,7 +97,6 @@ function Signup() {
           description: "Kindly check your email.",
           status: "success",
           variant: "solid",
-          duration: 2000,
           isClosable: true,
         });
       } else if (response.data.status === 2) {

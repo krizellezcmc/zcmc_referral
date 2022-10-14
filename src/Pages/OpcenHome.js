@@ -12,11 +12,13 @@ import {
   InputLeftElement,
   Input,
   Spacer,
+  Center,
 } from "@chakra-ui/react";
+import Spinner from "../Components/Spinner";
 
 import useAuth from "../Hooks/useAuth";
-import Loading from "../Components/Spinner";
-import axios from "axios";
+// import Loading from "../Components/Spinner";
+// import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 import OpcenTable from "../Components/OpcenTable";
 import { BiSearch } from "react-icons/bi";
@@ -39,25 +41,26 @@ function OpcenHome() {
   // };
 
   const fetchPatients = async (e) => {
+    setIsLoading(true);
     let pat = await api.get("/get_list.php");
     setList(pat.data);
+
+    if (pat) {
+      setIsLoading(false);
+    }
   };
 
-  if (!remarks) {
-    setIsLoading(true);
-  }
-
   useEffect(() => {
-    axios
-      .get("http://192.168.3.121/zcmc_referral_api/api/get_comment.php", {
-        params: { patientId: selected },
-      })
-      .then((response) => {
-        setRemarks(response.data);
-        setIsLoading(false);
-      });
+    // axios
+    //   .get("http://192.168.3.121/zcmc_referral_api/api/get_comment.php", {
+    //     params: { patientId: selected },
+    //   })
+    //   .then((response) => {
+    //     setRemarks(response.data);
+    //     setIsLoading(false);
+    //   });
     fetchPatients();
-  }, [selected, remarks]);
+  }, [selected]);
 
   return (
     <div className="container">
@@ -130,110 +133,59 @@ function OpcenHome() {
               boxShadow="base"
               mt={2}
             >
-              {list.length === 0 ? (
-                <Box p={2}>
-                  <Text textAlign="center">---Nothing to Show---</Text>
-                </Box>
+              {isLoading ? (
+                <Center my={20}>
+                  <Spinner />
+                </Center>
               ) : (
                 <>
-                  {list
-                    .filter((val) => {
-                      if (search === "") {
-                        return val;
-                      } else if (
-                        val.label
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        val.facility
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        val.status.toLowerCase().includes(search.toLowerCase())
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((e) => {
-                      return (
-                        <>
-                          <OpcenTable
-                            name={e.label}
-                            value={e.value}
-                            gender={e.gender}
-                            facility={e.facility}
-                            date={e.date}
-                            status={e.status}
-                            service={e.specialization}
-                            age={e.age}
-                          />
-                        </>
-                      );
-                    })}
+                  {list.length === 0 ? (
+                    <Box p={2}>
+                      <Text textAlign="center">--- Nothing to Show ---</Text>
+                    </Box>
+                  ) : (
+                    <>
+                      {list
+                        .filter((val) => {
+                          if (search === "") {
+                            return val;
+                          } else if (
+                            val.label
+                              .toLowerCase()
+                              .includes(search.toLowerCase()) ||
+                            val.facility
+                              .toLowerCase()
+                              .includes(search.toLowerCase()) ||
+                            val.status
+                              .toLowerCase()
+                              .includes(search.toLowerCase())
+                          ) {
+                            return val;
+                          }
+                        })
+                        .map((e) => {
+                          return (
+                            <>
+                              <OpcenTable
+                                name={e.label}
+                                value={e.value}
+                                gender={e.gender}
+                                facility={e.facility}
+                                date={e.date}
+                                status={e.status}
+                                service={e.specialization}
+                                age={e.age}
+                              />
+                            </>
+                          );
+                        })}
+                    </>
+                  )}
                 </>
               )}
             </Box>
             <Divider />
           </Container>
-          {/* 
-          {!showContent ? (
-            ""
-          ) : (
-            <>
-              {isLoading ? (
-                <Container>
-                  <Loading />
-                </Container>
-              ) : (
-                <Container mt={10} maxW="container.xl">
-                  <Tabs variant="enclosed">
-                    <TabList mb="1em">
-                      <Tab>
-                        <Text>Patient Referral</Text>
-                      </Tab>
-                      <Tab>
-                        <Text>
-                          Remarks
-                          <Badge ml="1.5" colorScheme="blue">
-                            {remarks.length}
-                          </Badge>
-                        </Text>
-                      </Tab>
-                    </TabList>
-
-                    <TabPanels>
-                      <TabPanel>
-                        <Box px={20}>
-                          <OpcenReferral patientId={selected} />
-                        </Box>
-                      </TabPanel>
-                      <TabPanel>
-                        <Container maxW="container.lg" px={20}>
-                          <AddComment
-                            patientId={selected}
-                            user={user?.userId}
-                          />
-
-                          <Box>
-                            {remarks.map((el, key) => {
-                              return (
-                                <>
-                                  <Comment
-                                    remark={el.remark}
-                                    date={el.tstamp}
-                                    user={el.firstName + " " + el.lastName}
-                                    dept={el.department}
-                                  />
-                                </>
-                              );
-                            })}
-                          </Box>
-                        </Container>
-                      </TabPanel>
-                    </TabPanels>
-                  </Tabs>
-                </Container>
-              )}
-            </>
-          )} */}
         </div>
       </div>
     </div>

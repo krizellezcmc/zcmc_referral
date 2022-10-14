@@ -24,15 +24,19 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  Center,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import api from "../API/Api";
 import { BiClinic, BiSearch } from "react-icons/bi";
 import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
+import Spinner from "../Components/Spinner";
 
 function TransferredRef(props) {
   const [patDetails, setPatDetails] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [patId, setPatId] = useState("");
   const [refHospi, setRefHospi] = useState("");
   const [historyDetails, setHistoryDetails] = useState([]);
@@ -70,19 +74,22 @@ function TransferredRef(props) {
     setRefHospi(history.data[0].name);
   };
 
+  const getList = async () => {
+    setIsLoading(true);
+    let response = await api.get("/get_transfer_details.php");
+    setPatDetails(response.data);
+
+    if (response) {
+      setIsLoading(false);
+    }
+  };
+
+  const getHospitals = async () => {
+    let response = await api.get("/get_local_hospitals.php");
+    setHospitals(response.data);
+  };
+
   useEffect(() => {
-    const getList = async () => {
-      let response = await api.get("/get_transfer_details.php");
-      setPatDetails(response.data);
-
-      console.log(patDetails);
-    };
-
-    const getHospitals = async () => {
-      let response = await api.get("/get_local_hospitals.php");
-      setHospitals(response.data);
-    };
-
     getList();
     getHospitals();
   }, []);
@@ -174,84 +181,96 @@ function TransferredRef(props) {
           mt={2}
           py={3}
         >
-          {patDetails.length === 0 ? (
-            <Text textAlign="center">---Nothing to Show---</Text>
+          {isLoading ? (
+            <Center my={20}>
+              <Spinner />
+            </Center>
           ) : (
             <>
-              {patDetails
-                .filter((val) => {
-                  if (search === "") {
-                    return val;
-                  } else if (
-                    val.lastname.toLowerCase().includes(search.toLowerCase()) ||
-                    val.refFacility
-                      .toLowerCase()
-                      .includes(search.toLowerCase()) ||
-                    val.status.toLowerCase().includes(search.toLowerCase())
-                  ) {
-                    return val;
-                  }
-                })
-                .map((e, k) => {
-                  return (
-                    <>
-                      <Box
-                        as="button"
-                        w="100%"
-                        _hover={{
-                          background: "green.50",
-                          color: "black",
-                          borderTop: "2px",
-                          borderColor: "green",
-                        }}
-                        py={3}
-                        onClick={() => {
-                          getHistory(e.patientId);
-                        }}
-                      >
-                        <HStack>
-                          <Box w="100%" textAlign="center">
-                            <Text fontWeight="900" fontSize="13px">
-                              {e.lastname +
-                                ", " +
-                                e.firstname +
-                                " " +
-                                e.middleName}
-                            </Text>
-                            <Text fontSize="12px" fontWeight={500}>
-                              Gender: {e.sex}
-                            </Text>
-                            <Text fontSize="12px" fontWeight={500}>
-                              Specialization: {e.specialization}
-                            </Text>
-                          </Box>
+              {patDetails.length === 0 ? (
+                <Text textAlign="center" fontSize={13}>
+                  ---Nothing to Show---
+                </Text>
+              ) : (
+                <>
+                  {patDetails
+                    .filter((val) => {
+                      if (search === "") {
+                        return val;
+                      } else if (
+                        val.lastname
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        val.refFacility
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        val.status.toLowerCase().includes(search.toLowerCase())
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((e, k) => {
+                      return (
+                        <>
+                          <Box
+                            as="button"
+                            w="100%"
+                            _hover={{
+                              background: "green.50",
+                              color: "black",
+                              borderTop: "2px",
+                              borderColor: "green",
+                            }}
+                            py={3}
+                            onClick={() => {
+                              getHistory(e.patientId);
+                            }}
+                          >
+                            <HStack>
+                              <Box w="100%" textAlign="center">
+                                <Text fontWeight="900" fontSize="13px">
+                                  {e.lastname +
+                                    ", " +
+                                    e.firstname +
+                                    " " +
+                                    e.middleName}
+                                </Text>
+                                <Text fontSize="12px" fontWeight={500}>
+                                  Gender: {e.sex}
+                                </Text>
+                                <Text fontSize="12px" fontWeight={500}>
+                                  Specialization: {e.specialization}
+                                </Text>
+                              </Box>
 
-                          <Box w="100%" textAlign="center">
-                            <Text fontWeight="500" fontSize="13px">
-                              {e.name}
-                            </Text>
+                              <Box w="100%" textAlign="center">
+                                <Text fontWeight="500" fontSize="13px">
+                                  {e.name}
+                                </Text>
+                              </Box>
+                              <Box w="100%" textAlign="center">
+                                <Text fontWeight="500" fontSize="13px">
+                                  {e.refFacility}
+                                </Text>
+                              </Box>
+                              <Box w="100%" textAlign="center">
+                                <Badge
+                                  variant="subtle"
+                                  fontWeight="bolder"
+                                  fontSize="13px"
+                                  colorScheme="green"
+                                >
+                                  {e.r_status}
+                                </Badge>
+                              </Box>
+                            </HStack>
                           </Box>
-                          <Box w="100%" textAlign="center">
-                            <Text fontWeight="500" fontSize="13px">
-                              {e.refFacility}
-                            </Text>
-                          </Box>
-                          <Box w="100%" textAlign="center">
-                            <Badge
-                              variant="subtle"
-                              fontWeight="bolder"
-                              fontSize="13px"
-                              colorScheme="green"
-                            >
-                              {e.r_status}
-                            </Badge>
-                          </Box>
-                        </HStack>
-                      </Box>
-                      <Divider />
-                    </>
-                  );
-                })}
+                          <Divider />
+                        </>
+                      );
+                    })}
+                </>
+              )}
             </>
           )}
         </Box>

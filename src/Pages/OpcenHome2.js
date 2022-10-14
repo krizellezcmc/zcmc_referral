@@ -27,13 +27,14 @@ import {
   FormLabel,
   Textarea,
   useToast,
+  Center,
 } from "@chakra-ui/react";
+import Spinner from "../Components/Spinner";
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
 import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
-import Loading from "../Components/Spinner";
-import axios from "axios";
+
 import Sidebar from "../Components/Sidebar";
 import { useParams, useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
@@ -117,18 +118,21 @@ function OpcenHome2(props) {
     }
   };
 
-  useEffect(() => {
-    axios
-      .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
-      .then((response) => {
-        setRemarks(response.data);
-        // setIsLoading(false);
-      });
+  const comments = async () => {
+    // setIsLoading(true);
+    let comment = await api.get(`/get_comment.php/${id}`);
+    if (comment) {
+      setRemarks(comment.data);
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     const getHospitals = async () => {
       let response = await api.get("/get_local_hospitals.php");
       setHospitals(response.data);
     };
+    comments();
     getHospitals();
     getDetails();
   }, [id, remarks]);
@@ -229,27 +233,37 @@ function OpcenHome2(props) {
                     <AddComment patientId={id} user={user?.userId} />
 
                     <Box>
-                      {remarks.map((el, key) => {
-                        return (
-                          <>
-                            {el.role === "opcen" ? (
-                              <Comment
-                                remark={el.remark}
-                                date={el.remark_tstamp}
-                                user={el.firstName + " " + el.lastName}
-                                dept={"Zamboanga City Medical Center (OPCEN)"}
-                              />
-                            ) : (
-                              <Comment
-                                remark={el.remark}
-                                date={el.remark_tstamp}
-                                user={el.firstName + " " + el.lastName}
-                                dept={el.name}
-                              />
-                            )}
-                          </>
-                        );
-                      })}
+                      {isLoading ? (
+                        <Center>
+                          <Spinner />
+                        </Center>
+                      ) : (
+                        <>
+                          {remarks.map((el, key) => {
+                            return (
+                              <>
+                                {el.role === "opcen" ? (
+                                  <Comment
+                                    remark={el.remark}
+                                    date={el.remark_tstamp}
+                                    user={el.firstName + " " + el.lastName}
+                                    dept={
+                                      "Zamboanga City Medical Center (OPCEN)"
+                                    }
+                                  />
+                                ) : (
+                                  <Comment
+                                    remark={el.remark}
+                                    date={el.remark_tstamp}
+                                    user={el.firstName + " " + el.lastName}
+                                    dept={el.name}
+                                  />
+                                )}
+                              </>
+                            );
+                          })}
+                        </>
+                      )}
                     </Box>
                   </Container>
                 </TabPanel>

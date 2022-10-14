@@ -25,6 +25,7 @@ import useAuth from "../Hooks/useAuth";
 function Login() {
   const [cookies, setCookie] = useCookies(["sessionId"]);
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleClick = () => setShow(!show);
 
   const [data, setData] = useState({
@@ -44,7 +45,13 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setIsLoading(true);
     let response = await api.post("/login.php", data);
+
+    if (response) {
+      setIsLoading(false);
+    }
+
     if (response.data.status === 1) {
       sessionStorage.setItem(
         "sessionId",
@@ -211,6 +218,8 @@ function Login() {
                     bgColor: "green.600",
                   }}
                   fontWeight="400"
+                  isLoading={isLoading}
+                  loadingText="Signing in"
                   rightIcon={<BiRightArrowAlt />}
                 >
                   Sign in

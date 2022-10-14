@@ -276,10 +276,15 @@ const PatientsList = (props) => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {!patients ? (
+                  {patients.length === 0 ? (
                     <Tr>
-                      <Td colSpan={7} textAlign="center">
-                        Nothing to show
+                      <Td
+                        className="border"
+                        colSpan={7}
+                        textAlign="center"
+                        fontSize={13}
+                      >
+                        --- Nothing to show ---
                       </Td>
                     </Tr>
                   ) : (
