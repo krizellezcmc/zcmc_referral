@@ -141,7 +141,7 @@ function OpcenHome2(props) {
       <Sidebar />
       <div className="content">
         <Header />
-        <Box w="85%" bg="white" p={5} zIndex={50} pos="fixed">
+        <Box w="75%" bg="white" p={4} zIndex={50} pos="fixed" mb={5}>
           <Button
             onClick={homeOpcen}
             variant="outline"

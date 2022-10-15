@@ -167,7 +167,6 @@ const ReferredPatients = () => {
               <Tbody>
                 {patients.length === 0 ? (
                   <Tr>
-                    ipcc
                     <Td colSpan={7} textAlign="center">
                       <Text fontSize={13} fontWeight="300">
                         --- Nothing to show ---

@@ -2,6 +2,7 @@ import { AspectRatio, Link } from "@chakra-ui/react";
 import React from "react";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
+import DashboardTile from "../Components/DashboardTile";
 
 function AdminDashboard(props) {
   return (
@@ -11,14 +12,15 @@ function AdminDashboard(props) {
         <div className="content">
           <Header />
           <div className="content-wrapper">
-            <iframe
+            <DashboardTile />
+            {/* <iframe
               width="100%"
               height="900"
               src="https://datastudio.google.com/embed/reporting/6b93099e-2cb4-456e-9aaa-369940a0f40c/page/rt54C"
               // frameborder="0"
               // style="border:0"
               // allowfullscreen
-            ></iframe>
+            ></iframe> */}
             {/* <iframe
               width="100%"
               height="900"
