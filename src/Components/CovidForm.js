@@ -13,17 +13,20 @@ import {
   useToast,
   Checkbox,
   Badge,
+  Center,
 } from "@chakra-ui/react";
 import { BiCalendar, BiSend } from "react-icons/bi";
-import localApi from "../API/LocalApi";
+// import localApi from "../API/LocalApi";
 import api from "../API/Api";
 import Loading from "./Spinner";
 
 function CovidForm(props) {
+  const [load, setLoad] = useState(false);
+
   const [patient, setPatient] = useState([]);
   const [selected, setSelected] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState(0);
   const [swabDate, setSwabDate] = useState("");
   const [resultDate, setResultDate] = useState("");
   const [covidData, setCovidData] = useState("");
@@ -65,12 +68,17 @@ function CovidForm(props) {
   const submit = async (e) => {
     e.preventDefault();
 
+    setLoad(true);
     let response = await api.post("/post_covid_status.php", {
       status: status,
       swabDate: swabDate,
       resultDate: resultDate,
       patId: id,
     });
+
+    if (response) {
+      setLoad(false);
+    }
 
     if (response.data.status === 1) {
       toast({
@@ -96,7 +104,6 @@ function CovidForm(props) {
   const fetchPat = async () => {
     let pat = await api.get("/get_acceptedpats.php");
     setPatient(pat.data);
-    console.log(pat.data);
   };
 
   const select = async (e) => {
@@ -108,7 +115,7 @@ function CovidForm(props) {
     setId(data[0]);
     // let refDate = data[2];
 
-    let covid = await localApi.get("/get_covid_status.php", {
+    let covid = await api.get("/get_covid_status.php", {
       params: {
         patientId: selectedId,
       },
@@ -123,7 +130,7 @@ function CovidForm(props) {
   useEffect(() => {
     // const user = JSON.parse(localStorage.getItem("user"));
     fetchPat();
-  }, [id]);
+  }, [id, status]);
 
   let toast = useToast();
 
@@ -150,145 +157,159 @@ function CovidForm(props) {
         ""
       ) : (
         <>
-          <Box pt={7}>
-            {patient
-              .filter((pat) => pat.patientId === id)
-              .map((i, k) => {
-                return (
+          {isLoading ? (
+            <Center mt={40}>
+              <Loading />
+            </Center>
+          ) : (
+            <>
+              <Box pt={7}>
+                {patient
+                  .filter((pat) => pat.patientId === id)
+                  .map((i, k) => {
+                    return (
+                      <>
+                        <HStack
+                          p={8}
+                          mb={10}
+                          style={{
+                            borderRadius: "4px",
+                            boxShadow:
+                              "rgba(0, 0, 0, 0.20) 0px 1px 3px, rgba(0, 0, 0, 0.15) 0px 0px 0px",
+                          }}
+                          w="1000px"
+                        >
+                          <Box>
+                            <Text fontSize="14px">Patient name: </Text>
+                            <Text fontWeight="500" fontSize="17px">
+                              {i.lastname +
+                                ", " +
+                                i.firstname +
+                                " " +
+                                i.middleName}
+                            </Text>
+                          </Box>
+
+                          <Spacer />
+
+                          <Box>
+                            <Text fontSize="14px">Referred From: </Text>
+                            <Text fontWeight="500" fontSize="17px">
+                              {i.refFacility}
+                            </Text>
+                          </Box>
+
+                          <Spacer />
+
+                          <Box>
+                            <Text fontSize="14px">Referral Date: </Text>
+                            <Text fontWeight="500" fontSize="17px">
+                              {i.tstamp}
+                            </Text>
+                          </Box>
+                        </HStack>
+                      </>
+                    );
+                  })}
+
+                {covidData.length !== 0 ? (
+                  covidData.map((i, k) => {
+                    return (
+                      <>
+                        <Box w={350} bg="#f7f8fb" p={7} borderRadius={10}>
+                          <Text mb={1}>Result:</Text>
+
+                          <Badge
+                            fontSize="15px"
+                            variant="subtle"
+                            colorScheme={i.result === 1 ? "red" : "green"}
+                          >
+                            {i.result === 1 ? "Positive +" : "Negative -"}
+                          </Badge>
+
+                          <Text mt={9}>Swab Date:</Text>
+
+                          <Text fontWeight="600" mt={1}>
+                            {moment(i.swab_date).format("LLL")}
+                          </Text>
+
+                          <Text mt={9}>Result Date:</Text>
+
+                          <Text fontWeight="600" mt={1}>
+                            {moment(i.result_date).format("LLL")}
+                          </Text>
+                        </Box>
+                      </>
+                    );
+                  })
+                ) : (
                   <>
-                    <HStack
-                      p={8}
-                      mb={10}
-                      style={{
-                        borderRadius: "4px",
-                        boxShadow:
-                          "rgba(0, 0, 0, 0.20) 0px 1px 3px, rgba(0, 0, 0, 0.15) 0px 0px 0px",
-                      }}
-                      w="1000px"
-                    >
-                      <Box>
-                        <Text fontSize="14px">Patient name: </Text>
-                        <Text fontWeight="500" fontSize="17px">
-                          {i.lastname + ", " + i.firstname + " " + i.middleName}
+                    <form onSubmit={submit}>
+                      <Box w={350}>
+                        <Text fontWeight="600" mb={3}>
+                          Swab result:
                         </Text>
+
+                        <Checkbox
+                          size="lg"
+                          colorScheme="red"
+                          value={status}
+                          onChange={handleChange}
+                        >
+                          Positive
+                        </Checkbox>
+
+                        <Text fontWeight="600" mt={6}>
+                          Swab Date:
+                        </Text>
+
+                        <InputGroup mt={1}>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<BiCalendar color="gray.300" />}
+                          />
+                          <Input
+                            type="datetime-local"
+                            onChange={(e) => setSwabDate(e.target.value)}
+                            required
+                          />
+                        </InputGroup>
+
+                        <Text fontWeight="600" mt={6}>
+                          Result Date:
+                        </Text>
+
+                        <InputGroup mt={1}>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<BiCalendar color="gray.300" />}
+                          />
+                          <Input
+                            type="datetime-local"
+                            onChange={(e) => setResultDate(e.target.value)}
+                            required
+                          />
+                        </InputGroup>
                       </Box>
 
-                      <Spacer />
-
-                      <Box>
-                        <Text fontSize="14px">Referred From: </Text>
-                        <Text fontWeight="500" fontSize="17px">
-                          {i.refFacility}
-                        </Text>
-                      </Box>
-
-                      <Spacer />
-
-                      <Box>
-                        <Text fontSize="14px">Referral Date: </Text>
-                        <Text fontWeight="500" fontSize="17px">
-                          {i.tstamp}
-                        </Text>
-                      </Box>
-                    </HStack>
-                  </>
-                );
-              })}
-
-            {covidData.length !== 0 ? (
-              covidData.map((i, k) => {
-                return (
-                  <>
-                    <Box w={350} bg="#f7f8fb" p={7} borderRadius={10}>
-                      <Text mb={1}>Result:</Text>
-
-                      <Badge
-                        fontSize="15px"
-                        variant="subtle"
-                        colorScheme={i.result === 1 ? "red" : "green"}
+                      <Button
+                        mt={10}
+                        w={150}
+                        type="submit"
+                        variant="solid"
+                        colorScheme="green"
+                        rightIcon={<BiSend />}
+                        isLoading={load}
+                        loadingText="Submitting"
                       >
-                        {i.result === 1 ? "Positive +" : "Negative -"}
-                      </Badge>
-
-                      <Text mt={9}>Swab Date:</Text>
-
-                      <Text fontWeight="600" mt={1}>
-                        {moment(i.swab_date).format("LLL")}
-                      </Text>
-
-                      <Text mt={9}>Result Date:</Text>
-
-                      <Text fontWeight="600" mt={1}>
-                        {moment(i.result_date).format("LLL")}
-                      </Text>
-                    </Box>
+                        Submit
+                      </Button>
+                    </form>
                   </>
-                );
-              })
-            ) : (
-              <>
-                <form onSubmit={submit}>
-                  <Box w={350}>
-                    <Text fontWeight="600" mb={3}>
-                      Swab result:
-                    </Text>
-
-                    <Checkbox
-                      size="lg"
-                      colorScheme="red"
-                      value={status}
-                      onChange={handleChange}
-                    >
-                      Positive
-                    </Checkbox>
-
-                    <Text fontWeight="600" mt={6}>
-                      Swab Date:
-                    </Text>
-
-                    <InputGroup mt={1}>
-                      <InputLeftElement
-                        pointerEvents="none"
-                        children={<BiCalendar color="gray.300" />}
-                      />
-                      <Input
-                        type="datetime-local"
-                        onChange={(e) => setSwabDate(e.target.value)}
-                        required
-                      />
-                    </InputGroup>
-
-                    <Text fontWeight="600" mt={6}>
-                      Result Date:
-                    </Text>
-
-                    <InputGroup mt={1}>
-                      <InputLeftElement
-                        pointerEvents="none"
-                        children={<BiCalendar color="gray.300" />}
-                      />
-                      <Input
-                        type="datetime-local"
-                        onChange={(e) => setResultDate(e.target.value)}
-                        required
-                      />
-                    </InputGroup>
-                  </Box>
-
-                  <Button
-                    mt={10}
-                    w={150}
-                    type="submit"
-                    variant="solid"
-                    colorScheme="green"
-                    rightIcon={<BiSend />}
-                  >
-                    Submit
-                  </Button>
-                </form>
-              </>
-            )}
-          </Box>
+                )}
+              </Box>
+            </>
+          )}
         </>
       )}
     </div>
