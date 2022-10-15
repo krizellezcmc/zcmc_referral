@@ -114,8 +114,8 @@ function SearchPatient(props) {
 
         if (res.data.status === 1) {
           Swal.fire(
-            "Rejected!",
-            "You successfully rejected the referral.",
+            "Cancelled!",
+            "You successfully cancelled the referral.",
             "success"
           );
         } else {

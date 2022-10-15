@@ -71,7 +71,13 @@ function TransferredRef(props) {
     });
     setHistoryDetails(history.data);
     setStatus(history.data[0].status);
-    setRefHospi(history.data[0].name);
+    setRefHospi(history.data[0].refFacility);
+    // setRefHospi(history.data[0].name);
+
+    let res = await api.get("/get_pending_details.php", {
+      params: { pid: patId },
+    });
+    setRefHospi(res.data[0].refFacility);
   };
 
   const getList = async () => {
@@ -95,7 +101,6 @@ function TransferredRef(props) {
   }, []);
 
   const submit = async () => {
-    console.log(patId);
     let decline = await api.post("/transfer.php", {
       patientId: patId,
       referredTo: selectRef,
@@ -179,7 +184,6 @@ function TransferredRef(props) {
           borderColor="gray.300"
           boxShadow="base"
           mt={2}
-          py={3}
         >
           {isLoading ? (
             <Center my={20}>
@@ -299,7 +303,7 @@ function TransferredRef(props) {
                           <>
                             <Box>
                               <Text fontWeight={500} fontSize="14px">
-                                Reason for referring
+                                Reason for referring:
                               </Text>
                               <Text
                                 mx={3}

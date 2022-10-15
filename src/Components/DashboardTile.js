@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { BiChevronRightCircle } from "react-icons/bi";
 import api from "../API/Api.js";
-import { ResponsiveContainer, PieChart, Pie } from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
 function DashboardTile(props) {
   const [admitted, setAdmitted] = useState("");
@@ -21,6 +21,8 @@ function DashboardTile(props) {
   const [incoming, setIncoming] = useState("");
   const [transferred, setTransferred] = useState("");
   const [data, setData] = useState([]);
+
+  const COLORS = ["#FFCB42", "#42855B", "#FF7F3F"];
 
   useEffect(() => {
     const getAdmitted = async () => {
@@ -166,7 +168,14 @@ function DashboardTile(props) {
       >
         <ResponsiveContainer>
           <PieChart>
-            <Pie dataKey="value" data={data} fill="#8884d8" label />
+            <Pie dataKey="value" data={data} label>
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
           </PieChart>
         </ResponsiveContainer>
       </Box>

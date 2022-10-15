@@ -265,13 +265,7 @@ const ReferredPatients = () => {
                           </Tr>
                         </>
                       ) : (
-                        <Tr>
-                          <Td colSpan={7} textAlign="center">
-                            <Text fontSize="15px" fontWeight="300">
-                              Nothing to show
-                            </Text>
-                          </Td>
-                        </Tr>
+                        ""
                       );
                     })
                 )}

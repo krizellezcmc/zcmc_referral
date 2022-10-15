@@ -97,12 +97,14 @@ function Referrals(props) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Accept",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        let response = api.post("/accept_referral.php", {
+        let response = await api.post("/accept_referral.php", {
           patId: selected,
           routeId: routeId,
         });
+
+        console.log(response.data);
 
         if (response.data.status === 1) {
           Swal.fire("Success!", "Record Successfully.", "success");
