@@ -81,9 +81,9 @@ function OpcenHome2(props) {
         });
 
         if (response.data.status === 1) {
-          Swal.fire("Success!", "Record Successfully.", "success");
+          Swal.fire("Accepted!", "Patient referral accepted.", "success");
         } else {
-          Swal.fire("Error!", "Something went wrong.", "error");
+          Swal.fire("Error!", "Something went wrong. Try again!", "error");
         }
       }
     });
