@@ -361,7 +361,7 @@ const ReferralForm = () => {
                   />
                 </HStack>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>
                 <Select
                   value={sex}
@@ -376,7 +376,7 @@ const ReferralForm = () => {
                   <option value="Prefer not to say">Prefer not to say</option>
                 </Select>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Civil Status</FormLabel>
                 <Select
                   variant="filled"

@@ -376,7 +376,7 @@ function SearchPatient(props) {
                                 </FormControl>
                               </HStack>
                               <HStack mt={5}>
-                                <FormControl>
+                                <FormControl isRequired>
                                   <FormLabel fontSize={14}>Birthday</FormLabel>
                                   <HStack>
                                     <Input
@@ -388,7 +388,7 @@ function SearchPatient(props) {
                                     />
                                   </HStack>
                                 </FormControl>
-                                <FormControl>
+                                <FormControl isRequired>
                                   <FormLabel fontSize={14}>Sex</FormLabel>
                                   <Input
                                     value={i.sex}
@@ -397,7 +397,7 @@ function SearchPatient(props) {
                                     disabled
                                   />
                                 </FormControl>
-                                <FormControl>
+                                <FormControl isRequired>
                                   <FormLabel fontSize={14}>
                                     Civil Status
                                   </FormLabel>
