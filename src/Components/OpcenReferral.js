@@ -277,7 +277,7 @@ function OpcenReferral(props) {
               </FormControl>
             </HStack>
             <HStack mt={5}>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Birthday</FormLabel>
                 <HStack>
                   <Input
@@ -288,19 +288,22 @@ function OpcenReferral(props) {
                   />
                 </HStack>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>
                 <Select
                   value={sex}
                   variant="filled"
                   onChange={(e) => setSex(e.target.value)}
                 >
+                  <option value="" disabled>
+                    Please Select
+                  </option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Prefer not to say">Prefer not to say</option>
                 </Select>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Civil Status</FormLabel>
                 <Select
                   variant="filled"

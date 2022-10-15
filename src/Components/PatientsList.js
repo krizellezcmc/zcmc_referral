@@ -209,7 +209,7 @@ const PatientsList = (props) => {
             variant="left-accent"
             borderRadius="lg"
             py={1.5}
-            width="30%"
+            width="40%"
             mb={5}
           >
             <AlertIcon />

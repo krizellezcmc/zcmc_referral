@@ -49,9 +49,11 @@ function Comment(props) {
         </HStack>
 
         <Box>
-          <Text mt={5} ml={14} fontSize="14px" textAlign="justify">
-            {props.remark}
-          </Text>
+          <span style={{ whiteSpace: "pre-wrap" }}>
+            <Text mt={5} ml={14} fontSize="14px" textAlign="justify">
+              {props.remark}
+            </Text>
+          </span>
         </Box>
       </Box>
       <hr />

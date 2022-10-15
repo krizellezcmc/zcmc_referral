@@ -238,7 +238,7 @@ const ReferralForm = () => {
         newIe: JSON.stringify(ie),
         newBowList: JSON.stringify(bowList),
       });
-      console.log(response.data);
+      console.log(getAge(birthdate));
       if (response.data.status === 1) {
         setLastName("");
         setFirstName("");
@@ -290,6 +290,9 @@ const ReferralForm = () => {
     }
   };
 
+  const gAge = () => {
+    console.log(getAge(birthdate));
+  };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
 
@@ -300,6 +303,7 @@ const ReferralForm = () => {
 
   return (
     <>
+      <Button onClick={gAge}></Button>
       <Container p={5} maxW="1200px">
         <form onSubmit={postData}>
           {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
@@ -361,7 +365,7 @@ const ReferralForm = () => {
                   />
                 </HStack>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>
                 <Select
                   value={sex}
@@ -376,7 +380,7 @@ const ReferralForm = () => {
                   <option value="Prefer not to say">Prefer not to say</option>
                 </Select>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Civil Status</FormLabel>
                 <Select
                   variant="filled"
