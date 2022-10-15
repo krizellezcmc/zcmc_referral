@@ -290,9 +290,6 @@ const ReferralForm = () => {
     }
   };
 
-  const gAge = () => {
-    console.log(getAge(birthdate));
-  };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
 
@@ -303,7 +300,6 @@ const ReferralForm = () => {
 
   return (
     <>
-      <Button onClick={gAge}></Button>
       <Container p={5} maxW="1200px">
         <form onSubmit={postData}>
           {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
