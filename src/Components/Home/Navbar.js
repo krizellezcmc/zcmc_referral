@@ -8,9 +8,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../../Styles/Navbar.css";
 
 function Navbar(props) {
+  const navigate = useNavigate();
+  function login() {
+    navigate("/login");
+  }
+
   return (
     <>
       <Box shadow="sm" position="sticky">
@@ -26,7 +32,13 @@ function Navbar(props) {
               <Link className="nav-item">About</Link>
               <Link className="nav-item">FAQs</Link>
             </div>
-            <Button size="sm" rounded="full" px={4} colorScheme="green">
+            <Button
+              size="sm"
+              rounded="full"
+              px={4}
+              colorScheme="green"
+              onClick={login}
+            >
               Sign in
             </Button>
           </Flex>
