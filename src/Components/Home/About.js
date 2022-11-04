@@ -17,19 +17,25 @@ function About(props) {
   var dog2 = require("../../Assets/dog-krizelle.png");
   return (
     <div>
-      <Box bgColor="white">
+      <Box bgColor="white" pt={10}>
         <Container maxW="container.xl">
-          <Box mt={10} mb={20}>
-            <Text align="center" fontSize={28} fontWeight={600}>
+          <Box my={20} align="center">
+            <Text fontWeight="bold" fontSize="4xl" letterSpacing="wide">
               Get to know us
             </Text>
-            <Text align="center" mt={5}>
+            <Text
+              mt={7}
+              color="gray.500"
+              fontWeight="300"
+              letterSpacing="wide"
+              w={600}
+            >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore..
+              eiusmod tempor incididunt ut labore et dolore.
             </Text>
           </Box>
 
-          <Box mt={10} display={{ md: "flex" }}>
+          <Box mt={14} display={{ md: "flex" }}>
             <Box flexShrink={0}>
               <Image
                 borderRightRadius="2xl"

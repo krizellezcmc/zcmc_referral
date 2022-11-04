@@ -15,21 +15,21 @@ function Copyright(props) {
   return (
     <>
       <Box
-        display={{ md: "flex" }}
+        display={{ md: "flex", sm: "flex" }}
         alignItems="center"
         bgColor="green.600"
         py={2}
         px={10}
       >
         <Box>
-          <Text fontSize={13.5}>
+          <Text fontSize={{ lg: 13.5, md: 10, sm: 10 }}>
             <Icon as={BiCopyright} /> 2022 Zamboanga City Medical Center . All
             Rights reserved
           </Text>
         </Box>
         <Spacer />
 
-        <Box>
+        <Box display={{ md: "flex" }}>
           <Link>
             <Icon as={SiFacebook} mr={2} />
           </Link>
