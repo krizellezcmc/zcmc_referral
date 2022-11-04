@@ -34,6 +34,7 @@ import ReferralHome from "../Pages/ReferralHome";
 import Sample from "../Pages/Sample";
 import PreTriageHome from "../Pages/PreTriageHome";
 import Homepage from "../Pages/Homepage/Home";
+import About from "./Home/About";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -55,8 +56,11 @@ const AnimatedRoutes = () => {
             path="/tagubilinreport/:id"
             element={<TagubilinPrescription />}
           />
+
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/user" element={<UserDashboard />}></Route>
+
+          <Route path="/about" element={<About />} />
 
           <Route path="/recovery" element={<Verify />}></Route>
 
