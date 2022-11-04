@@ -1,11 +1,22 @@
 import React from "react";
+import Header from "../../Components/Home/Header";
 import Navbar from "../../Components/Home/Navbar";
+import Copyright from "../../Components/Home/Copyright";
+import Specialization from "../../Components/Home/Specialization";
 
 function Home(props) {
   return (
-    <div>
+    <>
       <Navbar />
-    </div>
+      <div className="content">
+        <Header />
+        <Specialization />
+      </div>
+
+      <div className="copyright">
+        <Copyright />
+      </div>
+    </>
   );
 }
 

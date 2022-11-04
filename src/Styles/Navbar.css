@@ -1,0 +1,26 @@
+.nav-list .nav-item {
+  margin-right: 40px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.nav-list .nav-item:hover {
+  text-decoration: none;
+  color: green;
+  /* font-weight: bolder; */
+}
+
+.header-text {
+  font-size: 72px;
+  background: -webkit-linear-gradient(#2c8b2c, #3b3b3b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.copyright {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
