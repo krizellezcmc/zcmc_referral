@@ -39,14 +39,14 @@ function ReferralHome(props) {
   }
 
   useEffect(() => {
-    axios
-      .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
-      .then((response) => {
-        setRemarks(response.data);
-        // setIsLoading(false);
-        console.log(response.data);
-      });
-  }, [id]);
+    const getC = async () => {
+      let response = await api.get(`/get_comment.php/${id}`);
+      setRemarks(response.data);
+      // setIsLoading(false);
+      console.log(response.data);
+    };
+    getC();
+  }, [id, remarks]);
   return (
     <div className="container">
       <Sidebar />
