@@ -18,7 +18,7 @@ import { BiMinusCircle, BiPlusCircle, BiSearch } from "react-icons/bi";
 function FAQs(props) {
   return (
     <div>
-      <Box bgColor="white" my={20}>
+      <Box bgColor="white" my={40}>
         <Container maxW="container.lg">
           <Box mb={5}>
             <Text align="center" fontSize={18} fontWeight={700}>
@@ -54,7 +54,7 @@ function FAQs(props) {
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={14} fontWeight={600}>
+                      <Text fontSize={15} fontWeight={600}>
                         Is there a free trial?{" "}
                       </Text>
                     </Box>
@@ -65,7 +65,7 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={13}>
+                  <AccordionPanel pb={4} fontSize={15}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -79,7 +79,7 @@ function FAQs(props) {
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={14} fontWeight={600}>
+                      <Text fontSize={15} fontWeight={600}>
                         Is there a free trial?{" "}
                       </Text>
                     </Box>
@@ -90,7 +90,7 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={13}>
+                  <AccordionPanel pb={4} fontSize={15}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -104,7 +104,7 @@ function FAQs(props) {
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={14} fontWeight={600}>
+                      <Text fontSize={15} fontWeight={600}>
                         Is there a free trial?{" "}
                       </Text>
                     </Box>
@@ -115,7 +115,7 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={13}>
+                  <AccordionPanel pb={4} fontSize={15}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -129,7 +129,7 @@ function FAQs(props) {
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={14} fontWeight={600}>
+                      <Text fontSize={15} fontWeight={600}>
                         Is there a free trial?{" "}
                       </Text>
                     </Box>
@@ -140,7 +140,82 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={13}>
+                  <AccordionPanel pb={4} fontSize={15}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+            <AccordionItem>
+              {({ isExpanded }) => (
+                <>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Text fontSize={15} fontWeight={600}>
+                        Is there a free trial?{" "}
+                      </Text>
+                    </Box>
+                    {isExpanded ? (
+                      <BiMinusCircle fontSize={16} />
+                    ) : (
+                      <BiPlusCircle fontSize={16} />
+                    )}
+                  </AccordionButton>
+
+                  <AccordionPanel pb={4} fontSize={15}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+            <AccordionItem>
+              {({ isExpanded }) => (
+                <>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Text fontSize={15} fontWeight={600}>
+                        Is there a free trial?{" "}
+                      </Text>
+                    </Box>
+                    {isExpanded ? (
+                      <BiMinusCircle fontSize={16} />
+                    ) : (
+                      <BiPlusCircle fontSize={16} />
+                    )}
+                  </AccordionButton>
+
+                  <AccordionPanel pb={4} fontSize={15}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+            <AccordionItem>
+              {({ isExpanded }) => (
+                <>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Text fontSize={15} fontWeight={600}>
+                        Is there a free trial?{" "}
+                      </Text>
+                    </Box>
+                    {isExpanded ? (
+                      <BiMinusCircle fontSize={16} />
+                    ) : (
+                      <BiPlusCircle fontSize={16} />
+                    )}
+                  </AccordionButton>
+
+                  <AccordionPanel pb={4} fontSize={15}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
