@@ -33,6 +33,7 @@ import Referrals from "../Pages/Referrals";
 import ReferralHome from "../Pages/ReferralHome";
 import Sample from "../Pages/Sample";
 import PreTriageHome from "../Pages/PreTriageHome";
+import Homepage from "../Pages/Homepage/Home";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -43,7 +44,8 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
           <Route path="/forbidden" element={<Forbidden />}></Route>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/blocked" element={<Blocked />} />
           <Route path="/recover" element={<Recover />} />
           <Route path="/success" element={<Success />} />
