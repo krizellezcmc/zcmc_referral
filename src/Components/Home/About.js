@@ -75,7 +75,7 @@ function About(props) {
         <Container maxW="container.xl">
           <Box mt={20} mb={10} display={{ md: "flex" }}>
             <Box
-              mt={{ base: 4, md: 40 }}
+              mt={{ base: 5, md: 40 }}
               ml={{ md: 10 }}
               mr={{ md: 40 }}
               width={{ md: 450 }}
@@ -94,7 +94,7 @@ function About(props) {
             </Box>
             <Box
               flexShrink={0}
-              mt={{ base: 4, md: 10 }}
+              mt={{ base: 5, md: 10 }}
               mb={{ md: 10 }}
               display={{ md: "flex" }}
             >
