@@ -76,10 +76,9 @@ function About(props) {
               />
             </Box>
           </Box>
-        </Container>
-        <Box align="center" mt={20}>
+
           <Partners />
-        </Box>
+        </Container>
       </Box>
       <Box bgColor="gray.100">
         <Container maxW="container.xl">

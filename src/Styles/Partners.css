@@ -1,0 +1,31 @@
+.element {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  font-size: 1px;
+  padding: 1px;
+  color: white;
+  margin-right: 5px;
+  margin-left: 5px;
+  animation: slide 5s infinite;
+  animation-direction: backward;
+  opacity: 0.9;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(42px);
+  }
+  50% {
+    transform: translateX(60px);
+  }
+  75% {
+    transform: translateX(80px);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
