@@ -2,8 +2,13 @@ import { Box, Button, Container, Image, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import "../../Styles/Navbar.css";
 import header_img from "../../Assets/header.png";
+import { useNavigate } from "react-router-dom";
 
 function Header(props) {
+  const navigate = useNavigate();
+  function login() {
+    navigate("/login");
+  }
   return (
     <>
       <Container
@@ -48,6 +53,7 @@ function Header(props) {
                 size={{ md: "sm", lg: "md", sm: "md" }}
                 colorScheme="green"
                 mr={{ base: 2, lg: 3, sm: 2 }}
+                onClick={login}
               >
                 Refer a patient
               </Button>

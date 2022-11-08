@@ -8,11 +8,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../../Styles/Navbar.css";
 
 function Navbar(props) {
   const navigate = useNavigate();
+
+  const location = useLocation();
   function login() {
     navigate("/login");
   }
@@ -28,7 +30,11 @@ function Navbar(props) {
             <Spacer />
             <div className="nav-list">
               <Link className="nav-item">Home</Link>
-              <Link className="nav-item">Services</Link>
+              <Link
+                className={location.hash("#services") ? "active" : "nav-item"}
+              >
+                Services
+              </Link>
               <Link className="nav-item">About</Link>
               <Link className="nav-item">FAQs</Link>
             </div>

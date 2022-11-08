@@ -14,8 +14,16 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Home(props) {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  function login() {
+    navigate("/login");
+  }
   return (
     <>
       <Box width="100%">
@@ -27,20 +35,40 @@ function Home(props) {
               </Text>
               <Spacer />
               <div className="nav-list">
-                <Link className="nav-item" href="#home">
+                <Link
+                  className={location.hash == "#header" ? "active" : "nav-item"}
+                  href="#header "
+                >
                   Home
                 </Link>
-                <Link className="nav-item" href="#services">
+                <Link
+                  className={
+                    location.hash == "#services" ? "active" : "nav-item"
+                  }
+                  href="#services"
+                >
                   Services
                 </Link>
-                <Link className="nav-item" href="#about">
+                <Link
+                  className={location.hash == "#about" ? "active" : "nav-item"}
+                  href="#about"
+                >
                   About
                 </Link>
-                <Link className="nav-item" href="#faqs">
+                <Link
+                  className={location.hash == "#faqs" ? "active" : "nav-item"}
+                  href="#faqs"
+                >
                   FAQs
                 </Link>
               </div>
-              <Button size="sm" rounded="full" px={4} colorScheme="green">
+              <Button
+                size="sm"
+                rounded="full"
+                px={4}
+                colorScheme="green"
+                onClick={login}
+              >
                 Sign in
               </Button>
             </Flex>
@@ -48,7 +76,9 @@ function Home(props) {
         </Box>
 
         <div className="content">
-          <Header />
+          <div id="header">
+            <Header />
+          </div>
 
           <div id="services">
             <Specialization />

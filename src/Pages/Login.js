@@ -12,6 +12,7 @@ import {
   useToast,
   Link,
   Center,
+  SlideFade,
 } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import api from "../API/Api";
