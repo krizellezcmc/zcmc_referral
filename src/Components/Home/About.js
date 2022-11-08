@@ -9,6 +9,7 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { SiFacebook, SiInstagram } from "react-icons/si";
+import Partners from "./Partners";
 
 function About(props) {
   var zcmc_admin = require("../../Assets/zcmc_admin.jpg");
@@ -76,6 +77,9 @@ function About(props) {
             </Box>
           </Box>
         </Container>
+        <Box align="center" mt={20}>
+          <Partners />
+        </Box>
       </Box>
       <Box bgColor="gray.100">
         <Container maxW="container.xl">
