@@ -91,13 +91,17 @@ function About(props) {
               width={{ md: 450 }}
               mb={{ md: 20 }}
             >
-              <Text fontWeight={700} fontSize={30} color="gray.700">
-                Meet the
+              <Text
+                fontWeight={700}
+                fontSize={40}
+                color="gray.700"
+                letterSpacing="wide"
+              >
+                Meet the <br />
+                Developers.
               </Text>
-              <Text fontWeight={700} fontSize={30} color="gray.700">
-                Developers
-              </Text>
-              <Text mt={2} align="justify" color="gray.600">
+
+              <Text mt={3} align="justify" color="gray.600" fontWeight={400}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore..
               </Text>
@@ -106,19 +110,20 @@ function About(props) {
               flexShrink={0}
               mt={{ base: 5, md: 10 }}
               mb={{ md: 10 }}
-              display={{ md: "flex" }}
+              display={{ sm: "flex" }}
             >
               <Box
                 height={{ md: 400 }}
                 width={{ md: 250 }}
                 mr={{ md: 10 }}
-                borderRadius="20"
+                borderRadius="16"
                 bgColor="white"
                 p={3}
+                m={2}
                 boxShadow="xl"
               >
                 <Box
-                  borderRadius="20"
+                  borderRadius="16"
                   bgColor="#B8C294"
                   height={{ md: 310 }}
                   width={{ md: 225 }}
@@ -146,13 +151,14 @@ function About(props) {
               <Box
                 height={{ md: 400 }}
                 width={{ md: 250 }}
-                borderRadius="20"
+                borderRadius="16"
                 bgColor="white"
                 p={3}
+                m={2}
                 boxShadow="xl"
               >
                 <Box
-                  borderRadius="20"
+                  borderRadius="16"
                   bgColor="#F0CAC7"
                   height={{ md: 310 }}
                   width={{ md: 225 }}
