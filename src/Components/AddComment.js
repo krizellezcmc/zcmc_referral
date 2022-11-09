@@ -1,23 +1,33 @@
 import {
   Box,
   Button,
+  CloseButton,
   Flex,
+  FormLabel,
   IconButton,
+  Input,
+  SelectField,
   Spacer,
+  Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BiSend } from "react-icons/bi";
+import { MdAttachFile } from "react-icons/md";
 import api from "../API/Api";
+import axios from "axios";
 
 function AddComment(props) {
+  const [loading, setLoading] = useState(false);
   const [remark, setRemark] = useState("");
   const [load, setLoad] = useState(false);
+  const [file, setFile] = useState("");
+  const [fileUploaded, setFileUploaded] = useState("");
 
   let toast = useToast();
 
-  const addComment = async () => {
+  const addComment = async (e) => {
     if (remark === "") {
       toast({
         position: "top",
@@ -29,10 +39,27 @@ function AddComment(props) {
       });
     } else {
       setLoad(true);
+      if (file) {
+        e.preventDefault();
+        // console.log(file);
+        const data = new FormData();
+        data.append("file", file[0]);
+        data.append("upload_preset", "nbqowi6h");
+        setLoading(true);
+
+        let res = await axios.post(
+          "https://api.cloudinary.com/v1_1/djihwopsi/image/upload",
+          data
+        );
+        const fileName = await res.data;
+        setFileUploaded(fileName.secure_url);
+      }
+
       let response = await api.post("/add_comment.php", {
         patientId: props.patientId,
         remark: remark,
         user: props.user,
+        file: fileUploaded,
       });
 
       if (response) {
@@ -61,7 +88,7 @@ function AddComment(props) {
   };
 
   return (
-    <Box bg="gray.100" p={7} borderRadius={8}>
+    <Box bg="gray.100" pt={7} pb={4} px={5} borderRadius={8}>
       <Textarea
         rows={4}
         p={0}
@@ -73,15 +100,52 @@ function AddComment(props) {
           overflow: "auto",
           boxShadow: "none",
         }}
+        fontSize={15}
+        placeholder="Type here"
         color="gray.900"
         value={remark}
         onChange={(e) => setRemark(e.target.value)}
         style={{ position: "inherit" }}
       />
 
-      <Flex mt={5}>
+      <Flex mt={5} align="center">
+        {file ? (
+          <>
+            <Box
+              display="flex"
+              alignItems="center"
+              bg="blue.100"
+              p={1}
+              rounded={5}
+            >
+              <Text fontSize={13} pl={3}>
+                {file[0].name}
+              </Text>
+              <CloseButton
+                size="sm"
+                ml={2}
+                onClick={(e) => {
+                  setFile("");
+                }}
+              />
+            </Box>
+          </>
+        ) : (
+          ""
+        )}
         <Spacer />
-        {/* <IconButton icon={<MdAttachFile />} bg="none" fontSize="20px" mr={2} /> */}
+
+        <FormLabel for="attachment" fontSize={20} p={2}>
+          <MdAttachFile cursor="pointer" />
+        </FormLabel>
+        <input
+          type="file"
+          id="attachment"
+          style={{ display: "none", visibility: "none" }}
+          onChange={(e) => {
+            setFile(e.target.files);
+          }}
+        />
         <Button
           onClick={addComment}
           colorScheme="blue"

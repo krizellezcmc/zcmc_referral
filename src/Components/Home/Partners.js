@@ -18,18 +18,57 @@ function Partners(props) {
           Referring Facilities
         </Text>
       </Box>
+
+      <Box className="slider" my={20}>
+        <Box className="slide-track">
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          {/* <!-- same 9 slides doubled (duplicate) --> */}
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+        </Box>
+      </Box>
+
       {/* //hospitals */}
-      <Box display="flex" mt={10} overflow="hidden">
+      {/* <Box display="flex" mt={10}>
+        <Image src={alicia} className="element" />
+        <Image src={basilan} className="element" />
+        <Image src={brent} className="element" />
+        <Image src={camp_navarro} className="element" />
+        <Image src={alicia} className="element" />
+        <Image src={basilan} className="element" />
+        <Image src={brent} className="element" />
+        <Image src={camp_navarro} className="element" />
         <Image src={alicia} className="element" />
         <Image src={basilan} className="element" />
         <Image src={brent} className="element" />
         <Image src={camp_navarro} className="element" />
       </Box>
-      {/* rhu/cho */}
-      <Box display="flex" mt={10} overflow="hidden">
+      {/* rhu/cho 
+      <Box display="flex" mt={10}>
         <Image src={bayog} className="element" />
         <Image src={cho} className="element" />
-      </Box>
+      </Box> */}
     </div>
   );
 }

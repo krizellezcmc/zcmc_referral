@@ -49,11 +49,16 @@ function Header(props) {
             <Box display={{ md: "flex" }} mt={10}>
               <Button
                 rounded="full"
-                px={{ lg: 8 }}
+                px={{ lg: 8, sm: 10 }}
                 size={{ md: "sm", lg: "md", sm: "md" }}
                 colorScheme="green"
                 mr={{ base: 2, lg: 3, sm: 2 }}
                 onClick={login}
+                _hover={{
+                  paddingLeft: 12,
+                  paddingRight: 12,
+                  transition: ".5s ease",
+                }}
               >
                 Refer a patient
               </Button>
@@ -61,10 +66,14 @@ function Header(props) {
               <Link _hover={{ textDecoration: "none" }} href="#about">
                 <Button
                   rounded="full"
-                  px={8}
                   size={{ md: "sm", lg: "md", sm: "md" }}
                   colorScheme="green"
                   variant="outline"
+                  _hover={{
+                    paddingLeft: 8,
+                    paddingRight: 8,
+                    transition: ".5s ease",
+                  }}
                 >
                   See more
                 </Button>

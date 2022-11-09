@@ -5,6 +5,7 @@
 
 * {
   scroll-behavior: smooth;
+  transition: 0.5s ease;
 }
 
 .nav-list .nav-item {
@@ -36,17 +37,23 @@
 
 .nav .active {
   background-color: #c3f6c3;
-  padding: 8px;
+  padding: 7px 11px;
   border-radius: 10px;
-  color: black;
+  color: green;
   margin-right: 40px;
   font-size: 15px;
   font-weight: 500;
   opacity: 0.9;
-  filter: alpha(opacity=90);
+  /* filter: alpha(opacity=90); */
 }
 
 .nav .active:hover {
   text-decoration: none;
   color: green;
+}
+
+.scroll {
+  position: fixed;
+  bottom: 6.5%;
+  right: 2%;
 }
