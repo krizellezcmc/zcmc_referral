@@ -31,7 +31,7 @@
   content: "";
   height: 100%;
   width: 25%;
-  /* z-index: 2; */
+  z-index: 2;
   pointer-events: none;
 }
 .slider::before {
@@ -43,6 +43,9 @@
   top: 0;
   transform: rotateZ(180deg);
 }
+
+/*  IMPORTANT CODE BELOW */
+
 .slide-track {
   width: calc(150px * 20);
   display: flex;
@@ -50,10 +53,11 @@
   animation-direction: normal;
   justify-content: space-between;
 }
+
 .slide-track2 {
-  width: calc(150px * 20);
+  width: calc(150px * 15);
   display: flex;
-  animation: scroll 20s linear infinite;
+  animation: scroll 15s linear infinite;
   animation-direction: reverse;
   justify-content: space-between;
 }
