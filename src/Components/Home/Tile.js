@@ -5,7 +5,7 @@ function Tile(props) {
   return (
     <>
       <Box
-        shadow="sm"
+        shadow="md"
         bgColor="white"
         width={{ base: 300, lg: 300, md: 300, sm: 600 }}
         // h={{ base: 300, lg: 200, md: 300, sm: 650 }}

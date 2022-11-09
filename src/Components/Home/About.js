@@ -80,27 +80,33 @@ function About(props) {
           <Partners />
         </Container>
       </Box>
-      <Box bgColor="gray.100">
+      <Box bgColor="#2F5233" p={{ lg: 0, md: 0, sm: 5 }}>
         <Container maxW="container.xl">
-          <Box mt={20} mb={10} display={{ md: "flex" }}>
+          <Box mt={{ lg: 20, md: 10, sm: 0 }} mb={10} display={{ md: "flex" }}>
             <Box
-              mt={{ base: 5, md: 40 }}
-              ml={{ md: 10 }}
-              mr={{ md: 40 }}
+              mt={{ base: 5, lg: 40, md: 20 }}
+              ml={{ lg: 10, md: 8, sm: 3 }}
+              mr={{ lg: 40, md: 20, sm: 5 }}
               width={{ md: 450 }}
               mb={{ md: 20 }}
             >
               <Text
                 fontWeight={700}
-                fontSize={40}
-                color="gray.700"
+                fontSize={{ lg: 40, md: 35, sm: 30 }}
+                color="white"
                 letterSpacing="wide"
               >
                 Meet the <br />
                 Developers.
               </Text>
 
-              <Text mt={3} align="justify" color="gray.600" fontWeight={400}>
+              <Text
+                mt={3}
+                align="justify"
+                color="white"
+                fontWeight={400}
+                fontSize={{ sm: 14 }}
+              >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore..
               </Text>
@@ -108,13 +114,13 @@ function About(props) {
             <Box
               flexShrink={0}
               mt={{ base: 5, md: 10 }}
-              mb={{ md: 10 }}
+              mb={{ lg: 10, md: 5 }}
               display={{ sm: "flex" }}
             >
               <Box
-                height={{ md: 400 }}
-                width={{ md: 250 }}
-                mr={{ md: 10 }}
+                height={{ lg: 400, md: 300 }}
+                width={{ lg: 250, md: 180 }}
+                mr={{ lg: 10, md: 5 }}
                 borderRadius="16"
                 bgColor="white"
                 p={3}
@@ -124,17 +130,21 @@ function About(props) {
                 <Box
                   borderRadius="16"
                   bgColor="#B8C294"
-                  height={{ md: 310 }}
-                  width={{ md: 225 }}
+                  height={{ lg: 310, md: 210 }}
+                  width={{ lg: 225, md: 155 }}
                 >
                   <Image src={dog1} />
                 </Box>
                 <Box mt={5}>
-                  <Text fontSize={14} color="gray.700" fontWeight={600}>
+                  <Text
+                    fontSize={{ lg: 14, md: 12 }}
+                    color="gray.700"
+                    fontWeight={600}
+                  >
                     Alyana Claire C. Barretto
                   </Text>
                   <Box display={{ md: "flex" }}>
-                    <Text fontSize={13} color="gray.700">
+                    <Text fontSize={{ lg: 13, md: 11 }} color="gray.700">
                       Software Developer
                     </Text>
                     <Spacer />
@@ -148,8 +158,8 @@ function About(props) {
                 </Box>
               </Box>
               <Box
-                height={{ md: 400 }}
-                width={{ md: 250 }}
+                height={{ lg: 400, md: 300 }}
+                width={{ lg: 250, md: 180 }}
                 borderRadius="16"
                 bgColor="white"
                 p={3}
@@ -159,17 +169,21 @@ function About(props) {
                 <Box
                   borderRadius="16"
                   bgColor="#F0CAC7"
-                  height={{ md: 310 }}
-                  width={{ md: 225 }}
+                  height={{ lg: 310, md: 210 }}
+                  width={{ lg: 225, md: 155 }}
                 >
                   <Image src={dog1} />
                 </Box>
                 <Box mt={5}>
-                  <Text fontSize={14} color="gray.700" fontWeight={600}>
+                  <Text
+                    fontSize={{ lg: 14, md: 12 }}
+                    color="gray.700"
+                    fontWeight={600}
+                  >
                     Krizelle Mae B. Falcasantos
                   </Text>
                   <Box display={{ md: "flex" }}>
-                    <Text fontSize={13} color="gray.700">
+                    <Text fontSize={{ lg: 13, md: 11 }} color="gray.700">
                       Software Developer
                     </Text>
                     <Spacer />

@@ -13,16 +13,15 @@ function Header(props) {
     <>
       <Container
         maxW="container.xl"
-        pt={{ lg: 10, md: 5 }}
+        py={{ lg: 20, md: 5 }}
         pb={{ lg: 20, md: 0, sm: 0 }}
       >
         <Box
-          p={3}
           display={{ md: "flex" }}
-          mt={{ lg: 20, md: 0, sm: 0 }}
-          pt={{ lg: 20, md: 0, sm: 0 }}
+          py={{ lg: 20, md: 0, sm: 0 }}
+          px={{ lg: 20, md: 0, sm: 0 }}
         >
-          <Box mt={{ base: 4, lg: 15, md: 0, sm: 16 }} mr={{ md: 10, lg: 20 }}>
+          <Box mt={{ base: 4, lg: 20, md: 0, sm: 16 }} mr={{ md: 10, lg: 20 }}>
             <Text
               fontWeight="bold"
               fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
@@ -54,6 +53,7 @@ function Header(props) {
                 colorScheme="green"
                 mr={{ base: 2, lg: 3, sm: 2 }}
                 onClick={login}
+                shadow="base"
               >
                 Refer a patient
               </Button>
@@ -65,6 +65,7 @@ function Header(props) {
                   size={{ md: "sm", lg: "md", sm: "md" }}
                   colorScheme="green"
                   variant="outline"
+                  shadow="sm"
                 >
                   See more
                 </Button>
@@ -77,6 +78,7 @@ function Header(props) {
               width={{ md: 400, lg: 600, sm: 0 }}
               src={header_img}
               alt="Doctors Illustration"
+              mt={{ base: 4, lg: 20, md: 0, sm: 16 }}
             />
           </Box>
         </Box>
