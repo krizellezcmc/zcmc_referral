@@ -17,17 +17,21 @@ import { BiSend } from "react-icons/bi";
 import { MdAttachFile } from "react-icons/md";
 import api from "../API/Api";
 import axios from "axios";
+import { useEffect } from "react";
 
 function AddComment(props) {
   const [loading, setLoading] = useState(false);
   const [remark, setRemark] = useState("");
   const [load, setLoad] = useState(false);
+  const [res, setRes] = useState("");
   const [file, setFile] = useState("");
   const [fileUploaded, setFileUploaded] = useState("");
 
   let toast = useToast();
 
-  const addComment = async (e) => {
+  const addComment = (e) => {
+    e.preventDefault();
+
     if (remark === "") {
       toast({
         position: "top",
@@ -39,53 +43,88 @@ function AddComment(props) {
       });
     } else {
       setLoad(true);
+
       if (file) {
-        e.preventDefault();
         // console.log(file);
         const data = new FormData();
         data.append("file", file[0]);
         data.append("upload_preset", "nbqowi6h");
         setLoading(true);
 
-        let res = await axios.post(
-          "https://api.cloudinary.com/v1_1/djihwopsi/image/upload",
-          data
-        );
-        const fileName = await res.data;
-        setFileUploaded(fileName.secure_url);
-      }
+        axios
+          .post("https://api.cloudinary.com/v1_1/djihwopsi/image/upload", data)
+          .then((resp) => {
+            // setFileUploaded(res.data.url);
 
-      console.log(fileUploaded);
-
-      let response = await api.post("/add_comment.php", {
-        patientId: props.patientId,
-        remark: remark,
-        user: props.user,
-        file: fileUploaded,
-      });
-
-      if (response) {
-        setLoad(false);
-      }
-
-      if (response.data.status === 1) {
-        setRemark("");
-        toast({
-          title: "Posted.",
-          description: "The remark has been posted.",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
+            axios
+              .post("https://onehospital.online/api/add_comment.php", {
+                patientId: props.patientId,
+                remark: remark,
+                user: props.user,
+                file: resp.data.url,
+              })
+              .then((response) => {
+                setLoad(false);
+                if (response.data.status === 1) {
+                  setRemark("");
+                  setFile("");
+                  // setFileUploaded("");
+                  toast({
+                    title: "Posted.",
+                    description: "The remark has been posted.",
+                    status: "success",
+                    duration: 2000,
+                    isClosable: true,
+                  });
+                } else {
+                  toast({
+                    title: "Error.",
+                    description: response.data.message,
+                    status: "error",
+                    duration: 2000,
+                    isClosable: true,
+                  });
+                }
+              });
+          });
       } else {
-        toast({
-          title: "Error.",
-          description: response.data.message,
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
+        axios
+          .post("https://onehospital.online/api/add_comment.php", {
+            patientId: props.patientId,
+            remark: remark,
+            user: props.user,
+            file: null,
+          })
+          .then((response) => {
+            setLoad(false);
+            if (response.data.status === 1) {
+              setRemark("");
+              setFile("");
+              // setFileUploaded("");
+              toast({
+                title: "Posted.",
+                description: "The remark has been posted.",
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+              });
+            } else {
+              toast({
+                title: "Error.",
+                description: response.data.message,
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+              });
+            }
+          });
       }
+
+      // if (res) {
+      //   setLoad(false);
+      // }
+
+      console.log("Response is:" + res);
     }
   };
 
@@ -144,6 +183,7 @@ function AddComment(props) {
           type="file"
           id="attachment"
           style={{ display: "none", visibility: "none" }}
+          accept="image/png, image/gif, image/jpeg"
           onChange={(e) => {
             setFile(e.target.files);
           }}
