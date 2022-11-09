@@ -55,6 +55,8 @@ function AddComment(props) {
         setFileUploaded(fileName.secure_url);
       }
 
+      console.log(fileUploaded);
+
       let response = await api.post("/add_comment.php", {
         patientId: props.patientId,
         remark: remark,
