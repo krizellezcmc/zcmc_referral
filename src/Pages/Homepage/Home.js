@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Components/Home/Header";
 import Copyright from "../../Components/Home/Copyright";
 import Specialization from "../../Components/Home/Specialization";
@@ -15,15 +15,37 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { BiUpArrowAlt } from "react-icons/bi";
 
 function Home(props) {
+  const [showScrollUp, setShowScrollUp] = useState(false);
   const navigate = useNavigate();
-
   const location = useLocation();
 
   function login() {
     navigate("/login");
   }
+
+  const scrollUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    navigate("#header");
+  };
+
+  // CHECK
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        setShowScrollUp(true);
+      } else {
+        setShowScrollUp(false);
+      }
+    });
+  }, []);
+
   return (
     <>
       <Box width="100%">
@@ -76,6 +98,24 @@ function Home(props) {
         </Box>
 
         <div className="content">
+          {showScrollUp && (
+            <div className="scroll">
+              <Box
+                as="button"
+                bg="rgba(0, 0, 0, 0.6);"
+                p="2.5"
+                w="fit-content"
+                rounded="lg"
+                color="white"
+                border="none"
+                onClick={scrollUp}
+                _hover={{ backgroundColor: "gray.700" }}
+              >
+                <BiUpArrowAlt fontSize={40} />
+              </Box>
+            </div>
+          )}
+
           <div id="header">
             <Header />
           </div>

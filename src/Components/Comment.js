@@ -6,6 +6,7 @@ import {
   Stack,
   Circle,
   Spacer,
+  Link,
 } from "@chakra-ui/react";
 import moment from "moment";
 import React from "react";
@@ -55,6 +56,34 @@ function Comment(props) {
             </Text>
           </span>
         </Box>
+
+        {props.file !== null ? (
+          <Box
+            ml={14}
+            mt={5}
+            display="flex"
+            alignItems="center"
+            bg="blue.100"
+            w="fit-content"
+            p={1.5}
+            pr={4}
+            rounded="3"
+            shadow="sm"
+          >
+            <Link
+              fontSize={13}
+              pl={3}
+              href={props.file}
+              target="_blank"
+              _hover={{ textDecoration: "none" }}
+              fontWeight={600}
+            >
+              View attachment
+            </Link>
+          </Box>
+        ) : (
+          ""
+        )}
       </Box>
       <hr />
     </div>

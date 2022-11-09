@@ -250,6 +250,7 @@ function OpcenHome2(props) {
                                     dept={
                                       "Zamboanga City Medical Center (OPCEN)"
                                     }
+                                    file={el.attachment}
                                   />
                                 ) : (
                                   <Comment
@@ -257,6 +258,7 @@ function OpcenHome2(props) {
                                     date={el.remark_tstamp}
                                     user={el.firstName + " " + el.lastName}
                                     dept={el.name}
+                                    file={el.attachment}
                                   />
                                 )}
                               </>

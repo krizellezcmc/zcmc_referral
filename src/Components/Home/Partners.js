@@ -39,6 +39,37 @@ function Partners(props) {
           Referring Facilities
         </Text>
       </Box>
+
+      <Box className="slider" my={20}>
+        <Box className="slide-track">
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          {/* <!-- same 9 slides doubled (duplicate) --> */}
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+          <Image src={alicia} className="element" />
+          <Image src={basilan} className="element" />
+          <Image src={brent} className="element" />
+          <Image src={camp_navarro} className="element" />
+        </Box>
+      </Box>
+
       {/* //hospitals */}
       <Box mt={20}>
         <div className="slider">
