@@ -46,6 +46,16 @@ function Home(props) {
       } else {
         setShowScrollUp(false);
       }
+
+      if (window.scrollY >= 4040) {
+        navigate("#faqs");
+      } else if (window.scrollY >= 1900) {
+        navigate("#about");
+      } else if (window.scrollY >= 900) {
+        navigate("#services");
+      } else {
+        navigate("#header");
+      }
     });
   }, []);
 

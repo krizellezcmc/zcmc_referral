@@ -11,12 +11,8 @@ function Header(props) {
   }
   return (
     <>
-      <Container
-        maxW="container.xl"
-        py={{ lg: 20, md: 5, xl: 10 }}
-        pb={{ lg: 20, md: 0, xl: 10 }}
-      >
-        <Box display={{ md: "flex" }} py={{ lg: 10, md: 0, xl: 10 }}>
+      <Container maxW="container.xl" py={{ lg: 20, md: 5, xl: 36 }}>
+        <Box display={{ md: "flex" }} py={{ lg: 10, md: 0, xl: 0 }}>
           <Box
             mt={{ base: 4, lg: 20, md: 0, xl: 20 }}
             mr={{ md: 10, lg: 20, xl: 20 }}
@@ -86,7 +82,7 @@ function Header(props) {
               width={{ sm: 0, md: 300, lg: 500, xl: 600 }}
               src={header_img}
               alt="Doctors Illustration"
-              mt={{ base: 4, lg: 20, md: 0, sm: 16 }}
+              mt={{ base: 4, lg: 20, md: 0, sm: 16, xl: 20 }}
             />
           </Box>
         </Box>
