@@ -10,7 +10,7 @@
 }
 
 .nav-list .nav-item {
-  margin-right: 40px;
+  margin: 0 20px;
   font-size: 15px;
   font-weight: 500;
 }
@@ -19,6 +19,15 @@
   text-decoration: none;
   color: green;
   /* font-weight: bolder; */
+}
+
+.nav .nav-item2 {
+  font-size: 15px;
+  font-weight: 500;
+}
+.nav .nav-item2:hover {
+  text-decoration: none;
+  color: green;
 }
 
 .header-text {
@@ -41,7 +50,7 @@
   padding: 7px 11px;
   border-radius: 10px;
   color: green;
-  margin-right: 40px;
+  /* margin-right: 40px; */
   font-size: 15px;
   font-weight: 500;
   opacity: 0.9;
