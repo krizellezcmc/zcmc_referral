@@ -11,31 +11,30 @@ import {
 import ProfileTile from "./ProfileTile";
 
 function Developers(props) {
-  var dog1 = require("../../Assets/dog-alyana.png");
-  var dog2 = require("../../Assets/dog-krizelle.png");
+  var sir_john = require("../../Assets/Profile/sir_john.png");
+  var dog2 = require("../../Assets/doc.png");
   return (
     <div>
       <Box mt={{ lg: 20, md: 10, sm: 0 }} mb={10} display={{ md: "flex" }}>
         <Box
           mt={{ base: 5, lg: 20, md: 20 }}
           mr={{ lg: 10, md: 10, sm: 5 }}
-          p={5}
+          p={3}
           width={{ md: 500 }}
         >
           <Text
             fontWeight={700}
             fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
-            color="white"
+            color="alpha.900"
             letterSpacing="wide"
           >
-            Meet the <br />
-            Team.
+            Meet the Team.
           </Text>
 
           <Text
             mt={3}
             align="justify"
-            color="white"
+            color="alpha.900"
             fontWeight={400}
             fontSize={{ sm: 14 }}
           >
@@ -50,20 +49,21 @@ function Developers(props) {
           display={{ sm: "flex" }}
         >
           <ProfileTile
-            image={dog1}
+            image={sir_john}
             name="John Mary C. Sta Teresa"
             color="#A1CDDE"
             position="Statistician II"
           />
           <ProfileTile
-            image={dog1}
+            image={sir_john}
             name="Alyana Claire C. Barretto"
             color="#B8C294"
             position="Software Developer"
           />
           <ProfileTile
-            image={dog1}
+            image={sir_john}
             name="Krizelle Mae B. Falcasantos"
+            // color="#F0CAC7"
             color="#F0CAC7"
             position="Software Developer"
           />

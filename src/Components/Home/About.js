@@ -16,6 +16,7 @@ import Developers from "./Developers";
 function About(props) {
   var zcmc_admin = require("../../Assets/zcmc_admin.jpg");
   var zcmc_opd = require("../../Assets/zcmc_opd.webp");
+  var bg = require("../../Assets/bg.png");
 
   return (
     <div>
@@ -82,11 +83,26 @@ function About(props) {
         </Container>
       </Box>
       <Box p={{ lg: 0, md: 0, sm: 5 }}>
+        <Image
+          src={bg}
+          position="absolute"
+          zIndex={-10}
+          w="full"
+          height={600}
+          opacity={0.8}
+        />
         <Container maxW="container.xl">
           <Contributors />
         </Container>
       </Box>
-      <Box bgColor="#2F5233" p={{ lg: 0, md: 0, sm: 5 }}>
+      <Box bgColor="gray.100" p={1}>
+        {/* <Image
+          position="absolute"
+          zIndex={-10}
+          w="full"
+          height={600}
+          opacity={0.8}
+        /> */}
         <Container maxW="container.xl">
           <Developers />
         </Container>

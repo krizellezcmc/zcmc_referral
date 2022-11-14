@@ -15,7 +15,7 @@ function ContributorsTile(props) {
     <div>
       <Box
         mr={{ lg: 0, md: 3, xl: 0 }}
-        bgColor="white"
+
         // boxShadow="xl"
       >
         <Box height={props.height} width={props.width}>

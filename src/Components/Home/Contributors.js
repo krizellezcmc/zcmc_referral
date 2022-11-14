@@ -16,8 +16,9 @@ function Contributors(props) {
   var doc1 = require("../../Assets/Profile/doc_kunting_head.png");
   var doc2 = require("../../Assets/Profile/doc_kathy.png");
   var doc3 = require("../../Assets/Profile/doc_ori.png");
+
   return (
-    <div>
+    <Box>
       <Box
         mt={{ base: 5, lg: 40, md: 20 }}
         ml={{ lg: 10, md: 8, sm: 3 }}
@@ -45,7 +46,6 @@ function Contributors(props) {
             image={doc2}
             name="Dr. Katherine Lim-Eisma"
             position="Medical Officer II"
-            color="#B8C294"
             nameFontSize={{ lg: 14, md: 12 }}
             height={{ lg: 300, md: 200, xl: 300 }}
             width={{ lg: 300, md: 200, xl: 300 }}
@@ -54,7 +54,6 @@ function Contributors(props) {
             image={doc1}
             name="Dr. Afdal B. Kunting"
             position="Medical Center Chief II"
-            color="#B8C294"
             nameFontSize={{ lg: 15, md: 13 }}
             height={{ lg: 300, md: 200, xl: 400 }}
             width={{ lg: 300, md: 200, xl: 400 }}
@@ -63,14 +62,13 @@ function Contributors(props) {
             image={doc3}
             name="Dr. Orissa Alpuerto"
             position="Medical Officer II"
-            color="#F0CAC7"
             nameFontSize={{ lg: 14, md: 12 }}
             height={{ lg: 300, md: 200, xl: 300 }}
             width={{ lg: 300, md: 200, xl: 300 }}
           />
         </Box>
       </Center>
-    </div>
+    </Box>
   );
 }
 
