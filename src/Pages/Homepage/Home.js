@@ -18,16 +18,14 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
+import GalleryTile from "../../Components/Home/GalleryTile";
+import Gallery from "../../Components/Home/Gallery";
 
 function Home(props) {
   const [showScrollUp, setShowScrollUp] = useState(false);
   const [display, changeDisplay] = useState("none");
   const navigate = useNavigate();
   const location = useLocation();
-
-  function login() {
-    navigate("/login");
-  }
 
   const scrollUp = () => {
     window.scrollTo({
@@ -47,11 +45,13 @@ function Home(props) {
         setShowScrollUp(false);
       }
 
-      if (window.scrollY >= 4040) {
+      // console.log(window.scrollY);
+
+      if (window.scrollY >= 5400) {
         navigate("#faqs");
-      } else if (window.scrollY >= 1900) {
+      } else if (window.scrollY >= 2800) {
         navigate("#about");
-      } else if (window.scrollY >= 900) {
+      } else if (window.scrollY >= 1800) {
         navigate("#services");
       } else {
         navigate("#header");
@@ -122,7 +122,9 @@ function Home(props) {
                 rounded="full"
                 px={4}
                 colorScheme="green"
-                onClick={login}
+                onClick={() => {
+                  window.location.href = "/login";
+                }}
               >
                 Sign in
               </Button>
@@ -212,6 +214,10 @@ function Home(props) {
 
           <div id="header">
             <Header />
+          </div>
+
+          <div id="gallery">
+            <Gallery />
           </div>
 
           <div id="services">
