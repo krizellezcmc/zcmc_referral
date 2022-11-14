@@ -35,7 +35,11 @@ function Partners(props) {
   return (
     <div>
       <Box align="center" mt={20}>
-        <Text fontSize="4xl" letterSpacing="wide" fontWeight="bold">
+        <Text
+          fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
+          letterSpacing="wide"
+          fontWeight="bold"
+        >
           Referring Facilities
         </Text>
       </Box>
