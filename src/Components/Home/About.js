@@ -8,14 +8,15 @@ import {
   Spacer,
   Container,
 } from "@chakra-ui/react";
-import { SiFacebook, SiInstagram } from "react-icons/si";
+
 import Partners from "./Partners";
+import Contributors from "./Contributors";
+import Developers from "./Developers";
 
 function About(props) {
   var zcmc_admin = require("../../Assets/zcmc_admin.jpg");
   var zcmc_opd = require("../../Assets/zcmc_opd.webp");
-  var dog1 = require("../../Assets/dog-alyana.png");
-  var dog2 = require("../../Assets/dog-krizelle.png");
+
   return (
     <div>
       <Box bgColor="white" pt={10}>
@@ -80,124 +81,14 @@ function About(props) {
           <Partners />
         </Container>
       </Box>
+      <Box p={{ lg: 0, md: 0, sm: 5 }}>
+        <Container maxW="container.xl">
+          <Contributors />
+        </Container>
+      </Box>
       <Box bgColor="#2F5233" p={{ lg: 0, md: 0, sm: 5 }}>
         <Container maxW="container.xl">
-          <Box mt={{ lg: 20, md: 10, sm: 0 }} mb={10} display={{ md: "flex" }}>
-            <Box
-              mt={{ base: 5, lg: 40, md: 20 }}
-              ml={{ lg: 10, md: 8, sm: 3 }}
-              mr={{ lg: 40, md: 20, sm: 5 }}
-              width={{ md: 450 }}
-              mb={{ md: 20 }}
-            >
-              <Text
-                fontWeight={700}
-                fontSize={{ lg: 40, md: 35, sm: 30 }}
-                color="white"
-                letterSpacing="wide"
-              >
-                Meet the <br />
-                Developers.
-              </Text>
-
-              <Text
-                mt={3}
-                align="justify"
-                color="white"
-                fontWeight={400}
-                fontSize={{ sm: 14 }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore..
-              </Text>
-            </Box>
-            <Box
-              flexShrink={0}
-              mt={{ base: 5, md: 10 }}
-              mb={{ lg: 10, md: 5 }}
-              display={{ sm: "flex" }}
-            >
-              <Box
-                height={{ lg: 400, md: 300 }}
-                width={{ lg: 250, md: 180 }}
-                mr={{ lg: 10, md: 5 }}
-                borderRadius="16"
-                bgColor="white"
-                p={3}
-                m={2}
-                boxShadow="xl"
-              >
-                <Box
-                  borderRadius="16"
-                  bgColor="#B8C294"
-                  height={{ lg: 310, md: 210 }}
-                  width={{ lg: 225, md: 155 }}
-                >
-                  <Image src={dog1} />
-                </Box>
-                <Box mt={5}>
-                  <Text
-                    fontSize={{ lg: 14, md: 12 }}
-                    color="gray.700"
-                    fontWeight={600}
-                  >
-                    Alyana Claire C. Barretto
-                  </Text>
-                  <Box display={{ md: "flex" }}>
-                    <Text fontSize={{ lg: 13, md: 11 }} color="gray.700">
-                      Software Developer
-                    </Text>
-                    <Spacer />
-                    <Link>
-                      <Icon as={SiFacebook} mr={2} />
-                    </Link>
-                    <Link>
-                      <Icon as={SiInstagram} />
-                    </Link>
-                  </Box>
-                </Box>
-              </Box>
-              <Box
-                height={{ lg: 400, md: 300 }}
-                width={{ lg: 250, md: 180 }}
-                borderRadius="16"
-                bgColor="white"
-                p={3}
-                m={2}
-                boxShadow="xl"
-              >
-                <Box
-                  borderRadius="16"
-                  bgColor="#F0CAC7"
-                  height={{ lg: 310, md: 210 }}
-                  width={{ lg: 225, md: 155 }}
-                >
-                  <Image src={dog1} />
-                </Box>
-                <Box mt={5}>
-                  <Text
-                    fontSize={{ lg: 14, md: 12 }}
-                    color="gray.700"
-                    fontWeight={600}
-                  >
-                    Krizelle Mae B. Falcasantos
-                  </Text>
-                  <Box display={{ md: "flex" }}>
-                    <Text fontSize={{ lg: 13, md: 11 }} color="gray.700">
-                      Software Developer
-                    </Text>
-                    <Spacer />
-                    <Link>
-                      <Icon as={SiFacebook} mr={2} />
-                    </Link>
-                    <Link>
-                      <Icon as={SiInstagram} />
-                    </Link>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+          <Developers />
         </Container>
       </Box>
     </div>
