@@ -1,15 +1,6 @@
 import React from "react";
-import {
-  Text,
-  Box,
-  Image,
-  Icon,
-  Link,
-  Spacer,
-  Container,
-  Center,
-} from "@chakra-ui/react";
-import { SiFacebook, SiInstagram } from "react-icons/si";
+import { Text, Box, Center } from "@chakra-ui/react";
+
 import ContributorsTile from "./ContributorsTile";
 
 function Contributors(props) {

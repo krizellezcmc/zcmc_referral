@@ -91,7 +91,7 @@ function About(props) {
           height={600}
           opacity={0.8}
         />
-        <Container maxW="container.xl">
+        <Container maxW="container.xl" pb={20}>
           <Contributors />
         </Container>
       </Box>
@@ -103,7 +103,7 @@ function About(props) {
           height={600}
           opacity={0.8}
         /> */}
-        <Container maxW="container.xl">
+        <Container maxW="container.xl" pb={10}>
           <Developers />
         </Container>
       </Box>
