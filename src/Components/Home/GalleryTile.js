@@ -20,19 +20,14 @@ function GalleryTile(props) {
         </Text>
       </Box> */}
       <Box
-        shadow="lg"
-        bgColor="white"
         width={{ base: 300, lg: 400, md: 500, sm: 700 }}
-        h={{ base: 300, lg: 240, md: 260, sm: 260 }}
+        h={{ base: 300, lg: 230, md: 260, sm: 230 }}
         m={2}
-        // borderRadius={14}
-        // py={7}
-        align="center"
       >
         <Image src={props.image} w="full" h="full" />
-        {/* <Text mt={4} fontWeight={500} fontSize={{ lg: 15, md: 13 }}>
+        <Text mt={4} fontWeight={500} fontSize={{ lg: 15, md: 13 }}>
           Sample
-        </Text> */}
+        </Text>
       </Box>
     </>
   );

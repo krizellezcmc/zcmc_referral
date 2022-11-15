@@ -1,57 +1,70 @@
-import { Wrap, WrapItem, Box, Container, Text } from "@chakra-ui/react";
+import { Box, Container, Text, Center, Link } from "@chakra-ui/react";
 import React from "react";
-import GalleryTile from "./GalleryTile";
+import Carousel, { consts } from "react-elastic-carousel";
+
 import opcen from "../../Assets/opcen.jpg";
 import opcen1 from "../../Assets/opcen1.jpg";
+import GalleryTile from "./GalleryTile";
+import "../../Styles/Gallery.css";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+
+function customArrow({ type, onClick, isEdge }) {
+  const pointer =
+    type === consts.PREV ? (
+      <BiChevronLeft size={50} color="#38a169" />
+    ) : (
+      <BiChevronRight size={50} color="#38a169" />
+    );
+  return (
+    <button onClick={onClick} disabled={isEdge}>
+      {pointer}
+    </button>
+  );
+}
+
+const breakPoints = [
+  { width: 1, itemsToShow: 1 },
+  { width: 400, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 768, itemsToShow: 3 },
+  { width: 1200, itemsToShow: 4 },
+];
 
 function Gallery(props) {
   return (
     <>
-      <Box py={20} w="100%" bgColor="gray.50">
-        <Container maxW="container.xl" pb={20}>
-          <Box p={3} align="center">
+      <Box py={10} w="100%">
+        <Container maxW="container.xl" mb={10}>
+          <Box mb={14} align="center">
             <Text
               fontWeight="bold"
-              color=""
-              fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
+              fontSize={{ md: "4xl", lg: "5xl", sm: "4xl" }}
               letterSpacing="wide"
-              mt={10}
+              mt={5}
             >
               Gallery
             </Text>
 
             <Text
               mt={7}
-              color=""
               fontWeight="300"
               letterSpacing="wide"
-              // w={600}
+              w={{ sm: 80, lg: 800 }}
               fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
               Getting a new business off the ground is a lot of hard work. Here
-              are five ideas you can use <br /> to find your first customers.
+              are five ideas you can use to find your first customers.
             </Text>
           </Box>
-          <Wrap justify="center" mt={10}>
-            <WrapItem width={400}>
-              <GalleryTile image={opcen} name="Internal Medicine" />
-            </WrapItem>
-            <WrapItem width={400}>
-              <GalleryTile image={opcen1} name="Obstetrics and Gynecology" />
-            </WrapItem>
-            <WrapItem width={400}>
-              <GalleryTile image={opcen} name="Pediatrics" />
-            </WrapItem>
-            <WrapItem width={400}>
-              <GalleryTile image={opcen1} name="Psychiatry" />
-            </WrapItem>
-            <WrapItem width={400}>
-              <GalleryTile image={opcen} name="Internal Medicine" />
-            </WrapItem>
-            <WrapItem width={400}>
-              <GalleryTile image={opcen} name="Internal Medicine" />
-            </WrapItem>
-          </Wrap>
+          <div className="carousel-wrapper">
+            <Carousel breakPoints={breakPoints} renderArrow={customArrow}>
+              <GalleryTile image={opcen} />
+              <GalleryTile image={opcen1} />
+              <GalleryTile image={opcen} />
+              <GalleryTile image={opcen1} />
+              <GalleryTile image={opcen} />
+              <GalleryTile image={opcen1} />
+            </Carousel>
+          </div>
         </Container>
       </Box>
     </>
