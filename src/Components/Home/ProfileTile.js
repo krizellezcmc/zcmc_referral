@@ -25,15 +25,11 @@ function ProfileTile(props) {
         <Box
           borderRadius="16"
           bgColor={props.color}
-          height={{ lg: 260, md: 180 }}
+          height={{ lg: 270, md: 180 }}
           width={{ lg: 225, md: 146 }}
           align="center"
         >
-          <Image
-            src={props.image}
-            height={{ lg: 260, md: 180 }}
-            width={{ lg: 200, md: 160 }}
-          />
+          <Image src={props.image} height={props.height} width={props.width} />
         </Box>
         <Box mt={5}>
           <Text fontSize={{ lg: 14, md: 12 }} color="gray.700" fontWeight={600}>

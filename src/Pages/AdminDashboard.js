@@ -25,7 +25,7 @@ function AdminDashboard(props) {
               width="100%"
               height="900"
               src="https://datastudio.google.com/embed/reporting/f652922b-81d4-4fe7-8767-917f1058ef49/page/Y7y1C"
-            ></iframe> */}
+            // ></iframe> */}
           </div>
         </div>
       </div>

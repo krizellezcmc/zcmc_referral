@@ -13,6 +13,7 @@ import {
   Input,
   Spacer,
   Center,
+  Button,
 } from "@chakra-ui/react";
 import Spinner from "../Components/Spinner";
 
@@ -22,6 +23,7 @@ import useAuth from "../Hooks/useAuth";
 import Sidebar from "../Components/Sidebar";
 import OpcenTable from "../Components/OpcenTable";
 import { BiSearch } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function OpcenHome() {
   const [showContent, setShowContent] = useState(false);
@@ -39,6 +41,8 @@ function OpcenHome() {
   //   setIsLoading(false);
   //   setShowContent(true);
   // };
+
+  let navigate = useNavigate();
 
   const fetchPatients = async (e) => {
     setIsLoading(true);
@@ -58,6 +62,10 @@ function OpcenHome() {
       setIsLoading(false);
     }
   };
+
+  // function toRefer() {
+  //   navigate("/referralform");
+  // }
 
   useEffect(() => {
     // axios
@@ -79,6 +87,13 @@ function OpcenHome() {
         <Header />
         <div className="">
           <Container maxW="80%" mt={5}>
+            <Button
+              size="md"
+              colorScheme="green"
+              onClick={() => window.open("/referralform", "_blank")}
+            >
+              Add Referral
+            </Button>
             <Box py={5}>
               <InputGroup>
                 <InputLeftElement
