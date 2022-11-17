@@ -36,7 +36,7 @@ function Contributors(props) {
           <ContributorsTile
             image={doc2}
             name="Dr. Katherine Lim-Eisma"
-            position="Medical Officer II"
+            position="Medical Officer III"
             nameFontSize={{ lg: 14, md: 12 }}
             height={{ lg: 300, md: 200, xl: 300 }}
             width={{ lg: 300, md: 200, xl: 300 }}
@@ -52,7 +52,7 @@ function Contributors(props) {
           <ContributorsTile
             image={doc3}
             name="Dr. Orissa Alpuerto"
-            position="Medical Officer II"
+            position="Medical Officer III"
             nameFontSize={{ lg: 14, md: 12 }}
             height={{ lg: 300, md: 200, xl: 300 }}
             width={{ lg: 300, md: 200, xl: 300 }}

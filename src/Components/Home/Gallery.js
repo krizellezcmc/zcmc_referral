@@ -24,8 +24,8 @@ function customArrow({ type, onClick, isEdge }) {
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
-  { width: 400, itemsToShow: 2, itemsToScroll: 2 },
-  { width: 768, itemsToShow: 3 },
+  { width: 500, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 760, itemsToShow: 3 },
   { width: 1200, itemsToShow: 4 },
 ];
 
@@ -48,7 +48,7 @@ function Gallery(props) {
               mt={7}
               fontWeight="300"
               letterSpacing="wide"
-              w={{ sm: 80, lg: 800 }}
+              w={{ sm: 460, lg: 800 }}
               fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
               Getting a new business off the ground is a lot of hard work. Here

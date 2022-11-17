@@ -15,11 +15,13 @@ import {
   Text,
   IconButton,
   flexbox,
+  Image,
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
 import GalleryTile from "../../Components/Home/GalleryTile";
 import Gallery from "../../Components/Home/Gallery";
+import logo from "../../Assets/OHCC.png";
 
 function Home(props) {
   const [showScrollUp, setShowScrollUp] = useState(false);
@@ -46,7 +48,6 @@ function Home(props) {
       }
 
       // console.log(window.scrollY);
-
       if (window.scrollY >= 5400) {
         navigate("#faqs");
       } else if (window.scrollY >= 2800) {
@@ -64,7 +65,8 @@ function Home(props) {
       <Box width="100%">
         <Flex shadow="sm" className="nav" bgColor="white">
           <Container maxW="container.xl">
-            <Flex py={4} align="center">
+            <Flex py={2} align="center">
+              <Image src={logo} h={50} mr={3} />
               <Text fontWeight={800} fontSize="15px">
                 One Hospital Command
               </Text>

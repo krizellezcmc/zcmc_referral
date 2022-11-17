@@ -21,13 +21,10 @@ function GalleryTile(props) {
       </Box> */}
       <Box
         width={{ base: 300, lg: 400, md: 500, sm: 700 }}
-        h={{ base: 300, lg: 230, md: 260, sm: 230 }}
+        h={{ base: 300, lg: 230, md: 260, sm: 200 }}
         m={2}
       >
         <Image src={props.image} w="full" h="full" />
-        <Text mt={4} fontWeight={500} fontSize={{ lg: 15, md: 13 }}>
-          Sample
-        </Text>
       </Box>
     </>
   );

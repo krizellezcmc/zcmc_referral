@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   Flex,
+  Image,
   Link,
   Spacer,
   Text,
@@ -10,6 +11,7 @@ import {
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../Styles/Navbar.css";
+import logo from "../../Assets/OHCC.png";
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -24,9 +26,10 @@ function Navbar(props) {
       <Box shadow="sm" position="sticky">
         <Container maxW="container.xl">
           <Flex py={4} align="center">
-            <Text fontWeight={800} fontSize="15px">
+            <Image src={logo} />
+            {/* <Text fontWeight={800} fontSize="15px">
               One Hospital Command
-            </Text>
+            </Text> */}
             <Spacer />
             <div className="nav-list">
               <Link className="nav-item">Home</Link>
