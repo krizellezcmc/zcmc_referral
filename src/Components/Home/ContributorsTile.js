@@ -14,9 +14,8 @@ function ContributorsTile(props) {
   return (
     <div>
       <Box
-        mr={{ lg: 0, md: 3, xl: 0 }}
 
-        // boxShadow="xl"
+      // boxShadow="xl"
       >
         <Box height={props.height} width={props.width}>
           <Image src={props.image} width="100%" />
@@ -26,7 +25,7 @@ function ContributorsTile(props) {
             {props.name}
           </Text>
           <Box align="center">
-            <Text fontSize={{ lg: 13, md: 11 }} color="gray.700">
+            <Text fontSize={{ lg: 13, md: 11, sm: 10 }} color="gray.700">
               {props.position}
             </Text>
           </Box>

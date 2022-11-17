@@ -31,7 +31,7 @@ function About(props) {
               color="gray.500"
               fontWeight="300"
               letterSpacing="wide"
-              w={600}
+              w={{ sm: 500, md: 600 }}
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore.
@@ -87,8 +87,8 @@ function About(props) {
           src={bg}
           position="absolute"
           zIndex={-10}
-          w="full"
-          height={600}
+          w={{ sm: "lg", md: "full" }}
+          height={{ sm: 500, md: 600 }}
           opacity={0.8}
         />
         <Container maxW="container.xl" pb={20}>

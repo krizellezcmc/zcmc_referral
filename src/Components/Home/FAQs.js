@@ -48,7 +48,7 @@ function FAQs(props) {
               }}
             />
           </Center>
-          <Accordion allowMultiple mt={20}>
+          <Accordion mt={20}>
             <AccordionItem>
               {({ isExpanded }) => (
                 <>
