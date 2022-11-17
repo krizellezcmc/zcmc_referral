@@ -49,9 +49,9 @@ function Home(props) {
 
       if (window.scrollY >= 5400) {
         navigate("#faqs");
-      } else if (window.scrollY >= 2800) {
+      } else if (window.scrollY >= 2400) {
         navigate("#about");
-      } else if (window.scrollY >= 1800) {
+      } else if (window.scrollY >= 1400) {
         navigate("#services");
       } else {
         navigate("#header");

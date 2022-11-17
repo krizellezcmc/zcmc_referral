@@ -23,6 +23,8 @@ function Header(props) {
               letterSpacing={{ lg: "wide" }}
               className="header-text"
               mt={8}
+              transition="ease-in"
+              transitionDuration="2s"
             >
               Patient Navigation
               <br />

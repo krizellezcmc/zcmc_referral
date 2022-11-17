@@ -25,11 +25,11 @@ function Specialization(props) {
               mt={7}
               fontWeight="300"
               letterSpacing="wide"
-              // w={600}
+              w={{ sm: 400, md: 600 }}
               fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
               Getting a new business off the ground is a lot of hard work. Here
-              are five ideas you can use <br /> to find your first customers.
+              are five ideas you can use to find your first customers.
             </Text>
           </Box>
 

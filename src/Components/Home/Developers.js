@@ -46,23 +46,24 @@ function Developers(props) {
           flexShrink={0}
           mt={{ base: 5, md: 10 }}
           mb={{ lg: 10, md: 5 }}
-          display={{ sm: "flex" }}
+          display={{ md: "flex" }}
+          align={{ sm: "center" }}
         >
           <ProfileTile
             image={sir_john}
             name="John Mary C. Sta Teresa"
             color="#A1CDDE"
             position="Statistician II"
-            height={{ lg: 270, md: 180 }}
-            width={{ lg: 200, md: 160 }}
+            height={{ lg: 270, md: 180, sm: 180 }}
+            width={{ lg: 200, md: 160, sm: 120 }}
           />
           <ProfileTile
             image={alyana}
             name="Alyana Claire C. Barretto"
             color="#B8C294"
             position="Software Developer"
-            height={{ lg: 270, md: 180 }}
-            width={{ lg: 190, md: 160 }}
+            height={{ lg: 270, md: 180, sm: 180 }}
+            width={{ lg: 190, md: 160, sm: 120 }}
           />
           <ProfileTile
             image={sir_john}
@@ -70,8 +71,8 @@ function Developers(props) {
             // color="#F0CAC7"
             color="#F0CAC7"
             position="Software Developer"
-            height={{ lg: 270, md: 180 }}
-            width={{ lg: 200, md: 160 }}
+            height={{ lg: 270, md: 180, sm: 180 }}
+            width={{ lg: 200, md: 160, sm: 125 }}
           />
         </Box>
       </Box>
