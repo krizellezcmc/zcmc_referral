@@ -13,6 +13,8 @@ import ProfileTile from "./ProfileTile";
 function Developers(props) {
   var sir_john = require("../../Assets/Profile/sir_john.png");
   var alyana = require("../../Assets/Profile/alyana.png");
+  var krizelle = require("../../Assets/Profile/krizelle.png");
+  
   return (
     <div>
       <Box mt={{ lg: 20, md: 10, sm: 0 }} mb={10} display={{ md: "flex" }}>
@@ -66,7 +68,7 @@ function Developers(props) {
             width={{ lg: 190, md: 160, sm: 120 }}
           />
           <ProfileTile
-            image={sir_john}
+            image={krizelle}
             name="Krizelle Mae B. Falcasantos"
             // color="#F0CAC7"
             color="#F0CAC7"
