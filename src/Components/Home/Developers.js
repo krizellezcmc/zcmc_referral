@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  Text,
-  Box,
-  Image,
-  Icon,
-  Link,
-  Spacer,
-  Container,
-} from "@chakra-ui/react";
+import { Text, Box } from "@chakra-ui/react";
 import ProfileTile from "./ProfileTile";
 
 function Developers(props) {
   var sir_john = require("../../Assets/Profile/sir_john.png");
   var alyana = require("../../Assets/Profile/alyana.png");
-//   var krizelle = require("../../Assets/Profile/krizelle.png");
-  
+  var krizelle = require("../../Assets/Profile/krizelle.png");
+
   return (
     <div>
       <Box mt={{ lg: 20, md: 10, sm: 0 }} mb={10} display={{ md: "flex" }}>
@@ -49,7 +41,7 @@ function Developers(props) {
           mt={{ base: 5, md: 10 }}
           mb={{ lg: 10, md: 5 }}
           display={{ md: "flex" }}
-          align={{ sm: "center" }}
+          align={{ md: "center" }}
         >
           <ProfileTile
             image={sir_john}
@@ -57,7 +49,7 @@ function Developers(props) {
             color="#A1CDDE"
             position="Statistician II"
             height={{ lg: 270, md: 180, sm: 180 }}
-            width={{ lg: 200, md: 160, sm: 120 }}
+            width={{ lg: 200, md: 160, sm: 130 }}
           />
           <ProfileTile
             image={alyana}
@@ -68,13 +60,15 @@ function Developers(props) {
             width={{ lg: 190, md: 160, sm: 120 }}
           />
           <ProfileTile
-            image={sir_john}
+            image={krizelle}
             name="Krizelle Mae B. Falcasantos"
             // color="#F0CAC7"
-            color="#F0CAC7"
+            color="#D1CFE2 "
+            // color="#FFf1e6"
+            // color="#ECD5E3"
             position="Software Developer"
             height={{ lg: 270, md: 180, sm: 180 }}
-            width={{ lg: 200, md: 160, sm: 125 }}
+            width={{ lg: 212, md: 170, sm: 140 }}
           />
         </Box>
       </Box>
