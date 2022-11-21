@@ -10,7 +10,7 @@ function GalleryTile(props) {
         width={{ base: 300, lg: 300, md: 200, sm: 600 }}
         // h={{ base: 300, lg: 200, md: 300, sm: 650 }}
         m={5}
-        borderRadius={14}
+        borderRadius={14}   
         py={7}
         align="center"
       >

@@ -87,14 +87,7 @@ function OpcenHome() {
         <Header />
         <div className="">
           <Container maxW="80%" mt={5}>
-            <Button
-              size="md"
-              colorScheme="green"
-              onClick={() => window.open("/referralform", "_blank")}
-            >
-              Add Referral
-            </Button>
-            <Box py={5}>
+            <Box py={5} display="flex">
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
@@ -114,6 +107,13 @@ function OpcenHome() {
                   }}
                 />
               </InputGroup>
+              <Button
+                size="md"
+                colorScheme="green"
+                onClick={() => window.open("/referralform", "_blank")}
+              >
+                + Add Referral
+              </Button>
             </Box>
 
             <Box
