@@ -13,6 +13,8 @@ import ProfileTile from "./ProfileTile";
 function Developers(props) {
   var sir_john = require("../../Assets/Profile/sir_john.png");
   var alyana = require("../../Assets/Profile/alyana.png");
+//   var krizelle = require("../../Assets/Profile/krizelle.png");
+  
   return (
     <div>
       <Box mt={{ lg: 20, md: 10, sm: 0 }} mb={10} display={{ md: "flex" }}>
