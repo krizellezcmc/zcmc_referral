@@ -1,7 +1,7 @@
 import { Box, Button, Container, Image, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import "../../Styles/Navbar.css";
-import header_img from "../../Assets/header.png";
+import header_img from "../../Assets/header1.png";
 import { useNavigate } from "react-router-dom";
 
 function Header(props) {

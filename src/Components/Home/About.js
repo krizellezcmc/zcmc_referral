@@ -95,7 +95,7 @@ function About(props) {
           <Contributors />
         </Container>
       </Box>
-      <Box bgColor="gray.100" p={1}>
+      <Box bgColor="green.50" p={1}>
         {/* <Image
           position="absolute"
           zIndex={-10}

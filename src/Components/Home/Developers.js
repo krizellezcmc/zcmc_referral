@@ -62,13 +62,13 @@ function Developers(props) {
           <ProfileTile
             image={krizelle}
             name="Krizelle Mae B. Falcasantos"
-            // color="#F0CAC7"
-            color="#D1CFE2 "
+            color="#F0CAC7"
+            // color="#D1CFE2 "
             // color="#FFf1e6"
             // color="#ECD5E3"
             position="Software Developer"
             height={{ lg: 270, md: 180, sm: 180 }}
-            width={{ lg: 212, md: 170, sm: 140 }}
+            width={{ lg: 211, md: 170, sm: 140 }}
           />
         </Box>
       </Box>

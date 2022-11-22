@@ -9,7 +9,7 @@ import oby from "../../Assets/oby.png";
 function Specialization(props) {
   return (
     <>
-      <Box bgColor="gray.50" py={20} w="100%">
+      <Box bgColor="green.50" py={20} w="100%">
         <Container maxW="container.xl" pb={20}>
           <Box p={3} align="center">
             <Text

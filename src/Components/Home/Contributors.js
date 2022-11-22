@@ -5,8 +5,8 @@ import ContributorsTile from "./ContributorsTile";
 
 function Contributors(props) {
   var doc1 = require("../../Assets/Profile/doc_kunting_head.png");
-  var doc2 = require("../../Assets/Profile/doc_kathy.png");
-  var doc3 = require("../../Assets/Profile/doc_ori.png");
+  var doc2 = require("../../Assets/Profile/doc_kath.png");
+  var doc3 = require("../../Assets/Profile/doc_ori_new.png");
 
   return (
     <Box>
