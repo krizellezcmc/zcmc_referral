@@ -41,7 +41,7 @@ function Contributors(props) {
           <ContributorsTile
             image={doc2}
             name="Dr. Katherine Lim-Eisma"
-            position="Medical Officer II"
+            position="Medical Officer III"
             nameFontSize={{ lg: 14, md: 12, sm: 11.5 }}
             height={{ sm: 200, lg: 300 }}
             width={{ sm: 200, lg: 300 }}
@@ -49,7 +49,7 @@ function Contributors(props) {
           <ContributorsTile
             image={doc1}
             name="Dr. Afdal B. Kunting"
-            position="Medical Center Chief II"
+            position="Medical Center Chief III"
             nameFontSize={{ lg: 15, md: 13, sm: 11.5 }}
             height={{ sm: 300, lg: 400 }}
             width={{ sm: 300, lg: 400 }}
@@ -57,7 +57,7 @@ function Contributors(props) {
           <ContributorsTile
             image={doc3}
             name="Dr. Orissa Alpuerto"
-            position="Medical Officer II"
+            position="Medical Officer III"
             nameFontSize={{ lg: 14, md: 12, sm: 11.5 }}
             height={{ sm: 200, lg: 300 }}
             width={{ sm: 200, lg: 300 }}
