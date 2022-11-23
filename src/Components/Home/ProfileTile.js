@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Text,
-  Box,
-  Image,
-  Icon,
-  Link,
-  Spacer,
-  Container,
-} from "@chakra-ui/react";
+import { Text, Box, Image, Icon, Link, Spacer } from "@chakra-ui/react";
 import { SiFacebook, SiInstagram } from "react-icons/si";
 
 function ProfileTile(props) {
@@ -17,14 +9,14 @@ function ProfileTile(props) {
         height={{ lg: 350, md: 300, sm: 250 }}
         width={{ lg: 250, md: 170, sm: 180 }}
         mr={{ lg: 5, md: 3 }}
-        borderRadius="16"
+        borderRadius="10"
         bgColor="white"
         p={3}
         boxShadow="xl"
         mt={{ sm: 5 }}
       >
         <Box
-          borderRadius={{ sm: 5, md: 16 }}
+          borderRadius={{ sm: 5, md: 8 }}
           bgColor={props.color}
           height={{ lg: 270, md: 180, sm: 180 }}
           width={{ lg: 225, md: 146, sm: 156 }}

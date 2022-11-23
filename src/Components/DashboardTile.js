@@ -19,11 +19,11 @@ import api from "../API/Api.js";
 import { ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
 
 function DashboardTile(props) {
-  const [admitted, setAdmitted] = useState("");
-  const [pending, setPending] = useState("");
-  const [incoming, setIncoming] = useState("");
-  const [arrived, setArrived] = useState("");
-  const [transferred, setTransferred] = useState("");
+  const [admitted, setAdmitted] = useState(0);
+  const [pending, setPending] = useState(0);
+  const [incoming, setIncoming] = useState(0);
+  const [arrived, setArrived] = useState(0);
+  const [transferred, setTransferred] = useState(0);
   const [data, setData] = useState([]);
 
   const COLORS = ["#FFCB42", "#42855B", "#FF7F3F"];
@@ -191,8 +191,9 @@ function DashboardTile(props) {
         <Link
           href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/8MeLC"
           bgColor="blue.500"
-          p={2}
-          borderRadius={10}
+          py={2}
+          px={4}
+          borderRadius={8}
           fontSize={14}
           fontWeight={500}
           color="white"
@@ -205,8 +206,9 @@ function DashboardTile(props) {
         <Link
           href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/p_58f3p0sqoc"
           bgColor="green.500"
-          p={2}
-          borderRadius={10}
+          py={2}
+          px={4}
+          borderRadius={8}
           fontSize={14}
           fontWeight={500}
           color="white"
@@ -224,7 +226,8 @@ function DashboardTile(props) {
         borderRadius="lg"
         mt={10}
         ml={3}
-        boxShadow="2xl"
+        p={4}
+        boxShadow="lg"
       >
         <ResponsiveContainer>
           <PieChart>
