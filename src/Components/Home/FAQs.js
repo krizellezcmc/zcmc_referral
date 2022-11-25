@@ -48,14 +48,14 @@ function FAQs(props) {
               }}
             />
           </Center>
-          <Accordion mt={20}>
+          <Accordion mt={20} allowMultiple>
             <AccordionItem>
               {({ isExpanded }) => (
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
                       <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?{" "}
+                        Is there a free trial?
                       </Text>
                     </Box>
                     {isExpanded ? (

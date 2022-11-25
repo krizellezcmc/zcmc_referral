@@ -54,10 +54,10 @@ function Developers(props) {
           <ProfileTile
             image={alyana}
             name="Alyana Claire C. Barretto"
-            color="#B8C294"
+            color=" #7C918F"
             position="Software Developer"
             height={{ lg: 270, md: 180, sm: 180 }}
-            width={{ lg: 190, md: 160, sm: 120 }}
+            width={{ lg: 185, md: 140, sm: 130 }}
           />
           <ProfileTile
             image={krizelle}
