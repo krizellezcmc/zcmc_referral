@@ -90,6 +90,7 @@ function About(props) {
           w={{ sm: "lg", md: "full" }}
           height={{ sm: 500, md: 600 }}
           opacity={0.8}
+          mt={10}
         />
         <Container maxW="container.xl" pb={20}>
           <Contributors />

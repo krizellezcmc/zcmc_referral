@@ -348,7 +348,7 @@ function Signup() {
               </form>
 
               <Center>
-                <Link color="teal.600" href="/" fontSize="14px" mt={5}>
+                <Link color="teal.600" href="/login" fontSize="14px" mt={5}>
                   Login here
                 </Link>
               </Center>

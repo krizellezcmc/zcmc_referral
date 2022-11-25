@@ -38,8 +38,8 @@ function Header(props) {
               fontWeight="300"
               letterSpacing="wide"
             >
-              Getting a new business off the ground is a lot of hard work, Here
-              are five ideas you can use to find your first customers.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Text>
 
             <Box display={{ md: "flex" }} mt={10}>
