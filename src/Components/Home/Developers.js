@@ -63,6 +63,7 @@ function Developers(props) {
             image={krizelle}
             name="Krizelle Mae B. Falcasantos"
             color="#F0CAC7"
+            // color="#a7c5ae"
             // color="#D1CFE2 "
             // color="#FFf1e6"
             // color="#ECD5E3"
