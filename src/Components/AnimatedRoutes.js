@@ -36,6 +36,7 @@ import PreTriageHome from "../Pages/PreTriageHome";
 import Homepage from "../Pages/Homepage/Home";
 import About from "./Home/About";
 import ReferralForm from "./ReferralForm";
+import AddReferral from "./AddReferral";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -74,7 +75,7 @@ const AnimatedRoutes = () => {
           <Route path="/pretriage" element={<PreTriageHome />}></Route>
           <Route path="/admindashboard" element={<AdminDashboard />} />
 
-          <Route path="/referralform" element={<ReferralForm />} />
+          <Route path="/referralform" element={<AddReferral />} />
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
           {/* Nurse Routes*/}

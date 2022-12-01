@@ -29,7 +29,7 @@ function AddComment(props) {
 
   let toast = useToast();
 
-  const addComment = (e) => {
+  const addComment = async (e) => {
     e.preventDefault();
 
     if (remark === "") {
@@ -43,88 +43,117 @@ function AddComment(props) {
       });
     } else {
       setLoad(true);
-
-      if (file) {
-        // console.log(file);
-        const data = new FormData();
-        data.append("file", file[0]);
-        data.append("upload_preset", "nbqowi6h");
-        setLoading(true);
-
-        axios
-          .post("https://api.cloudinary.com/v1_1/djihwopsi/image/upload", data)
-          .then((resp) => {
-            // setFileUploaded(res.data.url);
-
-            axios
-              .post("https://onehospital.online/api/add_comment.php", {
-                patientId: props.patientId,
-                remark: remark,
-                user: props.user,
-                file: resp.data.url,
-              })
-              .then((response) => {
-                setLoad(false);
-                if (response.data.status === 1) {
-                  setRemark("");
-                  setFile("");
-                  // setFileUploaded("");
-                  toast({
-                    title: "Posted.",
-                    description: "The remark has been posted.",
-                    status: "success",
-                    duration: 2000,
-                    isClosable: true,
-                  });
-                } else {
-                  toast({
-                    title: "Error.",
-                    description: response.data.message,
-                    status: "error",
-                    duration: 2000,
-                    isClosable: true,
-                  });
-                }
-              });
-          });
-      } else {
-        axios
-          .post("https://onehospital.online/api/add_comment.php", {
-            patientId: props.patientId,
-            remark: remark,
-            user: props.user,
-            file: null,
-          })
-          .then((response) => {
-            setLoad(false);
-            if (response.data.status === 1) {
-              setRemark("");
-              setFile("");
-              // setFileUploaded("");
-              toast({
-                title: "Posted.",
-                description: "The remark has been posted.",
-                status: "success",
-                duration: 2000,
-                isClosable: true,
-              });
-            } else {
-              toast({
-                title: "Error.",
-                description: response.data.message,
-                status: "error",
-                duration: 2000,
-                isClosable: true,
-              });
-            }
-          });
+      let response = await api.post("/add_comment.php", {
+        patientId: props.patientId,
+        remark: remark,
+        user: props.user,
+        file: null,
+      });
+      if (response) {
+        setLoad(false);
       }
+      if (response.data.status === 1) {
+        setRemark("");
+        setFile("");
+        // setFileUploaded("");
+        toast({
+          title: "Posted.",
+          description: "The remark has been posted.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Error.",
+          description: response.data.message,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+
+      // if (file) {
+      //   // console.log(file);
+      //   const data = new FormData();
+      //   data.append("file", file[0]);
+      //   data.append("upload_preset", "nbqowi6h");
+      //   setLoading(true);
+
+      //   axios
+      //     .post("https://api.cloudinary.com/v1_1/djihwopsi/image/upload", data)
+      //     .then((resp) => {
+      //       // setFileUploaded(res.data.url);
+
+      //       axios
+      //         .post("https://onehospital.online/api/add_comment.php", {
+      //           patientId: props.patientId,
+      //           remark: remark,
+      //           user: props.user,
+      //           file: resp.data.url,
+      //         })
+      //         .then((response) => {
+      //           setLoad(false);
+      //           if (response.data.status === 1) {
+      //             setRemark("");
+      //             setFile("");
+      //             // setFileUploaded("");
+      //             toast({
+      //               title: "Posted.",
+      //               description: "The remark has been posted.",
+      //               status: "success",
+      //               duration: 2000,
+      //               isClosable: true,
+      //             });
+      //           } else {
+      //             toast({
+      //               title: "Error.",
+      //               description: response.data.message,
+      //               status: "error",
+      //               duration: 2000,
+      //               isClosable: true,
+      //             });
+      //           }
+      //         });
+      //     });
+      // } else {
+      //   axios
+      //     .post("https://onehospital.online/api/add_comment.php", {
+      //       patientId: props.patientId,
+      //       remark: remark,
+      //       user: props.user,
+      //       file: null,
+      //     })
+      //     .then((response) => {
+      //       setLoad(false);
+      //       if (response.data.status === 1) {
+      //         setRemark("");
+      //         setFile("");
+      //         // setFileUploaded("");
+      //         toast({
+      //           title: "Posted.",
+      //           description: "The remark has been posted.",
+      //           status: "success",
+      //           duration: 2000,
+      //           isClosable: true,
+      //         });
+      //       } else {
+      //         toast({
+      //           title: "Error.",
+      //           description: response.data.message,
+      //           status: "error",
+      //           duration: 2000,
+      //           isClosable: true,
+      //         });
+      //       }
+      //     });
+      // }
 
       // if (res) {
       //   setLoad(false);
       // }
 
-      console.log("Response is:" + res);
+      // console.log("Response is:" + res);
     }
   };
 
@@ -176,9 +205,9 @@ function AddComment(props) {
         )}
         <Spacer />
 
-        <FormLabel for="attachment" fontSize={20} p={2}>
+        {/* <FormLabel for="attachment" fontSize={20} p={2}>
           <MdAttachFile cursor="pointer" />
-        </FormLabel>
+        </FormLabel> */}
         <input
           type="file"
           id="attachment"

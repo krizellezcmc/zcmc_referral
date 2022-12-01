@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   Container,
@@ -9,7 +9,6 @@ import {
   HStack,
   Button,
   Textarea,
-  Select,
   useToast,
   Checkbox,
   Flex,
@@ -23,19 +22,31 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Center,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
-import api from "../API/Api";
+import "../Styles/ReferralForm.css";
 import moment from "moment";
-import Loading from "./Spinner";
+import uniqid from "uniqid";
+import {
+  sexList,
+  religionList,
+  civilStatusList,
+  refTypeList,
+  dispositionList,
+  specializationList,
+  reasonList,
+} from "../Data/Options";
+import api from "../API/Api";
+
+import { Select } from "chakra-react-select";
+import { BiArrowBack, BiSend } from "react-icons/bi";
 import Swal from "sweetalert2";
 
-function OpcenReferral(props) {
-  const [isLoading, setIsLoading] = useState(false);
+const AddReferral = () => {
   const newDate = moment().format("LLL");
   const [timeStamp, setTimeStamp] = useState(newDate);
-  const [opcenUser, setOpcenUserName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
   const [lastname, setLastName] = useState("");
   const [firstname, setFirstName] = useState("");
@@ -44,6 +55,7 @@ function OpcenReferral(props) {
   const [sex, setSex] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [age, setAge] = useState("");
+  const [hospitals, setHospitals] = useState("");
 
   const [civilStatus, setCivilStatus] = useState("");
   const [nationality, setNationality] = useState("");
@@ -68,18 +80,25 @@ function OpcenReferral(props) {
   const [endorsement, setEndorsement] = useState("");
   const [reason, setReason] = useState("");
   const [specialization, setSpecialization] = useState("");
-  const [lastEdit, setLastEdit] = useState("");
-  const [lastEditTime, setLastEditTime] = useState("");
+  const [bowList, setBowList] = useState([]);
 
+  // FOR OB CASES
   const [lmp, setLmp] = useState("");
   const [aog, setAog] = useState("");
   const [edc, setEdc] = useState("");
   const [fht, setFht] = useState("");
   const [fh, setFh] = useState("");
   const [apgar, setApgar] = useState("");
-  const [bowList, setBowList] = useState([]);
-  const [gp, setGp] = useState(["", "", ""]);
-  const [getGp, setGetGP] = useState(["", "", ""]);
+  const [gp, setGp] = useState([
+    {
+      G: "",
+      P: "",
+      GAP: "",
+    },
+  ]);
+  // const [newIe, setNewIe] = useState("");
+  // const [newBowList, setNewBowList] = useState("");
+  // const [newGp, setNewGp] = useState("");
   const [ie, setIe] = useState([
     {
       cm: "",
@@ -88,18 +107,36 @@ function OpcenReferral(props) {
       presentation: "",
     },
   ]);
-  const [hpi, setHPI] = useState("");
-  const [ppf, setPPF] = useState("");
-  const [ivf, setIVF] = useState("");
-  const [meds, setMeds] = useState("");
-  const [lab, setLab] = useState("");
-  // const [newIe, setNewIe] = useState("");
-  // const [newBowList, setNewBowList] = useState("");
-  // const [newGp, setNewGp] = useState("");
+
+  const bow = [
+    { value: "Intact" },
+    { value: "Ruptured" },
+    { value: "Leaking" },
+  ];
+
   const toast = useToast();
-  const [load, setLoad] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+
+  const handleGap = (e) => {
+    const { name, value } = e.target;
+    let temp = [...gp];
+    temp[0][name] = value;
+    setGp(temp);
+  };
+
+  const handleSelect = (e, value) => {
+    if (e.target.checked) {
+      setBowList([...bowList, value]);
+    } else {
+      setBowList(bowList.filter((val) => val !== value));
+    }
+  };
+
+  const handleIE = (e) => {
+    const { name, value } = e.target;
+    let temp = [...ie];
+    temp[0][name] = value;
+    setIe(temp);
+  };
 
   function getAge(dateString) {
     var today = new Date();
@@ -112,159 +149,172 @@ function OpcenReferral(props) {
     return age;
   }
 
-  const refData = async () => {
-    setIsLoading(true);
-    let response = await api.get("/get_pending_ref.php", {
-      params: { id: props.patientId },
-    });
-    if (response) {
-      setIsLoading(false);
-      setUserName(response.data.username);
-      setReferringFacility(response.data.refFacility);
-      setLastName(response.data.lastname);
-      setFirstName(response.data.firstname);
-      setMiddleName(response.data.middleName);
-      setExtendedName(response.data.extended);
-      setSex(response.data.sex);
-      setBirthdate(response.data.birthdate);
-      setCivilStatus(response.data.civilStatus);
-      setNationality(response.data.nationality);
-      setReligion(response.data.religion);
-      setOccupation(response.data.occupation);
-      setPhilhealth(response.data.philhealth);
-      setAddress(response.data.address);
-      setNextOfKin(response.data.nextOfkin);
-      setContact(response.data.contactWatcher);
-      setDateAdmitted(response.data.dateAdmitted);
-      setReferralType(response.data.refType);
-      setDisposition(response.data.disposition);
-      setSpecialization(response.data.specialization);
-      setTemperature(response.data.latestTemp);
-      setBloodPressure(response.data.latestBp);
-      setRespiRate(response.data.latestRespi);
-      setPulseRate(response.data.latestPulse);
-      setOxygen(response.data.latestOxygen);
-      setGlasgow(response.data.latestGlasgow);
-      setChiefComplaints(response.data.chiefComplaints);
-      setDiagnosis(response.data.diagnosis);
-      setEndorsement(response.data.endorsement);
-      setUserContact(response.data.userContact);
-      setReason(response.data.reason);
-      setGetGP(response.data.GP);
-      setLmp(response.data.LMP);
-      setAog(response.data.AOG);
-      setEdc(response.data.EDC);
-      setFht(response.data.FHT);
-      setFh(response.data.FH);
-      setApgar(response.data.APGAR);
-      setIe(response.data.IE);
-      setBowList(response.data.bow);
-      setHPI(response.data.HPI);
-      setPPF(response.data.PPF);
-      setIVF(response.data.IVF);
-      setMeds(response.data.MEDS);
-      setLab(response.data.LAB);
-      setTimeStamp(response.data.timestamp);
-      setLastEdit(response.data.last_edit);
-      setLastEditTime(response.data.last_edit_time);
+  const url = "/temp_referral.php";
+
+  const postData = async (e) => {
+    e.preventDefault();
+
+    const patientId = uniqid(lastname.toLowerCase() + "_");
+
+    if (
+      !lastname ||
+      !firstname ||
+      !dateAdmitted ||
+      !referralType ||
+      !disposition ||
+      !specialization ||
+      !temperature ||
+      !bloodPressure ||
+      !respiRate ||
+      !pulseRate ||
+      !oxygen ||
+      !glasgow ||
+      !reason
+    ) {
+      toast({
+        position: "top",
+        title: "Input all fields.",
+        description: "Kindly input all required fields.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else if (!referringFacility) {
+      toast({
+        position: "top",
+        title: "No hospital selected.",
+        description: "Kindly select referring facility.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      Swal.fire({
+        title: "Are you sure to save?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update record!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          let response = await api.post(url, {
+            timeStamp: timeStamp,
+            patientId: patientId,
+            username: username,
+            referringFacility: referringFacility,
+            lastname: lastname,
+            firstname: firstname,
+            middlename: middlename,
+            extendedName: extendedName,
+            sex: sex,
+            birthdate: birthdate,
+            age: getAge(birthdate),
+            civilStatus: civilStatus,
+            nationality: nationality,
+            religion: religion,
+            occupation: occupation,
+            philhealth: philhealth,
+            address: address,
+            nextOfKin: nextOfKin,
+            contact: contact,
+            dateAdmitted: dateAdmitted,
+            referralType: referralType,
+            disposition: disposition,
+            specialization: specialization,
+            temperature: temperature,
+            bloodPressure: bloodPressure,
+            respiRate: respiRate,
+            pulseRate: pulseRate,
+            oxygen: oxygen,
+            glasgow: glasgow,
+            chiefComplaints: chiefComplaints,
+            diagnosis: diagnosis,
+            endorsement: endorsement,
+            userContact: userContact,
+            reason: reason,
+            newGp: JSON.stringify(gp),
+            lmp: lmp,
+            aog: aog,
+            edc: edc,
+            fht: fht,
+            fh: fh,
+            apgar: apgar,
+            newIe: JSON.stringify(ie),
+            newBowList: JSON.stringify(bowList),
+          });
+          if (response.data.status === 1) {
+            Swal.fire({
+              title: "Success",
+              text: "New referral added!",
+              icon: "success",
+            }).then(() => {
+              window.close();
+            });
+          } else {
+            Swal.fire("Error!", "Something went wrong. Try again!", "error");
+          }
+        }
+      });
     }
   };
 
-  const updateData = async () => {
-    Swal.fire({
-      title: "Are you sure to save?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, update record!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        setLoad(true);
-        let response = await api.post("/update_temp_referral.php", {
-          patientId: props.patientId,
-          username: opcenUser,
-          referringFacility: referringFacility,
-          lastname: lastname,
-          firstname: firstname,
-          middlename: middlename,
-          extendedName: extendedName,
-          sex: sex,
-          birthdate: birthdate,
-          age: getAge(birthdate),
-          civilStatus: civilStatus,
-          nationality: nationality,
-          religion: religion,
-          occupation: occupation,
-          philhealth: philhealth,
-          address: address,
-          nextOfKin: nextOfKin,
-          contact: contact,
-          dateAdmitted: dateAdmitted,
-          referralType: referralType,
-          disposition: disposition,
-          specialization: specialization,
-          temperature: temperature,
-          bloodPressure: bloodPressure,
-          respiRate: respiRate,
-          pulseRate: pulseRate,
-          oxygen: oxygen,
-          glasgow: glasgow,
-          chiefComplaints: chiefComplaints,
-          diagnosis: diagnosis,
-          endorsement: endorsement,
-          userContact: userContact,
-          reason: reason,
-          lmp: lmp,
-          aog: aog,
-          edc: edc,
-          fht: fht,
-          fh: fh,
-          apgar: apgar,
-          hpi: hpi,
-          ppf: ppf,
-          ivf: ivf,
-          meds: meds,
-          lab: lab,
-        });
-        if (response) {
-          setLoad(false);
-        }
-        if (response.data.status === 1) {
-          Swal.fire({
-            title: "Success!",
-            text: "Patient's record updated.",
-            type: "success",
-            icon: "success",
-          }).then(() => {
-            window.location.reload(false);
-          });
-        } else {
-          Swal.fire("Error!", "Something went wrong. Try again!", "error");
-        }
-      }
-    });
-  };
-  useEffect(() => {
-    refData();
-    const user = JSON.parse(localStorage.getItem("user"));
-    setOpcenUserName(user.firstName + "  " + user.lastName);
-  }, [props.patientId]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
 
+  const fetchHospitals = async () => {
+    let hospiData = await api.get("/get_hospitals_new.php");
+    setHospitals(hospiData.data);
+  };
+
+  useEffect(() => {
+    fetchHospitals();
+    const user = JSON.parse(localStorage.getItem("user"));
+    setUserName(user.firstName + "  " + user.lastName);
+  }, []);
   return (
-    <div>
-      {isLoading ? (
-        <Center mt={20}>
-          <Loading />
-        </Center>
-      ) : (
-        <Container p={5} maxW="1200px">
+    <>
+      <Container p={5} maxW="1200px">
+        <form onSubmit={postData}>
           {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
+
           <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={5}>
             <Text fontSize="xl" textAlign="center" fontWeight={800}>
               PATIENT INFORMATION
             </Text>
+            <FormControl isRequired mt={10}>
+              <Grid gap={2} templateColumns="repeat(6, 1fr)">
+                <GridItem colSpan={3}>
+                  <FormLabel fontSize={14}>Select Referring Facility</FormLabel>
+                  <Select
+                    variant="filled"
+                    options={hospitals}
+                    placeholder="Select hospital"
+                    selectedOptionStyle="check"
+                    closeMenuOnSelect={true}
+                    onChange={(e) => {
+                      setReferringFacility(e.value);
+                    }}
+                    required
+                    useBasicStyles
+                  />
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <FormLabel fontSize={14}>Select Referral Date</FormLabel>
+                  <Input type="datetime-local" variant="filled" required />
+                </GridItem>
+                <GridItem colSpan={2}>
+                  <FormLabel fontSize={14}>User</FormLabel>
+                  <Input
+                    type="text"
+                    value={username}
+                    variant="filled"
+                    isReadOnly
+                  />
+                </GridItem>
+              </Grid>
+            </FormControl>
             <HStack mt={8}>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Last Name</FormLabel>
@@ -321,41 +371,38 @@ function OpcenReferral(props) {
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>
                 <Select
-                  value={sex}
                   variant="filled"
-                  onChange={(e) => setSex(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Please Select
-                  </option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                </Select>
+                  options={sexList}
+                  placeholder="Select"
+                  selectedOptionStyle="check"
+                  closeMenuOnSelect={true}
+                  onChange={(e) => {
+                    setSex(e.value);
+                  }}
+                  required
+                  useBasicStyles
+                />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Civil Status</FormLabel>
                 <Select
                   variant="filled"
-                  value={civilStatus}
-                  onChange={(e) => setCivilStatus(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Please Select
-                  </option>
-                  <option value="Single">Single</option>
-                  <option value="Married">Married</option>
-                  <option value="Separated">Separated</option>
-                  <option value="Widow(er)">Widow(er)</option>
-                  <option value="Other">Other</option>
-                </Select>
+                  placeholder="Select"
+                  selectedOptionStyle="check"
+                  closeMenuOnSelect={true}
+                  required
+                  useBasicStyles
+                  options={civilStatusList}
+                  onChange={(e) => setCivilStatus(e.value)}
+                />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Nationality</FormLabel>
                 <Input
+                  type="text"
                   variant="filled"
-                  value={nationality}
                   onChange={(e) => setNationality(e.target.value)}
+                  value={nationality}
                 />
               </FormControl>
             </HStack>
@@ -364,21 +411,21 @@ function OpcenReferral(props) {
                 <FormLabel fontSize={14}>Religion</FormLabel>
                 <Select
                   variant="filled"
-                  value={religion}
-                  onChange={(e) => setReligion(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Please Select
-                  </option>
-                  <option value="Roman Catholic">Roman Catholic</option>
-                  <option value="Islam">Islam</option>
-                  <option value="Protestant">Protestant</option>
-                  <option value="Other">Other</option>
-                </Select>
+                  options={religionList}
+                  placeholder="Select"
+                  selectedOptionStyle="check"
+                  closeMenuOnSelect={true}
+                  onChange={(e) => {
+                    setReligion(e.value);
+                  }}
+                  required
+                  useBasicStyles
+                />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Occupation</FormLabel>
                 <Input
+                  type="text"
                   variant="filled"
                   value={occupation}
                   onChange={(e) => setOccupation(e.target.value)}
@@ -387,6 +434,7 @@ function OpcenReferral(props) {
               <FormControl>
                 <FormLabel fontSize={14}>PhilHealth</FormLabel>
                 <Input
+                  type="text"
                   variant="filled"
                   value={philhealth}
                   onChange={(e) => setPhilhealth(e.target.value)}
@@ -396,6 +444,7 @@ function OpcenReferral(props) {
             <FormControl mt={5}>
               <FormLabel fontSize={14}>Address</FormLabel>
               <Textarea
+                type="text"
                 variant="filled"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
@@ -446,7 +495,7 @@ function OpcenReferral(props) {
               ADMITTING DETAILS
             </Text>
             <HStack mt={8}>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Date Admitted</FormLabel>
                 <Input
                   type="date"
@@ -455,38 +504,43 @@ function OpcenReferral(props) {
                   onChange={(e) => setDateAdmitted(e.target.value)}
                 />
               </FormControl>
-              <FormControl w={500}>
+              <FormControl w={600} isRequired>
                 <FormLabel fontSize={14}>Referral Type</FormLabel>
                 <Select
                   variant="filled"
-                  value={referralType}
-                  onChange={(e) => setReferralType(e.target.value)}
-                >
-                  <option value="COVID">COVID</option>
-                  <option value="NON-COVID">NON-COVID</option>
-                  <option value="COVID-SUSPECT">COVID-SUSPECT</option>
-                </Select>
+                  placeholder="Select"
+                  selectedOptionStyle="check"
+                  closeMenuOnSelect={true}
+                  required
+                  useBasicStyles
+                  options={refTypeList}
+                  onChange={(e) => setReferralType(e.value)}
+                />
               </FormControl>
-              <FormControl w={500}>
+              <FormControl w={500} isRequired>
                 <FormLabel fontSize={14}>Disposition</FormLabel>
                 <Select
                   variant="filled"
-                  value={disposition}
-                  onChange={(e) => setDisposition(e.target.value)}
-                >
-                  <option value="Moderate">Moderate</option>
-                  <option value="Mild">Mild</option>
-                  <option value="Severe">Severe</option>
-                  <option value="Critical">Critical</option>
-                </Select>
+                  placeholder="Select"
+                  selectedOptionStyle="check"
+                  closeMenuOnSelect={true}
+                  required
+                  useBasicStyles
+                  options={dispositionList}
+                  onChange={(e) => setDisposition(e.value)}
+                />
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel fontSize={14}>Specialization</FormLabel>
-                <Input
+                <Select
                   variant="filled"
-                  value={specialization}
-                  onChange={(e) => setSpecialization(e.target.value)}
-                  isReadOnly
+                  placeholder="Select"
+                  selectedOptionStyle="check"
+                  closeMenuOnSelect={true}
+                  required
+                  options={specializationList}
+                  onChange={(e) => setSpecialization(e.value)}
+                  useBasicStyles
                 />
               </FormControl>
             </HStack>
@@ -500,49 +554,37 @@ function OpcenReferral(props) {
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Gravidity and Parity</FormLabel>
                       <HStack>
-                        {getGp === "" || getGp === null ? (
-                          ""
-                        ) : (
-                          <>
-                            {JSON.parse(getGp).map((e, k) => {
-                              return (
-                                <>
-                                  <Text>G</Text>
-                                  <Input
-                                    type="text"
-                                    borderBottom="1px"
-                                    w={50}
-                                    h={8}
-                                    textAlign="center"
-                                    value={e.G}
-                                    isDisabled
-                                  />
-                                  <Text>P</Text>
-                                  <Input
-                                    type="text"
-                                    borderBottom="1px"
-                                    w={50}
-                                    h={8}
-                                    textAlign="center"
-                                    value={e.P}
-                                    isDisabled
-                                  />
-                                  <Text>(</Text>
-                                  <Input
-                                    type="text"
-                                    borderBottom="1px"
-                                    w={100}
-                                    h={8}
-                                    textAlign="center"
-                                    value={e.GAP}
-                                    isDisabled
-                                  />
-                                  <Text>)</Text>
-                                </>
-                              );
-                            })}
-                          </>
-                        )}
+                        <Text>G</Text>
+                        <Input
+                          type="text"
+                          name="G"
+                          borderBottom="1px"
+                          w={50}
+                          h={8}
+                          textAlign="center"
+                          onChange={(e) => handleGap(e)}
+                        />
+                        <Text>P</Text>
+                        <Input
+                          type="text"
+                          name="P"
+                          borderBottom="1px"
+                          w={50}
+                          h={8}
+                          textAlign="center"
+                          onChange={(e) => handleGap(e)}
+                        />
+                        <Text>(</Text>
+                        <Input
+                          type="text"
+                          name="GAP"
+                          borderBottom="1px"
+                          w={100}
+                          h={8}
+                          textAlign="center"
+                          onChange={(e) => handleGap(e)}
+                        />
+                        <Text>)</Text>
                       </HStack>
                     </FormControl>
                     <FormControl isRequired>
@@ -604,59 +646,60 @@ function OpcenReferral(props) {
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Internal Examination</FormLabel>
                       <HStack>
-                        {JSON.parse(ie).map((i, k) => {
-                          return (
-                            <>
-                              <Input
-                                type="text"
-                                borderBottom="1px"
-                                w={80}
-                                h={8}
-                                value={i.cm}
-                                textAlign="center"
-                                isDisabled
-                              />
-                              <Text fontSize={14}>cm</Text>
-                              <Input
-                                type="text"
-                                borderBottom="1px"
-                                w={80}
-                                h={8}
-                                value={i.station}
-                                textAlign="center"
-                                isDisabled
-                              />
-                              <Text fontSize={14}>station</Text>
-                              <Input
-                                type="text"
-                                borderBottom="1px"
-                                h={8}
-                                value={i.effacement}
-                                textAlign="center"
-                                isDisabled
-                              />
-                              <Text fontSize={14}>effacement</Text>
-                              <Input
-                                type="text"
-                                borderBottom="1px"
-                                h={8}
-                                value={i.presentation}
-                                textAlign="center"
-                                isDisabled
-                              />
-                              <Text fontSize={14}>presentation</Text>
-                            </>
-                          );
-                        })}
+                        <Input
+                          type="text"
+                          name="cm"
+                          borderBottom="1px"
+                          w={80}
+                          h={8}
+                          textAlign="center"
+                          onChange={(e) => handleIE(e)}
+                        />
+                        <Text fontSize={14}>cm</Text>
+                        <Input
+                          type="text"
+                          name="station"
+                          borderBottom="1px"
+                          w={80}
+                          h={8}
+                          textAlign="center"
+                          onChange={(e) => handleIE(e)}
+                        />
+                        <Text fontSize={14}>station</Text>
+                        <Input
+                          type="text"
+                          name="effacement"
+                          borderBottom="1px"
+                          h={8}
+                          textAlign="center"
+                          onChange={(e) => handleIE(e)}
+                        />
+                        <Text fontSize={14}>effacement</Text>
+                        <Input
+                          type="text"
+                          name="presentation"
+                          borderBottom="1px"
+                          h={8}
+                          textAlign="center"
+                          onChange={(e) => handleIE(e)}
+                        />
+                        <Text fontSize={14}>presentation</Text>
                       </HStack>
                     </FormControl>
                   </HStack>
                   <FormControl mt={5}>
                     <FormLabel fontSize={14}>Bow</FormLabel>
-                    {JSON.parse(bowList).map((i, k) => {
+                    {bow.map((i, k) => {
                       return (
-                        <Checkbox size="sm" ml={5} isChecked={true}>
-                          {i}
+                        <Checkbox
+                          size="sm"
+                          ml={5}
+                          value={i.value}
+                          onChange={(e) => {
+                            handleSelect(e, i.value);
+                          }}
+                        >
+                          {i.value}
                         </Checkbox>
                       );
                     })}
@@ -668,7 +711,9 @@ function OpcenReferral(props) {
             )}
             <HStack mt={10}>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>Latest V/S-Temperature</FormLabel>
+                <FormLabel fontSize={14}>
+                  Latest V/S- <br></br>Temperature
+                </FormLabel>
                 <Input
                   type="text"
                   variant="filled"
@@ -677,7 +722,9 @@ function OpcenReferral(props) {
                 />
               </FormControl>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>Latest V/S-Blood Pressure</FormLabel>
+                <FormLabel fontSize={14}>
+                  Latest V/S-Blood <br></br> Pressure
+                </FormLabel>
                 <Input
                   type="text"
                   variant="filled"
@@ -769,133 +816,47 @@ function OpcenReferral(props) {
               <FormLabel fontSize={14}> Reason for Referral</FormLabel>
               <Select
                 variant="filled"
-                onChange={(e) => setReason(e.target.value)}
-                value={reason}
-              >
-                {/* <option value={reason}>{reason}</option> */}
-                <option value="Medical Center of Choice">
-                  Medical Center of Choice
-                </option>
-                <option value="Upgrade of Health Care">
-                  Upgrade of Health Care
-                </option>
-                <option value="Financial/Cost of Care">
-                  Financial/Cost of Care
-                </option>
-                <option value="Other">Other</option>
-              </Select>
-            </FormControl>
-            <HStack mt={5}>
-              <FormControl>
-                <FormLabel fontSize={14}>History Present Illness</FormLabel>
-                <Textarea
-                  type="text"
-                  variant="filled"
-                  value={hpi}
-                  onChange={(e) => setHPI(e.target.value)}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel fontSize={14}>Pertinent PE Findings</FormLabel>
-                <Textarea
-                  type="text"
-                  variant="filled"
-                  value={ppf}
-                  onChange={(e) => setPPF(e.target.value)}
-                />
-              </FormControl>
-            </HStack>
-            <HStack mt={5}>
-              <FormControl>
-                <FormLabel fontSize={14}>IVF</FormLabel>
-                <Textarea
-                  type="text"
-                  variant="filled"
-                  value={ivf}
-                  onChange={(e) => setIVF(e.target.value)}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel fontSize={14}>Medications</FormLabel>
-                <Textarea
-                  type="text"
-                  variant="filled"
-                  value={meds}
-                  onChange={(e) => setMeds(e.target.value)}
-                />
-              </FormControl>
-            </HStack>
-            <FormControl mt={5}>
-              <FormLabel fontSize={14}>Laboratory</FormLabel>
-              <Textarea
-                type="text"
-                variant="filled"
-                value={lab}
-                onChange={(e) => setLab(e.target.value)}
-              />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel fontSize={14}> Data inputted by:</FormLabel>
-              <Input
-                type="text"
-                variant="filled"
-                value={userName + " (" + moment(timeStamp).format("LLL") + ")"}
+                placeholder="Select"
+                selectedOptionStyle="check"
+                closeMenuOnSelect={true}
+                required
+                useBasicStyles
+                options={reasonList}
+                onChange={(e) => setReason(e.value)}
               />
             </FormControl>
           </Box>
 
-          {!userName ? (
-            ""
-          ) : (
-            <>
-              <HStack mt={5} mb={5}>
-                <Checkbox isChecked={true}></Checkbox>
-                <p style={{ fontSize: "14px", marginTop: "3px" }}>
-                  The patient understands and accepts the terms and conditions
-                  of the
-                </p>
-                <Link fontSize="14px" color="blue" mt={3} onClick={onOpen}>
-                  Patient Agreement Form
-                </Link>
-              </HStack>
-              {lastEdit !== null ? (
-                <Text
-                  textAlign="left"
-                  fontSize={13}
-                  fontStyle="italic"
-                  color="red.800"
-                  fontWeight={500}
-                >
-                  Last edited by {lastEdit}{" "}
-                  {moment(lastEditTime).startOf().fromNow()}
-                </Text>
-              ) : (
-                ""
-              )}
-
-              <Flex>
-                <Spacer />
-                {props.status === "arrived" ? (
-                  ""
-                ) : (
-                  <Button
-                    isLoading={load}
-                    loadingText="Saving"
-                    spinnerPlacement="start"
-                    colorScheme="teal"
-                    variant="outline"
-                    mt={5}
-                    onClick={updateData}
-                    w={150}
-                  >
-                    Save
-                  </Button>
-                )}
-              </Flex>
-            </>
-          )}
-        </Container>
-      )}
+          <FormControl isRequired>
+            <HStack mt={5} mb={5}>
+              <Checkbox isRequired={true}></Checkbox>
+              <p style={{ fontSize: "14px", marginTop: "3px" }}>
+                The patient understands and accepts the terms and conditions of
+                the
+              </p>
+              <Link fontSize="14px" color="blue" mt={3} onClick={onOpen}>
+                Patient Agreement Form
+              </Link>
+            </HStack>
+          </FormControl>
+          <Flex>
+            <Spacer />
+            <Button
+              // isLoading={load}
+              // loadingText="Saving"
+              // spinnerPlacement="start"
+              type="submit"
+              colorScheme="teal"
+              variant="solid"
+              mt={5}
+              w={150}
+              rightIcon={<BiSend />}
+            >
+              Submit
+            </Button>
+          </Flex>
+        </form>
+      </Container>
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -1042,8 +1003,8 @@ function OpcenReferral(props) {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
-}
+};
 
-export default OpcenReferral;
+export default AddReferral;
