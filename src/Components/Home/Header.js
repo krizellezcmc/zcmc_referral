@@ -11,7 +11,7 @@ function Header(props) {
   }
   return (
     <>
-      <Container maxW="container.xl" py={{ lg: 20, md: 5, xl: 36 }}>
+      <Container maxW="container.xl" py={{ lg: 20, md: 5, xl: 24 }}>
         <Box display={{ md: "flex" }} py={{ lg: 10, md: 0, xl: 0 }}>
           <Box
             mt={{ base: 4, lg: 20, md: 0, xl: 20 }}

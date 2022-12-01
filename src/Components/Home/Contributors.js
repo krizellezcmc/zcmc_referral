@@ -55,7 +55,7 @@ function Contributors(props) {
           <ContributorsTile
             image={doc1}
             name="Dr. Afdal B. Kunting"
-            position="Medical Center Chief III"
+            position="Medical Center Chief II"
             nameFontSize={{ lg: 15, md: 13, sm: 11.5 }}
             height={{ sm: 300, lg: 400 }}
             width={{ sm: 300, lg: 400 }}
