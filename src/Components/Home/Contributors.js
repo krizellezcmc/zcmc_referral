@@ -26,12 +26,18 @@ function Contributors(props) {
           The Contributors
         </Text>
 
-        <Text mt={3} color="black" fontWeight={400} fontSize={{ sm: 14 }}>
+        <Text
+          mt={7}
+          color="gray.500"
+          fontWeight="300"
+          letterSpacing="wide"
+          w={{ sm: 500, md: 800 }}
+        >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore..
+          eiusmod tempor incididunt ut labore et dolore.
         </Text>
       </Box>
-      <Center mt={{ lg: 5, md: 5, sm: 0 }} mb={10}>
+      <Center mt={{ lg: 20, md: 5, sm: 0 }} mb={10}>
         <Box
           flexShrink={0}
           mb={{ lg: 10, md: 5 }}
@@ -49,7 +55,7 @@ function Contributors(props) {
           <ContributorsTile
             image={doc1}
             name="Dr. Afdal B. Kunting"
-            position="Medical Center Chief III"
+            position="Medical Center Chief II"
             nameFontSize={{ lg: 15, md: 13, sm: 11.5 }}
             height={{ sm: 300, lg: 400 }}
             width={{ sm: 300, lg: 400 }}

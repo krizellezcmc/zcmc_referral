@@ -161,12 +161,12 @@ function TransferredRef(props) {
 
             <Box w="100%" textAlign="center">
               <Text fontWeight="800" fontSize="13.5px">
-                REFERRED TO
+                REFERRED FROM
               </Text>
             </Box>
             <Box w="100%" textAlign="center">
               <Text fontWeight="800" fontSize="13.5px">
-                REFERRED FROM
+                REFERRED TO
               </Text>
             </Box>
             <Box w="100%" textAlign="center">
@@ -246,15 +246,14 @@ function TransferredRef(props) {
                                   Specialization: {e.specialization}
                                 </Text>
                               </Box>
-
-                              <Box w="100%" textAlign="center">
-                                <Text fontWeight="500" fontSize="13px">
-                                  {e.name}
-                                </Text>
-                              </Box>
                               <Box w="100%" textAlign="center">
                                 <Text fontWeight="500" fontSize="13px">
                                   {e.refFacility}
+                                </Text>
+                              </Box>{" "}
+                              <Box w="100%" textAlign="center">
+                                <Text fontWeight="500" fontSize="13px">
+                                  {e.name}
                                 </Text>
                               </Box>
                               <Box w="100%" textAlign="center">

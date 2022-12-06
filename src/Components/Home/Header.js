@@ -11,7 +11,7 @@ function Header(props) {
   }
   return (
     <>
-      <Container maxW="container.xl" py={{ lg: 20, md: 5, xl: 36 }}>
+      <Container maxW="container.xl" py={{ lg: 20, md: 5, xl: 24 }}>
         <Box display={{ md: "flex" }} py={{ lg: 10, md: 0, xl: 0 }}>
           <Box
             mt={{ base: 4, lg: 20, md: 0, xl: 20 }}
@@ -38,8 +38,8 @@ function Header(props) {
               fontWeight="300"
               letterSpacing="wide"
             >
-              Getting a new business off the ground is a lot of hard work, Here
-              are five ideas you can use to find your first customers.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Text>
 
             <Box display={{ md: "flex" }} mt={10}>

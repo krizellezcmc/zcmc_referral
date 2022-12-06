@@ -39,6 +39,8 @@ function Sample(props) {
 
       if (res.status === 200) {
         console.log("success");
+      } else {
+        console.log("Failed to send");
       }
     } catch (error) {
       console.log(error.response.data.error.error_data.details); // this is the main part. Use the response property from the error object

@@ -36,7 +36,7 @@ const Sidebar = () => {
   const { user } = useAuth();
   useEffect(() => {
     const userr = JSON.parse(localStorage.getItem("user"));
-    setReferringFacility(userr.name);
+    setReferringFacility(userr.mscReferringCenters);
     setUserName(userr.firstName + "  " + userr.lastName);
     setRole(userr.role);
   }, [username, referringFacility, role]);
@@ -259,17 +259,13 @@ const Sidebar = () => {
         )}
       </ul>
 
-      {role === "opcen" ? (
-        <div className="sidebar-user">
-          <img src={Nouser} alt="User Avatar" />
-          <div className="user">
-            <h1>{role === "admin" ? "ADMIN" : username}</h1>
-            <small>{referringFacility}</small>
-          </div>
+      <div className="sidebar-user">
+        <img src={Nouser} alt="User Avatar" />
+        <div className="user">
+          <h1>{role === "admin" ? "ADMIN" : username}</h1>
+          <small>{referringFacility}</small>
         </div>
-      ) : (
-        ""
-      )}
+      </div>
     </div>
   );
 };

@@ -47,10 +47,10 @@ function Home(props) {
         setShowScrollUp(false);
       }
 
-      // console.log(window.scrollY);
+      console.log(window.scrollY);
       if (window.scrollY >= 5400) {
         navigate("#faqs");
-      } else if (window.scrollY >= 2400) {
+      } else if (window.scrollY >= 2716) {
         navigate("#about");
       } else if (window.scrollY >= 1400) {
         navigate("#services");

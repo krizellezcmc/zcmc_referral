@@ -61,8 +61,8 @@ function Gallery(props) {
               w={{ sm: 460, lg: 800 }}
               fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
-              Getting a new business off the ground is a lot of hard work. Here
-              are five ideas you can use to find your first customers.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Text>
           </Box>
           <div className="carousel-wrapper">

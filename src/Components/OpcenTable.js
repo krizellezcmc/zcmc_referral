@@ -56,7 +56,7 @@ function OpcenTable(props) {
               variant="subtle"
               fontWeight="bolder"
               fontSize="13px"
-              colorScheme="green"
+              colorScheme={props.status === "pending" ? "yellow" : "green"}
             >
               {props.status}
             </Badge>
