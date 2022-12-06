@@ -75,6 +75,7 @@ const AnimatedRoutes = () => {
           <Route path="/admindashboard" element={<AdminDashboard />} />
 
           <Route path="/referralform" element={<ReferralForm />} />
+
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
           {/* Nurse Routes*/}

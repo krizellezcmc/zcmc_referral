@@ -59,7 +59,7 @@ function NurseHome(props) {
               </Button>
             </HStack>
 
-            <TagubilinForm id={selected} />
+            {!selected ? "" : <TagubilinForm id={selected} />}
           </div>
         </div>
       </div>

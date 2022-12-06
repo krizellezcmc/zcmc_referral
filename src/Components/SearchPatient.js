@@ -803,7 +803,7 @@ function SearchPatient(props) {
                                 </FormControl>
                                 <FormControl isRequired>
                                   <FormLabel fontSize={14}>
-                                    Latest V/S-Blood <br></br> Pressure
+                                    Latest V/S-Blood <br /> Pressure
                                   </FormLabel>
                                   <Input
                                     type="text"
@@ -815,7 +815,7 @@ function SearchPatient(props) {
                                 </FormControl>
                                 <FormControl isRequired>
                                   <FormLabel fontSize={14}>
-                                    Latest V/S-Respiration Rate
+                                    Latest V/S-Respiration <br /> Rate
                                   </FormLabel>
                                   <Input
                                     type="text"
@@ -827,7 +827,8 @@ function SearchPatient(props) {
                                 </FormControl>
                                 <FormControl isRequired>
                                   <FormLabel fontSize={14}>
-                                    Latest V/S-Pulse <br></br>Rate
+                                    Latest V/S-Pulse <br />
+                                    Rate
                                   </FormLabel>
                                   <Input
                                     type="text"
@@ -839,7 +840,7 @@ function SearchPatient(props) {
                                 </FormControl>
                                 <FormControl isRequired>
                                   <FormLabel fontSize={14}>
-                                    Latest V/S-Oxygen Saturation
+                                    Latest V/S-Oxygen <br /> Saturation
                                   </FormLabel>
                                   <Input
                                     type="text"
