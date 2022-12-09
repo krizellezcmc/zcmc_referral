@@ -742,7 +742,10 @@ const ReferralForm = () => {
                 />
               </FormControl>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>Latest V/S-Respiration Rate</FormLabel>
+                <FormLabel fontSize={14}>
+                  Latest V/S-Respiration <br />
+                  Rate
+                </FormLabel>
                 <Input
                   type="text"
                   variant="filled"
@@ -763,7 +766,8 @@ const ReferralForm = () => {
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>
-                  Latest V/S-Oxygen Saturation
+                  Latest V/S-Oxygen <br />
+                  Saturation
                 </FormLabel>
                 <Input
                   type="text"

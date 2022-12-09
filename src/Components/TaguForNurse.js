@@ -59,7 +59,7 @@ function TaguForNurse(props) {
     let response = await api.get("/get_nursetagu.php", {
       params: { id: props.id },
     });
-    console.log(props.id);
+    console.log(response);
 
     setPatient(response.data[0].patientName);
     setAge(response.data[0].age);

@@ -17,8 +17,9 @@ function OpcenTable(props) {
         _hover={{
           background: "green.50",
           color: "black",
-          borderTop: "2px",
+          borderLeft: "2px",
           borderColor: "green",
+          transform: "scale(1.01)",
         }}
         py={3}
         onClick={() => {

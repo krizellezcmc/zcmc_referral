@@ -121,8 +121,8 @@ function OpcenHome() {
               bg="white"
               borderRadius="lg"
               border="1px"
-              borderColor="gray.300"
-              boxShadow="md"
+              borderColor="gray.50"
+              boxShadow="base"
               py={3}
             >
               <HStack>
@@ -154,7 +154,7 @@ function OpcenHome() {
               bg="white"
               borderRadius="md"
               border="1px"
-              borderColor="gray.300"
+              borderColor="gray.100"
               boxShadow="base"
               mt={2}
             >

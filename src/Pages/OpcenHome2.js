@@ -37,7 +37,7 @@ import useAuth from "../Hooks/useAuth";
 
 import Sidebar from "../Components/Sidebar";
 import { useParams, useNavigate } from "react-router-dom";
-import { BiArrowBack } from "react-icons/bi";
+import { BiArrowBack, BiDownload } from "react-icons/bi";
 import { GoArrowUp, GoCheck } from "react-icons/go";
 import Swal from "sweetalert2";
 import moment from "moment";
@@ -136,6 +136,7 @@ function OpcenHome2(props) {
     getHospitals();
     getDetails();
   }, [id, remarks]);
+
   return (
     <div className="container">
       <Sidebar />
@@ -151,6 +152,7 @@ function OpcenHome2(props) {
             Back
           </Button>
           {/* <Box float="right" p={10}> */}
+
           <Box float="right">
             {patientStat === "pending" ? (
               <>
@@ -226,6 +228,7 @@ function OpcenHome2(props) {
                 <TabPanel>
                   <Box px={20}>
                     <OpcenReferral patientId={id} status={patientStat} />
+                    {/* <ReferralDownload patientId={id} /> */}
                   </Box>
                 </TabPanel>
                 <TabPanel>
