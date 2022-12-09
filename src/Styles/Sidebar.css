@@ -150,7 +150,7 @@
 
 .sidebar-user {
   width: 100%;
-  height: 90px;
+  height: auto;
   /* border-top: 1px solid #dfdfdf; */
   display: flex;
   align-items: center;

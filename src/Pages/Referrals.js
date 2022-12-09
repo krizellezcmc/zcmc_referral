@@ -138,7 +138,7 @@ function Referrals(props) {
                 borderRadius="lg"
                 padding={1}
                 border="1px"
-                borderColor="gray.300"
+                borderColor="gray.100"
                 boxShadow="lg"
                 py={3}
               >
@@ -171,7 +171,7 @@ function Referrals(props) {
                 bg="white"
                 borderRadius="md"
                 border="1px"
-                borderColor="gray.300"
+                borderColor="gray.100"
                 boxShadow="base"
                 mt={3}
               >
@@ -190,8 +190,9 @@ function Referrals(props) {
                             _hover={{
                               background: "green.50",
                               color: "black",
-                              borderTop: "2px",
+                              borderLeft: "2px",
                               borderColor: "green",
+                              transform: "scale(1.01)",
                             }}
                             py={3}
                             onClick={() => {
