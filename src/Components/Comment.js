@@ -57,7 +57,7 @@ function Comment(props) {
           </span>
         </Box>
 
-        {props.file !== null ? (
+        {/* {props.file !== null ? (
           <Box
             ml={14}
             mt={5}
@@ -83,7 +83,7 @@ function Comment(props) {
           </Box>
         ) : (
           ""
-        )}
+        )} */}
       </Box>
       <hr />
     </div>
