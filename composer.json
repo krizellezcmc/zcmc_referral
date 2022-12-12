@@ -3,7 +3,7 @@
     {
       "type": "package",
       "package": {
-        "name": "krizellezcmc10/zcmc_referral",
+        "name": "krizellezcmc/zcmc_referral",
         "version": "1.0",
         "source": {
           "url": "https://github.com/krizellezcmc/zcmc_referral.git",
@@ -14,6 +14,6 @@
     }
   ],
   "require": {
-    "krizellezcmc10/zcmc_referral": "1.0"
+    "krizellezcmc/zcmc_referral": "1.0"
   }
 }
