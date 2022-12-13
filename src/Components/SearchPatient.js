@@ -182,9 +182,13 @@ function SearchPatient(props) {
     //     setRemarks(response.data);
     //     // setIsLoading(false);
     //   });
-    fetchPatData();
+
     comments();
-  }, [hospital, id, remarks]);
+  }, [id, remarks]);
+
+  useEffect(() => {
+    fetchPatData();
+  }, []);
 
   return (
     <div style={{ padding: "20px" }}>
