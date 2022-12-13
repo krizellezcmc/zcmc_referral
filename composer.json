@@ -1,0 +1,19 @@
+{
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "krizellezcmc/zcmc_referral",
+        "version": "1.0",
+        "source": {
+          "url": "https://github.com/krizellezcmc/zcmc_referral.git",
+          "type": "git",
+          "reference": "main"
+        }
+      }
+    }
+  ],
+  "require": {
+    "krizellezcmc/zcmc_referral": "1.0"
+  }
+}
