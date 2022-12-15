@@ -1,77 +1,79 @@
 import React from "react";
-import { Text, Box } from "@chakra-ui/react";
+import { Text, Box, Center, Image, Spacer } from "@chakra-ui/react";
 import ProfileTile from "./ProfileTile";
+import ContributorsTile from "./ContributorsTile";
 
 function Developers(props) {
-  var sir_john = require("../../Assets/Profile/sir_john.png");
-  var alyana = require("../../Assets/Profile/alyana.png");
-  var krizelle = require("../../Assets/Profile/krizelle.png");
+  var doc2 = require("../../Assets/Profile/doc_kath.png");
+  var doc3 = require("../../Assets/Profile/doc_ori_new.png");
 
   return (
     <div>
-      <Box mt={{ lg: 20, md: 10, sm: 0 }} mb={10} display={{ md: "flex" }}>
-        <Box
-          mt={{ base: 5, lg: 20, md: 20 }}
-          mr={{ lg: 10, md: 10, sm: 5 }}
-          p={3}
-          width={{ md: 500 }}
-        >
+      <Box align="center">
+        <Box width="30%" mb={5}>
           <Text
             fontWeight={700}
-            fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
+            fontSize={{ md: "3xl", lg: "3xl", sm: "4xl" }}
             color="alpha.900"
             letterSpacing="wide"
           >
-            Meet the Team.
+            Contributors
           </Text>
 
-          <Text
-            mt={3}
-            align="justify"
-            color="alpha.900"
-            fontWeight={400}
-            fontSize={{ sm: 14 }}
-          >
+          <Text mt={2} color="alpha.900" fontWeight={400} fontSize={{ sm: 12 }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore.
           </Text>
         </Box>
-        <Box
-          flexShrink={0}
-          mt={{ base: 5, md: 10 }}
-          mb={{ lg: 10, md: 5 }}
-          display={{ md: "flex" }}
-          align={{ md: "center" }}
-        >
-          <ProfileTile
-            image={sir_john}
-            name="John Mary C. Sta Teresa"
-            color="#A1CDDE"
-            position="Statistician II"
-            height={{ lg: 270, md: 180, sm: 180 }}
-            width={{ lg: 200, md: 160, sm: 130 }}
-          />
-          <ProfileTile
-            image={alyana}
-            name="Alyana Claire C. Barretto"
-            color=" #7C918F"
-            position="Software Developer"
-            height={{ lg: 270, md: 180, sm: 180 }}
-            width={{ lg: 185, md: 140, sm: 130 }}
-          />
-          <ProfileTile
-            image={krizelle}
-            name="Krizelle Mae B. Falcasantos"
-            color="#F0CAC7"
-            // color="#a7c5ae"
-            // color="#D1CFE2 "
-            // color="#FFf1e6"
-            // color="#ECD5E3"
-            position="Software Developer"
-            height={{ lg: 270, md: 180, sm: 180 }}
-            width={{ lg: 211, md: 170, sm: 140 }}
-          />
-        </Box>
+        <Center>
+          <Box flexShrink={0} display={{ lg: "flex" }} align="center">
+            <Box
+              mr={{ lg: 50 }}
+              // boxShadow="xl"
+            >
+              <Box height={{ sm: 180, lg: 180 }} width={{ sm: 180, lg: 180 }}>
+                <Image src={doc3} width="100%" />
+              </Box>
+              <Box mt={5} align="center">
+                <Text
+                  fontSize={{ lg: 12, md: 12, sm: 11.5 }}
+                  color="gray.700"
+                  fontWeight={600}
+                >
+                  Dr. Orissa Alpuerto
+                </Text>
+                <Box align="center">
+                  <Text fontSize={{ lg: 11, md: 11, sm: 10 }} color="gray.700">
+                    Medical Officer III
+                  </Text>
+                </Box>
+              </Box>
+            </Box>
+
+            <Box
+              ml={{ lg: 50 }}
+              // boxShadow="xl"
+            >
+              <Box height={{ sm: 180, lg: 180 }} width={{ sm: 180, lg: 180 }}>
+                <Image src={doc2} width="100%" />
+              </Box>
+              <Box mt={5} align="center">
+                <Text
+                  fontSize={{ lg: 12, md: 11, sm: 11.5 }}
+                  color="gray.700"
+                  fontWeight={600}
+                >
+                  Dr. Katherine Lim-Eisma
+                </Text>
+                <Box align="center">
+                  <Text fontSize={{ lg: 11, md: 11, sm: 10 }} color="gray.700">
+                    Medical Officer III
+                  </Text>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Center>
       </Box>
     </div>
   );

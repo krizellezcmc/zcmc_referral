@@ -47,16 +47,10 @@ function Specialization(props) {
               <Tile image={brain} name="Psychiatry" />
             </WrapItem>
             <WrapItem width={300}>
-              <Tile image={lungs} name="Internal Medicine" />
+              <Tile image={lungs} name="Surgery" />
             </WrapItem>
             <WrapItem width={300}>
-              <Tile image={oby} name="Obstetrics and Gynecology" />
-            </WrapItem>
-            <WrapItem width={300}>
-              <Tile image={pedia} name="Pediatrics" />
-            </WrapItem>
-            <WrapItem width={300}>
-              <Tile image={brain} name="Psychiatry" />
+              <Tile image={oby} name="Orthopedics" />
             </WrapItem>
           </Wrap>
         </Container>

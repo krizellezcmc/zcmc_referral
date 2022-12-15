@@ -74,7 +74,8 @@ function FAQs(props) {
                 </>
               )}
             </AccordionItem>
-            <AccordionItem>
+
+            {/* <AccordionItem>
               {({ isExpanded }) => (
                 <>
                   <AccordionButton>
@@ -173,57 +174,7 @@ function FAQs(props) {
                   </AccordionPanel>
                 </>
               )}
-            </AccordionItem>
-            <AccordionItem>
-              {({ isExpanded }) => (
-                <>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?{" "}
-                      </Text>
-                    </Box>
-                    {isExpanded ? (
-                      <BiMinusCircle fontSize={16} />
-                    ) : (
-                      <BiPlusCircle fontSize={16} />
-                    )}
-                  </AccordionButton>
-
-                  <AccordionPanel pb={4} fontSize={15}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem>
-            <AccordionItem>
-              {({ isExpanded }) => (
-                <>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?{" "}
-                      </Text>
-                    </Box>
-                    {isExpanded ? (
-                      <BiMinusCircle fontSize={16} />
-                    ) : (
-                      <BiPlusCircle fontSize={16} />
-                    )}
-                  </AccordionButton>
-
-                  <AccordionPanel pb={4} fontSize={15}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem>
+            </AccordionItem> */}
           </Accordion>
         </Container>
       </Box>

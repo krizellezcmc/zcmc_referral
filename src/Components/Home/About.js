@@ -104,7 +104,7 @@ function About(props) {
           height={600}
           opacity={0.8}
         /> */}
-        <Container maxW="container.xl" pb={10}>
+        <Container maxW="container.xl" py={1}>
           <Developers />
         </Container>
       </Box>

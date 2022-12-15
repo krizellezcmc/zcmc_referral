@@ -2,11 +2,13 @@ import React from "react";
 import { Text, Box, Center } from "@chakra-ui/react";
 
 import ContributorsTile from "./ContributorsTile";
+import ProfileTile from "./ProfileTile";
 
 function Contributors(props) {
   var doc1 = require("../../Assets/Profile/doc_kunting_head.png");
-  var doc2 = require("../../Assets/Profile/doc_kath.png");
-  var doc3 = require("../../Assets/Profile/doc_ori_new.png");
+  var sir_john = require("../../Assets/Profile/sir_john.png");
+  var alyana = require("../../Assets/Profile/alyana.png");
+  var krizelle = require("../../Assets/Profile/krizelle.png");
 
   return (
     <Box>
@@ -23,7 +25,7 @@ function Contributors(props) {
           color="black"
           letterSpacing="wide"
         >
-          The Contributors
+          Meet the Team
         </Text>
 
         <Text
@@ -37,38 +39,59 @@ function Contributors(props) {
           eiusmod tempor incididunt ut labore et dolore.
         </Text>
       </Box>
-      <Center mt={{ lg: 20, md: 5, sm: 0 }} mb={10}>
+      <Center mt={{ lg: 20, md: 5, sm: 0 }} mb={10} display={{ lg: "block" }}>
         <Box
           flexShrink={0}
           mb={{ lg: 10, md: 5 }}
           align="center"
-          display={{ md: "flex" }}
+          // display={{ md: "flex" }}
         >
-          <ContributorsTile
-            image={doc2}
-            name="Dr. Katherine Lim-Eisma"
-            position="Medical Officer III"
-            nameFontSize={{ lg: 14, md: 12, sm: 11.5 }}
-            height={{ sm: 200, lg: 300 }}
-            width={{ sm: 200, lg: 300 }}
-          />
           <ContributorsTile
             image={doc1}
             name="Dr. Afdal B. Kunting"
             position="Medical Center Chief II"
             nameFontSize={{ lg: 15, md: 13, sm: 11.5 }}
-            height={{ sm: 300, lg: 400 }}
-            width={{ sm: 300, lg: 400 }}
-          />
-          <ContributorsTile
-            image={doc3}
-            name="Dr. Orissa Alpuerto"
-            position="Medical Officer III"
-            nameFontSize={{ lg: 14, md: 12, sm: 11.5 }}
-            height={{ sm: 200, lg: 300 }}
-            width={{ sm: 200, lg: 300 }}
+            height={{ sm: 200, lg: 250 }}
+            width={{ sm: 200, lg: 250 }}
           />
         </Box>
+        <Center>
+          <Box
+            flexShrink={0}
+            mt={{ base: 5, md: 5 }}
+            mb={{ lg: 10, md: 5 }}
+            display={{ md: "flex" }}
+          >
+            <ProfileTile
+              image={sir_john}
+              name="John Mary C. Sta Teresa"
+              color="#A1CDDE"
+              position="Statistician II"
+              height={{ lg: 200, md: 180, sm: 180 }}
+              width={{ lg: 180, md: 160, sm: 130 }}
+            />
+            <ProfileTile
+              image={alyana}
+              name="Alyana Claire C. Barretto"
+              color=" #7C918F"
+              position="Software Developer"
+              height={{ lg: 200, md: 180, sm: 180 }}
+              width={{ lg: 170, md: 140, sm: 130 }}
+            />
+            <ProfileTile
+              image={krizelle}
+              name="Krizelle Mae B. Falcasantos"
+              color="#F0CAC7"
+              // color="#a7c5ae"
+              // color="#D1CFE2 "
+              // color="#FFf1e6"
+              // color="#ECD5E3"
+              position="Software Developer"
+              height={{ lg: 200, md: 180, sm: 180 }}
+              width={{ lg: 180, md: 170, sm: 140 }}
+            />
+          </Box>
+        </Center>
       </Center>
     </Box>
   );
