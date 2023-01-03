@@ -194,6 +194,29 @@ const Sidebar = () => {
               <span>Transferred Referrals</span>
             </li>
           </>
+        ) : role === "admission" ? (
+          <>
+            <li
+              className={path.includes("admission") ? "active" : ""}
+              onClick={() => navigate("/admission")}
+            >
+              <p>
+                {path.includes("admission") ? (
+                  <HiViewGrid />
+                ) : (
+                  <HiOutlineViewGrid />
+                )}
+              </p>
+              <span>Referrals</span>
+            </li>
+            <li
+              className={path.includes("changepass") ? "active" : ""}
+              onClick={() => navigate("/changepass")}
+            >
+              <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
+              <span>Account Settings</span>
+            </li>
+          </>
         ) : (
           <>
             {/* <li

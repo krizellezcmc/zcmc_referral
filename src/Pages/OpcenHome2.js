@@ -129,7 +129,7 @@ function OpcenHome2(props) {
 
   useEffect(() => {
     const getHospitals = async () => {
-      let response = await api.get("/get_local_hospitals.php");
+      let response = await api.get("/get_list.php");
       setHospitals(response.data);
     };
     comments();

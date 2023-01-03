@@ -37,6 +37,8 @@ import Homepage from "../Pages/Homepage/Home";
 import About from "./Home/About";
 import ReferralForm from "./ReferralForm";
 import AddReferral from "./AddReferral";
+import AdmissionHome from "../Pages/AdmissionHome";
+import AdmissionViewPat from "../Pages/AdmissionViewPat";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -104,6 +106,12 @@ const AnimatedRoutes = () => {
           <Route element={<ProtectedRoutes user={user} role="admin" />}>
             <Route path="/addhospital" element={<AddHospital />} />
             <Route path="/verifyuser" element={<VerifyUser />} />
+          </Route>
+
+          {/* ADmission Routes */}
+          <Route element={<ProtectedRoutes user={user} role="admission" />}>
+            <Route path="/admission" element={<AdmissionHome />} />
+            <Route path="/admission/:id" element={<AdmissionViewPat />} />
           </Route>
         </Route>
       </Routes>

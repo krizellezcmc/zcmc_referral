@@ -175,6 +175,7 @@ function SearchPatient(props) {
   useEffect(() => {
     const userr = JSON.parse(localStorage.getItem("user"));
     setHospital(userr.name);
+    fetchPatData();
 
     // axios
     //   .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
@@ -184,11 +185,9 @@ function SearchPatient(props) {
     //   });
 
     comments();
-  }, [id, remarks]);
+  }, [id, remarks, hospital]);
 
-  useEffect(() => {
-    fetchPatData();
-  }, []);
+  // useEffect(() => {}, []);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -1025,7 +1024,7 @@ function SearchPatient(props) {
                                       }}
                                     />
                                     <Text textTransform="uppercase">
-                                      Referred date
+                                      Admission date
                                     </Text>
                                   </Text>
                                   <Text fontSize="15px">
@@ -1035,7 +1034,7 @@ function SearchPatient(props) {
                                       borderRadius="5px"
                                       mb={6}
                                     >
-                                      {moment(d.referredDate).format("lll")}
+                                      {moment(d.registryDate).format("lll")}
                                     </Box>
                                   </Text>
 
@@ -1085,7 +1084,7 @@ function SearchPatient(props) {
                                     </Box>
                                   </Box>
 
-                                  <Box mt={10}>
+                                  {/* <Box mt={10}>
                                     <Text
                                       style={{
                                         display: "flex",
@@ -1129,7 +1128,7 @@ function SearchPatient(props) {
                                         </>
                                       )}
                                     </Box>
-                                  </Box>
+                                  </Box> */}
 
                                   <Box mt={10}>
                                     <Text

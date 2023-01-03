@@ -341,10 +341,10 @@ const ReferredPatients = () => {
                           <BiCalendarEvent
                             style={{ marginRight: "5px", marginTop: 2 }}
                           />
-                          <Text textTransform="uppercase">Referred date</Text>
+                          <Text textTransform="uppercase">Admission date</Text>
                         </small>
                         <Text fontSize="15px">
-                          {moment(d.referredDate).format("lll")}
+                          {moment(d.registryDate).format("ll H:mm")}
                         </Text>
                       </GridItem>
                     </Grid>

@@ -123,6 +123,9 @@ function Login() {
   if (user?.role === "triage") {
     return <Navigate to="/pretriage" />;
   }
+  if (user?.role === "admission") {
+    return <Navigate to="/admission" />;
+  }
 
   return (
     <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
