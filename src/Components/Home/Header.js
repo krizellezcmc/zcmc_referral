@@ -38,8 +38,8 @@ function Header(props) {
               fontWeight="300"
               letterSpacing="wide"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
             </Text>
 
             <Box display={{ md: "flex" }} mt={10}>

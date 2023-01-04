@@ -7,19 +7,19 @@ function ProfileTile(props) {
     <div>
       <Box
         height={{ lg: 260, md: 260, sm: 250 }}
-        width={{ lg: 220, md: 170, sm: 170 }}
-        mr={{ lg: 5, md: 3 }}
+        width={{ lg: 210, md: 170, sm: 170 }}
+        mr={props.mr}
         borderRadius="10"
-        bgColor="gray.100"
+        bgColor="gray.50"
         p={3}
-        boxShadow="xl"
+        boxShadow="md"
         mt={{ sm: 5 }}
       >
         <Box
           borderRadius={{ sm: 5, md: 8 }}
           bgColor={props.color}
           height={{ lg: 200, md: 180, sm: 180 }}
-          width={{ lg: 195, md: 146, sm: 156 }}
+          width={{ lg: 186, md: 146, sm: 156 }}
           align="center"
         >
           <Image src={props.image} height={props.height} width={props.width} />

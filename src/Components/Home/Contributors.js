@@ -35,8 +35,8 @@ function Contributors(props) {
           letterSpacing="wide"
           w={{ sm: 500, md: 800 }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore.
+          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore. */}
         </Text>
       </Box>
       <Center mt={{ lg: 20, md: 5, sm: 0 }} mb={10} display={{ lg: "block" }}>
@@ -61,6 +61,7 @@ function Contributors(props) {
             mt={{ base: 5, md: 5 }}
             mb={{ lg: 10, md: 5 }}
             display={{ md: "flex" }}
+            p={10}
           >
             <ProfileTile
               image={sir_john}
@@ -69,6 +70,7 @@ function Contributors(props) {
               position="Statistician II"
               height={{ lg: 200, md: 180, sm: 180 }}
               width={{ lg: 180, md: 160, sm: 130 }}
+              mr={{ lg: 20, md: 3 }}
             />
             <ProfileTile
               image={alyana}
@@ -76,7 +78,8 @@ function Contributors(props) {
               color=" #7C918F"
               position="Software Developer"
               height={{ lg: 200, md: 180, sm: 180 }}
-              width={{ lg: 170, md: 140, sm: 130 }}
+              width={{ lg: 160, md: 140, sm: 130 }}
+              mr={{ lg: 20, md: 3 }}
             />
             <ProfileTile
               image={krizelle}
@@ -89,6 +92,7 @@ function Contributors(props) {
               position="Software Developer"
               height={{ lg: 200, md: 180, sm: 180 }}
               width={{ lg: 180, md: 170, sm: 140 }}
+              mr={{ lg: 0, md: 0 }}
             />
           </Box>
         </Center>
