@@ -33,16 +33,25 @@ export const dispositionList = [
 ];
 
 export const specializationList = [
+  { value: "ENT", label: "ENT" },
   { value: "Internal Medicine", label: "Internal Medicine" },
-  { value: "Pediatrics", label: "Pediatrics" },
-  { value: "Surgery", label: "Surgery" },
   { value: "Obstetrics And Gynecology", label: "Obstetrics And Gynecology" },
+  { value: "Orthopedics", label: "Orthopedics" },
+  { value: "Opthalmology", label: "Opthalmology" },
+  { value: "Pediatrics", label: "Pediatrics" },
   { value: "Psychiatry", label: "Psychiatry" },
+  { value: "Surgery", label: "Surgery" },
 ];
 
 export const reasonList = [
-  { value: "Medical Center of Choice", label: "Medical Center of Choice" },
-  { value: "Upgrade of Health Care", label: "Upgrade of Health Care" },
-  { value: "Financial/Cost of Care", label: "Financial/Cost of Care" },
-  { value: "Other", label: "Other" },
+  { value: "Financially Constrained", label: "Financially Constrained" },
+  {
+    value: "No specialist/procedure available",
+    label: "No specialist/procedure available",
+  },
+  {
+    value: "Further evaluation and management",
+    label: "Further evaluation and management",
+  },
+  { value: "For Tertiary Care", label: "For Tertiary Care" },
 ];

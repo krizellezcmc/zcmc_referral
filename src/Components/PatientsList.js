@@ -121,7 +121,6 @@ const PatientsList = (props) => {
   const [latestOxygen, setLatestOxygen] = useState("");
   const [latestGlasgow, setLatestGlasgow] = useState("");
   const [status, setStatus] = useState("");
-  const [count, setCount] = useState(0);
   const [isLoadingPending, setIsLoadingPending] = useState(false);
 
   const [reason, setReason] = useState("");
@@ -168,9 +167,6 @@ const PatientsList = (props) => {
     let pending = await api.get("/get_pending_patients.php");
     setPendingPat(pending.data);
 
-    let count = await api.get("/get_cancelled.php");
-    setCount(count.data);
-
     if (pat) {
       setIsLoading(false);
     }
@@ -189,18 +185,6 @@ const PatientsList = (props) => {
     <div>
       <Container maxW="100%">
         <div className="table-container">
-          <Box float="right">
-            <Link
-              fontSize="14px"
-              onClick={() => {
-                onCancelledOpen();
-              }}
-              color="red.600"
-            >
-              View Cancelled Referrals ({count.length})
-            </Link>
-          </Box>
-
           <Text fontWeight={800} fontSize={20} mb={2}>
             REFERRED PATIENTS
           </Text>
@@ -529,27 +513,6 @@ const PatientsList = (props) => {
       </Modal>
 
       {/* MODAL VIEW DETAILS */}
-      <Modal
-        closeOnOverlayClick={false}
-        isOpen={isCancelledOpen}
-        onClose={onCancelledClose}
-        size="6xl"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Cancelled Referrals</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <CancelledModal />
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onCancelledClose}>
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
 
       <Modal
         closeOnOverlayClick={false}

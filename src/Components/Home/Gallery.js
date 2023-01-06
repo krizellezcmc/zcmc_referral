@@ -61,8 +61,8 @@ function Gallery(props) {
               w={{ sm: 460, lg: 800 }}
               fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
             </Text>
           </Box>
           <div className="carousel-wrapper">

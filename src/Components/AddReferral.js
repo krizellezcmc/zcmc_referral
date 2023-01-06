@@ -149,7 +149,7 @@ const AddReferral = () => {
     return age;
   }
 
-  const url = "/temp_referral.php";
+  const url = "/opcen_add_referral.php";
 
   const postData = async (e) => {
     e.preventDefault();
@@ -196,7 +196,7 @@ const AddReferral = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, update record!",
+        confirmButtonText: "Yes, save record!",
       }).then(async (result) => {
         if (result.isConfirmed) {
           let response = await api.post(url, {
@@ -711,9 +711,7 @@ const AddReferral = () => {
             )}
             <HStack mt={10}>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>
-                  Latest V/S- <br></br>Temperature
-                </FormLabel>
+                <FormLabel fontSize={14}>Latest V/S-Temperature</FormLabel>
                 <Input
                   type="text"
                   variant="filled"
@@ -722,9 +720,7 @@ const AddReferral = () => {
                 />
               </FormControl>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>
-                  Latest V/S-Blood <br></br> Pressure
-                </FormLabel>
+                <FormLabel fontSize={14}>Latest V/S-Blood Pressure</FormLabel>
                 <Input
                   type="text"
                   variant="filled"
@@ -742,9 +738,7 @@ const AddReferral = () => {
                 />
               </FormControl>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>
-                  Latest V/S-Pulse <br></br>Rate
-                </FormLabel>
+                <FormLabel fontSize={14}>Latest V/S-Pulse Rate</FormLabel>
                 <Input
                   type="text"
                   variant="filled"

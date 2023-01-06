@@ -28,8 +28,8 @@ function Specialization(props) {
               w={{ sm: 400, md: 600 }}
               fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
             </Text>
           </Box>
 

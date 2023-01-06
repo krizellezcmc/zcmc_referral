@@ -21,8 +21,8 @@ function Developers(props) {
           </Text>
 
           <Text mt={2} color="alpha.900" fontWeight={400} fontSize={{ sm: 12 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore.
+            {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore. */}
           </Text>
         </Box>
         <Center>

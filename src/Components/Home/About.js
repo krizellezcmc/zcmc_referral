@@ -33,8 +33,8 @@ function About(props) {
               letterSpacing="wide"
               w={{ sm: 500, md: 600 }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore.
+              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore. */}
             </Text>
           </Box>
 
