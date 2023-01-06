@@ -85,6 +85,11 @@ function Header(props) {
                 <span style={{ fontWeight: "500" }}>ZCMC PRE-TRIAGE</span>
                 <span>|</span>
               </>
+            ) : role === "admission" ? (
+              <>
+                <span style={{ fontWeight: "500" }}>ZCMC Admission</span>
+                <span>|</span>
+              </>
             ) : (
               <>
                 <span style={{ fontWeight: "500" }}>ZCMC Administrator </span>
