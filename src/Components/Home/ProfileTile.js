@@ -6,25 +6,29 @@ function ProfileTile(props) {
   return (
     <div>
       <Box
-        height={{ lg: 260, md: 260, sm: 250 }}
-        width={{ lg: 220, md: 170, sm: 170 }}
         mr={{ lg: 5, md: 3 }}
         borderRadius="10"
-        bgColor="gray.100"
-        p={3}
-        boxShadow="xl"
+        // bgColor="gray.100"
+        // p={3}
+        // boxShadow="xl"
+        p={5}
         mt={{ sm: 5 }}
       >
         <Box
-          borderRadius={{ sm: 5, md: 8 }}
+          borderRadius={100}
           bgColor={props.color}
           height={{ lg: 200, md: 180, sm: 180 }}
           width={{ lg: 195, md: 146, sm: 156 }}
           align="center"
         >
-          <Image src={props.image} height={props.height} width={props.width} />
+          <Image
+            src={props.image}
+            height={props.height}
+            width={props.width}
+            borderRadius={80}
+          />
         </Box>
-        <Box mt={{ sm: 3, md: 1 }}>
+        <Box mt={{ sm: 3, md: 5 }} textAlign="center">
           <Text
             fontSize={{ lg: 12, md: 12, sm: 11 }}
             color="gray.700"
@@ -32,7 +36,7 @@ function ProfileTile(props) {
           >
             {props.name}
           </Text>
-          <Box display={{ sm: "flex", md: "flex" }}>
+          <Box>
             <Text fontSize={{ lg: 11, md: 10, sm: 10 }} color="gray.700">
               {props.position}
             </Text>

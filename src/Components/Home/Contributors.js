@@ -76,7 +76,7 @@ function Contributors(props) {
               color=" #7C918F"
               position="Software Developer"
               height={{ lg: 200, md: 180, sm: 180 }}
-              width={{ lg: 170, md: 140, sm: 130 }}
+              width={{ lg: 180, md: 140, sm: 130 }}
             />
             <ProfileTile
               image={krizelle}

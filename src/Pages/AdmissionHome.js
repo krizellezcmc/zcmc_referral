@@ -18,7 +18,7 @@ import React, { useEffect, useState } from "react";
 import api from "../API/Api";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
-import { BiSearch } from "react-icons/bi";
+import { BiRefresh, BiSearch } from "react-icons/bi";
 import AdmissionTable from "../Components/AdmissionTable";
 
 function AdmissionHome(props) {
@@ -26,7 +26,7 @@ function AdmissionHome(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const refreshPage = () => {
-    window.location.reload(false);
+    window.location.href = "login";
   };
 
   const [list, setList] = useState([]);
@@ -81,6 +81,14 @@ function AdmissionHome(props) {
                     }}
                   />
                 </InputGroup>
+
+                <Button
+                  onClick={refreshPage}
+                  rightIcon={<BiRefresh />}
+                  colorScheme="orange"
+                >
+                  Refresh
+                </Button>
               </Box>
 
               <Box

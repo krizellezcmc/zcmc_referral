@@ -10,7 +10,7 @@ function Specialization(props) {
   return (
     <>
       <Box bgColor="green.50" py={20} w="100%">
-        <Container maxW="container.xl" pb={20}>
+        <Container maxW="container.lg" pb={20}>
           <Box p={3} align="center">
             <Text
               fontWeight="bold"

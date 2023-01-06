@@ -15,7 +15,7 @@ function Home() {
   };
 
   const refreshPage = () => {
-    window.location.reload(false);
+    window.location.href = "/login";
   };
 
   const old = () => {
