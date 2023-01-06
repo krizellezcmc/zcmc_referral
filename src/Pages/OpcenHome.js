@@ -14,6 +14,15 @@ import {
   Spacer,
   Center,
   Button,
+  Link,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import Spinner from "../Components/Spinner";
 
@@ -24,6 +33,7 @@ import Sidebar from "../Components/Sidebar";
 import OpcenTable from "../Components/OpcenTable";
 import { BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import CancelledModal from "../Components/CancelledModal";
 
 function OpcenHome() {
   const [showContent, setShowContent] = useState(false);
@@ -34,7 +44,15 @@ function OpcenHome() {
 
   const [search, setSearch] = useState("");
 
+  const [count, setCount] = useState(0);
+
   const { user } = useAuth();
+
+  const {
+    isOpen: isCancelledOpen,
+    onOpen: onCancelledOpen,
+    onClose: onCancelledClose,
+  } = useDisclosure();
 
   // const select = (e) => {
   //   setSelected(e);
@@ -48,6 +66,9 @@ function OpcenHome() {
     setIsLoading(true);
     let pat = await api.get("/get_list.php");
     setList(pat.data);
+
+    let count = await api.get("/get_cancelled.php");
+    setCount(count.data);
 
     if (pat) {
       setIsLoading(false);
@@ -87,7 +108,7 @@ function OpcenHome() {
         <Header />
         <div className="">
           <Container maxW="80%" mt={5}>
-            <Box py={5} display="flex">
+            <HStack py={10} pos="relative">
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
@@ -107,14 +128,29 @@ function OpcenHome() {
                   }}
                 />
               </InputGroup>
-              <Button
-                size="md"
-                colorScheme="green"
-                onClick={() => window.open("/referralform", "_blank")}
-              >
-                + Add Referral
-              </Button>
-            </Box>
+              <Box>
+                <Button
+                  fontSize="14px"
+                  size="md"
+                  colorScheme="green"
+                  onClick={() => window.open("/referralform", "_blank")}
+                >
+                  + Add Referral
+                </Button>
+              </Box>
+
+              <Box>
+                <Button
+                  fontSize="14px"
+                  onClick={() => {
+                    onCancelledOpen();
+                  }}
+                  colorScheme="red"
+                >
+                  View Cancelled Referrals ({count.length})
+                </Button>
+              </Box>
+            </HStack>
 
             <Box
               w="100%"
@@ -157,6 +193,7 @@ function OpcenHome() {
               borderColor="gray.100"
               boxShadow="base"
               mt={2}
+              mb={10}
             >
               {isLoading ? (
                 <Center my={20}>
@@ -213,6 +250,30 @@ function OpcenHome() {
             </Box>
             <Divider />
           </Container>
+
+          {/* //Modal */}
+
+          <Modal
+            closeOnOverlayClick={false}
+            isOpen={isCancelledOpen}
+            onClose={onCancelledClose}
+            size="6xl"
+          >
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Cancelled Referrals</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <CancelledModal />
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme="blue" mr={3} onClick={onCancelledClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </div>
       </div>
     </div>

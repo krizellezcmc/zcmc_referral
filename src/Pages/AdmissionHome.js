@@ -92,7 +92,6 @@ function AdmissionHome(props) {
                 boxShadow="base"
                 py={3}
                 mt={6}
-                position="relative"
               >
                 <HStack>
                   <Box w="100%" textAlign="center">

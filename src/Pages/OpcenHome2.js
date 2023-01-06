@@ -28,6 +28,7 @@ import {
   Textarea,
   useToast,
   Center,
+  GridItem,
 } from "@chakra-ui/react";
 import Spinner from "../Components/Spinner";
 import AddComment from "../Components/AddComment";
@@ -56,6 +57,8 @@ function OpcenHome2(props) {
   const [selectRef, setSelectedRef] = useState("");
   const [hospitals, setHospitals] = useState([]);
   const [arrivalTime, setArrivalTime] = useState("");
+
+  const [rejectReason, setRejectReason] = useState("");
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -115,6 +118,7 @@ function OpcenHome2(props) {
     if (details) {
       setPatientStat(details.data.status);
       setArrivalTime(details.data.arrival_time);
+      setRejectReason(details.data.rejectReason);
     }
   };
 
@@ -127,6 +131,39 @@ function OpcenHome2(props) {
     }
   };
 
+  const cancelReferral = (id) => {
+    Swal.fire({
+      text: "Please indicate reason for cancelling the referral",
+      icon: "warning",
+      input: "textarea",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Proceed",
+      preConfirm: (data) => {
+        if (!data) {
+          Swal.showValidationMessage(`Request failed`);
+        }
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let res = await api.post("/cancel_referred_patient.php", {
+          id: id,
+          reason: result.value,
+        });
+
+        if (res.data.status === 1) {
+          Swal.fire(
+            "Cancelled!",
+            "You successfully cancelled the referral.",
+            "success"
+          );
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
+      }
+    });
+  };
   useEffect(() => {
     const getHospitals = async () => {
       let response = await api.get("/get_list.php");
@@ -195,6 +232,15 @@ function OpcenHome2(props) {
                   </Text>
                 </HStack>
               </Box>
+            ) : patientStat === "accepted" ? (
+              <Button
+                size="sm"
+                colorScheme="red"
+                variant="solid"
+                onClick={() => cancelReferral(id)}
+              >
+                Cancel Referral
+              </Button>
             ) : (
               ""
             )}
