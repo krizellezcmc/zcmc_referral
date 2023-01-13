@@ -40,6 +40,7 @@ import AddReferral from "./AddReferral";
 import AdmissionHome from "../Pages/AdmissionHome";
 import AdmissionViewPat from "../Pages/AdmissionViewPat";
 import ReferralDownload from "./ReferralDownload";
+import AdminRequests from "../Pages/AdminRequests";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
