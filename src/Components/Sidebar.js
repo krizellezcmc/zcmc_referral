@@ -18,6 +18,7 @@ import {
   HiOutlineDocumentAdd,
   HiUserRemove,
   HiOutlineUserGroup,
+  HiPencil,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
 import { useNavigate } from "react-router-dom";
@@ -96,6 +97,13 @@ const Sidebar = () => {
                 )}
               </p>
               <span>Hospitals</span>
+            </li>
+            <li
+              className={path.includes("requests") ? "active" : ""}
+              onClick={() => navigate("/requests")}
+            >
+              <p>{path.includes("requests") ? <HiPencil /> : <HiPencil />}</p>
+              <span>Edit Requests</span>
             </li>
             <li
               className={path.includes("changepass") ? "active" : ""}

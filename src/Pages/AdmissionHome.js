@@ -35,7 +35,6 @@ function AdmissionHome(props) {
     setIsLoading(true);
     let response = await api.get("/get_admission.php");
     setList(response.data);
-    console.log(response.data);
 
     if (response) {
       setIsLoading(false);

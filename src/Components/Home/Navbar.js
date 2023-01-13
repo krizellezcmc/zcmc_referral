@@ -12,6 +12,8 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../Styles/Navbar.css";
 import logo from "../../Assets/OHCC.png";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function Navbar(props) {
   const navigate = useNavigate();

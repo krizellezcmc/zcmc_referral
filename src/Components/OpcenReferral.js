@@ -24,11 +24,13 @@ import {
   ModalBody,
   ModalCloseButton,
   Center,
+  Badge,
 } from "@chakra-ui/react";
 import api from "../API/Api";
 import moment from "moment";
 import Loading from "./Spinner";
 import Swal from "sweetalert2";
+import { BiEdit } from "react-icons/bi";
 
 function OpcenReferral(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -100,6 +102,9 @@ function OpcenReferral(props) {
   const [load, setLoad] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  const [editable, setEditable] = useState("");
+  const [requestEdit, setRequestEdit] = useState("");
+  const [requestTime, setRequestTime] = useState("");
 
   function getAge(dateString) {
     var today = new Date();
@@ -167,6 +172,28 @@ function OpcenReferral(props) {
       setTimeStamp(response.data.timestamp);
       setLastEdit(response.data.last_edit);
       setLastEditTime(response.data.last_edit_time);
+      setEditable(response.data.editable);
+      setRequestEdit(response.data.requestEdit);
+      setRequestTime(response.data.requestTime);
+    }
+  };
+
+  // REQUEST EDIT
+  const request = async (e) => {
+    // e.preventDefault();
+
+    // alert("Request Edit");
+
+    let resp = await api.post("/request_edit.php", { patId: props.patientId });
+
+    console.log(resp.data);
+    if (resp.data.status === 1) {
+      Swal.fire({
+        title: "Success!",
+        text: "Request submitted.",
+        type: "success",
+        icon: "success",
+      });
     }
   };
 
@@ -866,7 +893,7 @@ function OpcenReferral(props) {
                   color="red.800"
                   fontWeight={500}
                 >
-                  Last edited by {lastEdit}{" "}
+                  + Last edited by {lastEdit}
                   {moment(lastEditTime).startOf().fromNow()}
                 </Text>
               ) : (
@@ -875,8 +902,23 @@ function OpcenReferral(props) {
 
               <Flex>
                 <Spacer />
-                {props.status === "arrived" ? (
-                  ""
+                {editable === 0 && requestEdit === 0 ? (
+                  <Button
+                    isLoading={load}
+                    loadingText="Requesting"
+                    spinnerPlacement="start"
+                    colorScheme="teal"
+                    mt={5}
+                    onClick={request}
+                    w={150}
+                    rightIcon={<BiEdit />}
+                  >
+                    Request Edit
+                  </Button>
+                ) : editable === 0 && requestEdit === 1 ? (
+                  <Badge colorScheme="blue" fontSize="md">
+                    Requested to edit: {moment(requestTime).format("LLL")}
+                  </Badge>
                 ) : (
                   <Button
                     isLoading={load}

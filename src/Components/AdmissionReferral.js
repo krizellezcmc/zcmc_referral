@@ -92,9 +92,6 @@ function AdmissionReferral(props) {
   const [ivf, setIVF] = useState("");
   const [meds, setMeds] = useState("");
   const [lab, setLab] = useState("");
-  // const [newIe, setNewIe] = useState("");
-  // const [newBowList, setNewBowList] = useState("");
-  // const [newGp, setNewGp] = useState("");
   const toast = useToast();
   const [load, setLoad] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -177,7 +174,7 @@ function AdmissionReferral(props) {
   }, [props.patientId]);
 
   return (
-    <div>
+    <>
       {isLoading ? (
         <Center mt={20}>
           <Loading />
@@ -784,7 +781,7 @@ function AdmissionReferral(props) {
           </Box>
         </Container>
       )}
-    </div>
+    </>
   );
 }
 

@@ -28,6 +28,7 @@ function Home(props) {
   const [display, changeDisplay] = useState("none");
   const navigate = useNavigate();
   const location = useLocation();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const scrollUp = () => {
     window.scrollTo({
@@ -38,8 +39,14 @@ function Home(props) {
     navigate("#header");
   };
 
+  let checkLog = localStorage.getItem("user");
+
   // CHECK
   useEffect(() => {
+    if (checkLog !== null) {
+      setLoggedIn(true);
+    }
+
     window.addEventListener("scroll", () => {
       if (window.scrollY > 100) {
         setShowScrollUp(true);
@@ -128,7 +135,7 @@ function Home(props) {
                   window.location.href = "/login";
                 }}
               >
-                Sign in
+                {loggedIn ? "Go to Dashboard" : "Sign in"}
               </Button>
             </Flex>
             <Flex

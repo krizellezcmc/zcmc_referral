@@ -7,7 +7,7 @@ import { BiRefresh } from "react-icons/bi";
 
 function IPCCHome(props) {
   const refreshPage = () => {
-    window.location.reload(false);
+    window.location.href = "/login";
   };
   return (
     <div>

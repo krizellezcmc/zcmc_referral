@@ -39,6 +39,7 @@ import ReferralForm from "./ReferralForm";
 import AddReferral from "./AddReferral";
 import AdmissionHome from "../Pages/AdmissionHome";
 import AdmissionViewPat from "../Pages/AdmissionViewPat";
+import AdminRequests from "../Pages/AdminRequests";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -106,6 +107,7 @@ const AnimatedRoutes = () => {
           <Route element={<ProtectedRoutes user={user} role="admin" />}>
             <Route path="/addhospital" element={<AddHospital />} />
             <Route path="/verifyuser" element={<VerifyUser />} />
+            <Route path="/requests" element={<AdminRequests />} />
           </Route>
 
           {/* ADmission Routes */}
