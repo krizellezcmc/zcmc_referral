@@ -161,7 +161,7 @@ const AddReferral = () => {
       !firstname ||
       !dateAdmitted ||
       !referralType ||
-      !disposition ||
+      // !disposition ||
       !specialization ||
       !temperature ||
       !bloodPressure ||
@@ -517,19 +517,24 @@ const AddReferral = () => {
                   onChange={(e) => setReferralType(e.value)}
                 />
               </FormControl>
-              <FormControl w={500} isRequired>
-                <FormLabel fontSize={14}>Disposition</FormLabel>
-                <Select
-                  variant="filled"
-                  placeholder="Select"
-                  selectedOptionStyle="check"
-                  closeMenuOnSelect={true}
-                  required
-                  useBasicStyles
-                  options={dispositionList}
-                  onChange={(e) => setDisposition(e.value)}
-                />
-              </FormControl>
+              {referralType === "COVID" ? (
+                <FormControl w={500} isRequired>
+                  <FormLabel fontSize={14}>Disposition</FormLabel>
+                  <Select
+                    variant="filled"
+                    placeholder="Select"
+                    selectedOptionStyle="check"
+                    closeMenuOnSelect={true}
+                    required
+                    useBasicStyles
+                    options={dispositionList}
+                    onChange={(e) => setDisposition(e.value)}
+                  />
+                </FormControl>
+              ) : (
+                ""
+              )}
+
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Specialization</FormLabel>
                 <Select

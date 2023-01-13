@@ -27,15 +27,31 @@ function Copyright(props) {
             Rights reserved
           </Text>
         </Box>
+        <Box ml={3}>
+          <Text fontSize={{ lg: 13.5, md: 10, sm: 10 }}>
+            Developed by: MMS-IT
+          </Text>
+        </Box>
+
         <Spacer />
 
         <Box display={{ md: "flex" }}>
-          <Link>
+          <Link
+            href="https://www.facebook.com/profile.php?id=100089036871387&mibextid=LQQJ4d"
+            fontSize={{ lg: 13.5, md: 10, sm: 10 }}
+          >
             <Icon as={SiFacebook} mr={2} />
+            ZCMC HEMS - Operation Center
           </Link>
-          <Link>
-            <Icon as={SiGmail} />
+          <Link
+            href="https://mail.google.com/"
+            fontSize={{ lg: 13.5, md: 10, sm: 10 }}
+          >
+            <Icon as={SiGmail} mr={2} ml={10} />
+            zcmc.referral@gmail.com
           </Link>
+
+          <Text> </Text>
         </Box>
       </Box>
     </>
