@@ -39,7 +39,7 @@ import ReferralForm from "./ReferralForm";
 import AddReferral from "./AddReferral";
 import AdmissionHome from "../Pages/AdmissionHome";
 import AdmissionViewPat from "../Pages/AdmissionViewPat";
-import AdminRequests from "../Pages/AdminRequests";
+import ReferralDownload from "./ReferralDownload";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -79,6 +79,8 @@ const AnimatedRoutes = () => {
           <Route path="/admindashboard" element={<AdminDashboard />} />
 
           <Route path="/referralform" element={<AddReferral />} />
+
+          <Route path="/refdownload" element={<ReferralDownload />} />
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
 
           {/* Nurse Routes*/}

@@ -42,7 +42,10 @@ import { BiArrowBack, BiDownload } from "react-icons/bi";
 import { GoArrowUp, GoCheck } from "react-icons/go";
 import Swal from "sweetalert2";
 import moment from "moment";
+import ReferralDownload from "../Components/ReferralDownload";
 
+import jsPDF from "jspdf";
+import ReactDOMServer from "react-dom/server";
 function OpcenHome2(props) {
   const [patientStat, setPatientStat] = useState("");
   const [remarks, setRemarks] = useState([]);
@@ -58,7 +61,69 @@ function OpcenHome2(props) {
   const [hospitals, setHospitals] = useState([]);
   const [arrivalTime, setArrivalTime] = useState("");
 
-  const [rejectReason, setRejectReason] = useState("");
+  const [opcenUser, setOpcenUserName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [referringFacility, setReferringFacility] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [middlename, setMiddleName] = useState("");
+  const [extendedName, setExtendedName] = useState("");
+  const [sex, setSex] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [age, setAge] = useState("");
+
+  const [civilStatus, setCivilStatus] = useState("");
+  const [nationality, setNationality] = useState("");
+  const [religion, setReligion] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [philhealth, setPhilhealth] = useState("");
+  const [address, setAddress] = useState("");
+  const [nextOfKin, setNextOfKin] = useState("");
+  const [contact, setContact] = useState("");
+  const [userContact, setUserContact] = useState("");
+  const [dateAdmitted, setDateAdmitted] = useState("");
+  const [referralType, setReferralType] = useState("");
+  const [disposition, setDisposition] = useState("");
+  const [temperature, setTemperature] = useState("");
+  const [bloodPressure, setBloodPressure] = useState("");
+  const [respiRate, setRespiRate] = useState("");
+  const [pulseRate, setPulseRate] = useState("");
+  const [oxygen, setOxygen] = useState("");
+  const [glasgow, setGlasgow] = useState("");
+  const [chiefComplaints, setChiefComplaints] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
+  const [endorsement, setEndorsement] = useState("");
+  const [refReason, setRefReason] = useState("");
+  const [specialization, setSpecialization] = useState("");
+
+  const [lmp, setLmp] = useState("");
+  const [aog, setAog] = useState("");
+  const [edc, setEdc] = useState("");
+  const [fht, setFht] = useState("");
+  const [fh, setFh] = useState("");
+  const [apgar, setApgar] = useState("");
+  const [bowList, setBowList] = useState([]);
+  const [gp, setGp] = useState(["", "", ""]);
+  const [getGp, setGetGP] = useState(["", "", ""]);
+  const [ie, setIe] = useState([
+    {
+      cm: "",
+      station: "",
+      effacement: "",
+      presentation: "",
+    },
+  ]);
+  const [hpi, setHPI] = useState("");
+  const [ppf, setPPF] = useState("");
+  const [ivf, setIVF] = useState("");
+  const [meds, setMeds] = useState("");
+  const [lab, setLab] = useState("");
+
+  const [status, setCovidStatus] = useState("");
+  const [swab_date, setSwabDate] = useState("");
+  const [result_date, setResultDate] = useState("");
+
+  const [timestamp, setTimestamp] = useState("");
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -118,7 +183,62 @@ function OpcenHome2(props) {
     if (details) {
       setPatientStat(details.data.status);
       setArrivalTime(details.data.arrival_time);
-      setRejectReason(details.data.rejectReason);
+
+      setUserName(details.data.username);
+      setReferringFacility(details.data.refFacility);
+      setLastName(details.data.lastname);
+      setFirstName(details.data.firstname);
+      setMiddleName(details.data.middleName);
+      setExtendedName(details.data.extended);
+      setSex(details.data.sex);
+      setBirthdate(details.data.birthdate);
+      setCivilStatus(details.data.civilStatus);
+      setNationality(details.data.nationality);
+      setReligion(details.data.religion);
+      setOccupation(details.data.occupation);
+      setPhilhealth(details.data.philhealth);
+      setAddress(details.data.address);
+      setNextOfKin(details.data.nextOfkin);
+      setContact(details.data.contactWatcher);
+      setDateAdmitted(details.data.dateAdmitted);
+      setReferralType(details.data.refType);
+      setDisposition(details.data.disposition);
+      setSpecialization(details.data.specialization);
+      setTemperature(details.data.latestTemp);
+      setBloodPressure(details.data.latestBp);
+      setRespiRate(details.data.latestRespi);
+      setPulseRate(details.data.latestPulse);
+      setOxygen(details.data.latestOxygen);
+      setGlasgow(details.data.latestGlasgow);
+      setChiefComplaints(details.data.chiefComplaints);
+      setDiagnosis(details.data.diagnosis);
+      setEndorsement(details.data.endorsement);
+      setUserContact(details.data.userContact);
+      setRefReason(details.data.reason);
+      setGetGP(details.data.GP);
+      setLmp(details.data.LMP);
+      setAog(details.data.AOG);
+      setEdc(details.data.EDC);
+      setFht(details.data.FHT);
+      setFh(details.data.FH);
+      setApgar(details.data.APGAR);
+      setIe(details.data.IE);
+      setBowList(details.data.bow);
+      setHPI(details.data.HPI);
+      setPPF(details.data.PPF);
+      setIVF(details.data.IVF);
+      setMeds(details.data.MEDS);
+      setLab(details.data.LAB);
+      setTimestamp(details.data.timestamp);
+    }
+
+    let response = await api.get("/get_covid_status.php", {
+      params: { id: id },
+    });
+    if (response) {
+      setCovidStatus(response.data.result);
+      setSwabDate(response.data.swab_date);
+      setResultDate(response.data.result_date);
     }
   };
 
@@ -174,6 +294,100 @@ function OpcenHome2(props) {
     getDetails();
   }, [id, remarks]);
 
+  const exportPDF = () => {
+    let element = (
+      <div>
+        <ReferralDownload
+          username={userName}
+          refFacility={referringFacility}
+          lastname={lastname}
+          firstName={firstname}
+          middleName={middlename}
+          extended={extendedName}
+          sex={sex}
+          age={age}
+          address={address}
+          contact={contact}
+          referralType={referralType}
+          disposition={disposition}
+          specialization={specialization}
+          chiefComplaints={chiefComplaints}
+          diagnosis={diagnosis}
+          temp={temperature}
+          bp={bloodPressure}
+          pr={pulseRate}
+          rr={respiRate}
+          oxygen={oxygen}
+          gcs={glasgow}
+          rod={userContact}
+          reason={refReason}
+          gp={getGp}
+          lmp={lmp}
+          aog={aog}
+          edc={edc}
+          fht={fht}
+          fh={fh}
+          ie={ie}
+          bow={bowList}
+          HPI={hpi}
+          PPF={ppf}
+          ivf={ivf}
+          meds={meds}
+          lab={lab}
+          timestamp={timestamp}
+          status={status}
+          swab={swab_date}
+          result={result_date}
+        />
+      </div>
+    );
+
+    // let content = element;
+
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: [215.9, 330.2],
+    });
+
+    doc.page = 1;
+
+    function footer() {
+      doc.setFont("Times-Roman");
+      doc.setFontSize(8);
+      doc.text(
+        25,
+        327,
+        "ZCMC-F-OCMPS-05" +
+          "                                " +
+          "Rev. 1" +
+          "                                              " +
+          "       Effectivity Date: April 1, 2022" +
+          "                       " +
+          "  Page" +
+          " " +
+          doc.page +
+          " " +
+          " of " +
+          doc.page++
+      );
+      doc.page++;
+    }
+
+    doc.html(ReactDOMServer.renderToString(element), {
+      width: 215.9,
+      height: 330.2,
+      windowWidth: 900,
+      windowHeight: 1800,
+      margin: [5, 10, 14, 8],
+
+      callback: function (doc) {
+        footer();
+        window.open(doc.output("bloburl"));
+      },
+    });
+  };
+
   return (
     <div className="container">
       <Sidebar />
@@ -212,26 +426,38 @@ function OpcenHome2(props) {
                 </Button>
               </>
             ) : patientStat === "arrived" ? (
-              <Box
-                width="100%"
-                padding={3}
-                borderRadius="lg"
-                border="1px"
-                borderColor="green.500"
-              >
+              <>
                 <HStack>
-                  <Text fontSize="13px">Status:</Text>
-                  <Text color="green" fontSize="13px" fontWeight={500}>
-                    ARRIVED
-                  </Text>
+                  <Button
+                    colorScheme="green"
+                    variant="ghost"
+                    rightIcon={<BiDownload />}
+                    onClick={exportPDF}
+                  >
+                    Download
+                  </Button>
+                  <Box
+                    width="100%"
+                    padding={3}
+                    borderRadius="lg"
+                    border="1px"
+                    borderColor="green.500"
+                  >
+                    <HStack>
+                      <Text fontSize="13px">Status:</Text>
+                      <Text color="green" fontSize="13px" fontWeight={500}>
+                        ARRIVED
+                      </Text>
+                    </HStack>
+                    <HStack>
+                      <Text fontSize="13px">Date and Time:</Text>
+                      <Text fontSize="13px" color="green" fontWeight={400}>
+                        {moment(arrivalTime).format("LLL")}
+                      </Text>
+                    </HStack>
+                  </Box>
                 </HStack>
-                <HStack>
-                  <Text fontSize="13px">Date and Time:</Text>
-                  <Text fontSize="13px" color="green" fontWeight={400}>
-                    {moment(arrivalTime).format("LLL")}
-                  </Text>
-                </HStack>
-              </Box>
+              </>
             ) : patientStat === "accepted" ? (
               <Button
                 size="sm"
