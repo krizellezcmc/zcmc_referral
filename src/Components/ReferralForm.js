@@ -41,6 +41,7 @@ const ReferralForm = () => {
   const [sex, setSex] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [age, setAge] = useState("");
+  // const [newAge, setNewAge] = useState(getAge(age));
 
   const [civilStatus, setCivilStatus] = useState("");
   const [nationality, setNationality] = useState("");
@@ -62,10 +63,14 @@ const ReferralForm = () => {
   const [glasgow, setGlasgow] = useState("");
   const [chiefComplaints, setChiefComplaints] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
+
   const [endorsement, setEndorsement] = useState("");
   const [reason, setReason] = useState("");
   const [specialization, setSpecialization] = useState("");
   const [bowList, setBowList] = useState([]);
+
+  const [choose, setChoose] = useState("");
+
   // FOR OB CASES
   const [lmp, setLmp] = useState("");
   const [aog, setAog] = useState("");
@@ -132,41 +137,11 @@ const ReferralForm = () => {
     }
     return age;
   }
-  // const url =
-  //   "https://script.google.com/macros/s/AKfycbyDuFLupqdcyp7z3lbGbfwNX79SZlbm9d84n2uPDijo6cXuO_fw_7PwYSL1tOkxhL-I5g/exec?action=postData";
 
   const url = "/temp_referral.php";
 
   const postData = async (e) => {
     e.preventDefault();
-    // const data = JSON.stringify(bowList);
-    // const data1 = data.replaceAll("[", "");
-    // const data2 = data1.replaceAll("]", "");
-    // const data3 = data2.replaceAll('"', "");
-    // setNewBowList(data3);
-
-    // const ie0 = ie.map(
-    //   (index) =>
-    //     index.cm +
-    //     ", " +
-    //     index.station +
-    //     ", " +
-    //     index.effacement +
-    //     ", " +
-    //     index.presentation
-    // );
-
-    // const ieData = JSON.stringify(ie0);
-    // const ieData1 = ieData.replaceAll("[", "");
-    // const ieData2 = ieData1.replaceAll("]", "");
-    // const ieData3 = ieData2.replaceAll('"', "");
-    // setNewIe(ieData3);
-
-    // const gpData = JSON.stringify(gp);
-    // const gpData1 = gpData.replaceAll("[", "");
-    // const gpData2 = gpData1.replaceAll("]", "");
-    // const gpData3 = gpData2.replaceAll('"', "");
-    // setNewGp(gpData3);
 
     const patientId = uniqid(lastname.toLowerCase() + "_");
     if (
@@ -204,7 +179,7 @@ const ReferralForm = () => {
         extendedName: extendedName,
         sex: sex,
         birthdate: birthdate,
-        age: getAge(birthdate),
+        age: age,
         civilStatus: civilStatus,
         nationality: nationality,
         religion: religion,
@@ -238,7 +213,7 @@ const ReferralForm = () => {
         newIe: JSON.stringify(ie),
         newBowList: JSON.stringify(bowList),
       });
-      console.log(getAge(birthdate));
+
       if (response.data.status === 1) {
         setLastName("");
         setFirstName("");
@@ -296,7 +271,8 @@ const ReferralForm = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setReferringFacility(user.name.toUpperCase());
-  }, []);
+    console.log(choose);
+  }, [choose]);
 
   return (
     <>
@@ -351,16 +327,57 @@ const ReferralForm = () => {
             </HStack>
             <HStack mt={5}>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>Birthday</FormLabel>
-                <HStack>
-                  <Input
-                    type="date"
-                    variant="filled"
-                    value={birthdate}
-                    onChange={(e) => setBirthdate(e.target.value)}
-                  />
-                </HStack>
+                <FormLabel fontSize={14}>Birthdate</FormLabel>
+                <Select
+                  // value={choose}
+                  variant="filled"
+                  onChange={(e) => setChoose(e.target.value)}
+                >
+                  <option value="" selected disabled>
+                    Please Select
+                  </option>
+                  <option value="1">With birthdate</option>
+                  <option value="0">No birthdate</option>
+                </Select>
               </FormControl>
+              {choose == 1 ? (
+                <>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Birthday</FormLabel>
+                    <HStack>
+                      <Input
+                        type="date"
+                        variant="filled"
+                        value={birthdate}
+                        onChange={(e) => setBirthdate(e.target.value)}
+                      />
+                    </HStack>
+                  </FormControl>
+                  <FormControl isRequired w={80}>
+                    <FormLabel fontSize={14}>Age</FormLabel>
+                    <HStack>
+                      <Input
+                        type="text"
+                        variant="filled"
+                        value={birthdate === "" ? 0 : getAge(birthdate)}
+                        onChange={(e) => setAge(e.target.value)}
+                      />
+                    </HStack>
+                  </FormControl>
+                </>
+              ) : (
+                <FormControl isRequired w={80}>
+                  <FormLabel fontSize={14}>Age</FormLabel>
+                  <HStack>
+                    <Input
+                      type="text"
+                      variant="filled"
+                      onChange={(e) => setAge(e.target.value)}
+                    />
+                  </HStack>
+                </FormControl>
+              )}
+
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>
                 <Select

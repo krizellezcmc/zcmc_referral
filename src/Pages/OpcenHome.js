@@ -31,7 +31,7 @@ import useAuth from "../Hooks/useAuth";
 // import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 import OpcenTable from "../Components/OpcenTable";
-import { BiSearch } from "react-icons/bi";
+import { BiRefresh, BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import CancelledModal from "../Components/CancelledModal";
 
@@ -128,6 +128,19 @@ function OpcenHome() {
                   }}
                 />
               </InputGroup>
+              <Box>
+                <Button
+                  fontSize="14px"
+                  size="md"
+                  colorScheme="gray"
+                  onClick={() => {
+                    window.location.href = "/opcen";
+                  }}
+                  leftIcon={<BiRefresh />}
+                >
+                  Refresh
+                </Button>
+              </Box>
               <Box>
                 <Button
                   fontSize="14px"
