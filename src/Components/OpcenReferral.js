@@ -123,6 +123,7 @@ function OpcenReferral(props) {
       params: { id: props.patientId },
     });
     if (response) {
+      setAge(response.data.age);
       setIsLoading(false);
       setUserName(response.data.username);
       setReferringFacility(response.data.refFacility);
@@ -336,14 +337,23 @@ function OpcenReferral(props) {
             <HStack mt={5}>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Birthday</FormLabel>
-                <HStack>
-                  <Input
-                    type="date"
-                    variant="filled"
-                    value={birthdate}
-                    onChange={(e) => setBirthdate(e.target.value)}
-                  />
-                </HStack>
+
+                <Input
+                  type="date"
+                  variant="filled"
+                  value={birthdate}
+                  onChange={(e) => setBirthdate(e.target.value)}
+                />
+              </FormControl>{" "}
+              <FormControl isRequired width={60}>
+                <FormLabel fontSize={14}>Age</FormLabel>
+
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={age}
+                  // onChange={(e) => setBirthdate(e.target.value)}
+                />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>

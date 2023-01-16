@@ -60,3 +60,8 @@ export const reasonList = [
   },
   { value: "For Tertiary Care", label: "For Tertiary Care" },
 ];
+
+export const bday = [
+  { value: "1", label: "With birthdate" },
+  { value: "0", label: "No birthdate" },
+];

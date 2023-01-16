@@ -36,6 +36,7 @@ import {
   dispositionList,
   specializationList,
   reasonList,
+  bday,
 } from "../Data/Options";
 import api from "../API/Api";
 
@@ -81,6 +82,7 @@ const AddReferral = () => {
   const [reason, setReason] = useState("");
   const [specialization, setSpecialization] = useState("");
   const [bowList, setBowList] = useState([]);
+  const [choose, setChoose] = useState("");
 
   // FOR OB CASES
   const [lmp, setLmp] = useState("");
@@ -210,7 +212,7 @@ const AddReferral = () => {
             extendedName: extendedName,
             sex: sex,
             birthdate: birthdate,
-            age: getAge(birthdate),
+            age: age,
             civilStatus: civilStatus,
             nationality: nationality,
             religion: religion,
@@ -358,16 +360,58 @@ const AddReferral = () => {
             </HStack>
             <HStack mt={5}>
               <FormControl isRequired>
-                <FormLabel fontSize={14}>Birthday</FormLabel>
-                <HStack>
-                  <Input
-                    type="date"
-                    variant="filled"
-                    value={birthdate}
-                    onChange={(e) => setBirthdate(e.target.value)}
-                  />
-                </HStack>
+                <FormLabel fontSize={14}>Birthdate</FormLabel>
+
+                <Select
+                  variant="filled"
+                  options={bday}
+                  placeholder="Select"
+                  selectedOptionStyle="check"
+                  closeMenuOnSelect={true}
+                  onChange={(e) => {
+                    setChoose(e.value);
+                  }}
+                  required
+                  useBasicStyles
+                />
               </FormControl>
+              {choose == 1 ? (
+                <>
+                  <FormControl isRequired>
+                    <FormLabel fontSize={14}>Birthday</FormLabel>
+                    <HStack>
+                      <Input
+                        type="date"
+                        variant="filled"
+                        value={birthdate}
+                        onChange={(e) => setBirthdate(e.target.value)}
+                      />
+                    </HStack>
+                  </FormControl>
+                  <FormControl isRequired w={80}>
+                    <FormLabel fontSize={14}>Age</FormLabel>
+                    <HStack>
+                      <Input
+                        type="text"
+                        variant="filled"
+                        value={getAge(birthdate)}
+                        onChange={(e) => setAge(e.target.value)}
+                      />
+                    </HStack>
+                  </FormControl>
+                </>
+              ) : (
+                <FormControl isRequired w={80}>
+                  <FormLabel fontSize={14}>Age</FormLabel>
+                  <HStack>
+                    <Input
+                      type="text"
+                      variant="filled"
+                      onChange={(e) => setAge(e.target.value)}
+                    />
+                  </HStack>
+                </FormControl>
+              )}
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>
                 <Select
