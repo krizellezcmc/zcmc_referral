@@ -76,7 +76,7 @@ function Contributors(props) {
               name="Alyana Claire C. Barretto"
               position="Software Developer"
               height={{ lg: 210, md: 180, sm: 180 }}
-              width={{ lg: 170, md: 160, sm: 130 }}
+              width={{ lg: 160, md: 160, sm: 130 }}
               mr={{ lg: 20, md: 3 }}
             />
             <ProfileTile
