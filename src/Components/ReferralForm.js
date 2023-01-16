@@ -149,7 +149,7 @@ const ReferralForm = () => {
       !firstname ||
       !dateAdmitted ||
       !referralType ||
-      !disposition ||
+      // !disposition ||
       !specialization ||
       !temperature ||
       !bloodPressure ||
@@ -534,22 +534,27 @@ const ReferralForm = () => {
                   <option value="COVID-SUSPECT">COVID-SUSPECT</option>
                 </Select>
               </FormControl>
-              <FormControl w={500} isRequired>
-                <FormLabel fontSize={14}>Disposition</FormLabel>
-                <Select
-                  variant="filled"
-                  value={disposition}
-                  onChange={(e) => setDisposition(e.target.value)}
-                >
-                  <option value="" selected disabled>
-                    Please Select
-                  </option>
-                  <option value="Moderate">Moderate</option>
-                  <option value="Mild">Mild</option>
-                  <option value="Severe">Severe</option>
-                  <option value="Critical">Critical</option>
-                </Select>
-              </FormControl>
+              {referralType === "COVID" ? (
+                <FormControl w={500} isRequired>
+                  <FormLabel fontSize={14}>Disposition</FormLabel>
+                  <Select
+                    variant="filled"
+                    value={disposition}
+                    onChange={(e) => setDisposition(e.target.value)}
+                  >
+                    <option value="" selected disabled>
+                      Please Select
+                    </option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Mild">Mild</option>
+                    <option value="Severe">Severe</option>
+                    <option value="Critical">Critical</option>
+                  </Select>
+                </FormControl>
+              ) : (
+                ""
+              )}
+
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Specialization</FormLabel>
                 <Select

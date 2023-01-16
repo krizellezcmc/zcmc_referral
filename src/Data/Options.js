@@ -1,3 +1,8 @@
+export const deptList = [
+  { value: "OPCEN", label: "OPCEN" },
+  { value: "IPCC", label: "IPCC" },
+];
+
 export const sexList = [
   { value: "Male", label: "Male" },
   { value: "Female", label: "Female" },

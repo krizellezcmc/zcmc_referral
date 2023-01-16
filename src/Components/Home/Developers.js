@@ -9,13 +9,14 @@ function Developers(props) {
 
   return (
     <div>
-      <Box align="center">
-        <Box width="30%" mb={5}>
+      <Box>
+        <Box width="100%" mb={5}>
           <Text
-            fontWeight={700}
-            fontSize={{ md: "3xl", lg: "3xl", sm: "4xl" }}
-            color="alpha.900"
+            fontWeight="bold"
+            fontSize={{ md: "2xl", lg: "3xl", sm: "2xl" }}
             letterSpacing="wide"
+            textAlign="center"
+            mt={5}
           >
             Contributors
           </Text>

@@ -242,7 +242,13 @@ function ReferralDownload(props) {
             }}
           >
             Reason &nbsp; for Transfer &nbsp;:&nbsp;
-            <p style={{ fontWeight: "bolder", display: "inline" }}>
+            <p
+              style={{
+                fontWeight: "bolder",
+                display: "inline",
+                wordSpacing: "5px",
+              }}
+            >
               {props.reason}
             </p>
           </td>

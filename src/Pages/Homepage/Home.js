@@ -207,16 +207,16 @@ function Home(props) {
             <div className="scroll">
               <Box
                 as="button"
-                bg="rgba(0, 0, 0, 0.6);"
+                bg="green.600"
                 p="2.5"
                 w="fit-content"
                 rounded="lg"
                 color="white"
                 border="none"
                 onClick={scrollUp}
-                _hover={{ backgroundColor: "gray.700" }}
+                _hover={{ backgroundColor: "green.700" }}
               >
-                <BiUpArrowAlt fontSize={40} />
+                <BiUpArrowAlt fontSize={20} />
               </Box>
             </div>
           )}

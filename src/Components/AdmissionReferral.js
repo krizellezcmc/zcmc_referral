@@ -396,10 +396,15 @@ function AdmissionReferral(props) {
                 <FormLabel fontSize={14}>Referral Type</FormLabel>
                 <Input isReadOnly variant="filled" value={referralType} />
               </FormControl>
-              <FormControl w={500}>
-                <FormLabel fontSize={14}>Disposition</FormLabel>
-                <Input isReadOnly variant="filled" value={disposition} />
-              </FormControl>
+              {referralType === "COVID" ? (
+                <FormControl w={500}>
+                  <FormLabel fontSize={14}>Disposition</FormLabel>
+                  <Input isReadOnly variant="filled" value={disposition} />
+                </FormControl>
+              ) : (
+                ""
+              )}
+
               <FormControl>
                 <FormLabel fontSize={14}>Specialization</FormLabel>
                 <Input

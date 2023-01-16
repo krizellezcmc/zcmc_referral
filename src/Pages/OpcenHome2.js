@@ -191,6 +191,7 @@ function OpcenHome2(props) {
       setMiddleName(details.data.middleName);
       setExtendedName(details.data.extended);
       setSex(details.data.sex);
+      setAge(details.data.age);
       setBirthdate(details.data.birthdate);
       setCivilStatus(details.data.civilStatus);
       setNationality(details.data.nationality);

@@ -28,6 +28,8 @@ import {
   BiClinic,
 } from "react-icons/bi";
 
+import { deptList } from "../Data/Options";
+
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { MdAlternateEmail } from "react-icons/md";
 import useAuth from "../Hooks/useAuth";
@@ -54,7 +56,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [hospitalCode, setHospitalCode] = useState(0);
   const [accessCode, setAccessCode] = useState(0);
-  const [department, setDepartment] = useState("OPCEN");
+  const [department, setDepartment] = useState("");
   const [hospitals, setHospitals] = useState([]); //Hospital List
 
   // Toast and navigate
@@ -318,33 +320,46 @@ function Signup() {
                 {hospitalCode == 1 ? (
                   <Grid mt={5}>
                     <GridItem>
-                      <Input value={department} required disabled />
+                      <Select
+                        options={deptList}
+                        placeholder="Choose your department"
+                        selectedOptionStyle="check"
+                        closeMenuOnSelect={true}
+                        focusBorderColor="#058e46"
+                        onChange={(e) => {
+                          setDepartment(e.value);
+                        }}
+                        required
+                        useBasicStyles
+                      />
                     </GridItem>
                   </Grid>
                 ) : (
                   ""
                 )}
 
-                <Button
-                  type="submit"
-                  h="2.7rem"
-                  size="sm"
-                  bgColor="#058e43"
-                  mx="120px"
-                  width="60%"
-                  color="white"
-                  mt="10"
-                  p="4"
-                  rounded="lg"
-                  _hover={{
-                    bgColor: "green.600",
-                  }}
-                  fontWeight="400"
-                  rightIcon={<BiRightArrowAlt />}
-                  isLoading={isLoading}
-                >
-                  Register
-                </Button>
+                <Center>
+                  <Button
+                    type="submit"
+                    h="2.7rem"
+                    size="sm"
+                    bgColor="#058e43"
+                    mx="120px"
+                    width="60%"
+                    color="white"
+                    mt="10"
+                    p="4"
+                    rounded="lg"
+                    _hover={{
+                      bgColor: "green.600",
+                    }}
+                    fontWeight="400"
+                    rightIcon={<BiRightArrowAlt />}
+                    isLoading={isLoading}
+                  >
+                    Register
+                  </Button>
+                </Center>
               </form>
 
               <Center>

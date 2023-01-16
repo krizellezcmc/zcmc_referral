@@ -66,32 +66,25 @@ function Contributors(props) {
             <ProfileTile
               image={sir_john}
               name="John Mary C. Sta Teresa"
-              color="#A1CDDE"
               position="Statistician II"
-              height={{ lg: 200, md: 180, sm: 180 }}
-              width={{ lg: 180, md: 160, sm: 130 }}
+              height={{ lg: 210, md: 180, sm: 180 }}
+              width={{ lg: 170, md: 160, sm: 130 }}
               mr={{ lg: 20, md: 3 }}
             />
             <ProfileTile
               image={alyana}
               name="Alyana Claire C. Barretto"
-              color=" #7C918F"
               position="Software Developer"
-              height={{ lg: 200, md: 180, sm: 180 }}
-              width={{ lg: 160, md: 140, sm: 130 }}
+              height={{ lg: 210, md: 180, sm: 180 }}
+              width={{ lg: 170, md: 160, sm: 130 }}
               mr={{ lg: 20, md: 3 }}
             />
             <ProfileTile
               image={krizelle}
               name="Krizelle Mae B. Falcasantos"
-              color="#F0CAC7"
-              // color="#a7c5ae"
-              // color="#D1CFE2 "
-              // color="#FFf1e6"
-              // color="#ECD5E3"
               position="Software Developer"
-              height={{ lg: 200, md: 180, sm: 180 }}
-              width={{ lg: 180, md: 170, sm: 140 }}
+              height={{ lg: 210, md: 180, sm: 180 }}
+              width={{ lg: 170, md: 160, sm: 140 }}
               mr={{ lg: 0, md: 0 }}
             />
           </Box>

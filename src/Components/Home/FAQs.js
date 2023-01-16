@@ -11,9 +11,19 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  Icon,
 } from "@chakra-ui/react";
 import React from "react";
-import { BiMinusCircle, BiPlusCircle, BiSearch } from "react-icons/bi";
+import {
+  BiMinusCircle,
+  BiPlusCircle,
+  BiQuestionMark,
+  BiSearch,
+} from "react-icons/bi";
+import {
+  HiOutlineQuestionMarkCircle,
+  HiQuestionMarkCircle,
+} from "react-icons/hi";
 
 function FAQs(props) {
   return (
@@ -33,7 +43,7 @@ function FAQs(props) {
               Have any questions? We're here to help.
             </Text>
           </Box>
-          <Center mt={20}>
+          {/* <Center mt={20}>
             <Input
               fontSize="13px"
               type="text"
@@ -47,16 +57,23 @@ function FAQs(props) {
                 borderColor: "green",
               }}
             />
-          </Center>
+          </Center> */}
           <Accordion mt={20} allowMultiple>
             <AccordionItem>
               {({ isExpanded }) => (
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?
-                      </Text>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          as={HiOutlineQuestionMarkCircle}
+                          mr={2}
+                          boxSize={4}
+                        />
+                        <Text fontSize={15} fontWeight={600}>
+                          Is there a free trial?
+                        </Text>
+                      </Box>
                     </Box>
                     {isExpanded ? (
                       <BiMinusCircle fontSize={16} />
