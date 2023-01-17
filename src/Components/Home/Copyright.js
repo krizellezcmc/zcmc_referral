@@ -37,6 +37,7 @@ function Copyright(props) {
 
         <Box display={{ md: "flex" }}>
           <Link
+            target="_blank"
             href="https://www.facebook.com/profile.php?id=100089036871387&mibextid=LQQJ4d"
             fontSize={{ lg: 13.5, md: 10, sm: 10 }}
           >
@@ -44,7 +45,8 @@ function Copyright(props) {
             {/* ZCMC HEMS - Operation Center */}
           </Link>
           <Link
-            href="https://mail.google.com/"
+            target="_blank"
+            href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSBnNVZQZrrMxHPmngQhVbGpclTtjJTTmGZbVrJCgxZQHQrCvPtTdhXMTxkkdhgbssKtqPMN"
             fontSize={{ lg: 13.5, md: 10, sm: 10 }}
           >
             <Icon as={SiGmail} mr={2} ml={10} />

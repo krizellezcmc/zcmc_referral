@@ -11,6 +11,7 @@ import VerifyUser from "../Pages/VerifyUser";
 import Patient from "../Pages/Patient";
 import ReferredPatient from "../Pages/ReferredPatient";
 import ChangePassword from "../Pages/ChangePass";
+import NewPassword from "./ChangePassword";
 import ProtectedRoutes from "./ProtectedRoute";
 import TagubilinPrescription from "../Pages/TagubilinPrescription";
 import Prescription from "./Prescription";
@@ -41,6 +42,7 @@ import AdmissionHome from "../Pages/AdmissionHome";
 import AdmissionViewPat from "../Pages/AdmissionViewPat";
 import ReferralDownload from "./ReferralDownload";
 import AdminRequests from "../Pages/AdminRequests";
+import ForgotPassword from "../Pages/ForgotPassword";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -80,6 +82,7 @@ const AnimatedRoutes = () => {
           <Route path="/admindashboard" element={<AdminDashboard />} />
 
           <Route path="/referralform" element={<AddReferral />} />
+          <Route path="/newpassword" element={<ForgotPassword />} />
 
           <Route path="/refdownload" element={<ReferralDownload />} />
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}

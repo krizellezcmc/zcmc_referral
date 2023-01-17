@@ -207,6 +207,16 @@ function Login() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                <Link
+                  href="/recover"
+                  float="right"
+                  mt={1}
+                  fontSize={13}
+                  fontWeight={400}
+                  color="green"
+                >
+                  Forgot Password?
+                </Link>
 
                 <Button
                   type="submit"

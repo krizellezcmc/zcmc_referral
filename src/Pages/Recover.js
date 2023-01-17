@@ -24,7 +24,7 @@ function Recover() {
 
   const checkEmail = async () => {
     setLoad(true);
-    let response = await api.post("recover.php", { email: email });
+    let response = await api.post("/recover.php", { email: email });
 
     if (response.data.status === 1) {
       setLoad(false);

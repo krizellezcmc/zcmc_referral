@@ -15,13 +15,15 @@ import {
 import "../App.css";
 
 import verify_img from "../Assets/verify.png";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import api from "../API/Api";
 
 function Verify() {
   const toast = useToast();
-  const search = useLocation().search;
-  const reqid = new URLSearchParams(search).get("reqid");
+  // const search = useLocation().search;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const reqid = searchParams.get("reqid");
+  // const reqid = new URLSearchParams(search).get("reqid");
   const [email, setEmail] = useState([]);
   const [verification, setVerification] = useState(0);
   const [input, setInput] = useState("");
@@ -47,7 +49,7 @@ function Verify() {
     setLoad(true);
 
     if (input == verification) {
-      window.location.href = "http://localhost:3000/newpassword?reqid=109";
+      window.location.href = `http://localhost:3000/newpassword?reqid=${reqid}`;
     } else {
       setLoad(false);
       toast({

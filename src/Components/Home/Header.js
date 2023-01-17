@@ -14,8 +14,8 @@ function Header(props) {
       <Container maxW="container.xl" py={{ lg: 20, md: 5, xl: 24 }}>
         <Box display={{ md: "flex" }} py={{ lg: 10, md: 0, xl: 0 }}>
           <Box
-            mt={{ base: 4, lg: 20, md: 0, xl: 20 }}
-            mr={{ md: 10, lg: 20, xl: 20 }}
+            mt={{ base: 4, lg: 20, md: 0, xl: 28 }}
+            mr={{ md: 10, lg: 10, xl: 22 }}
           >
             <Text
               fontWeight="bold"
@@ -42,7 +42,7 @@ function Header(props) {
               eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
             </Text>
 
-            <Box display={{ md: "flex" }} mt={10}>
+            <Box display={{ md: "flex" }} mt={20}>
               <Button
                 rounded="full"
                 px={{ lg: 8, sm: 10 }}
@@ -81,7 +81,7 @@ function Header(props) {
 
           <Box flexShrink="0" px={5}>
             <Image
-              width={{ sm: 0, md: 300, lg: 500, xl: 600 }}
+              width={{ sm: 0, md: 300, lg: 500, xl: 700 }}
               src={header_img}
               alt="Doctors Illustration"
               mt={{ base: 4, lg: 20, md: 0, sm: 16, xl: 20 }}
