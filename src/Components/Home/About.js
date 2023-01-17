@@ -41,7 +41,7 @@ function About(props) {
           <Box mt={14} display={{ md: "flex" }}>
             <Box flexShrink={0}>
               <Image
-                borderRightRadius="2xl"
+                borderRadius="2xl"
                 width={{ md: 500 }}
                 src={zcmc_admin}
                 alt="zcmc"
@@ -52,10 +52,12 @@ function About(props) {
                 Mission
               </Text>
               <Text mt={2} align="justify" color="gray.600">
-                To provide affordable and accessible specialized helath
-                services, training and research through state-of-the-art
-                technology in Zamboanga Peninsula in support of the Philippine
-                Health Agenda
+                To implement a well-coordinated referral system between health
+                institutions within the ZamBaSulTa region and ZCMC, and to serve
+                as liaison between referring members of the health care team,
+                bridging previously identified gaps including miscommunication,
+                limitations to knowledge on specialized care, and lack of access
+                to appropriate healthcare.
               </Text>
             </Box>
           </Box>
@@ -65,8 +67,9 @@ function About(props) {
                 Vision
               </Text>
               <Text mt={2} align="justify" color="gray.600">
-                ZCMC will be the Apex Multi-specialty Medical Center in
-                Zamboanga Peninsula
+                Zamboanga City Medical Center Operation Center (ZCMC OPCEN) will
+                be recognized as the leader and innovator in inter-health
+                facility referrals in the Region and beyond.
               </Text>
             </Box>
             <Box flexShrink={0}>

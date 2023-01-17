@@ -23,7 +23,7 @@ function Success(props) {
           <Text fontSize="xl" fontWeight="300" textAlign="center">
             You successfully changed your password and recovered your account.
             You can login{" "}
-            <Link href="/" color="green.600" fontWeight={600}>
+            <Link href="/login" color="green.600" fontWeight={600}>
               here.
             </Link>
           </Text>

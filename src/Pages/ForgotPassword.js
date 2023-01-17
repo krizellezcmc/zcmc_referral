@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import "../App.css";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import api from "../API/Api";
 import { BiLockAlt } from "react-icons/bi";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
@@ -33,8 +33,10 @@ function ForgotPassword(props) {
   let toast = useToast();
 
   //   GET URL PARAMS
-  const search = useLocation().search;
-  const reqid = new URLSearchParams(search).get("reqid");
+  // const search = useLocation().search;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const reqid = searchParams.get("reqid");
+  // const reqid = new URLSearchParams(search).get("reqid");
 
   const submit = async (e) => {
     e.preventDefault();
@@ -58,7 +60,7 @@ function ForgotPassword(props) {
         setIsError(false);
         setLoad(true);
 
-        let response = await api.post("forgot_password.php", {
+        let response = await api.post("/forgot_password.php", {
           id: reqid,
           password: password,
         });
