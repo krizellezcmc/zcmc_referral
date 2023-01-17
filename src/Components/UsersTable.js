@@ -42,6 +42,7 @@ import {
   BiUserCheck,
   BiTrash,
   BiSearch,
+  BiUserX,
 } from "react-icons/bi";
 import { GoCheck, GoX } from "react-icons/go";
 import "../Styles/Table.css";
@@ -131,12 +132,12 @@ const UsersTable = () => {
 
   const deleteUser = (id) => {
     Swal.fire({
-      text: "Are you sure you want to remove this user? ",
+      text: "Are you sure you want to deactivate this user? ",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, deactivate it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         let res = await api.post("/remove_user.php", {
@@ -144,7 +145,11 @@ const UsersTable = () => {
         });
 
         if (res.data.status === 1) {
-          Swal.fire("Deleted!", "The user has been removed.", "success");
+          Swal.fire(
+            "Deactivated!",
+            "The user has been deactivated.",
+            "success"
+          );
         } else {
           Swal.fire("Error!", "Something went wrong.", "error");
         }
@@ -279,7 +284,7 @@ const UsersTable = () => {
                                   onClick={() => {
                                     deleteUser(index.userId);
                                   }}
-                                  icon={<BiTrash fontSize="15px" />}
+                                  icon={<BiUserX fontSize="15px" />}
                                 />
                               </Td>
                             </Tr>

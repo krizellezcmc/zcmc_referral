@@ -58,7 +58,7 @@ function FAQs(props) {
               }}
             />
           </Center> */}
-          <Accordion mt={20} allowMultiple>
+          <Accordion mt={20} defaultIndex={[0]} allowMultiple>
             <AccordionItem>
               {({ isExpanded }) => (
                 <>
@@ -71,7 +71,7 @@ function FAQs(props) {
                           boxSize={4}
                         />
                         <Text fontSize={15} fontWeight={600}>
-                          Is there a free trial?
+                          What is a patient navigation and referral system?
                         </Text>
                       </Box>
                     </Box>
@@ -82,37 +82,12 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={15}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem>
-
-            {/* <AccordionItem>
-              {({ isExpanded }) => (
-                <>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?{" "}
-                      </Text>
-                    </Box>
-                    {isExpanded ? (
-                      <BiMinusCircle fontSize={16} />
-                    ) : (
-                      <BiPlusCircle fontSize={16} />
-                    )}
-                  </AccordionButton>
-
-                  <AccordionPanel pb={4} fontSize={15}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  <AccordionPanel pb={4} fontSize={15} color="gray.600" px={10}>
+                    A patient navigation and referral system is a service that
+                    helps navigate the patient and access the appropriate care
+                    at the right time. This include providing information about
+                    healthcare options, scheduling appointments, finding
+                    transportation, and communicating with healthcare providers
                   </AccordionPanel>
                 </>
               )}
@@ -122,9 +97,20 @@ function FAQs(props) {
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?{" "}
-                      </Text>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          as={HiOutlineQuestionMarkCircle}
+                          mr={2}
+                          boxSize={4}
+                        />
+                        <Text
+                          fontSize={{ sm: 12, md: 13, lg: 15 }}
+                          fontWeight={500}
+                        >
+                          Is it acceptable for referring facilities to have
+                          multiple client accounts?
+                        </Text>
+                      </Box>
                     </Box>
                     {isExpanded ? (
                       <BiMinusCircle fontSize={16} />
@@ -133,11 +119,14 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={15}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  <AccordionPanel
+                    pb={4}
+                    fontSize={{ sm: 12, md: 13, lg: 15 }}
+                    color="gray.600"
+                    px={10}
+                  >
+                    Yes. Given that each referring facilities must have only two
+                    accounts.
                   </AccordionPanel>
                 </>
               )}
@@ -147,9 +136,20 @@ function FAQs(props) {
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?{" "}
-                      </Text>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          as={HiOutlineQuestionMarkCircle}
+                          mr={2}
+                          boxSize={4}
+                        />
+                        <Text
+                          fontSize={{ sm: 12, md: 13, lg: 15 }}
+                          fontWeight={500}
+                        >
+                          What will take place in the event that the facility
+                          that is recommending the patient forgets the password?
+                        </Text>
+                      </Box>
                     </Box>
                     {isExpanded ? (
                       <BiMinusCircle fontSize={16} />
@@ -158,11 +158,20 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={15}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  <AccordionPanel
+                    pb={4}
+                    fontSize={{ sm: 12, md: 13, lg: 15 }}
+                    color="gray.600"
+                    px={10}
+                  >
+                    The user can recover their account by clicking the{" "}
+                    <b>"Forgot Password?"</b> in the log in page. The system
+                    will require the user to input their email (used in creating
+                    an account) for sending of 5-digit verification code. After
+                    receiving the verification code, the user must enter the
+                    code then click "Submit". Then, the user is asked to enter
+                    their new password. A confirmation screen will show that the
+                    user's password has been changed.
                   </AccordionPanel>
                 </>
               )}
@@ -172,9 +181,21 @@ function FAQs(props) {
                 <>
                   <AccordionButton>
                     <Box flex="1" textAlign="left">
-                      <Text fontSize={15} fontWeight={600}>
-                        Is there a free trial?{" "}
-                      </Text>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          as={HiOutlineQuestionMarkCircle}
+                          mr={2}
+                          boxSize={4}
+                        />
+                        <Text
+                          fontSize={{ sm: 12, md: 13, lg: 15 }}
+                          fontWeight={500}
+                        >
+                          How may a user account be deleted if it is no longer
+                          connected to the facility where it vwas originally
+                          created?
+                        </Text>
+                      </Box>
                     </Box>
                     {isExpanded ? (
                       <BiMinusCircle fontSize={16} />
@@ -183,15 +204,129 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={15}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  <AccordionPanel
+                    pb={4}
+                    fontSize={{ sm: 12, md: 13, lg: 15 }}
+                    color="gray.600"
+                    px={10}
+                  >
+                    Only the system administrator can <b>deactivate</b> a user
+                    account. The facility should contact the system
+                    administrator if they want a user account under their
+                    facility to be <b>deactivated</b>.
                   </AccordionPanel>
                 </>
               )}
-            </AccordionItem> */}
+            </AccordionItem>
+            <AccordionItem>
+              {({ isExpanded }) => (
+                <>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          as={HiOutlineQuestionMarkCircle}
+                          mr={2}
+                          boxSize={4}
+                        />
+                        <Text
+                          fontSize={{ sm: 12, md: 13, lg: 15 }}
+                          fontWeight={500}
+                        >
+                          In the event that we are unable to log into the
+                          system, what steps will be taken?
+                        </Text>
+                      </Box>
+                    </Box>
+                    {isExpanded ? (
+                      <BiMinusCircle fontSize={16} />
+                    ) : (
+                      <BiPlusCircle fontSize={16} />
+                    )}
+                  </AccordionButton>
+
+                  <AccordionPanel
+                    pb={4}
+                    fontSize={{ sm: 12, md: 13, lg: 15 }}
+                    color="gray.600"
+                    px={10}
+                  >
+                    To log in into the system, the user must create an account
+                    and be verified by the system administrator. The user will
+                    receive an email regarding their account verification.
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+
+            <AccordionItem>
+              {({ isExpanded }) => (
+                <>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          as={HiOutlineQuestionMarkCircle}
+                          mr={2}
+                          boxSize={4}
+                        />
+                        <Text fontSize={15} fontWeight={500}>
+                          If internet connectivity in some areas is unstable,
+                          how can we refer patients to other healthcare
+                          providers?
+                        </Text>
+                      </Box>
+                    </Box>
+                    {isExpanded ? (
+                      <BiMinusCircle fontSize={16} />
+                    ) : (
+                      <BiPlusCircle fontSize={16} />
+                    )}
+                  </AccordionButton>
+
+                  <AccordionPanel pb={4} fontSize={15} color="gray.600" px={10}>
+                    In the event that the electronic system is unavailable for
+                    whatever reason, paper-based tools should be used as a
+                    backup to ensure that the referral quality is not
+                    compromised in any way.
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+
+            <AccordionItem>
+              {({ isExpanded }) => (
+                <>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          as={HiOutlineQuestionMarkCircle}
+                          mr={2}
+                          boxSize={4}
+                        />
+                        <Text fontSize={15} fontWeight={500}>
+                          What is a web-based patient referral system?
+                        </Text>
+                      </Box>
+                    </Box>
+                    {isExpanded ? (
+                      <BiMinusCircle fontSize={16} />
+                    ) : (
+                      <BiPlusCircle fontSize={16} />
+                    )}
+                  </AccordionButton>
+
+                  <AccordionPanel pb={4} fontSize={15} color="gray.600" px={10}>
+                    A web based patient referral system is an online tool that
+                    allows healthcare providers to refer patients to tertiary
+                    care hospital. It allows for electronic communication and
+                    tracking of the referral, which can improve communication
+                    and coordination.
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
           </Accordion>
         </Container>
       </Box>

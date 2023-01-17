@@ -10,10 +10,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Alert,
-  AlertIcon,
-  UseToast,
-  Link,
 } from "@chakra-ui/react";
 import "../App.css";
 

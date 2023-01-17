@@ -23,15 +23,15 @@ function Copyright(props) {
       >
         <Box>
           <Text fontSize={{ lg: 13.5, md: 10, sm: 10 }}>
-            <Icon as={BiCopyright} /> 2022 Zamboanga City Medical Center . All
-            Rights reserved
+            <Icon as={BiCopyright} /> Copyright 2022 Zamboanga City Medical
+            Center . All Rights reserved
           </Text>
         </Box>
-        <Box ml={3}>
-          <Text fontSize={{ lg: 13.5, md: 10, sm: 10 }}>
-            Developed by: MMS-IT
+        {/* <Box ml={3}>
+          <Text fontSize={{ lg: 12, md: 10, sm: 10 }}>
+            Developed by: ZCMC MMS-IT
           </Text>
-        </Box>
+        </Box> */}
 
         <Spacer />
 
@@ -41,17 +41,15 @@ function Copyright(props) {
             fontSize={{ lg: 13.5, md: 10, sm: 10 }}
           >
             <Icon as={SiFacebook} mr={2} />
-            ZCMC HEMS - Operation Center
+            {/* ZCMC HEMS - Operation Center */}
           </Link>
           <Link
             href="https://mail.google.com/"
             fontSize={{ lg: 13.5, md: 10, sm: 10 }}
           >
             <Icon as={SiGmail} mr={2} ml={10} />
-            zcmc.referral@gmail.com
+            {/* zcmc.referral@gmail.com */}
           </Link>
-
-          <Text> </Text>
         </Box>
       </Box>
     </>
