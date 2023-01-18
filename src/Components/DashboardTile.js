@@ -63,7 +63,7 @@ function DashboardTile(props) {
   return (
     <>
       <HStack mb={10}>
-        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="lg">
+        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
             <StatLabel>PENDING RFERRALS</StatLabel>
             <StatNumber>{pending}</StatNumber>
@@ -85,7 +85,7 @@ function DashboardTile(props) {
             </Link>
           </Flex>
         </Box>
-        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="lg">
+        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
             <StatLabel>INCOMING RFERRALS</StatLabel>
             <StatNumber>{incoming}</StatNumber>
@@ -107,7 +107,7 @@ function DashboardTile(props) {
             </Link>
           </Flex>
         </Box>
-        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="lg">
+        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
             <StatLabel>ARRIVED RFERRALS</StatLabel>
             <StatNumber>{arrived}</StatNumber>
@@ -129,7 +129,13 @@ function DashboardTile(props) {
             </Link>
           </Flex>
         </Box>
-        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="lg" ml={3}>
+        <Box
+          bg="green.100"
+          width="25%"
+          borderRadius={5}
+          boxShadow="base"
+          ml={3}
+        >
           <Stat px={8} pt={7} pb={3}>
             <StatLabel>ADMITTED RFERRALS</StatLabel>
             <StatNumber>{admitted}</StatNumber>
@@ -157,7 +163,7 @@ function DashboardTile(props) {
             </Link>
           </Flex>
         </Box>
-        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="lg">
+        <Box bg="green.100" width="25%" borderRadius={5} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
             <StatLabel>TRANSFERRED RFERRALS</StatLabel>
             <StatNumber>{transferred}</StatNumber>
@@ -219,7 +225,7 @@ function DashboardTile(props) {
           ZCMC Bed Monitoring
         </Link>
       </HStack>
-      <Box
+      {/* <Box
         width="50%"
         height="500"
         // borderColor="yellowgreen"
@@ -227,7 +233,7 @@ function DashboardTile(props) {
         mt={10}
         ml={3}
         p={4}
-        boxShadow="lg"
+        boxShadow="base"
       >
         <ResponsiveContainer>
           <PieChart>
@@ -242,7 +248,7 @@ function DashboardTile(props) {
             <Legend />
           </PieChart>
         </ResponsiveContainer>
-      </Box>
+      </Box> */}
       {/* </div> */}
     </>
   );
