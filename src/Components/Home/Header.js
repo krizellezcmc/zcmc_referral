@@ -38,8 +38,9 @@ function Header(props) {
               fontWeight="300"
               letterSpacing="wide"
             >
-              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
+              Introducing the Web Based Referral System- a cutting-edge solution
+              that revolutionizes the way healthcare facilities refer patients
+              to tertiary care hospital.
             </Text>
 
             <Box display={{ md: "flex" }} mt={20}>

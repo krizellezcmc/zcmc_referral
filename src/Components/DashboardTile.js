@@ -17,6 +17,7 @@ import moment from "moment";
 import { BiChevronRightCircle } from "react-icons/bi";
 import api from "../API/Api.js";
 import { ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
+import SamplePie from "./SamplePie.js";
 
 function DashboardTile(props) {
   const [admitted, setAdmitted] = useState(0);
@@ -225,17 +226,8 @@ function DashboardTile(props) {
           ZCMC Bed Monitoring
         </Link>
       </HStack>
-      {/* <Box
-        width="50%"
-        height="500"
-        // borderColor="yellowgreen"
-        borderRadius="lg"
-        mt={10}
-        ml={3}
-        p={4}
-        boxShadow="base"
-      >
-        <ResponsiveContainer>
+
+      {/* <ResponsiveContainer>
           <PieChart>
             <Pie dataKey="value" data={data} label>
               {data.map((entry, index) => (
@@ -247,8 +239,9 @@ function DashboardTile(props) {
             </Pie>
             <Legend />
           </PieChart>
-        </ResponsiveContainer>
-      </Box> */}
+        </ResponsiveContainer> */}
+      <SamplePie />
+
       {/* </div> */}
     </>
   );
