@@ -14,8 +14,8 @@ function Tile(props) {
         py={7}
         align="center"
       >
-        <Image src={props.image} w={{ lg: 90, md: 100, sm: 100 }} />
-        <Text mt={4} fontWeight={500} fontSize={{ lg: 14, md: 13 }}>
+        <Image src={props.image} w={{ lg: 100, md: 90, sm: 90 }} />
+        <Text mt={4} fontWeight={500} fontSize={{ lg: 14, md: 13, sm: 12 }}>
           {props.name}
         </Text>
       </Box>

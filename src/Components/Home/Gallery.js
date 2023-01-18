@@ -61,13 +61,9 @@ function Gallery(props) {
               w={{ sm: 460, lg: 800 }}
               fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
-              The ZCMC OPCEN with its own unique values and line of work,
-              inculcates some of ZCMC’s core values that is relevant to the
-              group’s core functions. These include{" "}
-              <b>
-                Organization, Professionalism, Compassion, Efficiency, and
-                Non-discrimination.
-              </b>
+              With web based referral system, healthcare facilities can improve
+              patient outcomes by ensuring that patients receive the care they
+              need in a timely manner.
             </Text>
           </Box>
           <div className="carousel-wrapper">

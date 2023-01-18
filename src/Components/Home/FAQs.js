@@ -70,7 +70,10 @@ function FAQs(props) {
                           mr={2}
                           boxSize={4}
                         />
-                        <Text fontSize={15} fontWeight={600}>
+                        <Text
+                          fontSize={{ sm: 12, md: 13, lg: 15 }}
+                          fontWeight={600}
+                        >
                           What is a patient navigation and referral system?
                         </Text>
                       </Box>
@@ -82,7 +85,12 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={15} color="gray.600" px={10}>
+                  <AccordionPanel
+                    pb={4}
+                    fontSize={{ sm: 12, md: 13, lg: 15 }}
+                    color="gray.600"
+                    px={10}
+                  >
                     A patient navigation and referral system is a service that
                     helps navigate the patient and access the appropriate care
                     at the right time. This include providing information about
@@ -270,7 +278,10 @@ function FAQs(props) {
                           mr={2}
                           boxSize={4}
                         />
-                        <Text fontSize={15} fontWeight={500}>
+                        <Text
+                          fontSize={{ sm: 12, md: 13, lg: 15 }}
+                          fontWeight={500}
+                        >
                           If internet connectivity in some areas is unstable,
                           how can we refer patients to other healthcare
                           providers?
@@ -284,7 +295,12 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={15} color="gray.600" px={10}>
+                  <AccordionPanel
+                    pb={4}
+                    fontSize={{ sm: 12, md: 13, lg: 15 }}
+                    color="gray.600"
+                    px={10}
+                  >
                     In the event that the electronic system is unavailable for
                     whatever reason, paper-based tools should be used as a
                     backup to ensure that the referral quality is not
@@ -305,7 +321,10 @@ function FAQs(props) {
                           mr={2}
                           boxSize={4}
                         />
-                        <Text fontSize={15} fontWeight={500}>
+                        <Text
+                          fontSize={{ sm: 12, md: 13, lg: 15 }}
+                          fontWeight={500}
+                        >
                           What is a web-based patient referral system?
                         </Text>
                       </Box>
@@ -317,7 +336,12 @@ function FAQs(props) {
                     )}
                   </AccordionButton>
 
-                  <AccordionPanel pb={4} fontSize={15} color="gray.600" px={10}>
+                  <AccordionPanel
+                    pb={4}
+                    fontSize={{ sm: 12, md: 13, lg: 15 }}
+                    color="gray.600"
+                    px={10}
+                  >
                     A web based patient referral system is an online tool that
                     allows healthcare providers to refer patients to tertiary
                     care hospital. It allows for electronic communication and
