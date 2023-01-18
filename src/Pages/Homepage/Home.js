@@ -74,7 +74,7 @@ function Home(props) {
           <Container maxW="container.xl">
             <Flex py={2} align="center">
               <Image src={logo} h={50} mr={3} />
-              <Text fontWeight={700} fontSize="18px">
+              <Text fontWeight={700} fontSize={{ sm: 14, md: 15, lg: 18 }}>
                 ZCMC - Online Referral System
               </Text>
               <Spacer />

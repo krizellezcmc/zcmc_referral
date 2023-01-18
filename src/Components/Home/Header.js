@@ -33,14 +33,17 @@ function Header(props) {
 
             <Text
               mt={7}
-              fontSize={{ md: 13, lg: 16 }}
               color="gray.500"
               fontWeight="300"
               letterSpacing="wide"
+              fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
               Introducing the Web Based Referral System- a cutting-edge solution
               that revolutionizes the way healthcare facilities refer patients
               to tertiary care hospital.
+              <b>
+                “Matching right PATIENT to right FACILITY at the right TIME.”{" "}
+              </b>
             </Text>
 
             <Box display={{ md: "flex" }} mt={20}>

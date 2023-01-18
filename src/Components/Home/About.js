@@ -14,8 +14,8 @@ import Contributors from "./Contributors";
 import Developers from "./Developers";
 
 function About(props) {
-  var zcmc_admin = require("../../Assets/zcmc_admin.jpg");
-  var zcmc_opd = require("../../Assets/zcmc_opd.webp");
+  var opcen_full = require("../../Assets/opcen_full.JPG");
+  var opcen = require("../../Assets/opcen_pic.JPG");
   var bg = require("../../Assets/bg.png");
 
   return (
@@ -31,10 +31,15 @@ function About(props) {
               color="gray.500"
               fontWeight="300"
               letterSpacing="wide"
-              w={{ sm: 500, md: 600 }}
+              fontSize={{ md: 13, lg: 16, sm: 13 }}
             >
-              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore. */}
+              The ZCMC OPCEN with its own unique values and line of work,
+              inculcates some of ZCMC’s core values that is relevant to the
+              group’s core functions. These include{" "}
+              <b>
+                Organization, Professionalism, Compassion, Efficiency, and
+                Non-discrimination.
+              </b>
             </Text>
           </Box>
 
@@ -43,7 +48,7 @@ function About(props) {
               <Image
                 borderRadius="2xl"
                 width={{ md: 500 }}
-                src={zcmc_admin}
+                src={opcen}
                 alt="zcmc"
               />
             </Box>
@@ -74,9 +79,9 @@ function About(props) {
             </Box>
             <Box flexShrink={0}>
               <Image
-                borderLeftRadius="2xl"
+                borderRadius="2xl"
                 width={{ md: 500 }}
-                src={zcmc_opd}
+                src={opcen_full}
                 alt="zcmc"
               />
             </Box>
