@@ -43,7 +43,6 @@ import AdmissionViewPat from "../Pages/AdmissionViewPat";
 import ReferralDownload from "./ReferralDownload";
 import AdminRequests from "../Pages/AdminRequests";
 import ForgotPassword from "../Pages/ForgotPassword";
-import Reason from "./Charts/Reason";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -111,7 +110,7 @@ const AnimatedRoutes = () => {
             <Route path="/admission/:id" element={<AdmissionViewPat />} />
           </Route>
           {/* CHARTS (Remove after testing)*/}{" "}
-          <Route path="/reason-chart" element={<Reason />} />
+          {/* <Route path="/reason-chart" element={<Reason />} /> */}
         </Route>
       </Routes>
     </AnimatePresence>

@@ -1,35 +1,36 @@
-import { AspectRatio, Box, Link } from "@chakra-ui/react";
+import { AspectRatio, Box, HStack, Link } from "@chakra-ui/react";
 import React from "react";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import DashboardTile from "../Components/DashboardTile";
 import Reason from "../Components/Charts/Reason";
+import SamplePie from "../Components/Charts/SamplePie";
 
 function AdminDashboard(props) {
   return (
     <div>
-      <div className="container">
+      <div className="container" style={{ background: "rgb(247, 252, 245)" }}>
         <Sidebar />
         <div className="content">
           <Header />
           <div className="content-wrapper">
             <DashboardTile />
-            {/* <iframe
-              width="100%"
-              height="900"
-              src="https://datastudio.google.com/embed/reporting/6b93099e-2cb4-456e-9aaa-369940a0f40c/page/rt54C"
-              // frameborder="0"
-              // style="border:0"
-              // allowfullscreen
-            ></iframe> */}
-            {/* <iframe
-              width="100%"
-              height="900"
-              src="https://datastudio.google.com/embed/reporting/f652922b-81d4-4fe7-8767-917f1058ef49/page/Y7y1C"
-            // ></iframe> */}
-            <Box width="50%" mt={10}>
-              <Reason />
-            </Box>
+
+            <HStack mt={4}>
+              <Box
+                width="50%"
+                boxShadow="sm"
+                bg="white"
+                borderRadius={5}
+                mr={3}
+              >
+                <Reason />
+              </Box>
+
+              <Box width="50%" boxShadow="sm" bg="white" borderRadius={5}>
+                <SamplePie />
+              </Box>
+            </HStack>
           </div>
         </div>
       </div>

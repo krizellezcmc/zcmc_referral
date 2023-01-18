@@ -1,7 +1,8 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { useState, useEffect } from "react";
-import api from "../API/Api";
+import api from "../../API/Api";
+import { Box, Text } from "@chakra-ui/react";
 
 const SamplePie = () => {
   const [pieData, setPieData] = useState([]);
@@ -12,17 +13,30 @@ const SamplePie = () => {
   };
   useEffect(() => {
     getDept();
+    // console.log(pieData);
   }, [pieData]);
   return (
-    <div style={{ height: 500 }}>
+    <Box h="500px">
+      <Text
+        textAlign="center"
+        mt={12}
+        mb={5}
+        textTransform="uppercase"
+        fontWeight={700}
+        fontSize={20}
+        color="teal.600"
+      >
+        Specializations
+      </Text>
       <ResponsivePie
         data={pieData}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+        margin={{ top: 40, right: 80, bottom: 100, left: 80 }}
         innerRadius={0.5}
+        sortByValue={true}
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        colors={{ scheme: "greens" }}
+        colors={{ scheme: "blue_green" }}
         borderWidth={1}
         borderColor={{
           from: "color",
@@ -38,7 +52,7 @@ const SamplePie = () => {
           modifiers: [["darker", 2]],
         }}
       />
-    </div>
+    </Box>
   );
 };
 

@@ -29,7 +29,7 @@ const Sidebar = () => {
   const [username, setUserName] = useState("");
   const [referringFacility, setReferringFacility] = useState("");
   const [role, setRole] = useState("");
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   let navigate = useNavigate();
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { reasons } from "../../Data/Reasons";
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import api from "../../API/Api";
 import { useEffect } from "react";
@@ -16,27 +16,38 @@ const Reason = () => {
 
   useEffect(() => {
     getData();
+    // console.log(data);
   }, [data]);
 
   return (
     <Box h="500px">
+      <Text
+        textAlign="center"
+        mt={12}
+        mb={5}
+        textTransform="uppercase"
+        fontWeight={700}
+        fontSize={20}
+        color="teal.600"
+      >
+        Reason for Referral
+      </Text>
       <ResponsivePie
         data={data}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+        margin={{ top: 40, right: 80, bottom: 100, left: 80 }}
         sortByValue={true}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        colors={{ scheme: "greens" }}
+        colors={{ scheme: "blue_green" }}
         borderColor={{
           from: "color",
         }}
-
         // arcLinkLabelsSkipAngle={10}
         // arcLinkLabelsTextColor="#333333"
-        // arcLinkLabelsThickness={2}
-        // arcLinkLabelsColor={{ from: "color" }}
+        arcLinkLabelsThickness={2}
+        arcLinkLabelsColor={{ from: "color" }}
         // arcLabelsSkipAngle={4}
         // arcLabelsTextColor={{
         //   from: "color",
