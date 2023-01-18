@@ -43,6 +43,7 @@ import AdmissionViewPat from "../Pages/AdmissionViewPat";
 import ReferralDownload from "./ReferralDownload";
 import AdminRequests from "../Pages/AdminRequests";
 import ForgotPassword from "../Pages/ForgotPassword";
+import Reason from "./Charts/Reason";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -64,14 +65,10 @@ const AnimatedRoutes = () => {
             path="/tagubilinreport/:id"
             element={<TagubilinPrescription />}
           />
-
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/user" element={<UserDashboard />}></Route>
-
           <Route path="/about" element={<About />} />
-
           <Route path="/recovery" element={<Verify />}></Route>
-
           <Route path="/opcen" element={<OpcenHome />}></Route>
           <Route path="/opcenref" element={<OpcenReferral />}></Route>
           <Route path="/patientlist" element={<Patient />} />
@@ -80,18 +77,14 @@ const AnimatedRoutes = () => {
           <Route path="/transfer" element={<Transferred />}></Route>
           <Route path="/pretriage" element={<PreTriageHome />}></Route>
           <Route path="/admindashboard" element={<AdminDashboard />} />
-
           <Route path="/referralform" element={<AddReferral />} />
           <Route path="/newpassword" element={<ForgotPassword />} />
-
           <Route path="/refdownload" element={<ReferralDownload />} />
           {/* <Route path="/cancelled" element={<CancelledModal />} /> */}
-
           {/* Nurse Routes*/}
           <Route element={<ProtectedRoutes user={user} role="nurse" />}>
             <Route path="/tagubilin" element={<NurseHome />} />
           </Route>
-
           {/* User Routes */}
           <Route element={<ProtectedRoutes user={user} role="user" />}>
             <Route path="/home" element={<AdminHome />} />
@@ -100,27 +93,25 @@ const AnimatedRoutes = () => {
             <Route path="/referrals" element={<Referrals />} />
             <Route path="/referrals/:id" element={<ReferralHome />}></Route>
           </Route>
-
           {/* IPCC Routes */}
           <Route element={<ProtectedRoutes user={user} role="ipcc" />}>
             <Route path="/ipcc" element={<IPCCHome />} />
           </Route>
-
           {/* Universal */}
           <Route path="/changepass" element={<ChangePassword />} />
-
           {/* Admin Routes */}
           <Route element={<ProtectedRoutes user={user} role="admin" />}>
             <Route path="/addhospital" element={<AddHospital />} />
             <Route path="/verifyuser" element={<VerifyUser />} />
             <Route path="/requests" element={<AdminRequests />} />
           </Route>
-
           {/* ADmission Routes */}
           <Route element={<ProtectedRoutes user={user} role="admission" />}>
             <Route path="/admission" element={<AdmissionHome />} />
             <Route path="/admission/:id" element={<AdmissionViewPat />} />
           </Route>
+          {/* CHARTS (Remove after testing)*/}{" "}
+          <Route path="/reason-chart" element={<Reason />} />
         </Route>
       </Routes>
     </AnimatePresence>

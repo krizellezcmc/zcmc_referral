@@ -1,8 +1,9 @@
-import { AspectRatio, Link } from "@chakra-ui/react";
+import { AspectRatio, Box, Link } from "@chakra-ui/react";
 import React from "react";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import DashboardTile from "../Components/DashboardTile";
+import Reason from "../Components/Charts/Reason";
 
 function AdminDashboard(props) {
   return (
@@ -26,6 +27,9 @@ function AdminDashboard(props) {
               height="900"
               src="https://datastudio.google.com/embed/reporting/f652922b-81d4-4fe7-8767-917f1058ef49/page/Y7y1C"
             // ></iframe> */}
+            <Box width="50%" mt={10}>
+              <Reason />
+            </Box>
           </div>
         </div>
       </div>
