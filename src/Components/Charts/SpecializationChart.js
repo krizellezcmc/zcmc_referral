@@ -16,7 +16,7 @@ const SamplePie = () => {
     // console.log(pieData);
   }, [pieData]);
   return (
-    <Box h="500px">
+    <Box h={500} w={500}>
       <Text
         textAlign="center"
         mt={12}
@@ -30,7 +30,7 @@ const SamplePie = () => {
       </Text>
       <ResponsivePie
         data={pieData}
-        margin={{ top: 40, right: 80, bottom: 100, left: 80 }}
+        margin={{ top: 40, bottom: 100, left: 80, right: 80 }}
         innerRadius={0.5}
         sortByValue={true}
         padAngle={0.7}

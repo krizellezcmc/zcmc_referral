@@ -20,7 +20,7 @@ const Reason = () => {
   }, [data]);
 
   return (
-    <Box h="500px">
+    <Box h={500} w={700}>
       <Text
         textAlign="center"
         mt={12}
@@ -34,7 +34,7 @@ const Reason = () => {
       </Text>
       <ResponsivePie
         data={data}
-        margin={{ top: 40, right: 80, bottom: 100, left: 80 }}
+        margin={{ top: 40, right: 80, bottom: 100, left: 110 }}
         sortByValue={true}
         innerRadius={0.5}
         padAngle={0.7}
@@ -45,13 +45,13 @@ const Reason = () => {
           from: "color",
         }}
         // arcLinkLabelsSkipAngle={10}
-        // arcLinkLabelsTextColor="#333333"
-        arcLinkLabelsThickness={2}
+        // arcLinkLabelsTextColor="#333333" arcLabel={function(e){return e.id+" ("+e.value+")"}}
+        arcLinkLabelsThickness={3}
         arcLinkLabelsColor={{ from: "color" }}
         // arcLabelsSkipAngle={4}
         // arcLabelsTextColor={{
         //   from: "color",
-        //   modifiers: [["darker", 2]],
+        //   modifiers: [["darker", 2]],s
         // }}
         // legends={[
         //   {

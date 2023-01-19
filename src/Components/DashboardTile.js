@@ -72,12 +72,7 @@ function DashboardTile(props) {
             </StatHelpText>
           </Stat>
 
-          <Flex
-            // background="green.500"
-            borderTop="1px solid lightgrey"
-            pl={8}
-            py={3}
-          >
+          <Flex borderTop="1px solid lightgrey" pl={8} py={3}>
             <BiChevronRightCircle />
             <Link href="/opcen" fontSize="sm" fontWeight="500" ml={1} mt={-0.5}>
               See More

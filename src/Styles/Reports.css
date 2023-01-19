@@ -1,0 +1,8 @@
+.refname {
+  text-transform: lowercase;
+}
+
+.refname:first-letter,
+.refname::first-line {
+  text-transform: capitalize;
+}

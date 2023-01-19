@@ -12,6 +12,7 @@
   border-right: 1px solid #e9ecf0;
   display: flex;
   flex-direction: column;
+  z-index: 50;
 }
 
 .sidebar.close {
