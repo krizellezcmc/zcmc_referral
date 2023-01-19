@@ -61,10 +61,12 @@ function DashboardTile(props) {
   }, [data]);
   return (
     <>
-      <HStack mb={10}>
-        <Box bg="white" width="25%" borderRadius={5} boxShadow="base">
+      <HStack mb={5}>
+        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
-            <StatLabel>PENDING RFERRALS</StatLabel>
+            <StatLabel color="teal.900" fontWeight={700}>
+              PENDING RFERRALS
+            </StatLabel>
             <StatNumber>{pending}</StatNumber>
             <StatHelpText style={{ display: "flex", alignItems: "center" }}>
               <Circle size="7px" bg="green" color="white" mr={2} />
@@ -72,16 +74,27 @@ function DashboardTile(props) {
             </StatHelpText>
           </Stat>
 
-          <Flex borderTop="1px solid lightgrey" pl={8} py={3}>
-            <BiChevronRightCircle />
-            <Link href="/opcen" fontSize="sm" fontWeight="500" ml={1} mt={-0.5}>
+          <Flex bg="teal.100" pl={8} py={3} px={6} alignItems="center">
+            <Link
+              href="/opcen"
+              _hover={{ textDecoration: "none" }}
+              fontSize="sm"
+              fontWeight="500"
+              ml={1}
+              mt={-0.5}
+              color="teal.900"
+            >
               See More
             </Link>
+            <Spacer />
+            <BiChevronRightCircle />
           </Flex>
         </Box>
-        <Box bg="white" width="25%" borderRadius={5} boxShadow="base">
+        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
-            <StatLabel>INCOMING RFERRALS</StatLabel>
+            <StatLabel color="teal.900" fontWeight={700}>
+              INCOMING RFERRALS
+            </StatLabel>
             <StatNumber>{incoming}</StatNumber>
             <StatHelpText style={{ display: "flex", alignItems: "center" }}>
               <Circle size="7px" bg="green" color="white" mr={2} />
@@ -89,21 +102,27 @@ function DashboardTile(props) {
             </StatHelpText>
           </Stat>
 
-          <Flex
-            background="white"
-            borderTop="1px solid lightgrey"
-            pl={8}
-            py={3}
-          >
-            <BiChevronRightCircle />
-            <Link href="/opcen" fontSize="sm" fontWeight="500" ml={1} mt={-0.5}>
+          <Flex background="teal.100" pl={8} py={3} px={6} alignItems="center">
+            <Link
+              href="/opcen"
+              _hover={{ textDecoration: "none" }}
+              fontSize="sm"
+              fontWeight="500"
+              ml={1}
+              mt={-0.5}
+              color="teal.900"
+            >
               See More
             </Link>
+            <Spacer />
+            <BiChevronRightCircle />
           </Flex>
         </Box>
-        <Box bg="white" width="25%" borderRadius={5} boxShadow="base">
+        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
-            <StatLabel>ARRIVED RFERRALS</StatLabel>
+            <StatLabel color="teal.900" fontWeight={700}>
+              ARRIVED RFERRALS
+            </StatLabel>
             <StatNumber>{arrived}</StatNumber>
             <StatHelpText style={{ display: "flex", alignItems: "center" }}>
               <Circle size="7px" bg="green" color="white" mr={2} />
@@ -111,21 +130,27 @@ function DashboardTile(props) {
             </StatHelpText>
           </Stat>
 
-          <Flex
-            background="white"
-            borderTop="1px solid lightgrey"
-            pl={8}
-            py={3}
-          >
-            <BiChevronRightCircle />
-            <Link href="/opcen" fontSize="sm" fontWeight="500" ml={1} mt={-0.5}>
+          <Flex background="teal.100" pl={8} py={3} px={6} alignItems="center">
+            <Link
+              href="/opcen"
+              _hover={{ textDecoration: "none" }}
+              fontSize="sm"
+              fontWeight="500"
+              ml={1}
+              mt={-0.5}
+              color="teal.900"
+            >
               See More
             </Link>
+            <Spacer />
+            <BiChevronRightCircle />
           </Flex>
         </Box>
-        <Box bg="white" width="25%" borderRadius={5} boxShadow="base" ml={3}>
+        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base" ml={3}>
           <Stat px={8} pt={7} pb={3}>
-            <StatLabel>ADMITTED RFERRALS</StatLabel>
+            <StatLabel color="teal.900" fontWeight={700}>
+              ADMITTED RFERRALS
+            </StatLabel>
             <StatNumber>{admitted}</StatNumber>
             <StatHelpText style={{ display: "flex", alignItems: "center" }}>
               <Circle size="7px" bg="green" color="white" mr={2} />
@@ -133,27 +158,28 @@ function DashboardTile(props) {
             </StatHelpText>
           </Stat>
 
-          <Flex
-            background="white"
-            borderTop="1px solid lightgrey"
-            pl={8}
-            py={3}
-          >
-            <BiChevronRightCircle />
+          <Flex bg="teal.100" pl={8} py={3} px={6} alignItems="center">
             <Link
-              href="/patientlist"
+              href="/opcen"
+              _hover={{ textDecoration: "none" }}
               fontSize="sm"
               fontWeight="500"
               ml={1}
               mt={-0.5}
+              color="teal.900"
             >
               See More
             </Link>
+            <Spacer />
+            <BiChevronRightCircle />
           </Flex>
         </Box>
-        <Box bg="white" width="25%" borderRadius={5} boxShadow="base">
+
+        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
-            <StatLabel>TRANSFERRED RFERRALS</StatLabel>
+            <StatLabel color="teal.900" fontWeight={700}>
+              TRANSFERRED RFERRALS
+            </StatLabel>
             <StatNumber>{transferred}</StatNumber>
             <StatHelpText style={{ display: "flex", alignItems: "center" }}>
               <Circle size="7px" bg="green" color="white" mr={2} />
@@ -161,62 +187,23 @@ function DashboardTile(props) {
             </StatHelpText>
           </Stat>
 
-          <Flex
-            background="white"
-            borderTop="1px solid lightgrey"
-            pl={8}
-            py={3}
-          >
-            <BiChevronRightCircle />
+          <Flex bg="teal.100" pl={8} py={3} px={6} alignItems="center">
             <Link
-              href="/transfer"
+              href="/opcen"
+              _hover={{ textDecoration: "none" }}
               fontSize="sm"
               fontWeight="500"
               ml={1}
               mt={-0.5}
+              color="teal.900"
             >
               See More
             </Link>
+            <Spacer />
+            <BiChevronRightCircle />
           </Flex>
         </Box>
       </HStack>
-      {/* <div style={{ width: "100%", height: 300 }}> */}
-
-      <Flex alignItems="center">
-        <Heading fontWeight={500} fontSize={24}>
-          Total Referrals
-        </Heading>
-        <Spacer />{" "}
-        <HStack align="center">
-          <Button
-            as={Link}
-            href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/8MeLC"
-            fontSize={14}
-            fontWeight={500}
-            bgColor="blue.600"
-            color="white"
-            _hover={{ textDecoration: "none" }}
-            // shadow="base"
-            target="_blank"
-            rightIcon={<BiBed />}
-          >
-            OHC Bed Monitoring
-          </Button>
-          <Button
-            as={Link}
-            href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/p_58f3p0sqoc"
-            bgColor="green.500"
-            fontSize={14}
-            fontWeight={500}
-            color="white"
-            _hover={{ textDecoration: "none" }}
-            target="_blank"
-            rightIcon={<BiBuilding />}
-          >
-            ZCMC Bed Monitoring
-          </Button>
-        </HStack>
-      </Flex>
     </>
   );
 }

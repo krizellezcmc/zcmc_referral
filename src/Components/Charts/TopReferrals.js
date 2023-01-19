@@ -30,7 +30,7 @@ function TopReferrals(props) {
     <div>
       <TableContainer w="auto">
         <Table variant="striped" size="md">
-          <TableCaption>Top Referrals</TableCaption>
+          <TableCaption color="teal.600">Top Referrals</TableCaption>
           <Thead>
             <Tr>
               <Th>Referring Facility</Th>
@@ -45,7 +45,7 @@ function TopReferrals(props) {
                     <span className="p-refname">
                       <Text
                         fontWeight={500}
-                        color="teal.600"
+                        color="teal.700"
                         fontSize={13}
                         className="refname"
                       >

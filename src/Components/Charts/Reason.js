@@ -34,7 +34,7 @@ const Reason = () => {
       </Text>
       <ResponsivePie
         data={data}
-        margin={{ top: 40, right: 80, bottom: 100, left: 110 }}
+        margin={{ top: 40, right: 80, bottom: 100, left: 100 }}
         sortByValue={true}
         innerRadius={0.5}
         padAngle={0.7}
