@@ -23,6 +23,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Heading,
+  Flex,
 } from "@chakra-ui/react";
 import Spinner from "../Components/Spinner";
 
@@ -32,6 +34,7 @@ import useAuth from "../Hooks/useAuth";
 import Sidebar from "../Components/Sidebar";
 import OpcenTable from "../Components/OpcenTable";
 import { BiRefresh, BiSearch } from "react-icons/bi";
+import { TbAmbulance } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import CancelledModal from "../Components/CancelledModal";
 
@@ -107,8 +110,15 @@ function OpcenHome() {
       <div className="content">
         <Header />
         <div className="">
-          <Container maxW="80%" mt={5}>
-            <HStack py={10} pos="relative">
+          <Container maxW="90%" mt={5}>
+            <Flex alignItems="center" mb={7} mt={10}>
+              <Heading fontWeight={700} fontSize={33} color="teal.900" mr={3}>
+                REFERRALS
+              </Heading>
+              <TbAmbulance fontSize={30} />
+              <Spacer />
+            </Flex>
+            <HStack mt={10} mb={6} pos="relative">
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"

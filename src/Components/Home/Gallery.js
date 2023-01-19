@@ -42,7 +42,7 @@ const breakPoints = [
 function Gallery(props) {
   return (
     <>
-      <Box py={10} w="100%">
+      <Box w="100%">
         <Container maxW="container.xl" mb={10}>
           <Box mb={14} align="center">
             <Text

@@ -17,6 +17,8 @@ import {
   GridItem,
   Grid,
   Center,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
@@ -34,7 +36,12 @@ import {
   BiUser,
 } from "react-icons/bi";
 import Loading from "../Components/Spinner";
-import { TbBuildingHospital, TbCheckupList } from "react-icons/tb";
+import {
+  TbBuildingHospital,
+  TbCheckupList,
+  TbTransferIn,
+  TbTransferOut,
+} from "react-icons/tb";
 import moment from "moment";
 import { GoCheck } from "react-icons/go";
 import Swal from "sweetalert2";
@@ -131,7 +138,19 @@ function Referrals(props) {
         <div className="content">
           <Header />
           <div className="content-wrapper">
-            <Container maxW="80%">
+            <Container maxW="92%" mt={5}>
+              <Flex alignItems="center" mb={7}>
+                <Heading
+                  fontWeight={700}
+                  fontSize={33}
+                  color="teal.900"
+                  mr={3}
+                  textTransform="uppercase"
+                >
+                  Referrals
+                </Heading>
+                <TbTransferOut fontSize={30} />
+              </Flex>
               <Box
                 w="100%"
                 bg="white"
@@ -139,7 +158,7 @@ function Referrals(props) {
                 padding={1}
                 border="1px"
                 borderColor="gray.100"
-                boxShadow="lg"
+                boxShadow="md"
                 py={3}
               >
                 <HStack>
@@ -192,7 +211,7 @@ function Referrals(props) {
                               color: "black",
                               borderLeft: "2px",
                               borderColor: "green",
-                              transform: "scale(1.01)",
+                              transform: "scale(1.00)",
                             }}
                             py={3}
                             onClick={() => {

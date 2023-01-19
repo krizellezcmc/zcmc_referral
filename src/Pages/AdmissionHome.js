@@ -13,6 +13,8 @@ import {
   Alert,
   AlertIcon,
   Spacer,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import api from "../API/Api";
@@ -20,6 +22,7 @@ import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import { BiRefresh, BiSearch } from "react-icons/bi";
 import AdmissionTable from "../Components/AdmissionTable";
+import { TbUsers } from "react-icons/tb";
 
 function AdmissionHome(props) {
   const [search, setSearch] = useState("");
@@ -52,13 +55,25 @@ function AdmissionHome(props) {
         <div className="content">
           <Header />
 
-          <Container maxW="80%">
+          <Container maxW="92%" mt={10}>
+            <Flex alignItems="center">
+              <Heading
+                fontWeight={700}
+                fontSize={33}
+                color="teal.900"
+                mr={3}
+                textTransform="uppercase"
+              >
+                Patients
+              </Heading>
+              <TbUsers fontSize={30} />
+            </Flex>
             <Box
               bgColor="white"
-              position="fixed"
-              w="1270px"
+              // position="fixed"
+              // w="1680px"
               pt={10}
-              zIndex={20}
+              // zIndex={20}
             >
               <Box display="flex">
                 <InputGroup>
@@ -84,7 +99,7 @@ function AdmissionHome(props) {
                 <Button
                   onClick={refreshPage}
                   rightIcon={<BiRefresh />}
-                  colorScheme="orange"
+                  colorScheme="teal"
                 >
                   Refresh
                 </Button>
@@ -125,7 +140,7 @@ function AdmissionHome(props) {
                 </HStack>
               </Box>
             </Box>
-            <Box pt={20}></Box>
+
             <Box
               w="100%"
               bgColor="white"
@@ -133,7 +148,7 @@ function AdmissionHome(props) {
               border="1px"
               borderColor="gray.100"
               boxShadow="base"
-              mt={20}
+              mt={2}
             >
               {isLoading ? (
                 <Center my={20}>

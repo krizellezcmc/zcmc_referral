@@ -260,7 +260,7 @@ const Sidebar = () => {
               </p>
               <span>Referred Patients</span>
             </li>
-            {user?.local === 0 ? (
+            {user?.local !== 1 ? (
               ""
             ) : (
               <>
