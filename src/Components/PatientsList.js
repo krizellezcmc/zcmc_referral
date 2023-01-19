@@ -184,7 +184,7 @@ const PatientsList = (props) => {
   return (
     <div>
       <Container maxW="100%">
-        <div className="table-container">
+        <div className="table-container" style={{ backgroundColor: "white" }}>
           <Text fontWeight={800} fontSize={20} mb={2}>
             REFERRED PATIENTS
           </Text>

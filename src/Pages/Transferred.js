@@ -6,7 +6,10 @@ import Header from "../Components/Header";
 function Transfererd(props) {
   return (
     <div>
-      <div className="container">
+      <div
+        className="container"
+        style={{ backgroundColor: "rgb(247, 252, 245)" }}
+      >
         <Sidebar />
         <div className="content">
           <Header />

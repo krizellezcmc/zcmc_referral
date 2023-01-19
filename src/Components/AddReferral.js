@@ -205,14 +205,14 @@ const AddReferral = () => {
             timeStamp: timeStamp,
             patientId: patientId,
             username: username,
-            referringFacility: referringFacility,
+            referringFacility: referringFacility.toUpperCase(),
             lastname: lastname,
             firstname: firstname,
             middlename: middlename,
             extendedName: extendedName,
             sex: sex,
-            birthdate: birthdate,
-            age: age,
+            birthdate: !birthdate ? "no bday" : birthdate,
+            age: !birthdate ? age : getAge(birthdate),
             civilStatus: civilStatus,
             nationality: nationality,
             religion: religion,
@@ -395,7 +395,7 @@ const AddReferral = () => {
                         type="text"
                         variant="filled"
                         value={getAge(birthdate)}
-                        onChange={(e) => setAge(e.target.value)}
+                        // onChange={(e) => setAge(e.target.value)}
                       />
                     </HStack>
                   </FormControl>

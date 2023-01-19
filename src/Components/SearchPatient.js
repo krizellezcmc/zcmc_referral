@@ -195,18 +195,20 @@ function SearchPatient(props) {
 
       <Select
         // styles={{ position: "fixed", zIndex: "50" }}
+
         options={patient}
         placeholder="Search patient"
         // variant="flushed"
         selectedOptionStyle="check"
         closeMenuOnSelect={true}
-        focusBorderColor="#058e46"
+        focusBorderColor="black"
         onChange={(e) => {
           selectedText(e.value);
         }}
         width="100%"
         required
         id="searchbar"
+        color="white"
       />
 
       {patient
@@ -988,26 +990,6 @@ function SearchPatient(props) {
 
                                   {/* COVID */}
 
-                                  <Text
-                                    textTransform="uppercase"
-                                    fontSize="15px"
-                                    fontWeight="500"
-                                  >
-                                    COVID:{" "}
-                                    {covid === null ? (
-                                      <Badge colorScheme="gray">
-                                        No result
-                                      </Badge>
-                                    ) : covid["result"] === 1 ? (
-                                      <Badge colorScheme="red">
-                                        POSITIVE +
-                                      </Badge>
-                                    ) : (
-                                      <Badge colorScheme="blue">
-                                        negative -
-                                      </Badge>
-                                    )}
-                                  </Text>
                                   <br />
 
                                   <Text
@@ -1264,6 +1246,26 @@ function SearchPatient(props) {
                                       Not yet available
                                     </Text>
                                   </Box>
+                                  <Text
+                                    textTransform="uppercase"
+                                    fontSize="15px"
+                                    fontWeight="500"
+                                  >
+                                    COVID:{" "}
+                                    {covid === null ? (
+                                      <Badge colorScheme="gray">
+                                        No result
+                                      </Badge>
+                                    ) : covid["result"] === 1 ? (
+                                      <Badge colorScheme="red">
+                                        POSITIVE +
+                                      </Badge>
+                                    ) : (
+                                      <Badge colorScheme="blue">
+                                        negative -
+                                      </Badge>
+                                    )}
+                                  </Text>
                                 </GridItem>
                               </>
                             ) : i.status === "referred" ? (
