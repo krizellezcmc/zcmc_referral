@@ -153,6 +153,7 @@ function TransferredRef(props) {
                 outline: "none",
                 borderColor: "green",
               }}
+              backgroundColor="white"
             />
           </InputGroup>
         </Box>

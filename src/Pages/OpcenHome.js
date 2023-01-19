@@ -105,7 +105,10 @@ function OpcenHome() {
   }, [selected]);
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{ backgroundColor: "rgb(247, 252, 245)" }}
+    >
       <Sidebar />
       <div className="content">
         <Header />
@@ -136,6 +139,7 @@ function OpcenHome() {
                     outline: "none",
                     borderColor: "green",
                   }}
+                  backgroundColor="white"
                 />
               </InputGroup>
               <Box>
