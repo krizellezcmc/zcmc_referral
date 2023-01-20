@@ -25,6 +25,7 @@ import {
   InputLeftElement,
   Input,
   Center,
+  Heading,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import api from "../API/Api";
@@ -32,6 +33,7 @@ import { BiClinic, BiSearch } from "react-icons/bi";
 import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
 import Spinner from "../Components/Spinner";
+import { TbTransferIn, TbTransferOut } from "react-icons/tb";
 
 function TransferredRef(props) {
   const [patDetails, setPatDetails] = useState([]);
@@ -120,8 +122,20 @@ function TransferredRef(props) {
   };
   return (
     <div>
-      <Container maxW="80%">
-        <Box py={5}>
+      <Container maxW="92%" mt={5}>
+        <Flex alignItems="center" mb={7}>
+          <Heading
+            fontWeight={700}
+            fontSize={33}
+            color="teal.900"
+            mr={3}
+            textTransform="uppercase"
+          >
+            Transferred
+          </Heading>
+          <TbTransferIn fontSize={30} />
+        </Flex>
+        <Box pb={5} pt={6}>
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
@@ -143,7 +157,6 @@ function TransferredRef(props) {
             />
           </InputGroup>
         </Box>
-
         <Box
           w="100%"
           bg="white"

@@ -30,6 +30,9 @@ import {
   MenuItem,
   MenuList,
   Center,
+  Container,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 import "../Styles/Patients.css";
 import moment from "moment";
@@ -42,7 +45,7 @@ import {
   BiUser,
 } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
-import { TbCheckupList } from "react-icons/tb";
+import { TbCheckupList, TbUsers } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
 import api from "../API/Api";
 import Spinner from "./Spinner";
@@ -97,10 +100,19 @@ const ReferredPatients = () => {
   }, []);
 
   return (
-    <div className="table-container">
-      <Text fontWeight={800} fontSize={20} mb={5}>
-        REFERRED PATIENTS
-      </Text>
+    <Container maxW="95%" mt={5}>
+      <Flex alignItems="center" mb={7}>
+        <Heading
+          fontWeight={700}
+          fontSize={33}
+          color="teal.900"
+          mr={3}
+          textTransform="uppercase"
+        >
+          Referred Patients
+        </Heading>
+        <TbUsers fontSize={30} />
+      </Flex>
       <div
         style={{
           display: "flex",
@@ -444,7 +456,7 @@ const ReferredPatients = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </div>
+    </Container>
   );
 };
 

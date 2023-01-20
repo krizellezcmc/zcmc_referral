@@ -194,7 +194,6 @@ function AdmissionReferral(props) {
               <Text fontWeight={500}> Back to Home</Text>
             </Button>
             <Spacer />
-
             <Badge fontSize={16} colorScheme="blue">
               For viewing only
             </Badge>

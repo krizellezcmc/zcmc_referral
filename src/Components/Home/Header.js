@@ -83,9 +83,9 @@ function Header(props) {
             </Box>
           </Box>
 
-          <Box flexShrink="0" px={5}>
+          <Box flexShrink="0" px={5} display={{ xs: "none", lg: "block" }}>
             <Image
-              width={{ sm: 0, md: 300, lg: 500, xl: 700 }}
+              width={{ sm: 0, md: 300, lg: 500, xl: 600 }}
               src={header_img}
               alt="Doctors Illustration"
               mt={{ base: 4, lg: 20, md: 0, sm: 16, xl: 20 }}

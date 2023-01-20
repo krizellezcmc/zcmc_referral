@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
-import GalleryTile from "../../Components/Home/GalleryTile";
+// import GalleryTile from "../../Components/Home/GalleryTile";
 import Gallery from "../../Components/Home/Gallery";
 import logo from "../../Assets/OHCC.png";
 
@@ -47,24 +47,26 @@ function Home(props) {
       setLoggedIn(true);
     }
 
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
-        setShowScrollUp(true);
-      } else {
-        setShowScrollUp(false);
-      }
+    if (window.innerWidth <= 414 && window.innerHeight <= 896) {
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 100) {
+          setShowScrollUp(true);
+        } else {
+          setShowScrollUp(false);
+        }
 
-      console.log(window.scrollY);
-      if (window.scrollY >= 5400) {
-        navigate("#faqs");
-      } else if (window.scrollY >= 2716) {
-        navigate("#about");
-      } else if (window.scrollY >= 1400) {
-        navigate("#services");
-      } else {
-        navigate("#header");
-      }
-    });
+        // console.log(window.scrollY);
+        if (window.scrollY >= 5400) {
+          navigate("#faqs");
+        } else if (window.scrollY >= 2330) {
+          navigate("#about");
+        } else if (window.scrollY >= 1400) {
+          navigate("#services");
+        } else {
+          navigate("#header");
+        }
+      });
+    }
   }, []);
 
   return (
