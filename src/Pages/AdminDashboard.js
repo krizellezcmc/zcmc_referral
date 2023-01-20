@@ -74,7 +74,6 @@ function AdminDashboard(props) {
               // className="content"
             >
               <Box
-                width="100%"
                 boxShadow="md"
                 borderColor="white"
                 bg="white"

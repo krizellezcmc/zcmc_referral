@@ -27,14 +27,12 @@ function RequestTable(props) {
     let response = await api.get("/getAllRequests.php");
 
     setList(response.data);
-    // console.log(response.data);
   };
 
   const getLockList = async () => {
     let response = await api.get("/getAllRequestTime.php");
 
     setLockList(response.data);
-    // console.log(response.data);
   };
 
   const acceptRequest = async (value) => {

@@ -278,7 +278,7 @@ function OpcenReferral(props) {
     refData();
     const user = JSON.parse(localStorage.getItem("user"));
     setOpcenUserName(user.firstName + "  " + user.lastName);
-  }, [props.patientId]);
+  }, [props.patientId, requestEdit, editable]);
 
   return (
     <div>

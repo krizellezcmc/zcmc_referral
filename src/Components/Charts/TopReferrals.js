@@ -28,8 +28,8 @@ function TopReferrals(props) {
   }, []);
   return (
     <div>
-      <TableContainer w="auto">
-        <Table variant="striped" size="md">
+      <TableContainer>
+        <Table variant="striped" size="md" w="400px">
           <TableCaption color="teal.600">Top Referrals</TableCaption>
           <Thead>
             <Tr>

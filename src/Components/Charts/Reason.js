@@ -20,7 +20,7 @@ const Reason = () => {
   }, [data]);
 
   return (
-    <Box h={500} w={700}>
+    <Box h={500} w={800}>
       <Text
         textAlign="center"
         mt={12}
