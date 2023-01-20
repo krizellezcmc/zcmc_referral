@@ -394,7 +394,7 @@ function OpcenHome2(props) {
       <Sidebar />
       <div className="content">
         <Header />
-        <Box w="75%" bg="white" p={4} zIndex={50} pos="fixed" mb={5}>
+        <Box px={20} pt={10}>
           <Button
             onClick={homeOpcen}
             variant="outline"
@@ -461,7 +461,7 @@ function OpcenHome2(props) {
               </>
             ) : patientStat === "accepted" ? (
               <Button
-                size="sm"
+                // size="sm"
                 colorScheme="red"
                 variant="solid"
                 onClick={() => cancelReferral(id)}
@@ -481,7 +481,7 @@ function OpcenHome2(props) {
               </Container>
             ) : ( */}
 
-          <Container mt={100} maxW="container.xl">
+          <Container mt={10} maxW="container.xl">
             <Tabs variant="enclosed">
               <TabList mb="1em">
                 <Tab>

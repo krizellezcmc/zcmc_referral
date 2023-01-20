@@ -55,22 +55,10 @@ import { Select } from "chakra-react-select";
 
 import Spinner from "./Spinner";
 
-import {
-  BiCalendarEvent,
-  BiSearch,
-  BiStats,
-  BiUser,
-  BiUserCheck,
-  BiRefresh,
-  BiMaleSign,
-  BiFemaleSign,
-} from "react-icons/bi";
+import { BiCalendarEvent, BiSearch, BiStats, BiUser } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { TbCheckupList, TbUsers } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
-import { GoCheck, GoX } from "react-icons/go";
-import Swal from "sweetalert2";
-import CancelledModal from "./CancelledModal";
 
 const PatientsList = (props) => {
   let navigate = useNavigate();
@@ -86,17 +74,6 @@ const PatientsList = (props) => {
     isOpen: isReferredOpen,
     onOpen: onReferredOpen,
     onClose: onReferredClose,
-  } = useDisclosure();
-  const {
-    isOpen: isPendingOpen,
-    onOpen: onPendingOpen,
-    onClose: onPendingClose,
-  } = useDisclosure();
-
-  const {
-    isOpen: isCancelledOpen,
-    onOpen: onCancelledOpen,
-    onClose: onCancelledClose,
   } = useDisclosure();
 
   const {
@@ -219,6 +196,7 @@ const PatientsList = (props) => {
             display: "flex",
             justifyContent: "space-between",
             marginBottom: 10,
+            background: "white",
           }}
         >
           <InputGroup>
@@ -249,7 +227,7 @@ const PatientsList = (props) => {
             <Spinner />
           </Center>
         ) : (
-          <TableContainer>
+          <TableContainer bg="white">
             <Table cellSpacing={0}>
               <Thead>
                 <Tr>
@@ -307,7 +285,6 @@ const PatientsList = (props) => {
                             <Td className="border">
                               {pat.dischDate == null ? (
                                 <Badge colorScheme="yellow">
-                                  {" "}
                                   Not applicable
                                 </Badge>
                               ) : (

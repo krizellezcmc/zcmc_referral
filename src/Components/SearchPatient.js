@@ -987,11 +987,28 @@ function SearchPatient(props) {
                                       Patient ID: {d.patId}
                                     </Text>
                                   </Text>
-
-                                  {/* COVID */}
-
+                                  {/* COVID */}{" "}
+                                  <Text
+                                    textTransform="uppercase"
+                                    fontSize="15px"
+                                    fontWeight="500"
+                                  >
+                                    COVID:{" "}
+                                    {covid === null ? (
+                                      <Badge colorScheme="gray">
+                                        No result
+                                      </Badge>
+                                    ) : covid["result"] === 1 ? (
+                                      <Badge colorScheme="red">
+                                        POSITIVE +
+                                      </Badge>
+                                    ) : (
+                                      <Badge colorScheme="blue">
+                                        negative -
+                                      </Badge>
+                                    )}
+                                  </Text>
                                   <br />
-
                                   <Text
                                     style={{
                                       display: "flex",
@@ -1019,7 +1036,6 @@ function SearchPatient(props) {
                                       {moment(d.registryDate).format("lll")}
                                     </Box>
                                   </Text>
-
                                   <Box mt={10}>
                                     <Text
                                       style={{
@@ -1065,7 +1081,6 @@ function SearchPatient(props) {
                                       )}
                                     </Box>
                                   </Box>
-
                                   {/* <Box mt={10}>
                                     <Text
                                       style={{
@@ -1111,7 +1126,6 @@ function SearchPatient(props) {
                                       )}
                                     </Box>
                                   </Box> */}
-
                                   <Box mt={10}>
                                     <Text
                                       style={{
