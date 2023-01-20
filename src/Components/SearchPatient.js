@@ -989,6 +989,26 @@ function SearchPatient(props) {
                                   </Text>
 
                                   {/* COVID */}
+                                  <Text
+                                    textTransform="uppercase"
+                                    fontSize="15px"
+                                    fontWeight="500"
+                                  >
+                                    COVID:{" "}
+                                    {covid === null ? (
+                                      <Badge colorScheme="gray">
+                                        No result
+                                      </Badge>
+                                    ) : covid["result"] === 1 ? (
+                                      <Badge colorScheme="red">
+                                        POSITIVE +
+                                      </Badge>
+                                    ) : (
+                                      <Badge colorScheme="blue">
+                                        negative -
+                                      </Badge>
+                                    )}
+                                  </Text>
 
                                   <br />
 

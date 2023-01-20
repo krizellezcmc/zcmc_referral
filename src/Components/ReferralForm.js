@@ -178,8 +178,8 @@ const ReferralForm = () => {
         middlename: middlename,
         extendedName: extendedName,
         sex: sex,
-        birthdate: birthdate,
-        age: age,
+        birthdate: !birthdate ? "no bday" : birthdate,
+        age: !birthdate ? age : getAge(birthdate),
         civilStatus: civilStatus,
         nationality: nationality,
         religion: religion,
@@ -359,8 +359,7 @@ const ReferralForm = () => {
                       <Input
                         type="text"
                         variant="filled"
-                        value={birthdate === "" ? 0 : getAge(birthdate)}
-                        onChange={(e) => setAge(e.target.value)}
+                        value={getAge(birthdate)}
                       />
                     </HStack>
                   </FormControl>

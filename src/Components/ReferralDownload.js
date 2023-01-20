@@ -68,7 +68,7 @@ function ReferralDownload(props) {
               textAlign: "center",
               fontWeight: "bolder",
               color: "black",
-              fontSize: "20px",
+              fontSize: "18px",
               paddingBottom: "10px",
             }}
           >
