@@ -908,7 +908,7 @@ function OpcenReferral(props) {
                   color="red.800"
                   fontWeight={500}
                 >
-                  + Last edited by {lastEdit}
+                  + Last edited by {lastEdit} &nbsp;
                   {moment(lastEditTime).startOf().fromNow()}
                 </Text>
               ) : (

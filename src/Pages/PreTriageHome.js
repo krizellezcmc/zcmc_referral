@@ -254,7 +254,7 @@ function PreTriageHome(props) {
                                       onClick={() =>
                                         patientArrival(e.patientId)
                                       }
-                                      isLoading={load}
+                                      // isLoading={load}
                                       loadingText="Loading"
                                     >
                                       Arrived
