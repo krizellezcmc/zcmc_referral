@@ -19,8 +19,10 @@ import { BiCalendar, BiSend } from "react-icons/bi";
 // import localApi from "../API/LocalApi";
 import api from "../API/Api";
 import Loading from "./Spinner";
+import useAuth from "../Hooks/useAuth";
 
 function CovidForm(props) {
+  const { user } = useAuth();
   const [load, setLoad] = useState(false);
 
   const [patient, setPatient] = useState([]);
@@ -74,6 +76,7 @@ function CovidForm(props) {
       swabDate: swabDate,
       resultDate: resultDate,
       patId: id,
+      user: user?.firstName + " " + user?.lastName,
     });
 
     if (response) {
@@ -216,7 +219,7 @@ function CovidForm(props) {
                   covidData.map((i, k) => {
                     return (
                       <>
-                        <Box w={350} bg="#f7f8fb" p={7} borderRadius={10}>
+                        <Box w={450} bg="#f7f8fb" p={7} borderRadius={10}>
                           <Text mb={1}>Result:</Text>
 
                           <Badge
@@ -237,6 +240,11 @@ function CovidForm(props) {
 
                           <Text fontWeight="600" mt={1}>
                             {moment(i.result_date).format("LLL")}
+                          </Text>
+                          <Text mt={9}>Posted by:</Text>
+
+                          <Text fontWeight="600" mt={1}>
+                            {i.user} ({moment(i.tstamp).format("LLL")})
                           </Text>
                         </Box>
                       </>
