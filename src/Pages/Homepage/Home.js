@@ -47,26 +47,24 @@ function Home(props) {
       setLoggedIn(true);
     }
 
-    if (window.innerWidth <= 414 && window.innerHeight <= 896) {
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 100) {
-          setShowScrollUp(true);
-        } else {
-          setShowScrollUp(false);
-        }
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        setShowScrollUp(true);
+      } else {
+        setShowScrollUp(false);
+      }
 
-        // console.log(window.scrollY);
-        if (window.scrollY >= 5400) {
-          navigate("#faqs");
-        } else if (window.scrollY >= 2330) {
-          navigate("#about");
-        } else if (window.scrollY >= 1400) {
-          navigate("#services");
-        } else {
-          navigate("#header");
-        }
-      });
-    }
+      // console.log(window.scrollY);
+      if (window.scrollY >= 5400) {
+        navigate("#faqs");
+      } else if (window.scrollY >= 2330) {
+        navigate("#about");
+      } else if (window.scrollY >= 1400) {
+        navigate("#services");
+      } else {
+        navigate("#header");
+      }
+    });
   }, []);
 
   return (
