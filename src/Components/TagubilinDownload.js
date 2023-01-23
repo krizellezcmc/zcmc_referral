@@ -329,7 +329,7 @@ function TagubilinDownload(props) {
             </p>
           </td>
         </tr>
-        {!props.breastfeed ? (
+        {props.breastfeed.length === 0 ? (
           ""
         ) : (
           <>

@@ -193,38 +193,38 @@ function TagubilinForm(props) {
       window.location.href = `/tagubilinreport/${patRegister}`;
     }
 
-    localStorage.setItem(
-      "refpatient",
-      JSON.stringify({
-        patRegister: patRegister,
-        patientName: patientName,
-        age: age,
-        sex: sex,
-        ward: ward,
-        hrn: hrn,
-        address: address,
-        admissionDate: moment(admissionDate).format("LLL"),
-        dischDiag: dischDiag,
-        dischDate: moment(dischDate).format("LLL"),
-        laboratory: laboratory,
-        xray: xray,
-        ctScan: ctScan,
-        mri: mri,
-        others: others,
-        homemed: homemed,
-        nurse: nurse,
-        resident: resident,
-        followUp: followUp,
-        needBring: needBring,
-        time: time,
-        healthOthers: healthOthers,
-        medications: medications,
-        diet: diet,
-        instructions: inst,
-        breastfeed: breastfeed,
-        ob: ob,
-      })
-    );
+    // localStorage.setItem(
+    //   "refpatient",
+    //   JSON.stringify({
+    //     patRegister: patRegister,
+    //     patientName: patientName,
+    //     age: age,
+    //     sex: sex,
+    //     ward: ward,
+    //     hrn: hrn,
+    //     address: address,
+    //     admissionDate: moment(admissionDate).format("LLL"),
+    //     dischDiag: dischDiag,
+    //     dischDate: moment(dischDate).format("LLL"),
+    //     laboratory: laboratory,
+    //     xray: xray,
+    //     ctScan: ctScan,
+    //     mri: mri,
+    //     others: others,
+    //     homemed: homemed,
+    //     nurse: nurse,
+    //     resident: resident,
+    //     followUp: followUp,
+    //     needBring: needBring,
+    //     time: time,
+    //     healthOthers: healthOthers,
+    //     medications: medications,
+    //     diet: diet,
+    //     instructions: inst,
+    //     breastfeed: breastfeed,
+    //     ob: ob,
+    //   })
+    // );
   };
 
   const handleCheck = (e, value) => {

@@ -68,7 +68,7 @@ function TagubilinReport() {
     let response = await api.get("/get_nursetagu.php", {
       params: { id: id },
     });
-    console.log(response.data[0].disch_diagnosis);
+
     setRefName(response.data[0].patientName);
     setAge(response.data[0].age);
     setSex(response.data[0].sex);
@@ -253,11 +253,7 @@ function TagubilinReport() {
               <Image src={dohLogo} w="60px" float="right" marginRight="30px" />
             </Box>
             <Box>
-              <TableContainer
-                width="780px"
-                fontFamily="times"
-                overflowX="hidden"
-              >
+              <table width="780px" style={{ fontFamily: "times" }}>
                 <Table size="sm" variant="unstyled">
                   <Tr>
                     <Td
@@ -631,7 +627,7 @@ function TagubilinReport() {
 
                   {/* OB */}
 
-                  {!breastfeed ? (
+                  {breastfeed.length === 0 ? (
                     ""
                   ) : (
                     <>
@@ -976,7 +972,7 @@ function TagubilinReport() {
                     </Td>
                   </Tr>
                 </Table>
-              </TableContainer>
+              </table>
             </Box>
           </VStack>
         </Container>
