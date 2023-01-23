@@ -147,7 +147,6 @@ function SearchPatient(props) {
       params: { patientName: name, referredDate: refDate },
     });
     setBizbox(bizboxData.data);
-    console.log(name);
 
     if (covidData) {
       setIsLoading(false);

@@ -42,14 +42,15 @@ function Blocked() {
             </HStack>
 
             <Text fontSize="14.4px" fontWeight="400" color="gray.600" mt={3}>
-              You have reached the maximum login attempts. For account recovery,
-              click{" "}
+              Your account has been deactivated by the system administrator or
+              you have reached the maximum login attempts. <br /> <br />
+              For account recovery, click{" "}
               <span>
                 <Kbd>Recover Account</Kbd>
               </span>{" "}
               or kindly contact the administrator.
             </Text>
-            <Box mt={2}>
+            <Box mt={1}>
               <Button
                 type="submit"
                 h="2.45rem"
@@ -70,6 +71,8 @@ function Blocked() {
                 Recover Account
               </Button>
               <Button
+                as={Link}
+                _hover={{ textDecoration: "none" }}
                 h="2.45rem"
                 size="sm"
                 variant={"outline"}
@@ -79,6 +82,7 @@ function Blocked() {
                 rounded="lg"
                 fontWeight="400"
                 rightIcon={<BiLinkExternal />}
+                href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqXzDCXqFBZbRgTsFWmlwRRHlPFCqljzvPCjzxTFPxWkbqtFMCvnsMTpNSkNxzJxhnWVrL"
               >
                 Contact Administrator
               </Button>
@@ -86,7 +90,10 @@ function Blocked() {
               <Box mt={7}>
                 <Text fontSize="13px" fontWeight="400">
                   For more info, you can contact us at{" "}
-                  <Link href="#" color="blue.500">
+                  <Link
+                    href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqXzDCXqFBZbRgTsFWmlwRRHlPFCqljzvPCjzxTFPxWkbqtFMCvnsMTpNSkNxzJxhnWVrL"
+                    color="blue.500"
+                  >
                     zcmc.referral@gmail.com.
                   </Link>
                 </Text>

@@ -149,7 +149,39 @@ const UsersTable = () => {
             "Deactivated!",
             "The user has been deactivated.",
             "success"
-          );
+          ).then(() => {
+            window.location.href = "/login";
+          });
+        } else {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
+      }
+    });
+  };
+
+  // Activate user
+  const activateUser = (id) => {
+    Swal.fire({
+      text: "Are you sure you want to activate this user? ",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, activate it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let res = await api.post("/activate_user.php", {
+          userId: id,
+        });
+
+        if (res.data.status === 1) {
+          Swal.fire(
+            "Activated!",
+            "The user has been activated.",
+            "success"
+          ).then(() => {
+            window.location.href = "/login";
+          });
         } else {
           Swal.fire("Error!", "Something went wrong.", "error");
         }
@@ -243,6 +275,7 @@ const UsersTable = () => {
                         Phone No.
                       </Th> */}
                       <Th className="border">Hospital</Th>
+                      <Th className="border">Status</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -274,18 +307,42 @@ const UsersTable = () => {
                               <Td className="border">{index.name}</Td>
                               {/* <Td className="border">
                                 <Badge colorScheme="green">Verified</Badge>
-                              </Td> */}
+                              </Td> */}{" "}
+                              <Td className="border">
+                                <Badge
+                                  colorScheme={
+                                    index.validated === 1 ? "green" : "red"
+                                  }
+                                >
+                                  {index.validated === 1
+                                    ? "Active"
+                                    : "Deactivated"}
+                                </Badge>
+                              </Td>
                               <Td border="0">
-                                <IconButton
-                                  style={{ margin: 0, padding: 0 }}
-                                  size="sm"
-                                  variant="solid"
-                                  colorScheme="red"
-                                  onClick={() => {
-                                    deleteUser(index.userId);
-                                  }}
-                                  icon={<BiUserX fontSize="15px" />}
-                                />
+                                {index.validated === 5 ? (
+                                  <IconButton
+                                    style={{ margin: 0, padding: 0 }}
+                                    size="sm"
+                                    variant="solid"
+                                    colorScheme="green"
+                                    onClick={() => {
+                                      activateUser(index.userId);
+                                    }}
+                                    icon={<BiUserCheck fontSize="15px" />}
+                                  />
+                                ) : (
+                                  <IconButton
+                                    style={{ margin: 0, padding: 0 }}
+                                    size="sm"
+                                    variant="solid"
+                                    colorScheme="red"
+                                    onClick={() => {
+                                      deleteUser(index.userId);
+                                    }}
+                                    icon={<BiUserX fontSize="15px" />}
+                                  />
+                                )}
                               </Td>
                             </Tr>
                           </>

@@ -196,7 +196,6 @@ const PatientsList = (props) => {
             display: "flex",
             justifyContent: "space-between",
             marginBottom: 10,
-            background: "white",
           }}
         >
           <InputGroup>
@@ -205,6 +204,7 @@ const PatientsList = (props) => {
               children={<BiSearch color="gray.300" />}
             />
             <Input
+              bg="white"
               fontSize="13px"
               type="text"
               onChange={(e) => setSearch(e.target.value)}

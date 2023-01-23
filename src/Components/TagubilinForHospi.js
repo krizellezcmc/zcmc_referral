@@ -57,9 +57,11 @@ function TagubilinForHospi() {
 
   const fetchData = async () => {
     setIsLoading(true);
-    let response = await api.get(`/get_tagubilinhospi.php/${id}`);
+    let response = await api.get(`/get_tagubilinhospi.php`, {
+      params: { id: id },
+    });
 
-    console.log(response.data);
+    // console.log(response.data);
 
     setPatient(response.data[0].patientName);
     setAge(response.data[0].age);
@@ -491,7 +493,7 @@ function TagubilinForHospi() {
                   </Text>
                 </Td>
               </Tr>
-              {!breastfeed ? (
+              {breastfeed.length === 0 ? (
                 " "
               ) : (
                 <>
