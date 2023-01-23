@@ -20,7 +20,7 @@ const Reason = () => {
   }, [data]);
 
   return (
-    <Box h={500} w={800}>
+    <Box h={500} w={780}>
       <Text
         textAlign="center"
         mt={12}
@@ -34,7 +34,7 @@ const Reason = () => {
       </Text>
       <ResponsivePie
         data={data}
-        margin={{ top: 40, right: 80, bottom: 100, left: 100 }}
+        margin={{ top: 40, right: 80, bottom: 100, left: 60 }}
         sortByValue={true}
         innerRadius={0.5}
         padAngle={0.7}

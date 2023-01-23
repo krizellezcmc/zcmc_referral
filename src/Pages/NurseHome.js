@@ -9,15 +9,17 @@ import api from "../API/Api";
 
 function NurseHome(props) {
   const refreshPage = () => {
-    window.location.reload(false);
+    window.location.href = "/login";
   };
 
   const [patientList, setPatientList] = useState([]);
   const [selected, setSelected] = useState("");
 
   const fetchData = async (e) => {
+    // e.preventDefault();
+
     setSelected(e);
-    let pat = await api.get("/get_patientList.php");
+    let pat = await api.get("/get_discharged.php");
     setPatientList(pat.data);
   };
 

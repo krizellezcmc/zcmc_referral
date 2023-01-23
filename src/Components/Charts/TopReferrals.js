@@ -29,7 +29,7 @@ function TopReferrals(props) {
   return (
     <div>
       <TableContainer>
-        <Table variant="striped" size="md" w="400px">
+        <Table variant="striped" size="md" width="100%">
           <TableCaption color="teal.600">Top Referrals</TableCaption>
           <Thead>
             <Tr>

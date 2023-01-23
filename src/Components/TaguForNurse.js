@@ -59,7 +59,6 @@ function TaguForNurse(props) {
     let response = await api.get("/get_nursetagu.php", {
       params: { id: props.id },
     });
-    console.log(response);
 
     setPatient(response.data[0].patientName);
     setAge(response.data[0].age);
@@ -214,19 +213,19 @@ function TaguForNurse(props) {
                 <Text fontSize="12px" fontWeight="600">
                   Operation/Operasyon:
                 </Text>
-                <Text fontSize="14px">Operation</Text>
+                {/* <Text fontSize="14px" mt={}></Text> */}
               </Td>
               <Td className="border" py={1.5} colSpan="2">
                 <Text fontSize="12px" fontWeight="600">
                   Surgeon:
                 </Text>
-                <Text fontSize="14px">Surgeon</Text>
+                {/* <Text fontSize="14px">Surgeon</Text> */}
               </Td>
               <Td className="border" py={1.5}>
                 <Text fontSize="12px" fontWeight="600">
                   Petsa ng Operasyon:
                 </Text>
-                <Text fontSize="14px">Date</Text>
+                {/* <Text fontSize="14px">Date</Text> */}
               </Td>
             </Tr>
             <Tr>

@@ -70,10 +70,11 @@ function AdminDashboard(props) {
 
             <Box
               display={{ xl: "flex" }}
-
+              width="100%"
               // className="content"
             >
               <Box
+                width="100%"
                 boxShadow="md"
                 borderColor="white"
                 bg="white"
