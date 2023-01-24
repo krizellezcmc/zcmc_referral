@@ -297,7 +297,7 @@ const UsersTable = () => {
                           <>
                             <Tr>
                               <Td className="border">
-                                {index.lastName + ", " + index.firstName}
+                                {index.firstName + index.lastName}
                               </Td>
                               {/* <Td className="border">{index.email}</Td>
                               <Td className="border">{index.contact}</Td> */}
