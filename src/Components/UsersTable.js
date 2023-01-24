@@ -272,6 +272,7 @@ const UsersTable = () => {
                         Phone No.
                       </Th> */}
                       <Th className="border">Hospital</Th>
+                      <Th className="border">Role</Th>
                       <Th className="border">Status</Th>
                     </Tr>
                   </Thead>
@@ -297,11 +298,18 @@ const UsersTable = () => {
                           <>
                             <Tr>
                               <Td className="border">
-                                {index.firstName + index.lastName}
+                                {index.firstName + " " + index.lastName}
                               </Td>
                               {/* <Td className="border">{index.email}</Td>
                               <Td className="border">{index.contact}</Td> */}
-                              <Td className="border">{index.name}</Td>
+                              <Td className="border">{index.name}</Td>{" "}
+                              <Td className="border" textTransform="uppercase">
+                                {index.role === "triage"
+                                  ? "PRE-TRIAGE"
+                                  : index.role === "user"
+                                  ? "REFERRING"
+                                  : index.role}
+                              </Td>
                               {/* <Td className="border">
                                 <Badge colorScheme="green">Verified</Badge>
                               </Td> */}{" "}
