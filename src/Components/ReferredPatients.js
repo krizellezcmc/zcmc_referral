@@ -179,7 +179,7 @@ const ReferredPatients = () => {
               <Tbody>
                 {patients.length === 0 ? (
                   <Tr>
-                    <Td colSpan={7} textAlign="center">
+                    <Td colSpan={7} textAlign="center" className="border">
                       <Text fontSize={13} fontWeight="300">
                         --- Nothing to show ---
                       </Text>

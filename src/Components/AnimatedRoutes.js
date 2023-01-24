@@ -64,6 +64,7 @@ const AnimatedRoutes = () => {
             path="/tagubilinreport/:id"
             element={<TagubilinPrescription />}
           />
+          <Route path="/referralform" element={<AddReferral />} />
           {/* <Route path="/user" element={<UserDashboard />}></Route> */}
           <Route path="/about" element={<About />} />
           <Route path="/recovery" element={<Verify />}></Route>
@@ -74,10 +75,8 @@ const AnimatedRoutes = () => {
           </Route>
           {/* OPCEN ROUTES */}
           <Route element={<ProtectedRoutes user={user} role="opcen" />}>
-            {" "}
-            <Route path="/referralform" element={<AddReferral />} />{" "}
             <Route path="/transfer" element={<Transferred />}></Route>
-            <Route path="/admindashboard" element={<AdminDashboard />} />{" "}
+            <Route path="/admindashboard" element={<AdminDashboard />} />
             <Route path="/refdownload" element={<ReferralDownload />} />
             <Route path="/opcen" element={<OpcenHome />}></Route>
             <Route path="/opcenref" element={<OpcenReferral />}></Route>
@@ -91,7 +90,6 @@ const AnimatedRoutes = () => {
           </Route>
           {/* User Routes */}
           <Route element={<ProtectedRoutes user={user} role="user" />}>
-            {" "}
             <Route path="/prescription" element={<Prescription />} />
             <Route path="/home" element={<AdminHome />} />
             <Route path="/referredpatient" element={<ReferredPatient />} />
@@ -116,7 +114,7 @@ const AnimatedRoutes = () => {
             <Route path="/admission" element={<AdmissionHome />} />
             <Route path="/admission/:id" element={<AdmissionViewPat />} />
           </Route>
-          {/* CHARTS (Remove after testing)*/}{" "}
+          {/* CHARTS (Remove after testing)*/}
           {/* <Route path="/reason-chart" element={<Reason />} /> */}
         </Route>
       </Routes>

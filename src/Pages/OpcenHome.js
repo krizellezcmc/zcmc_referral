@@ -229,7 +229,7 @@ function OpcenHome() {
               ) : (
                 <>
                   {list.length === 0 ? (
-                    <Box p={2}>
+                    <Box py={3}>
                       <Text textAlign="center" fontSize={13}>
                         --- Nothing to Show ---
                       </Text>
@@ -269,13 +269,13 @@ function OpcenHome() {
                               />
                             </>
                           );
-                        })}
+                        })}{" "}
+                      <Divider />
                     </>
                   )}
                 </>
               )}
             </Box>
-            <Divider />
           </Container>
 
           {/* //Modal */}

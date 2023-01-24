@@ -158,7 +158,7 @@ function Referrals(props) {
                 padding={1}
                 border="1px"
                 borderColor="gray.100"
-                boxShadow="md"
+                boxShadow="base"
                 py={3}
               >
                 <HStack>
@@ -195,7 +195,7 @@ function Referrals(props) {
                 mt={3}
               >
                 {data.length === 0 ? (
-                  <Box p={5}>
+                  <Box py={3}>
                     <Text textAlign="center">---Nothing to Show---</Text>
                   </Box>
                 ) : (

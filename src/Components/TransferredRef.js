@@ -135,7 +135,7 @@ function TransferredRef(props) {
           </Heading>
           <TbTransferIn fontSize={30} />
         </Flex>
-        <Box pb={5} pt={6}>
+        <Box pb={5} pt={3}>
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
@@ -163,7 +163,7 @@ function TransferredRef(props) {
           borderRadius="lg"
           border="1px"
           borderColor="gray.100"
-          boxShadow="md"
+          boxShadow="base"
           py={3}
         >
           <HStack>
@@ -206,7 +206,7 @@ function TransferredRef(props) {
           ) : (
             <>
               {patDetails.length === 0 ? (
-                <Text textAlign="center" fontSize={13}>
+                <Text textAlign="center" fontSize={13} py={3}>
                   ---Nothing to Show---
                 </Text>
               ) : (

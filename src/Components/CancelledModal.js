@@ -56,27 +56,33 @@ function CancelledModal(props) {
                 </Tr>
               </Thead>
               <Tbody>
-                {list.map((pat) => {
-                  return (
-                    <>
-                      <Tr>
-                        <Td className="border">
-                          <b>
-                            {pat.lastname +
-                              ", " +
-                              pat.firstname +
-                              " " +
-                              pat.middleName}
-                          </b>
-                        </Td>
+                {list.length === 0 ? (
+                  <Td className="border" colSpan={4} textAlign="center">
+                    No cancelled referrals
+                  </Td>
+                ) : (
+                  list.map((pat) => {
+                    return (
+                      <>
+                        <Tr>
+                          <Td className="border">
+                            <b>
+                              {pat.lastname +
+                                ", " +
+                                pat.firstname +
+                                " " +
+                                pat.middleName}
+                            </b>
+                          </Td>
 
-                        <Td className="border">{pat.tstamp}</Td>
-                        <Td className="border">{pat.refFacility}</Td>
-                        <Td className="border">{pat.rejectReason}</Td>
-                      </Tr>
-                    </>
-                  );
-                })}
+                          <Td className="border">{pat.tstamp}</Td>
+                          <Td className="border">{pat.refFacility}</Td>
+                          <Td className="border">{pat.rejectReason}</Td>
+                        </Tr>
+                      </>
+                    );
+                  })
+                )}
               </Tbody>
             </Table>
           </TableContainer>

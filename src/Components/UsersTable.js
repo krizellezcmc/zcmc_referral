@@ -122,9 +122,13 @@ const UsersTable = () => {
             "User verified!",
             "You successfully verified the user.",
             "success"
-          );
+          ).then(() => {
+            window.location.href = "/login";
+          });
         } else {
-          Swal.fire("Error!", "Something went wrong.", "error");
+          Swal.fire("Error!", "Something went wrong.", "error").then(() => {
+            window.location.href = "/login";
+          });
         }
       }
     });
@@ -209,9 +213,13 @@ const UsersTable = () => {
             "Declined!",
             "You successfully declined the user.",
             "success"
-          );
+          ).then(() => {
+            window.location.href = "/login";
+          });
         } else {
-          Swal.fire("Error!", "Something went wrong.", "error");
+          Swal.fire("Error!", "Something went wrong.", "error").then(() => {
+            window.location.href = "/login";
+          });
         }
       }
     });
@@ -316,12 +324,18 @@ const UsersTable = () => {
                               <Td className="border">
                                 <Badge
                                   colorScheme={
-                                    index.validated === 1 ? "green" : "red"
+                                    index.validated === 1
+                                      ? "green"
+                                      : index.validated === 5
+                                      ? "red"
+                                      : "blue"
                                   }
                                 >
                                   {index.validated === 1
                                     ? "Active"
-                                    : "Deactivated"}
+                                    : index.validated === 5
+                                    ? "Deactivated"
+                                    : "Pending"}
                                 </Badge>
                               </Td>
                               <Td border="0">
