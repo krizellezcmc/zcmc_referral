@@ -57,20 +57,6 @@ const Sidebar = () => {
       <ul className="navlinks">
         {role === "admin" ? (
           <>
-            {/* <li
-              className={path.includes("admindashboard") ? "active" : ""}
-              onClick={() => navigate("/admindashboard")}
-            >
-              <p>
-                {path.includes("admindashboard") ? (
-                  <BiGridAlt />
-                ) : (
-                  <BiGridAlt />
-                )}
-              </p>
-              <span>Dashboard</span>
-            </li> */}
-
             <li
               className={path.includes("verifyuser") ? "active" : ""}
               onClick={() => navigate("/verifyuser")}

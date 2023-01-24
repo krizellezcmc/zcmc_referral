@@ -18,10 +18,11 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
+import { BiX, BiMenu, BiUpArrowAlt, BiRightArrow } from "react-icons/bi";
 // import GalleryTile from "../../Components/Home/GalleryTile";
 import Gallery from "../../Components/Home/Gallery";
 import logo from "../../Assets/OHCC.png";
+import { BsArrowRight } from "react-icons/bs";
 
 function Home(props) {
   const [showScrollUp, setShowScrollUp] = useState(false);
@@ -134,8 +135,9 @@ function Home(props) {
                 onClick={() => {
                   window.location.href = "/login";
                 }}
+                rightIcon={<BsArrowRight />}
               >
-                {loggedIn ? "Go to Dashboard" : "Sign in"}
+                {loggedIn ? "Go to Account" : "Sign in"}
               </Button>
             </Flex>
             <Flex
