@@ -224,16 +224,13 @@ const UsersTable = () => {
   return (
     <div>
       <Grid templateColumns="repeat(8,1fr)" gap={4}>
-        <GridItem colSpan={5} bg="white">
-          <div className="table-container">
-            <Text fontSize={20} fontWeight={800} mb={5}>
-              VERIFIED USERS
-            </Text>
+        <GridItem colSpan={5} mt={5}>
+          <div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginBottom: "25px",
+                marginBottom: "20px",
               }}
             >
               <InputGroup>

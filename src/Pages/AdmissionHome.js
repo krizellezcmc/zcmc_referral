@@ -55,7 +55,7 @@ function AdmissionHome(props) {
         <div className="content">
           <Header />
 
-          <Container maxW="92%" mt={10}>
+          <Container maxW="92%" mt={10} mb={10}>
             <Flex alignItems="center">
               <Heading
                 fontWeight={700}

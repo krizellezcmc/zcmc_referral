@@ -11,11 +11,15 @@ import {
   Heading,
   IconButton,
   TableCaption,
+  Flex,
+  Spacer,
+  Button,
 } from "@chakra-ui/react";
 
 import moment from "moment";
 import React, { useState, useEffect } from "react";
-import { BiCheck, BiLock } from "react-icons/bi";
+import { BiCheck, BiLock, BiRefresh } from "react-icons/bi";
+import { TbEdit } from "react-icons/tb";
 import Swal from "sweetalert2";
 import api from "../API/Api";
 
@@ -98,11 +102,23 @@ function RequestTable(props) {
     getLockList();
   }, [list, lockList]);
   return (
-    <Container maxW="container.xl" bg="white" boxShadow="md" p={10}>
+    <Container maxW="container.4xl" bg="white">
       <TableContainer>
-        <Heading mb={7} fontSize="3xl">
-          Edit Requests
-        </Heading>
+        <Flex alignItems="center" mb={10} pt={3}>
+          <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
+            Edit Requests
+          </Heading>
+          <TbEdit fontSize={30} />
+          <Spacer />{" "}
+          <Button
+            rightIcon={<BiRefresh />}
+            onClick={() => {
+              window.location.href = "/login";
+            }}
+          >
+            Refresh
+          </Button>
+        </Flex>
         <Table variant="striped" size="sm">
           <TableCaption>Request to edit Patient Referral Form</TableCaption>
           <Thead border="1px solid #eee">

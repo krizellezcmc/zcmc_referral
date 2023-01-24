@@ -24,11 +24,14 @@ import {
   InputLeftElement,
   Center,
   Text,
+  Heading,
+  Spacer,
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
 import api from "../API/Api";
-import { BiSave, BiSearch } from "react-icons/bi";
+import { BiRefresh, BiSave, BiSearch } from "react-icons/bi";
 import Loading from "./Spinner";
+import { TbBuildingHospital } from "react-icons/tb";
 
 const AddHospiForm = () => {
   const [hospiName, setHospiName] = useState("");
@@ -108,10 +111,23 @@ const AddHospiForm = () => {
   const [search, setSearch] = useState("");
   return (
     <>
-      <div className="table-container ">
-        <Text fontWeight={800} fontSize={20} mb={5}>
-          REFERRING HOSPITALS
-        </Text>
+      <div className="">
+        <Flex alignItems="center" mb={10} pt={3}>
+          <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
+            Hospitals
+          </Heading>
+          <TbBuildingHospital fontSize={30} />
+          <Spacer />{" "}
+          <Button
+            rightIcon={<BiRefresh />}
+            onClick={() => {
+              window.location.href = "/login";
+            }}
+          >
+            Refresh
+          </Button>
+        </Flex>
+
         <div className="add-hospital-btn" style={{ marginBottom: "25px" }}>
           <InputGroup>
             <InputLeftElement
@@ -138,8 +154,8 @@ const AddHospiForm = () => {
             <Loading />
           </Center>
         ) : (
-          <TableContainer>
-            <Table cellSpacing={0}>
+          <TableContainer w={1000}>
+            <Table cellSpacing={0} variant="striped">
               <Thead>
                 <Tr>
                   <Th className="border" width="30%">

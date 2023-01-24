@@ -49,7 +49,7 @@ function Copyright(props) {
             href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSBnNVZQZrrMxHPmngQhVbGpclTtjJTTmGZbVrJCgxZQHQrCvPtTdhXMTxkkdhgbssKtqPMN"
             fontSize={{ lg: 13.5, md: 10, sm: 10 }}
           >
-            <Icon as={SiGmail} mr={2} ml={10} />
+            <Icon as={SiGmail} ml={5} />
             {/* zcmc.referral@gmail.com */}
           </Link>
         </Box>

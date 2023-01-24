@@ -11,12 +11,16 @@ import {
   InputLeftElement,
   Input,
   Center,
+  Flex,
+  Heading,
+  Spacer,
 } from "@chakra-ui/react";
 import Header from "../Components/Header";
 import api from "../API/Api";
 import Swal from "sweetalert2";
-import { BiSearch } from "react-icons/bi";
+import { BiRefresh, BiSearch } from "react-icons/bi";
 import Loading from "../Components/Spinner";
+import { TbAmbulance } from "react-icons/tb";
 
 function PreTriageHome(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -87,10 +91,22 @@ function PreTriageHome(props) {
       <div className="content">
         <Header />
         <div className="">
-          <Container maxW="80%" mt={10}>
-            <Text fontWeight="bolder" fontSize="20px">
-              INCOMING PATIENTS
-            </Text>
+          <Container maxW="100%" mt={2} p={8}>
+            <Flex alignItems="center" mb={5}>
+              <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
+                Incoming Patients
+              </Heading>
+              <TbAmbulance fontSize={30} />
+              <Spacer />{" "}
+              <Button
+                rightIcon={<BiRefresh />}
+                onClick={() => {
+                  window.location.href = "/login";
+                }}
+              >
+                Refresh
+              </Button>
+            </Flex>
             <Box pt={8}>
               <InputGroup>
                 <InputLeftElement
@@ -116,10 +132,10 @@ function PreTriageHome(props) {
             <Box
               w="100%"
               bg="white"
-              borderRadius="lg"
+              borderRadius="md"
               border="1px"
               borderColor="gray.300"
-              boxShadow="md"
+              boxShadow="sm"
               py={3}
               mt={5}
             >

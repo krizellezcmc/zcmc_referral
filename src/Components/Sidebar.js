@@ -128,6 +128,13 @@ const Sidebar = () => {
               </p>
               <span>IPCC Home</span>
             </li>
+            <li
+              className={path.includes("changepass") ? "active" : ""}
+              onClick={() => navigate("/changepass")}
+            >
+              <p>{path.includes("verifyuser") ? <BiWrench /> : <BiWrench />}</p>
+              <span>Account Settings</span>
+            </li>
           </>
         ) : role === "nurse" ? (
           <>
