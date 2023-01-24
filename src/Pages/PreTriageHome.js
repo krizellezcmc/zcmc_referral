@@ -59,9 +59,17 @@ function PreTriageHome(props) {
               ).then((response) => {
                 if (response) {
                   setLoad(false);
-                  Swal.fire("Success!", "Record Successfully.", "success");
+                  Swal.fire("Success!", "Record Successfully.", "success").then(
+                    () => {
+                      window.location.href = "/login";
+                    }
+                  );
                 } else {
-                  Swal.fire("Error!", "Something went wrong.", "error");
+                  Swal.fire("Error!", "Something went wrong.", "error").then(
+                    () => {
+                      window.location.href = "/login";
+                    }
+                  );
                 }
               });
             }
@@ -97,7 +105,7 @@ function PreTriageHome(props) {
                 Incoming Patients
               </Heading>
               <TbAmbulance fontSize={30} />
-              <Spacer />{" "}
+              <Spacer />
               <Button
                 rightIcon={<BiRefresh />}
                 onClick={() => {
@@ -181,7 +189,7 @@ function PreTriageHome(props) {
                   {list.length === 0 ? (
                     <Box py={4}>
                       <Text textAlign="center" fontSize={14}>
-                        ---Nothing to Show---
+                        --- Nothing to Show ---
                       </Text>
                     </Box>
                   ) : (
