@@ -84,6 +84,12 @@ const AddReferral = () => {
   const [bowList, setBowList] = useState([]);
   const [choose, setChoose] = useState("");
 
+  const [hpi, setHPI] = useState("");
+  const [ppf, setPPF] = useState("");
+  const [ivf, setIVF] = useState("");
+  const [meds, setMeds] = useState("");
+  const [lab, setLab] = useState("");
+
   // FOR OB CASES
   const [lmp, setLmp] = useState("");
   const [aog, setAog] = useState("");
@@ -243,6 +249,11 @@ const AddReferral = () => {
             fht: fht,
             fh: fh,
             apgar: apgar,
+            hpi: hpi,
+            ppf: ppf,
+            ivf: ivf,
+            meds: meds,
+            lab: lab,
             newIe: JSON.stringify(ie),
             newBowList: JSON.stringify(bowList),
           });
@@ -855,6 +866,55 @@ const AddReferral = () => {
                 />
               </FormControl>
             </HStack>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>History Present Illness</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={hpi}
+                  onChange={(e) => setHPI(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Pertinent PE Findings</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={ppf}
+                  onChange={(e) => setPPF(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>IVF</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={ivf}
+                  onChange={(e) => setIVF(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Medications</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={meds}
+                  onChange={(e) => setMeds(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <FormControl mt={5}>
+              <FormLabel fontSize={14}>Laboratory</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={lab}
+                onChange={(e) => setLab(e.target.value)}
+              />
+            </FormControl>
             <FormControl mt={5} isRequired>
               <FormLabel fontSize={14}> Reason for Referral</FormLabel>
               <Select
