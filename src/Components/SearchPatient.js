@@ -986,13 +986,13 @@ function SearchPatient(props) {
                                       Patient ID: {d.patId}
                                     </Text>
                                   </Text>
-                                  {/* COVID */}{" "}
+                                  {/* COVID */}
                                   <Text
                                     textTransform="uppercase"
                                     fontSize="15px"
                                     fontWeight="500"
                                   >
-                                    COVID:{" "}
+                                    COVID:
                                     {covid === null ? (
                                       <Badge colorScheme="gray">
                                         No result

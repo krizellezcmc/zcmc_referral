@@ -49,7 +49,7 @@ function Verify() {
     setLoad(true);
 
     if (input == verification) {
-      window.location.href = `http://localhost:3000/newpassword?reqid=${reqid}`;
+      window.location.href = `https://zcmc-patientreferral.online/newpassword?reqid=${reqid}`;
     } else {
       setLoad(false);
       toast({

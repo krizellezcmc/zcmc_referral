@@ -61,8 +61,6 @@ function TagubilinForHospi() {
       params: { id: id },
     });
 
-    // console.log(response.data);
-
     setPatient(response.data[0].patientName);
     setAge(response.data[0].age);
     setSex(response.data[0].sex);
