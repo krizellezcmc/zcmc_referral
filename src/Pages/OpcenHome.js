@@ -284,13 +284,13 @@ function OpcenHome() {
             closeOnOverlayClick={false}
             isOpen={isCancelledOpen}
             onClose={onCancelledClose}
-            size="6xl"
+            size="8xl"
           >
             <ModalOverlay />
             <ModalContent>
               <ModalHeader>Cancelled Referrals</ModalHeader>
               <ModalCloseButton />
-              <ModalBody>
+              <ModalBody p={5}>
                 <CancelledModal />
               </ModalBody>
 

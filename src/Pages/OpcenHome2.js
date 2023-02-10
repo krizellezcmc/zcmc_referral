@@ -287,7 +287,7 @@ function OpcenHome2(props) {
   };
   useEffect(() => {
     const getHospitals = async () => {
-      let response = await api.get("/get_list.php");
+      let response = await api.get("/get_local_hospitals.php");
       setHospitals(response.data);
     };
     comments();
@@ -572,7 +572,7 @@ function OpcenHome2(props) {
                   <Select
                     options={hospitals}
                     placeholder="Select Hospital"
-                    variant="flushed"
+                    variant="outline"
                     selectedOptionStyle="check"
                     closeMenuOnSelect={true}
                     focusBorderColor="#058e46"

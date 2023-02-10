@@ -40,19 +40,21 @@ function CancelledModal(props) {
       ) : (
         <>
           <TableContainer>
-            <Table cellSpacing={0}>
+            <Table
+              cellSpacing={0}
+              size="sm"
+              variant="striped"
+              colorScheme="teal"
+            >
               <Thead>
                 <Tr>
-                  <Th className="border" width="30%">
-                    Full name
-                  </Th>
-                  <Th className="border" width="20%">
-                    Referred Date
-                  </Th>
-                  <Th className="border" width="20%">
-                    Referred From
-                  </Th>
-                  <Th className="border">Reason</Th>
+                  <Th className="border">Full name</Th>
+                  <Th className="border">Age</Th>
+                  <Th className="border">Diagnosis</Th>
+                  <Th className="border">Referred Date</Th>
+                  <Th className="border">Referred From</Th>
+                  <Th className="border">Reason for Referral</Th>
+                  <Th className="border">Reason for Transfer</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -74,9 +76,11 @@ function CancelledModal(props) {
                                 pat.middleName}
                             </b>
                           </Td>
-
+                          <Td className="border">{pat.age}</Td>
+                          <Td className="border">{pat.diagnosis}</Td>
                           <Td className="border">{pat.tstamp}</Td>
                           <Td className="border">{pat.refFacility}</Td>
+                          <Td className="border">{pat.reason}</Td>
                           <Td className="border">{pat.rejectReason}</Td>
                         </Tr>
                       </>
