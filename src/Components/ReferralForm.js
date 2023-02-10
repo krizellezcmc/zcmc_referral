@@ -857,16 +857,16 @@ const ReferralForm = () => {
                 <option value="" disabled selected>
                   Please Select
                 </option>
-                <option value="Medical Center of Choice">
-                  Medical Center of Choice
+                <option value="Financially Constrained">
+                  Financially Constrained
                 </option>
-                <option value="Upgrade of Health Care">
-                  Upgrade of Health Care
+                <option value="No specialist/procedure available">
+                  No specialist/procedure available
                 </option>
-                <option value="Financial/Cost of Care">
-                  Financial/Cost of Care
+                <option value="Further evaluation and management">
+                  Further evaluation and management
                 </option>
-                <option value="Other">Other</option>
+                <option value="For Tertiary Care">For Tertiary Care</option>
               </Select>
             </FormControl>
             <FormControl isRequired mt={5}>
