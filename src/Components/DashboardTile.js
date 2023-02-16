@@ -21,7 +21,7 @@ function DashboardTile(props) {
   const [admitted, setAdmitted] = useState(0);
   const [pending, setPending] = useState(0);
   const [incoming, setIncoming] = useState(0);
-  const [arrived, setArrived] = useState(0);
+  const [cancelled, setCancelled] = useState(0);
   const [transferred, setTransferred] = useState(0);
   const [data, setData] = useState([]);
 
@@ -36,9 +36,9 @@ function DashboardTile(props) {
       let pending = await api.get("/dashboard/pending.php");
       setPending(pending.data);
     };
-    const getArrived = async () => {
-      let arrived = await api.get("/dashboard/arrived.php");
-      setArrived(arrived.data);
+    const getCancelled = async () => {
+      let cancelled = await api.get("/dashboard/cancelled.php");
+      setCancelled(cancelled.data);
     };
     const getIncoming = async () => {
       let incoming = await api.get("/dashboard/incoming.php");
@@ -56,7 +56,7 @@ function DashboardTile(props) {
     getTransferred();
     getPending();
     getIncoming();
-    getArrived();
+    getCancelled();
     getAdmitted();
   }, [data]);
   return (
@@ -118,19 +118,20 @@ function DashboardTile(props) {
             <BiChevronRightCircle />
           </Flex>
         </Box>
-        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base">
+
+        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base" ml={3}>
           <Stat px={8} pt={7} pb={3}>
             <StatLabel color="teal.900" fontWeight={700}>
-              ARRIVED RFERRALS
+              ADMITTED RFERRALS
             </StatLabel>
-            <StatNumber>{arrived}</StatNumber>
+            <StatNumber>{admitted}</StatNumber>
             <StatHelpText style={{ display: "flex", alignItems: "center" }}>
               <Circle size="7px" bg="green" color="white" mr={2} />
               Sep 2022 - {moment().format("MMM YYYY")}
             </StatHelpText>
           </Stat>
 
-          <Flex background="teal.100" pl={8} py={3} px={6} alignItems="center">
+          <Flex bg="teal.100" pl={8} py={3} px={6} alignItems="center">
             <Link
               href="/opcen"
               _hover={{ textDecoration: "none" }}
@@ -146,19 +147,20 @@ function DashboardTile(props) {
             <BiChevronRightCircle />
           </Flex>
         </Box>
-        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base" ml={3}>
+
+        <Box bg="teal.50" width="25%" borderRadius={8} boxShadow="base">
           <Stat px={8} pt={7} pb={3}>
             <StatLabel color="teal.900" fontWeight={700}>
-              ADMITTED RFERRALS
+              CANCELLED RFERRALS
             </StatLabel>
-            <StatNumber>{admitted}</StatNumber>
+            <StatNumber>{cancelled}</StatNumber>
             <StatHelpText style={{ display: "flex", alignItems: "center" }}>
               <Circle size="7px" bg="green" color="white" mr={2} />
               Sep 2022 - {moment().format("MMM YYYY")}
             </StatHelpText>
           </Stat>
 
-          <Flex bg="teal.100" pl={8} py={3} px={6} alignItems="center">
+          <Flex background="teal.100" pl={8} py={3} px={6} alignItems="center">
             <Link
               href="/opcen"
               _hover={{ textDecoration: "none" }}

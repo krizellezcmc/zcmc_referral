@@ -396,7 +396,7 @@ function TransferredRef(props) {
             </Flex>
           </ModalBody>
           <ModalFooter>
-            {status === "waititng" || status === "accepted" ? (
+            {status === "waiting" || status === "accepted" ? (
               ""
             ) : (
               <>
