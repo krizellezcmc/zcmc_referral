@@ -47,10 +47,6 @@ function TagubilinReport() {
   const [mri, setMRI] = useState("");
   const [others, setOthers] = useState("");
   const [homemed, setHomeMed] = useState("");
-<<<<<<< Updated upstream
-  const [healthOthers, setHealthOthers] = useState("");
-=======
->>>>>>> Stashed changes
   const [med, setMed] = useState([]);
   const [followup, setFollowUp] = useState("");
   const [time, setTime] = useState("");
@@ -65,57 +61,6 @@ function TagubilinReport() {
 
   let navigate = useNavigate();
 
-<<<<<<< Updated upstream
-  const { id } = useParams("id");
-
-  const fetchData = async () => {
-    let response = await api.get("/get_nursetagu.php", {
-      params: { id: id },
-    });
-
-    setRefName(response.data[0].patientName);
-    setAge(response.data[0].age);
-    setSex(response.data[0].sex);
-    setAddress(response.data[0].address);
-    setWard(response.data[0].ward);
-    setHrn(response.data[0].hrn);
-    setAdmit(moment(response.data[0].admissionDate).format("LLL"));
-    setDiagnosis(response.data[0].disch_diagnosis);
-    setDischarge(
-      response.data.dischdate === null
-        ? ""
-        : moment(response.data[0].dischDate).format("LLL")
-    );
-    setLab(response.data[0].laboratory);
-    setXray(response.data[0].xray);
-    setCTScan(response.data[0].ctScan);
-    setMRI(response.data[0].mri);
-    setOthers(response.data[0].others);
-    setFollowUp(response.data[0].followupDate);
-    setTime(response.data[0].time);
-    setNeedBring(response.data[0].needToBring);
-    setNurse(response.data[0].nurse);
-    setResident(response.data[0].resident);
-    setMedId(response.data[0].FK_medicationId);
-    setObId(response.data[0].FK_breastfeedId);
-    setDietList(JSON.parse(response.data[0].health));
-    setHealthOthers(response.data[0].healthOthers);
-    setInstructions(JSON.parse(response.data[0].instructions));
-
-    let meds = await api.get("/get_medhospi.php", {
-      params: { mid: medId },
-    });
-    setMed(meds.data);
-
-    let bfeed = await api.get("/get_obhospi.php", {
-      params: { oid: obId },
-    });
-    setBreastfeed(bfeed.data);
-  };
-  useEffect(() => {
-    fetchData();
-  }, [medId, obId]);
-=======
   useEffect(() => {
     let refpatient = JSON.parse(localStorage.getItem("refpatient"));
     setRefName(refpatient.patientName);
@@ -142,44 +87,12 @@ function TagubilinReport() {
     setDietList(refpatient.diet);
     setInstructions(refpatient.instructions);
   }, []);
->>>>>>> Stashed changes
 
   // let followTime = moment(time, [moment.ISO_8601, "HH:mm"]);
 
   const exportPDF = () => {
     let element = (
       <div>
-<<<<<<< Updated upstream
-        <TagubilinDownload
-          zcmcLogo={zcmcLogo}
-          dohLogo={dohLogo}
-          refName={refName}
-          age={age}
-          sex={sex}
-          ward={ward}
-          hrn={hrn}
-          address={address}
-          admit={admit}
-          discharge={discharge}
-          diagnosis={diagnosis}
-          lab={lab}
-          xray={xray}
-          ctscan={ctscan}
-          mri={mri}
-          others={others}
-          medId={medId}
-          med={med}
-          dietList={dietList}
-          healthOthers={healthOthers}
-          instructions={instructions}
-          breastfeed={breastfeed}
-          followup={followup}
-          time={time}
-          need={need}
-          nurse={nurse}
-          resident={resident}
-        />
-=======
         <div className="rheader">
           <img src={zcmcLogo} className="rlogo1" alt="ZCMC Logo" />
           <div className="rhead-data">
@@ -447,7 +360,6 @@ function TagubilinReport() {
             <p className="hr-sign">Resident-in-Charge</p>
           </div>
         </div>
->>>>>>> Stashed changes
       </div>
     );
 
@@ -502,7 +414,7 @@ function TagubilinReport() {
     navigate("/tagubilin");
   };
   return (
-    <div>
+    <>
       <div style={{ float: "left" }}>
         <Button
           variant="solid"
@@ -523,7 +435,6 @@ function TagubilinReport() {
         >
           Generate Tagubilin Report
         </Button>
-<<<<<<< Updated upstream
         <Container
           maxW="850px"
           margin="40px"
@@ -927,7 +838,7 @@ function TagubilinReport() {
                       </Box>
                     </Td>
                   </Tr>
-=======
+
         <div className="report-form">
           <div className="dheader">
             <img src={zcmcLogo} className="logo1" alt="ZCMC Logo" />
@@ -1172,129 +1083,6 @@ function TagubilinReport() {
                                   REMINDER
                                 </Text>
 
-<<<<<<< Updated upstream
-                                <Box
-                                  float="left"
-                                  display="block"
-                                  width="50%"
-                                  mt={1}
-                                >
-                                  <Text fontWeight={400}>
-                                    1. Breastfeed your baby
-                                    <br />
-                                    2. Allow your baby to suck freely at breast
-                                    without any fixed time table
-                                    <br />
-                                    3. Do not give prelacteal feeds such as
-                                    sterile water, glucose water, honey,
-                                    <br />
-                                    ampalaya juice, etc.
-                                    <br />
-                                    4. No feeding bottles, milk substitutes
-                                    artificial, teats and pacifiers.
-                                  </Text>
-                                </Box>
-                                <Box
-                                  float="right"
-                                  display="block"
-                                  width="50%"
-                                  mt={1}
-                                >
-                                  <Text fontWeight={400}>
-                                    6. There is no to stop breastfeeding if the
-                                    baby wants to continue even after <br />
-                                    3 years.
-                                    <br />
-                                    7. Start solid foods when your baby is 4-6
-                                    months old.
-                                    <br />
-                                    8. Eat a good and well balance diet
-                                    <br />
-                                    9. Visit any halth centers for advice.
-                                  </Text>
-                                </Box>
-                              </Td>
-                            </Tr>
-                            <Tr>
-                              <Td
-                                borderWidth="1px"
-                                borderColor={"blackAlpha.600"}
-                                borderTop={0}
-                                fontSize={12}
-                                p={1}
-                                colSpan="6"
-                              >
-                                <Box display="flex">
-                                  <Text mr={1}>
-                                    For assistance, kindly approach ZCMC Public
-                                    Affairs & Customer Care Unit (PACCU) or call
-                                  </Text>
-                                  <Text fontWeight={600}>
-                                    {" "}
-                                    GLOBE: 097585750/ 09262435850/ 09359284701
-                                    <br />
-                                  </Text>
-                                </Box>
-                                <Text fontWeight={600}>
-                                  SMART: 09474951217/ 09474963439
-                                </Text>
-                              </Td>
-                            </Tr>
-                          </Table>
-                        </Td>
-                      </Tr>
-                    </>
-                  )}
-                  <Tr>
-                    <Td
-                      borderWidth="1px"
-                      borderColor={"blackAlpha.600"}
-                      borderTop={0}
-                      borderBottom={0}
-                      fontSize={12}
-                      fontWeight={600}
-                      p={1}
-                      colSpan="5"
-                    >
-                      I understand the above explanation given, I do hereby
-                      agree that I will have follow-up check-up:
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td
-                      borderLeft="1px"
-                      borderColor={"blackAlpha.600"}
-                      textAlign="center"
-                      fontSize={12}
-                    >
-                      {followup}
-                      <Divider orientation="horizontal" />
-                      Date of Follow-Up
-                    </Td>
-                    <Td
-                      borderColor={"blackAlpha.600"}
-                      borderRight={0}
-                      textAlign="center"
-                      fontSize={12}
-                      colSpan="2"
-                    >
-                      {time}
-                      <Divider orientation="horizontal" />
-                      Time
-                    </Td>
-                    <Td
-                      borderRight="1px"
-                      borderColor={"blackAlpha.600"}
-                      textAlign="center"
-                      fontSize={12}
-                      colSpan="2"
-                    >
-                      {need}
-                      <Divider orientation="horizontal" />
-                      Need to Bring
-                    </Td>
-                  </Tr>
-=======
             <tr>
               <td className="dmed-header" colSpan="5">
                 {!homemed ? (
@@ -1322,7 +1110,6 @@ function TagubilinReport() {
                 )}
               </td>
             </tr>
->>>>>>> Stashed changes
 
                   <Tr>
                     <Td
@@ -1399,7 +1186,7 @@ function TagubilinReport() {
         resident={resident}
       />
     </div>
+</>
   );
 }
 
-export default TagubilinReport;
