@@ -158,7 +158,6 @@ function TagubilinForm(props) {
 
   const submit = async (e) => {
     e.preventDefault();
-<<<<<<< Updated upstream
     let response = await api.post("/add_tagubilin.php", {
       patRegister: patRegister,
       patientName: patientName,
@@ -277,37 +276,6 @@ function TagubilinForm(props) {
     );
     setDischDate(
       response.data.dischdate === null ? "" : response.data.dischdate.date
-=======
-    localStorage.setItem(
-      "refpatient",
-      JSON.stringify({
-        patientName: patientName,
-        age: age,
-        sex: sex,
-        ward: ward,
-        hrn: hrn,
-        address: address,
-        admissionDate: admissionDate,
-        dischDiag: dischDiag,
-        dischDate: dischDate,
-        laboratory: laboratory,
-        xray: xray,
-        ctScan: ctScan,
-        mri: mri,
-        others: others,
-        homemed:homemed,
-        nurse: nurse,
-        resident: resident,
-        followUp: followUp,
-        needBring: needBring,
-        time: time,
-        healthOthers: healthOthers,
-        medications: medications,
-        diet: dietList,
-        othersDiet: othersDiet,
-        instructions: instructions,
-      })
->>>>>>> Stashed changes
     );
   };
 
@@ -392,7 +360,6 @@ function TagubilinForm(props) {
                       </Text>
                     </Td>
 
-<<<<<<< Updated upstream
                     <Td className="border" py={1.5}>
                       <Text fontSize="12px" fontWeight="600">
                         Discharge Date:
@@ -453,210 +420,6 @@ function TagubilinForm(props) {
                       <Box height="150px">
                         <Text
                           fontSize="12px"
-=======
-                <Td className="border" py={1.5}>
-                  <Text fontSize="12px" fontWeight="600">
-                    Discharge Date:
-                  </Text>
-                  <Text fontSize="14px">Date</Text>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" py={1.5} colSpan="5">
-                  <Text fontSize="12px" fontWeight="600">
-                    Diagnosis:
-                  </Text>
-                  <Textarea
-                    defaultValue={dischDiag}
-                    mt={1}
-                    borderRadius="0"
-                    border="none"
-                    rows={1}
-                    fontSize="14px"
-                    onChange={(e) => setDischDiag(e.target.value)}
-                  ></Textarea>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" py={1.5} colSpan="2">
-                  <Text fontSize="12px" fontWeight="600">
-                    Operation/Operasyon:
-                  </Text>
-                  <Text fontSize="14px">Operation</Text>
-                </Td>
-                <Td className="border" py={1.5} colSpan="2">
-                  <Text fontSize="12px" fontWeight="600">
-                    Surgeon:
-                  </Text>
-                  <Text fontSize="14px">Surgeon</Text>
-                </Td>
-                <Td className="border" py={1.5}>
-                  <Text fontSize="12px" fontWeight="600">
-                    Petsa ng Operasyon:
-                  </Text>
-                  <Text fontSize="14px">Date</Text>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" colSpan="5" m={0} py={1}>
-                  <Text fontSize="12px" fontWeight="600">
-                    Major Diagnostic Results/Pangunahing Resulta ng Pagsusuri
-                  </Text>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" width="40%" py={1.5}>
-                  <Box height="150px">
-                    <Text fontSize="12px" textAlign="center" fontWeight="600">
-                      Laboratory
-                    </Text>
-
-                    <div className="img-container">
-                      <div className="left-lab">
-                        <input type="text" value="10" className="input-lab" />
-                      </div>
-
-                      <div className="top-lab">
-                        <input type="text" value="20" className="input-lab" />
-                      </div>
-                      <div className="right-lab">
-                        <input type="text" value="30" className="input-lab" />
-                      </div>
-
-                      <div className="bottom-lab">
-                        <input type="text" value="40" className="input-lab" />
-                      </div>
-                      <div>
-                        <Center mt={5}>
-                          <img
-                            src={cbc}
-                            style={{ height: "65px", width: "180px" }}
-                          />
-                        </Center>
-                      </div>
-                    </div>
-                  </Box>
-                </Td>
-
-                <Td className="border" width="30%" py={0} px={0}>
-                  <Box height="142px">
-                    <Text fontSize="12px" textAlign="center" fontWeight="600">
-                      X-Ray
-                    </Text>
-                    <Textarea
-                      m={0}
-                      textAlign="center"
-                      borderRadius="0"
-                      border="none"
-                      rows={6}
-                      fontSize="14px"
-                      onChange={(e) => setXray(e.target.value)}
-                    ></Textarea>
-                  </Box>
-                </Td>
-
-                <Td className="border" width="30%" py={0} px={0}>
-                  <Box height="142px">
-                    <Text fontSize="12px" textAlign="center" fontWeight="600">
-                      CT-Scan
-                    </Text>
-                    <Textarea
-                      m={0}
-                      textAlign="center"
-                      borderRadius="0"
-                      border="none"
-                      rows={6}
-                      fontSize="14px"
-                      onChange={(e) => setCTScan(e.target.value)}
-                    ></Textarea>
-                  </Box>
-                </Td>
-
-                <Td className="border" width="30%" py={0} px={0}>
-                  <Box height="142px">
-                    <Text fontSize="12px" textAlign="center" fontWeight="600">
-                      MRI
-                    </Text>
-                    <Textarea
-                      m={0}
-                      textAlign="center"
-                      borderRadius="0"
-                      border="none"
-                      rows={6}
-                      onChange={(e) => setMRI(e.target.value)}
-                      fontSize="14px"
-                    ></Textarea>
-                  </Box>
-                </Td>
-                <Td className="border" width="20%" py={0} px={0}>
-                  <Box height="142px">
-                    <Text fontSize="12px" textAlign="center" fontWeight="600">
-                      OTHERS
-                    </Text>
-                    <Textarea
-                      m={0}
-                      textAlign="center"
-                      borderRadius="0"
-                      border="none"
-                      rows={6}
-                      fontSize="14px"
-                      onChange={(e) => setOthers(e.target.value)}
-                    ></Textarea>
-                  </Box>
-                </Td>
-              </Tr>
-
-              <Tr>
-                <Td className="border" colSpan="5" py={1}>
-                  <Text fontSize="12px" fontWeight="600">
-                    <Checkbox mr={2} mt={0.5}   onChange={() => setHomeMed(true)}></Checkbox>Home Medications/Gamot
-                  </Text>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td className="border" width="200px" colSpan="2" py={1}>
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Pangalan ng Gamot
-                  </Text>
-                </Td>
-
-                <Td className="border" colSpan="1" width="40%" py={1}>
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Dosage
-                  </Text>
-                </Td>
-                <Td className="border" py={1} width="30%">
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Oras ng Pag-iinom
-                  </Text>
-                </Td>
-                <Td className="border" py={1}>
-                  <Text textAlign="center" fontSize="12px" fontWeight="600">
-                    Quantity
-                  </Text>
-                </Td>
-              </Tr>
-              {medications.map((x, i) => {
-                return (
-                  <>
-                    <Tr>
-                      <Td className="border" colSpan="2" p={0}>
-                        <Textarea
-                          m={0}
-                          borderRadius="0"
-                          border="none"
-                          rows={1}
-                          value={x.medicine}
-                          fontSize="14px"
-                          name="medicine"
-                          onChange={(e) => handleInputChange(e, i)}
-                        ></Textarea>
-                      </Td>
-
-                      <Td className="border" p={0}>
-                        <Textarea
-                          m={0}
->>>>>>> Stashed changes
                           textAlign="center"
                           fontWeight="600"
                         >
