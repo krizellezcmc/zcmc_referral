@@ -68,6 +68,7 @@ function Prescription(props) {
           </p>
           {!props.sex ? (
             <p className="pdetails-line">-</p>
+<<<<<<< Updated upstream
           ) : (
             <p className="pward-line">{props.sex}</p>
           )}
@@ -79,6 +80,19 @@ function Prescription(props) {
           ) : (
             <p className="pward-line">{props.ward}</p>
           )}
+=======
+            ):(
+              <p className="pward-line">{sex}</p>
+            )}
+            <p className="pdetails" style={{ marginLeft: "20px" }}>
+              Ward :
+            </p>
+            {!ward ? (
+              <p className="pward-line">--</p>
+            ):(
+              <p className="pward-line">{ward}</p>
+            )}
+>>>>>>> Stashed changes
 
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             OPD :
@@ -232,10 +246,17 @@ function Prescription(props) {
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Sex:
           </p>
+<<<<<<< Updated upstream
           {!props.sex ? (
             <p className="pdetails-line">-</p>
           ) : (
             <p className="pward-line">{props.sex}</p>
+=======
+          {!sex ? (
+           <p className="pdetails-line">-</p>
+          ):(
+            <p className="pward-line">{sex}</p>
+>>>>>>> Stashed changes
           )}
           <p className="pdetails" style={{ marginLeft: "20px" }}>
             Ward:
@@ -255,9 +276,30 @@ function Prescription(props) {
           </div>
 
           <div className="meds-container">
+<<<<<<< Updated upstream
             {med.map((pres, key) => {
               return (
                 <>
+=======
+          {med.map((pres, key) => {
+            return (
+              <>
+                <div style={{ marginBottom: "3px" }}>
+                  <p className="pdetails">Generic Name :</p>
+                  {!pres.medicine ? (
+                      <p className="pgeneric-line">--</p>
+                    ):(
+                      <p className="pgeneric-line">{pres.medicine}</p>
+                    )}
+                
+                  <p className="pdetails"># </p>
+                  {!pres.quantity ? (
+                    <p className="quantity-line">--</p>
+                  ):(
+                    <p className="quantity-line">{pres.quantity}</p>
+                  )}
+                  
+>>>>>>> Stashed changes
                   <div>
                     <p className="pdetails">{counter}.</p>
                     {!pres.medicine ? (
