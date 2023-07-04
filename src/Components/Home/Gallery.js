@@ -17,6 +17,7 @@ import opcen11 from "../../Assets/Gallery/11.jpg";
 import GalleryTile from "./GalleryTile";
 import "../../Styles/Gallery.css";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import SectionHeader from "./SectionHeader";
 
 function customArrow({ type, onClick, isEdge }) {
   const pointer =
@@ -42,30 +43,15 @@ const breakPoints = [
 function Gallery(props) {
   return (
     <>
-      <Box w="100%" mt={40}>
+      <Box mt={40}>
         <Container maxW="container.xl" mb={10}>
-          <Box mb={14} align="center">
-            <Text
-              fontWeight="bold"
-              fontSize={{ md: "4xl", lg: "5xl", sm: "4xl" }}
-              letterSpacing="wide"
-              mt={5}
-            >
-              Gallery
-            </Text>
-
-            <Text
-              mt={7}
-              fontWeight="300"
-              letterSpacing="wide"
-              w={{ sm: 460, lg: 800 }}
-              fontSize={{ md: 13, lg: 16, sm: 13 }}
-            >
-              With web based referral system, healthcare facilities can improve
+          <SectionHeader
+            title="Gallery"
+            description="With web based referral system, healthcare facilities can improve
               patient outcomes by ensuring that patients receive the care they
-              need in a timely manner.
-            </Text>
-          </Box>
+              need in a timely manner."
+          />
+
           <div className="carousel-wrapper">
             <Carousel breakPoints={breakPoints} renderArrow={customArrow}>
               <GalleryTile image={opcen1} />

@@ -14,15 +14,34 @@ import {
   Spacer,
   Text,
   IconButton,
-  flexbox,
   Image,
+  HStack,
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { BiX, BiMenu, BiUpArrowAlt, BiRightArrow } from "react-icons/bi";
+import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
 // import GalleryTile from "../../Components/Home/GalleryTile";
 import Gallery from "../../Components/Home/Gallery";
 import logo from "../../Assets/OHCC.png";
 import { BsArrowRight } from "react-icons/bs";
+
+const navItem = [
+  {
+    name: "Home",
+    href: "header",
+  },
+  {
+    name: "Services",
+    href: "services",
+  },
+  {
+    name: "About",
+    href: "about",
+  },
+  {
+    name: "FAQs",
+    href: "faqs",
+  },
+];
 
 function Home(props) {
   const [showScrollUp, setShowScrollUp] = useState(false);
@@ -30,6 +49,15 @@ function Home(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const [loggedIn, setLoggedIn] = useState(false);
+  const [activeItem, setActiveItem] = useState("home");
+  const [currSection, setCurrSection] = useState("");
+
+  const scrollToSection = (id) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const scrollUp = () => {
     window.scrollTo({
@@ -48,25 +76,37 @@ function Home(props) {
       setLoggedIn(true);
     }
 
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       if (window.scrollY > 100) {
         setShowScrollUp(true);
       } else {
         setShowScrollUp(false);
       }
 
+      const sections = document.querySelectorAll("section");
+      let current = "";
       // console.log(window.scrollY);
-      if (window.scrollY >= 5400) {
-        navigate("#faqs");
-      } else if (window.scrollY >= 2330) {
-        navigate("#about");
-      } else if (window.scrollY >= 1400) {
-        navigate("#services");
-      } else {
-        navigate("#header");
-      }
-    });
-  }, []);
+      sections.forEach((section) => {
+        const sectTop = section.offsetTop;
+        const sectHeight = section.clientHeight;
+        const sect = sectTop - sectHeight / 2;
+        if (window.pageYOffset >= sect) {
+          current = section.getAttribute("id");
+          console.log(current);
+        }
+      });
+
+      setCurrSection(current);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [checkLog]);
+
+  useEffect(() => {
+    setActiveItem(currSection);
+  }, [currSection]);
 
   return (
     <>
@@ -79,46 +119,29 @@ function Home(props) {
                 ZCMC - Online Referral System
               </Text>
               <Spacer />
-              <Flex display={{ sm: "none", md: "flex", lg: "flex" }}>
-                <div className="nav-list">
-                  <Link
-                    className={
-                      location.hash == "#header"
-                        ? "nav-item active"
-                        : "nav-item"
-                    }
-                    href="#header "
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    className={
-                      location.hash == "#services"
-                        ? "nav-item active"
-                        : "nav-item"
-                    }
-                    href="#services"
-                  >
-                    Services
-                  </Link>
-                  <Link
-                    className={
-                      location.hash == "#about" ? "nav-item active" : "nav-item"
-                    }
-                    href="#about"
-                  >
-                    About
-                  </Link>
-                  <Link
-                    className={
-                      location.hash == "#faqs" ? "nav-item active" : "nav-item"
-                    }
-                    href="#faqs"
-                  >
-                    FAQs
-                  </Link>
-                </div>
-              </Flex>
+              <HStack gap={10} mr={10}>
+                {navItem.map((item) => {
+                  return (
+                    <>
+                      <Text
+                        fontSize={15}
+                        fontWeight={item.href === activeItem ? 600 : 400}
+                        color={item.href === activeItem ? "teal" : ""}
+                        // borderBottom={item.active ? "1px solid teal" : "none"}
+                        // // borderBottomWidth={2}
+                        onClick={() => {
+                          setActiveItem(item.href);
+                          scrollToSection(`#${item.href}`);
+                        }}
+                        cursor="pointer"
+                      >
+                        {item.name}
+                      </Text>
+                    </>
+                  );
+                })}
+              </HStack>
+
               <IconButton
                 aria-label="Open Menu"
                 size="lg"
@@ -165,7 +188,7 @@ function Home(props) {
               <Flex flexDir="column" align="center">
                 <Link
                   className={
-                    location.hash == "#header" ? "active" : "nav-item2"
+                    location.hash === "#header" ? "active" : "nav-item2"
                   }
                   href="#header "
                   my={5}
@@ -175,7 +198,7 @@ function Home(props) {
                 </Link>
                 <Link
                   className={
-                    location.hash == "#services" ? "active" : "nav-item2"
+                    location.hash === "#services" ? "active" : "nav-item2"
                   }
                   href="#services"
                   my={5}
@@ -184,7 +207,9 @@ function Home(props) {
                   Services
                 </Link>
                 <Link
-                  className={location.hash == "#about" ? "active" : "nav-item2"}
+                  className={
+                    location.hash === "#about" ? "active" : "nav-item2"
+                  }
                   href="#about"
                   my={5}
                   onClick={() => changeDisplay("none")}
@@ -192,7 +217,7 @@ function Home(props) {
                   About
                 </Link>
                 <Link
-                  className={location.hash == "#faqs" ? "active" : "nav-item2"}
+                  className={location.hash === "#faqs" ? "active" : "nav-item2"}
                   href="#faqs"
                   my={5}
                   onClick={() => changeDisplay("none")}
@@ -223,25 +248,24 @@ function Home(props) {
             </div>
           )}
 
-          <div id="header">
+          <section id="header">
             <Header />
-          </div>
+            <Box>
+              <Gallery />
+            </Box>
+          </section>
 
-          <div id="gallery">
-            <Gallery />
-          </div>
-
-          <div id="services">
+          <section id="services" style={{ height: "100vh" }}>
             <Specialization />
-          </div>
+          </section>
 
-          <div id="about">
+          <section id="about">
             <About />
-          </div>
+          </section>
 
-          <div id="faqs">
+          <section id="faqs" style={{ height: "100vh" }}>
             <FAQs />
-          </div>
+          </section>
         </div>
 
         <div className="copyright">

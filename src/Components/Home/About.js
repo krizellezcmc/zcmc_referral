@@ -1,17 +1,9 @@
 import React from "react";
-import {
-  Text,
-  Box,
-  Image,
-  Icon,
-  Link,
-  Spacer,
-  Container,
-} from "@chakra-ui/react";
-
+import { Text, Box, Image, Container } from "@chakra-ui/react";
 import Partners from "./Partners";
 import Contributors from "./Contributors";
 import Developers from "./Developers";
+import SectionHeader from "./SectionHeader";
 
 function About(props) {
   var opcen_full = require("../../Assets/opcen_full.JPG");
@@ -20,28 +12,17 @@ function About(props) {
 
   return (
     <div>
-      <Box bgColor="white" pt={10}>
+      <Box bgColor="white" py={20}>
         <Container maxW="container.xl">
-          <Box my={20} align="center">
-            <Text fontWeight="bold" fontSize="4xl" letterSpacing="wide">
-              Get to know us
-            </Text>
-            <Text
-              mt={7}
-              color="gray.500"
-              fontWeight="300"
-              letterSpacing="wide"
-              fontSize={{ md: 13, lg: 16, sm: 13 }}
-            >
-              The ZCMC OPCEN with its own unique values and line of work,
+          <SectionHeader
+            title="Get to know us"
+            description=" The ZCMC OPCEN with its own unique values and line of work,
               inculcates some of ZCMC’s core values that is relevant to the
-              group’s core functions. These include{" "}
-              <b>
+              group’s core functions. These include
                 Organization, Professionalism, Compassion, Efficiency, and
                 Non-discrimination.
-              </b>
-            </Text>
-          </Box>
+              "
+          />
 
           <Box mt={14} display={{ md: "flex" }}>
             <Box flexShrink={0}>
