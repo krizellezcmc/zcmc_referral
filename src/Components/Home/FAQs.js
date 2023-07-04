@@ -29,7 +29,7 @@ import SectionHeader from "./SectionHeader";
 function FAQs(props) {
   return (
     <div>
-      <Box bgColor="white" my={40}>
+      <Box bgColor="white" py={40}>
         <Container maxW="container.lg">
           <SectionHeader
             title="Frequently Asked Questions"

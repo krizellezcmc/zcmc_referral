@@ -20,7 +20,7 @@ function ContributorsTile(props) {
         <Box height={props.height} width={props.width}>
           <Image src={props.image} width="100%" />
         </Box>
-        <Box mt={14} align="center">
+        <Box align="center">
           <Text fontSize={props.nameFontSize} color="gray.700" fontWeight={600}>
             {props.name}
           </Text>

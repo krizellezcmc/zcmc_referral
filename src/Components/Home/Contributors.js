@@ -3,6 +3,7 @@ import { Text, Box, Center } from "@chakra-ui/react";
 
 import ContributorsTile from "./ContributorsTile";
 import ProfileTile from "./ProfileTile";
+import SectionHeader from "./SectionHeader";
 
 function Contributors(props) {
   var doc1 = require("../../Assets/Profile/doc_kunting_head.png");
@@ -12,38 +13,12 @@ function Contributors(props) {
 
   return (
     <Box>
-      <Box
-        mt={{ base: 5, lg: 40, md: 20 }}
-        ml={{ lg: 10, md: 8, sm: 3 }}
-        //   mr={{ lg: 40, md: 20, sm: 5 }
-        mb={{ md: 10 }}
-        align="center"
-      >
-        <Text
-          fontWeight={700}
-          fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
-          color="black"
-          letterSpacing="wide"
-        >
-          Meet the Team
-        </Text>
-
-        <Text
-          mt={7}
-          color="gray.500"
-          fontWeight="300"
-          letterSpacing="wide"
-          w={{ sm: 500, md: 800 }}
-        >
-          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore. */}
-        </Text>
-      </Box>
-      <Center mt={{ lg: 20, md: 5, sm: 0 }} mb={10} display={{ lg: "block" }}>
+      <SectionHeader title="Meet the Team" />
+      <Center>
         <Box
-          flexShrink={0}
-          mb={{ lg: 10, md: 5 }}
-          align="center"
+          display="flex"
+          alignItems="flex-end"
+          gap={20}
           // display={{ md: "flex" }}
         >
           <ContributorsTile
@@ -51,8 +26,25 @@ function Contributors(props) {
             name="Dr. Afdal B. Kunting"
             position="Medical Center Chief II"
             nameFontSize={{ lg: 15, md: 13, sm: 11.5 }}
-            height={{ sm: 200, lg: 250 }}
             width={{ sm: 200, lg: 250 }}
+          />
+          <ProfileTile
+            image={sir_john}
+            name="John Mary C. Sta Teresa"
+            position="Statistician II"
+            width={{ lg: 170, md: 160, sm: 130 }}
+          />
+          <ProfileTile
+            image={alyana}
+            name="Alyana Claire C. Barretto"
+            position="Software Developer"
+            width={{ lg: 160, md: 160, sm: 130 }}
+          />
+          <ProfileTile
+            image={krizelle}
+            name="Krizelle Mae B. Falcasantos"
+            position="Software Developer"
+            width={{ lg: 170, md: 160, sm: 140 }}
           />
         </Box>
         <Center>
@@ -62,32 +54,7 @@ function Contributors(props) {
             mb={{ lg: 10, md: 5 }}
             display={{ md: "flex" }}
             p={10}
-          >
-            <ProfileTile
-              image={sir_john}
-              name="John Mary C. Sta Teresa"
-              position="Statistician II"
-              height={{ lg: 210, md: 180, sm: 180 }}
-              width={{ lg: 170, md: 160, sm: 130 }}
-              mr={{ lg: 20, md: 3 }}
-            />
-            <ProfileTile
-              image={alyana}
-              name="Alyana Claire C. Barretto"
-              position="Software Developer"
-              height={{ lg: 210, md: 180, sm: 180 }}
-              width={{ lg: 160, md: 160, sm: 130 }}
-              mr={{ lg: 20, md: 3 }}
-            />
-            <ProfileTile
-              image={krizelle}
-              name="Krizelle Mae B. Falcasantos"
-              position="Software Developer"
-              height={{ lg: 210, md: 180, sm: 180 }}
-              width={{ lg: 170, md: 160, sm: 140 }}
-              mr={{ lg: 0, md: 0 }}
-            />
-          </Box>
+          ></Box>
         </Center>
       </Center>
     </Box>

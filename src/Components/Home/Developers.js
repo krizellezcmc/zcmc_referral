@@ -10,14 +10,8 @@ function Developers(props) {
   return (
     <div>
       <Box>
-        <Box width="100%" mb={5}>
-          <Text
-            fontWeight="bold"
-            fontSize={{ md: "2xl", lg: "3xl", sm: "2xl" }}
-            letterSpacing="wide"
-            textAlign="center"
-            mt={5}
-          >
+        <Box width="100%" mt={10}>
+          <Text fontSize={20} letterSpacing="wide" textAlign="center" mt={5}>
             Contributors
           </Text>
 

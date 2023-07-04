@@ -8,7 +8,6 @@ import SectionHeader from "./SectionHeader";
 function About(props) {
   var opcen_full = require("../../Assets/opcen_full.JPG");
   var opcen = require("../../Assets/opcen_pic.JPG");
-  var bg = require("../../Assets/bg.png");
 
   return (
     <div>
@@ -67,34 +66,6 @@ function About(props) {
               />
             </Box>
           </Box>
-
-          <Partners />
-        </Container>
-      </Box>
-      <Box p={{ lg: 0, md: 0, sm: 5 }}>
-        <Image
-          src={bg}
-          position="absolute"
-          zIndex={-10}
-          w={{ sm: "lg", md: "full" }}
-          height={{ sm: 500, md: 600 }}
-          opacity={0.8}
-          mt={10}
-        />
-        <Container maxW="container.xl" pb={20}>
-          <Contributors />
-        </Container>
-      </Box>
-      <Box bgColor="green.50" p={1}>
-        {/* <Image
-          position="absolute"
-          zIndex={-10}
-          w="full"
-          height={600}
-          opacity={0.8}
-        /> */}
-        <Container maxW="container.xl" py={1}>
-          <Developers />
         </Container>
       </Box>
     </div>

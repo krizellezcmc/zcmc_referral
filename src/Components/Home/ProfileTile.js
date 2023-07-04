@@ -5,24 +5,12 @@ import { SiFacebook, SiInstagram, SiLinkedin } from "react-icons/si";
 function ProfileTile(props) {
   return (
     <div>
-      <Box
-        height={{ lg: 260, md: 260, sm: 250 }}
-        width={{ lg: 210, md: 170, sm: 170 }}
-        mr={props.mr}
-        p={3}
-        mt={{ sm: 5 }}
-      >
-        <Box
-          borderRadius={100}
-          height={{ lg: 200, md: 180, sm: 180 }}
-          width={{ lg: 186, md: 146, sm: 156 }}
-          align="center"
-        >
+      <Box>
+        <Box borderRadius="full" align="center" bgColor="#c0e7ff" width={220}>
           <Image
             src={props.image}
-            height={props.height}
             width={props.width}
-            borderRadius={100}
+            borderRadius="full"
             boxShadow="sm"
           />
         </Box>
@@ -38,13 +26,13 @@ function ProfileTile(props) {
             <Text fontSize={{ lg: 12, md: 10, sm: 10 }} color="gray.700">
               {props.position}
             </Text>
-            <Spacer />
+            {/* <Spacer />
             <Link>
               <Icon as={SiFacebook} mr={2} boxSize={{ sm: 3 }} />
             </Link>
             <Link>
               <Icon as={SiLinkedin} boxSize={{ sm: 3 }} />
-            </Link>
+            </Link> */}
           </Box>
         </Box>
       </Box>
