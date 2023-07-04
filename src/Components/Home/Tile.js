@@ -1,22 +1,31 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import React from "react";
 
-function Tile(props) {
+function Tile({ bgColor, image, name }) {
   return (
     <>
-      <Box
-        shadow="base"
-        bgColor="white"
-        width={{ base: 200, lg: 200, md: 200, sm: 300 }}
-        // h={{ base: 300, lg: 200, md: 300, sm: 650 }}
-        m={5}
-        borderRadius={14}
-        py={7}
-        align="center"
-      >
-        <Image src={props.image} w={{ lg: 100, md: 90, sm: 90 }} />
-        <Text mt={4} fontWeight={500} fontSize={{ lg: 14, md: 13, sm: 12 }}>
-          {props.name}
+      <Box align="center">
+        <Box
+          boxShadow="lg"
+          bgColor={bgColor}
+          // width={{ base: 100, lg: 200, md: 200, sm: 300 }}
+          // h={{ base: 300, lg: 200, md: 300, sm: 650 }}
+
+          borderRadius="full"
+          p={7}
+          align="center"
+        >
+          <img src={image} width="64px" />
+        </Box>
+        <Text
+          mt={4}
+          mb={8}
+          fontWeight={600}
+          fontSize={{ lg: 15, md: 13, sm: 12 }}
+          textAlign="center"
+          color="#413F42"
+        >
+          {name}
         </Text>
       </Box>
     </>

@@ -24,25 +24,18 @@ import {
   HiOutlineQuestionMarkCircle,
   HiQuestionMarkCircle,
 } from "react-icons/hi";
+import SectionHeader from "./SectionHeader";
 
 function FAQs(props) {
   return (
     <div>
       <Box bgColor="white" my={40}>
         <Container maxW="container.lg">
-          <Box mb={5}>
-            <Text align="center" fontSize={18} fontWeight={700}>
-              FAQs
-            </Text>
-          </Box>
-          <Box>
-            <Text align="center" fontSize={24} fontWeight={600}>
-              Frequently asked questions
-            </Text>
-            <Text align="center" fontSize={16}>
-              Have any questions? We're here to help.
-            </Text>
-          </Box>
+          <SectionHeader
+            title="Frequently Asked Questions"
+            description="Have any questions? We're here to help."
+          />
+
           {/* <Center mt={20}>
             <Input
               fontSize="13px"
