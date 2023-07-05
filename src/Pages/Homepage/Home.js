@@ -200,7 +200,7 @@ function Home(props) {
                   className={
                     location.hash === "#header" ? "active" : "nav-item2"
                   }
-                  href="#header "
+                  href="#header"
                   my={5}
                   onClick={() => changeDisplay("none")}
                 >
@@ -261,9 +261,17 @@ function Home(props) {
           <section id="header" />
           <Header />
 
-
           <section id="about" />
           <About />
+
+          <section id="facilities" />
+          <Partners />
+
+          <section id="services" />
+          <Specialization />
+
+          <section id="team" />
+          <Team />
 
           <section id="faqs" />
           <FAQs />

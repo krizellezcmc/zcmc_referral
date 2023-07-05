@@ -15,19 +15,23 @@ import logo from "../../../Assets/OHCC.png";
 const navItem = [
   {
     name: "Home",
-    href: "home",
-  },
-  {
-    name: "Gallery",
-    href: "gallery",
-  },
-  {
-    name: "Specialization",
-    href: "specialization",
+    href: "header",
   },
   {
     name: "About",
     href: "about",
+  },
+  {
+    name: "Facilities",
+    href: "facilities",
+  },
+  {
+    name: "Services",
+    href: "services",
+  },
+  {
+    name: "Team",
+    href: "team",
   },
   {
     name: "FAQs",
