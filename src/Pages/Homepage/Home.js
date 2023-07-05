@@ -23,6 +23,8 @@ import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
 import Gallery from "../../Components/Home/Gallery";
 import logo from "../../Assets/OHCC.png";
 import { BsArrowRight } from "react-icons/bs";
+import Partners from "../../Components/Home/Partners";
+import Team from "../../Components/Home/Team";
 
 const navItem = [
   {
@@ -30,12 +32,20 @@ const navItem = [
     href: "header",
   },
   {
+    name: "About",
+    href: "about",
+  },
+  {
+    name: "Facilities",
+    href: "facilities",
+  },
+  {
     name: "Services",
     href: "services",
   },
   {
-    name: "About",
-    href: "about",
+    name: "Team",
+    href: "team",
   },
   {
     name: "FAQs",
@@ -255,12 +265,19 @@ function Home(props) {
             </Box>
           </section>
 
+          <section id="about">
+            <About />
+          </section>
+
+          <section id="facilities" style={{ height: "100vh" }}>
+            <Partners />
+          </section>
           <section id="services" style={{ height: "100vh" }}>
             <Specialization />
           </section>
 
-          <section id="about">
-            <About />
+          <section id="team" style={{ height: "100vh" }}>
+            <Team />
           </section>
 
           <section id="faqs" style={{ height: "100vh" }}>
