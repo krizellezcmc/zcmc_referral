@@ -34,7 +34,7 @@ import "../../../Styles/Partners.css";
 function MobilePartners(props) {
   return (
     <div>
-      <Box align="center" mt={10}>
+      <Box align="center" mt={32}>
         <Text
           fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
           letterSpacing="wide"
