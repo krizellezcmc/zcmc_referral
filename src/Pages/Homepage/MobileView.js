@@ -7,6 +7,7 @@ import MobileAbout from "../../Components/Home/Mobile/MobileAbout";
 import MobilePartners from "../../Components/Home/Mobile/MobilePartners";
 import FAQs from "../../Components/Home/FAQs";
 import MobileNavbar from "../../Components/Home/Mobile/MobileNavbar";
+import Team from "../../Components/Home/Team";
 
 function MobileView(props) {
   const scrollToSection = (id) => {
@@ -19,20 +20,23 @@ function MobileView(props) {
     <>
       <MobileNavbar handleSelectionClick={scrollToSection} />
       <Container maxW="container.md" pt={10}>
-        <div id="home" />
+        <section id="header" />
         <MobileBanner />
-
-        <div id="gallery" />
         <Gallery />
 
-        <div id="specialization" />
-        <Specialization />
-
-        <div id="about" />
+        <section id="about" />
         <MobileAbout />
+
+        <section id="facilities" />
         <MobilePartners />
 
-        <div id="faqs" />
+        <section id="services" />
+        <Specialization />
+
+        <section id="team" />
+        <Team />
+
+        <section id="faqs" />
         <FAQs />
       </Container>
     </>
