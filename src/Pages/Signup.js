@@ -1,40 +1,39 @@
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import {
-  useToast,
-  Text,
-  Flex,
   Box,
+  Flex,
+  Grid,
+  GridItem,
+  Text,
+  Heading,
+  FormControl,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   Button,
-  Center,
-  HStack,
   Link,
-  Grid,
-  GridItem,
+  Stack,
+  Select,
+  useToast,
+  Image,
 } from "@chakra-ui/react";
-
-import { Select } from "chakra-react-select";
-import axios from "axios";
 import {
-  BiUser,
-  BiLockAlt,
-  BiRightArrowAlt,
-  BiLock,
-  BiPhone,
-  BiClinic,
-} from "react-icons/bi";
+  HiEye,
+  HiEyeOff,
+  HiLockClosed,
+  HiOutlineMail,
+  HiOutlineUser,
+  HiPhone,
+} from "react-icons/hi";
 
-import { deptList } from "../Data/Options";
-
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { MdAlternateEmail } from "react-icons/md";
+import { BsHospital } from "react-icons/bs";
+// import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import api from "../API/Api";
+import zcmc from "../Assets/zcmc-building.png";
 
 function Signup() {
   // const specialization = [
@@ -143,234 +142,297 @@ function Signup() {
     return <Navigate to="/home" />;
   }
   return (
-    <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
-      <Center>
-        <Flex
-          alignItems="center"
-          justify="center"
-          height="620px"
-          boxShadow="md"
-          background="white"
-          rounded="lg"
+    <div className="body" style={{ background: "#F0F8F8", height: "100vh" }}>
+      <Flex
+        width={"100vw"}
+        height={"100vh"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        bg="gray.100"
+      >
+        <Box
+          height="80vh"
+          w={{ sm: "90vw", md: "65vw", lg: "50vw", xl: "65vw" }}
+          bg="white"
+          borderRadius={"xl"}
         >
-          <Flex direction="column" p="10" width="800px">
-            <Text fontSize="3xl" fontWeight="500" color="green.600">
-              Registration
-            </Text>
-            <Text
-              fontSize="sm"
-              fontWeight="300"
-              mt={2}
-              mb={5}
-              textTransform="uppercase"
+          <Grid
+            templateColumns={{ md: "repeat(1, 1fr)", xl: "repeat(9, 1fr)" }}
+          >
+            <GridItem
+              // height={"100%"}
+
+              colSpan={{ sm: 0, md: 0, lg: 5 }}
+              // display={{ md: "none" }}
             >
-              One Hospital Command Referral System
-            </Text>
-            <Box padding="" bg="white" mt={7}>
-              <form onSubmit={register}>
-                <HStack mb={4}>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<BiUser color="#058e46" />}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="First name"
-                      focusBorderColor="#058e46"
-                      fontSize="15.5px"
-                      name="firstName"
-                      onChange={(e) => {
-                        setFirstName(e.target.value);
-                      }}
-                      required
-                    />
-                  </InputGroup>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<BiUser color="#058e46" />}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Last name"
-                      focusBorderColor="#058e46"
-                      fontSize="15.5px"
-                      name="lastName"
-                      onChange={(e) => {
-                        setLastName(e.target.value);
-                      }}
-                      required
-                    />
-                  </InputGroup>
-                </HStack>
+              <Box p={{ sm: 10, md: 16, lg: 14, xl: 16 }} textAlign="center">
+                <Box lineHeight={10}>
+                  <Heading color={"blue.500"}>Signup</Heading>
+                  <Text>Patient Navigation and Referral System</Text>
+                </Box>
 
-                <HStack mb={4}>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<BiPhone color="#058e46" />}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Contact number"
-                      focusBorderColor="#058e46"
-                      fontSize="15.5px"
-                      name="contact"
-                      onChange={(e) => {
-                        setContact(e.target.value);
-                      }}
-                      required
-                    />
-                  </InputGroup>
-                </HStack>
+                {/* FORM */}
+                <form onSubmit={register}>
+                  <Box mt={14}>
+                    <Box
+                      display={{ lg: "", xl: "flex" }}
+                      justifyContent="center"
+                    >
+                      <FormControl isRequired m={2}>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<HiOutlineUser color="#A0AEC0" />}
+                          />
 
-                <HStack mb={4}>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<MdAlternateEmail color="#058e46" />}
-                    />
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      focusBorderColor="#058e46"
-                      fontSize="15.5px"
-                      name="email"
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                      required
-                    />
-                  </InputGroup>
+                          <Input
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="First name"
+                            name="firstName"
+                            onChange={(e) => {
+                              setFirstName(e.target.value);
+                            }}
+                          />
+                        </InputGroup>
+                      </FormControl>
 
-                  <InputGroup size="md">
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<BiLockAlt color="#058e46" />}
-                    />
-                    <Input
-                      pr="4.5rem"
-                      type={show ? "text" : "password"}
-                      placeholder="Password"
-                      focusBorderColor="#058e46"
-                      color="gray.600"
-                      name="password"
-                      fontSize="15.5px"
-                      minLength="8"
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                      required
-                    />
-                    <InputRightElement>
+                      <FormControl isRequired m={2}>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<HiOutlineUser color="#A0AEC0" />}
+                          />
+
+                          <Input
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Last name"
+                            name="lastName"
+                            onChange={(e) => {
+                              setLastName(e.target.value);
+                            }}
+                          />
+                        </InputGroup>
+                      </FormControl>
+                    </Box>
+
+                    <FormControl isRequired m={2}>
+                      <InputGroup>
+                        <InputLeftElement
+                          pointerEvents="none"
+                          children={<HiOutlineMail color="#A0AEC0" />}
+                        />
+
+                        <Input
+                          bg={"#F0F0F0"}
+                          borderRadius={50}
+                          border="0"
+                          placeholder="Email"
+                          name="email"
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                          }}
+                        />
+                      </InputGroup>
+                    </FormControl>
+
+                    <Box
+                      display={{ lg: "", xl: "flex" }}
+                      justifyContent="center"
+                    >
+                      <FormControl isRequired m={2}>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<HiPhone color="#A0AEC0" />}
+                          />
+
+                          <Input
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Contact Number"
+                            name="contact"
+                            onChange={(e) => {
+                              setContact(e.target.value);
+                            }}
+                          />
+                        </InputGroup>
+                      </FormControl>
+                      <FormControl isRequired m={2}>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<HiLockClosed color="#A0AEC0" />}
+                          />
+
+                          <Input
+                            type={show ? "text" : "password"}
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Password"
+                            name="password"
+                            minLength="8"
+                            onChange={(e) => {
+                              setPassword(e.target.value);
+                            }}
+                          />
+                          <InputRightElement>
+                            <Button onClick={handleClick} size="sm" p="0">
+                              {show ? (
+                                <HiEyeOff color="#A0AEC0" />
+                              ) : (
+                                <HiEye color="#A0AEC0" />
+                              )}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
+                      </FormControl>
+                      {/* 
+                      <FormControl isRequired m={2}>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<HiOutlineUser color="#A0AEC0" />}
+                          />
+
+                          <Input
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Confirm password"
+                          />
+                        </InputGroup>
+                      </FormControl> */}
+                    </Box>
+
+                    {/* HEALTH  */}
+
+                    <Box
+                      display={{ lg: "", xl: "flex" }}
+                      justifyContent="center"
+                    >
+                      <FormControl isRequired m={2}>
+                        <InputGroup>
+                          {/* <InputLeftElement
+                            pointerEvents="none"
+                            children={<BsHospital color="#A0AEC0" />}
+                          /> */}
+
+                          <Select
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Health facility"
+                            onChange={(e) => {
+                              setHospitalCode(e.target.value);
+                            }}
+                          >
+                            {hospitals.map((hosp) => {
+                              return (
+                                <>
+                                  <option value={hosp.value}>
+                                    {hosp.label}
+                                  </option>
+                                </>
+                              );
+                            })}
+                          </Select>
+                        </InputGroup>
+                      </FormControl>
+
+                      <FormControl isRequired m={2} w={{ xl: "40%" }}>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<HiLockClosed color="#A0AEC0" />}
+                          />
+
+                          <Input
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Code"
+                            name="accessCode"
+                            onChange={(e) => {
+                              setAccessCode(e.target.value);
+                            }}
+                          />
+                        </InputGroup>
+                      </FormControl>
+                    </Box>
+
+                    {hospitalCode == 147 ? (
+                      <FormControl isRequired m={2}>
+                        <InputGroup>
+                          <Select
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Department"
+                            onChange={(e) => {
+                              setDepartment(e.target.value);
+                            }}
+                          >
+                            <option value="IPCC">IPCC</option>
+                            <option value="OPCEN">OPCEN</option>
+                          </Select>
+                        </InputGroup>
+                      </FormControl>
+                    ) : (
+                      ""
+                    )}
+
+                    <Box align={"center"} pb={4}>
                       <Button
-                        h="1.75rem"
-                        size="sm"
-                        bgColor="white"
-                        onClick={handleClick}
-                        p="0"
-                        _hover={{ bgColor: "white" }}
+                        type="submit"
+                        mt={14}
+                        borderRadius={50}
+                        variant="solid"
+                        colorScheme={"blue"}
+                        fontSize={16}
+                        fontWeight={"semibold"}
+                        w={161}
+                        h={42}
+                        isLoading={isLoading}
                       >
-                        {show ? (
-                          <VscEye color="gray.400" />
-                        ) : (
-                          <VscEyeClosed color="gray.400" />
-                        )}
+                        Sign up
                       </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                </HStack>
+                    </Box>
 
-                <Grid gap={2} templateColumns="repeat(5, 1fr)">
-                  <GridItem colSpan={3}>
-                    <Select
-                      options={hospitals}
-                      placeholder="Choose your hospital"
-                      selectedOptionStyle="check"
-                      closeMenuOnSelect={true}
-                      focusBorderColor="#058e46"
-                      onChange={(e) => {
-                        setHospitalCode(e.value);
-                      }}
-                      required
-                      useBasicStyles
-                    />
-                  </GridItem>
-                  <GridItem colSpan={2}>
-                    <InputGroup>
-                      <InputLeftElement
-                        pointerEvents="none"
-                        children={<BiLock color="#058e46" />}
-                      />
-                      <Input
-                        type="number"
-                        placeholder="Access code"
-                        focusBorderColor="#058e46"
-                        fontSize="15.5px"
-                        name="accessCode"
-                        onChange={(e) => {
-                          setAccessCode(e.target.value);
-                        }}
-                        required
-                      />
-                    </InputGroup>
-                  </GridItem>
-                </Grid>
-                {hospitalCode == 1 ? (
-                  <Grid mt={5}>
-                    <GridItem>
-                      <Select
-                        options={deptList}
-                        placeholder="Choose your department"
-                        selectedOptionStyle="check"
-                        closeMenuOnSelect={true}
-                        focusBorderColor="#058e46"
-                        onChange={(e) => {
-                          setDepartment(e.value);
-                        }}
-                        required
-                        useBasicStyles
-                      />
-                    </GridItem>
-                  </Grid>
-                ) : (
-                  ""
-                )}
-
-                <Center>
-                  <Button
-                    type="submit"
-                    h="2.7rem"
-                    size="sm"
-                    bgColor="#058e43"
-                    mx="120px"
-                    width="60%"
-                    color="white"
-                    mt="10"
-                    p="4"
-                    rounded="lg"
-                    _hover={{
-                      bgColor: "green.600",
-                    }}
-                    fontWeight="400"
-                    rightIcon={<BiRightArrowAlt />}
-                    isLoading={isLoading}
-                  >
-                    Register
-                  </Button>
-                </Center>
-              </form>
-
-              <Center>
-                <Link color="teal.600" href="/login" fontSize="14px" mt={5}>
-                  Login here
-                </Link>
-              </Center>
-            </Box>
-          </Flex>
-        </Flex>
-      </Center>
+                    <Link
+                      href="/login"
+                      textAlign="center"
+                      fontSize={14}
+                      color={"blue.500"}
+                    >
+                      Already have an account? Login here
+                    </Link>
+                  </Box>
+                </form>
+              </Box>
+            </GridItem>
+            <GridItem
+              colSpan={4}
+              height={{ sm: 0, xl: "80vh" }}
+              bg="blue.500"
+              borderTopRightRadius={"xl"}
+              borderBottomRightRadius={"xl"}
+            >
+              <Image
+                src={zcmc}
+                h="100%"
+                borderTopRightRadius={"xl"}
+                borderBottomRighRadius={"xl"}
+              />
+            </GridItem>
+          </Grid>
+        </Box>
+      </Flex>
     </div>
   );
 }

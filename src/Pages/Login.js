@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from "react";
-
 import {
-  Text,
-  Flex,
   Box,
+  Flex,
+  Grid,
+  GridItem,
+  Text,
+  Heading,
+  FormControl,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   Button,
-  useToast,
   Link,
-  Center,
-  SlideFade,
+  Stack,
+  Image,
+  useToast,
 } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import api from "../API/Api";
-
-import { BiUser, BiLockAlt, BiRightArrowAlt } from "react-icons/bi";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
-
+import { HiEye, HiEyeOff, HiOutlineMail } from "react-icons/hi";
+import { BiLockAlt } from "react-icons/bi";
 import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import zcmc from "../Assets/zcmc-building.png";
 
 function Login() {
   const [cookies, setCookie] = useCookies(["sessionId"]);
@@ -44,6 +46,7 @@ function Login() {
   let navigate = useNavigate();
   //SEND DATA TO API
   const handleSubmit = async (event) => {
+    console.log(data);
     event.preventDefault();
 
     setIsLoading(true);
@@ -128,127 +131,146 @@ function Login() {
   }
 
   return (
-    <div className="body" style={{ background: "#f3f6f4", height: "100vh" }}>
-      <Center>
-        <Flex
-          alignItems="center"
-          justify="center"
-          height="480px"
-          width="500px"
-          boxShadow="lg"
-          rounded="lg"
-          background="white"
+    <div className="body" style={{ background: "#F0F8F8", height: "100vh" }}>
+      <Flex
+        width={"100vw"}
+        height={"100vh"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        bg="gray.100"
+      >
+        <Box
+          height="80vh"
+          w={{ sm: "90vw", md: "65vw", lg: "50vw", xl: "65vw" }}
+          bg="white"
+          borderRadius={"xl"}
         >
-          <Flex direction="column" p="5" rounded="md" width="460px">
-            <Box bgColor="white"></Box>
-            <Text fontSize="3xl" fontWeight="600" color="green.600">
-              Sign in
-            </Text>
-            <Text
-              fontSize="sm"
-              fontWeight="400"
-              mt={2}
-              mb={5}
-              color="gray.700"
-              textTransform="uppercase"
+          <Grid
+            templateColumns={{ md: "repeat(1, 1fr)", xl: "repeat(9, 1fr)" }}
+          >
+            <GridItem
+              // height={"100%"}
+              height={{ xs: 0, sm: 0, xl: "80vh" }}
+              bg="blue.500"
+              borderTopLeftRadius={"xl"}
+              borderBottomLeftRadius={"xl"}
+              colSpan={{ sm: 0, md: 0, lg: 5 }}
+              display={{ md: "none", lg: "none", xl: "inline" }}
             >
-              One Hospital Command
-            </Text>
-            <Box padding="" bg="white" mt={7}>
-              <form onSubmit={handleSubmit}>
-                <InputGroup size="md" mb={3}>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<BiUser color="#058e46" />}
-                  />
-                  <Input
-                    pr="4.5rem"
-                    type="text"
-                    placeholder="Email"
-                    focusBorderColor="#058e46"
-                    color="gray.600"
-                    fontSize="15px"
-                    name="email"
-                    onChange={handleInput}
-                    required
-                  />
-                </InputGroup>
+              <Image
+                src={zcmc}
+                h={"100%"}
+                borderTopLeftRadius={"xl"}
+                borderBottomLeftRadius={"xl"}
+              />
+            </GridItem>
+            <GridItem colSpan={4} height={{ sm: 0, xl: "80vh" }}>
+              <Box p={{ sm: 10, md: 16, lg: 14, xl: 14 }} textAlign="center">
+                <Box lineHeight={10}>
+                  <Heading color={"blue.500"}>Welcome</Heading>
+                  <Text>Patient Navigation and Referral System</Text>
+                </Box>
 
-                <InputGroup size="md">
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<BiLockAlt color="#058e46" />}
-                  />
-                  <Input
-                    pr="4.5rem"
-                    type={show ? "text" : "password"}
-                    placeholder="Password"
-                    focusBorderColor="#058e46"
-                    color="gray.600"
-                    fontSize="15px"
-                    name="password"
-                    onChange={handleInput}
-                    required
-                  />
-                  <InputRightElement>
-                    <Button
-                      h="1.75rem"
-                      size="sm"
-                      bgColor="white"
-                      onClick={handleClick}
-                      p="0"
-                      _hover={{ bgColor: "white" }}
-                    >
-                      {show ? (
-                        <VscEye color="gray.400" />
-                      ) : (
-                        <VscEyeClosed color="gray.400" />
-                      )}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <Link
-                  href="/recover"
-                  float="right"
-                  mt={1}
-                  fontSize={13}
-                  fontWeight={400}
-                  color="green"
-                >
-                  Forgot Password?
-                </Link>
+                {/* FORM */}
+                <form onSubmit={handleSubmit}>
+                  <Box mt={14}>
+                    <Box textAlign={"center"}>
+                      <FormControl isRequired>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<HiOutlineMail color="#A0AEC0" />}
+                          />
 
-                <Button
-                  type="submit"
-                  h="2.7rem"
-                  size="sm"
-                  bgColor="#058e43"
-                  width="100%"
-                  color="white"
-                  mt="10"
-                  p="4"
-                  rounded="lg"
-                  _hover={{
-                    bgColor: "green.600",
-                  }}
-                  fontWeight="400"
-                  isLoading={isLoading}
-                  loadingText="Signing in"
-                  rightIcon={<BiRightArrowAlt />}
-                >
-                  Sign in
-                </Button>
-              </form>
+                          <Input
+                            type="text"
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Email"
+                            name="email"
+                            onChange={handleInput}
+                          />
+                        </InputGroup>
+                      </FormControl>
 
-              <Center>
-                <Link color="teal.600" href="/register" fontSize="14px" mt={5}>
-                  Register
-                </Link>
-              </Center>
-            </Box>
-          </Flex>
-        </Flex>
-      </Center>
+                      {/* PASSWORD */}
+                      <FormControl isRequired mt={5}>
+                        <InputGroup>
+                          <InputLeftElement
+                            pointerEvents="none"
+                            children={<BiLockAlt color="#A0AEC0" />}
+                          />
+
+                          <Input
+                            type={show ? "text" : "password"}
+                            bg={"#F0F0F0"}
+                            borderRadius={50}
+                            border="0"
+                            placeholder="Password"
+                            name="password"
+                            onChange={handleInput}
+                          />
+
+                          <InputRightElement>
+                            <Button onClick={handleClick} size="sm" p="0">
+                              {show ? (
+                                <HiEyeOff color="#A0AEC0" />
+                              ) : (
+                                <HiEye color="#A0AEC0" />
+                              )}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
+                      </FormControl>
+                    </Box>
+
+                    <Stack>
+                      <Box mt={2}>
+                        <Link
+                          float={"right"}
+                          fontWeight={"semibold"}
+                          fontSize={14}
+                          color={"blue.500"}
+                          href="/recover"
+                        >
+                          Forgot password?
+                        </Link>
+                      </Box>
+                      <Box align={"center"} pb={4}>
+                        <Button
+                          type="submit"
+                          mt={14}
+                          borderRadius={50}
+                          variant="solid"
+                          colorScheme={"blue"}
+                          fontSize={16}
+                          fontWeight={"semibold"}
+                          w={161}
+                          h={42}
+                          isLoading={isLoading}
+                          loadingText="Signing in"
+                        >
+                          Sign in
+                        </Button>
+                      </Box>
+
+                      <Link
+                        href="/register"
+                        textAlign="center"
+                        fontSize={14}
+                        color={"blue.500"}
+                      >
+                        No account? Register here
+                      </Link>
+                    </Stack>
+                  </Box>
+                </form>
+              </Box>
+            </GridItem>
+          </Grid>
+        </Box>
+      </Flex>
     </div>
   );
 }
