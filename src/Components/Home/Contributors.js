@@ -1,95 +1,63 @@
 import React from "react";
-import { Text, Box, Center } from "@chakra-ui/react";
-
-import ContributorsTile from "./ContributorsTile";
+import { Box, Center, Container, Wrap, WrapItem } from "@chakra-ui/react";
 import ProfileTile from "./ProfileTile";
+import sir_john from "../../Assets/Profile/sir_john.png";
+import yana from "../../Assets/Profile/yana.png";
+import kriz from "../../Assets/Profile/kriz.png";
+import doc_kathy from "../../Assets/Profile/doc_kathy.png";
+import doc_ori from "../../Assets/Profile/doc_ori.png";
+
+const profile = [
+  {
+    image: sir_john,
+    name: "John Mary C. Sta Teresa",
+    posiiton: "Statistician II",
+  },
+  {
+    image: yana,
+    name: "Alyana Claire C. Barretto",
+    posiiton: "Software Developer",
+  },
+  {
+    image: kriz,
+    name: "Krizelle Mae B. Falcasantos",
+    posiiton: "Software Developer",
+  },
+  {
+    image: doc_ori,
+    name: "Dr. Orissa Alpuerto",
+    posiiton: "Medical Officer III",
+  },
+  {
+    image: doc_kathy,
+    name: "Dr. Katherine Lim-Eisma",
+    posiiton: "Medical Officer III",
+  },
+];
 
 function Contributors(props) {
-  var doc1 = require("../../Assets/Profile/doc_kunting_head.png");
-  var sir_john = require("../../Assets/Profile/sir_john.png");
-  var alyana = require("../../Assets/Profile/alyana.png");
-  var krizelle = require("../../Assets/Profile/krizelle.png");
-
   return (
     <Box>
-      <Box
-        mt={{ base: 5, lg: 40, md: 20 }}
-        ml={{ lg: 10, md: 8, sm: 3 }}
-        //   mr={{ lg: 40, md: 20, sm: 5 }
-        mb={{ md: 10 }}
-        align="center"
-      >
-        <Text
-          fontWeight={700}
-          fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
-          color="black"
-          letterSpacing="wide"
-        >
-          Meet the Team
-        </Text>
-
-        <Text
-          mt={7}
-          color="gray.500"
-          fontWeight="300"
-          letterSpacing="wide"
-          w={{ sm: 500, md: 800 }}
-        >
-          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore. */}
-        </Text>
-      </Box>
-      <Center mt={{ lg: 20, md: 5, sm: 0 }} mb={10} display={{ lg: "block" }}>
-        <Box
-          flexShrink={0}
-          mb={{ lg: 10, md: 5 }}
-          align="center"
-          // display={{ md: "flex" }}
-        >
-          <ContributorsTile
-            image={doc1}
-            name="Dr. Afdal B. Kunting"
-            position="Medical Center Chief II"
-            nameFontSize={{ lg: 15, md: 13, sm: 11.5 }}
-            height={{ sm: 200, lg: 250 }}
-            width={{ sm: 200, lg: 250 }}
-          />
-        </Box>
-        <Center>
-          <Box
-            flexShrink={0}
-            mt={{ base: 5, md: 5 }}
-            mb={{ lg: 10, md: 5 }}
-            display={{ md: "flex" }}
-            p={10}
-          >
-            <ProfileTile
-              image={sir_john}
-              name="John Mary C. Sta Teresa"
-              position="Statistician II"
-              height={{ lg: 210, md: 180, sm: 180 }}
-              width={{ lg: 170, md: 160, sm: 130 }}
-              mr={{ lg: 20, md: 3 }}
-            />
-            <ProfileTile
-              image={alyana}
-              name="Alyana Claire C. Barretto"
-              position="Software Developer"
-              height={{ lg: 210, md: 180, sm: 180 }}
-              width={{ lg: 160, md: 160, sm: 130 }}
-              mr={{ lg: 20, md: 3 }}
-            />
-            <ProfileTile
-              image={krizelle}
-              name="Krizelle Mae B. Falcasantos"
-              position="Software Developer"
-              height={{ lg: 210, md: 180, sm: 180 }}
-              width={{ lg: 170, md: 160, sm: 140 }}
-              mr={{ lg: 0, md: 0 }}
-            />
-          </Box>
-        </Center>
-      </Center>
+      <Container maxWidth="container.xl">
+        <Wrap justify="center">
+          {profile.map((p) => {
+            return (
+              <>
+                <WrapItem alignItems="flex-end">
+                  <Center width={200}>
+                    <ProfileTile
+                      image={p.image}
+                      name={p.name}
+                      position={p.posiiton}
+                      width={{ lg: 170, md: 160, sm: 130 }}
+                    />
+                  </Center>
+                </WrapItem>
+              </>
+            );
+          })}
+        </Wrap>
+      </Container>
     </Box>
   );
 }

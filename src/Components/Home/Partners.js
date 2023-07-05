@@ -1,4 +1,4 @@
-import { Text, Box, Image } from "@chakra-ui/react";
+import { Text, Box, Image, Container } from "@chakra-ui/react";
 import React from "react";
 import alicia from "../../Assets/Partners/alicia.jfif";
 import basilan from "../../Assets/Partners/basilan.jpg";
@@ -34,367 +34,376 @@ import "../../Styles/Partners.css";
 function Partners(props) {
   return (
     <div>
-      <Box align="center" mt={20}>
-        <Text
-          fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
-          letterSpacing="wide"
-          fontWeight="bold"
-        >
-          Referring Facilities
-        </Text>
-      </Box>
+      <Box bgColor="white" py={20}>
+        <Container maxW="container.xl">
+          <Box align="center" pt={20}>
+            <Text
+              fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
+              letterSpacing="wide"
+              fontWeight="bold"
+            >
+              Referring Facilities
+            </Text>
+          </Box>
 
-      {/* //hospitals */}
-      <Box mt={20}>
-        <div className="slider">
-          <div class="slide-track">
-            <Image
-              src={alicia}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={basilan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={brent}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={camp_navarro}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={cmz}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={doctors}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={drjose}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={eaab}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={hdz}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={labuan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={lanceta}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={mcs}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={nephro}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={sibud}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={sibugay}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={stjohn}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={uz}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={wmmc}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zampen}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zanorte}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zdsmc}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zpc}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={alicia}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={basilan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={brent}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={camp_navarro}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={cmz}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={doctors}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={drjose}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={eaab}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={hdz}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={labuan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={lanceta}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={mcs}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={nephro}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={sibud}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={sibugay}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={stjohn}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={uz}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={wmmc}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zampen}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zanorte}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zdsmc}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={zpc}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-          </div>
-        </div>
-      </Box>
-      <Box mt={10}>
-        <div className="slider">
-          <div class="slide-track2">
-            <Image src={cho} className="element" height="200px" width="200px" />
-            <Image
-              src={bayog}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={kalawit}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={naga}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={tampilisan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={tungawan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={cho}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={bayog}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={kalawit}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={naga}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={tampilisan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-            <Image
-              src={tungawan}
-              className="element"
-              height={{ lg: 200, md: 150, sm: 130 }}
-              width={{ lg: 200, md: 150, sm: 130 }}
-            />
-          </div>
-        </div>
-      </Box>
-      {/* <Box display="flex" mt={10} overflow="hidden">
+          {/* //hospitals */}
+          <Box py={20}>
+            <div className="slider">
+              <div class="slide-track">
+                <Image
+                  src={alicia}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={basilan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={brent}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={camp_navarro}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={cmz}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={doctors}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={drjose}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={eaab}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={hdz}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={labuan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={lanceta}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={mcs}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={nephro}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={sibud}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={sibugay}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={stjohn}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={uz}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={wmmc}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zampen}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zanorte}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zdsmc}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zpc}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={alicia}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={basilan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={brent}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={camp_navarro}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={cmz}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={doctors}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={drjose}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={eaab}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={hdz}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={labuan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={lanceta}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={mcs}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={nephro}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={sibud}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={sibugay}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={stjohn}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={uz}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={wmmc}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zampen}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zanorte}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zdsmc}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={zpc}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+              </div>
+            </div>
+          </Box>
+          <Box mt={10}>
+            <div className="slider">
+              <div class="slide-track2">
+                <Image
+                  src={cho}
+                  className="element"
+                  height="200px"
+                  width="200px"
+                />
+                <Image
+                  src={bayog}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={kalawit}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={naga}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={tampilisan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={tungawan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={cho}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={bayog}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={kalawit}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={naga}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={tampilisan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+                <Image
+                  src={tungawan}
+                  className="element"
+                  height={{ lg: 200, md: 150, sm: 130 }}
+                  width={{ lg: 200, md: 150, sm: 130 }}
+                />
+              </div>
+            </div>
+          </Box>
+          {/* <Box display="flex" mt={10} overflow="hidden">
        
       </Box>
     
       <Box display="flex" mt={10} overflow="hidden">
      
       </Box> */}
+        </Container>
+      </Box>
     </div>
   );
 }

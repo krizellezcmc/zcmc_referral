@@ -59,7 +59,7 @@ function Specialization(props) {
   ];
   return (
     <>
-      <Box py={40}>
+      <Box py={32} justifyContent="center" alignItems="center">
         <Container maxW="container.xl">
           <SectionHeader
             title="Our Specializations"
