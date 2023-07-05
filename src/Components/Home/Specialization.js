@@ -40,11 +40,7 @@ function Specialization(props) {
       name: "Psychiatry",
       bgColor: "#f4def8",
     },
-    {
-      image: surgery,
-      name: "Surgery",
-      bgColor: "#fff5d8",
-    },
+    { image: surgery, name: "Surgery", bgColor: "#fff5d8" },
     {
       image: ob,
       name: "Obgyne",
@@ -70,12 +66,12 @@ function Specialization(props) {
             description="The Zamboanga City Medical Center specializes in the following
               areas."
           />
-          <Wrap justify="center" mt={20}>
+          <Wrap justify="center" mt={20} spacingX={10}>
             {services.map((s) => {
               return (
                 <>
                   <WrapItem>
-                    <Center width={250}>
+                    <Center width={{ lg: 250 }}>
                       <Tile image={s.image} name={s.name} bgColor={s.bgColor} />
                     </Center>
                   </WrapItem>

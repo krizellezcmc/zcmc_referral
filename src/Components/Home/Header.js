@@ -11,10 +11,10 @@ function Header(props) {
   }
   return (
     <>
-      <Container maxW="container.xl" py={{ lg: 20, md: 5, xl: 24 }}>
-        <Box display={{ md: "flex" }} py={{ lg: 10, md: 0, xl: 0 }}>
+      <Container maxW="container.xl" my={{ lg: 20, md: 10, xl: 32 }}>
+        <Box display={{ md: "flex" }}>
           <Box
-            mt={{ base: 4, lg: 20, md: 0, xl: 28 }}
+            mt={{ base: 10, lg: 20, md: 0, xl: 28 }}
             mr={{ md: 10, lg: 10, xl: 22 }}
           >
             <Text

@@ -7,7 +7,7 @@ function SectionHeader({ title, description }) {
       <Box p={3} align="center">
         <Text
           fontWeight="bold"
-          fontSize={{ md: "3xl", lg: "5xl", sm: "4xl" }}
+          fontSize={{ lg: "4xl", sm: "3xl" }}
           letterSpacing="wide"
         >
           {title}

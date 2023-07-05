@@ -200,7 +200,7 @@ function Home(props) {
                   className={
                     location.hash === "#header" ? "active" : "nav-item2"
                   }
-                  href="#header "
+                  href="#header"
                   my={5}
                   onClick={() => changeDisplay("none")}
                 >
@@ -258,31 +258,23 @@ function Home(props) {
             </div>
           )}
 
-          <section id="header">
-            <Header />
-            <Box>
-              <Gallery />
-            </Box>
-          </section>
+          <section id="header" />
+          <Header />
 
-          <section id="about">
-            <About />
-          </section>
+          <section id="about" />
+          <About />
 
-          <section id="facilities" style={{ height: "100vh" }}>
-            <Partners />
-          </section>
-          <section id="services" style={{ height: "100vh" }}>
-            <Specialization />
-          </section>
+          <section id="facilities" />
+          <Partners />
 
-          <section id="team" style={{ height: "100vh" }}>
-            <Team />
-          </section>
+          <section id="services" />
+          <Specialization />
 
-          <section id="faqs" style={{ height: "100vh" }}>
-            <FAQs />
-          </section>
+          <section id="team" />
+          <Team />
+
+          <section id="faqs" />
+          <FAQs />
         </div>
 
         <div className="copyright">

@@ -22,9 +22,9 @@ import SectionHeader from "./SectionHeader";
 function customArrow({ type, onClick, isEdge }) {
   const pointer =
     type === consts.PREV ? (
-      <BiChevronLeft size={50} color="#38a169" />
+      <BiChevronLeft size={30} color="#38a169" />
     ) : (
-      <BiChevronRight size={50} color="#38a169" />
+      <BiChevronRight size={30} color="#38a169" />
     );
   return (
     <button onClick={onClick} disabled={isEdge}>
@@ -34,8 +34,8 @@ function customArrow({ type, onClick, isEdge }) {
 }
 
 const breakPoints = [
-  { width: 1, itemsToShow: 1 },
-  { width: 500, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 6, itemsToShow: 1 },
+  { width: 700, itemsToShow: 2, itemsToScroll: 2 },
   { width: 760, itemsToShow: 3 },
   { width: 1200, itemsToShow: 4 },
 ];

@@ -43,6 +43,7 @@ import AdmissionViewPat from "../Pages/AdmissionViewPat";
 import ReferralDownload from "./ReferralDownload";
 import AdminRequests from "../Pages/AdminRequests";
 import ForgotPassword from "../Pages/ForgotPassword";
+import Main from "../Pages/Homepage/Main";
 
 const AnimatedRoutes = () => {
   const { user } = useAuth();
@@ -53,7 +54,7 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
           <Route path="/forbidden" element={<Forbidden />}></Route>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/blocked" element={<Blocked />} />
           <Route path="/recover" element={<Recover />} />
