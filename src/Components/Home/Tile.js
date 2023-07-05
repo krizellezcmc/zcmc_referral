@@ -15,13 +15,13 @@ function Tile({ bgColor, image, name }) {
           p={7}
           align="center"
         >
-          <img src={image} width="64px" />
+          <img src={image} width={{ xs: "40px", lg: "64px" }} />
         </Box>
         <Text
           mt={4}
           mb={8}
           fontWeight={600}
-          fontSize={{ lg: 15, md: 13, sm: 12 }}
+          fontSize={{ lg: 15, md: 13, sm: 14 }}
           textAlign="center"
           color="#413F42"
         >

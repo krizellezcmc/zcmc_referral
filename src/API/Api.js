@@ -8,7 +8,7 @@ const server = "https://referralserver.online/api";
 
 //Custom API to fetch data from the server using axios
 const api = axios.create({
-  // withCredentials: true,s
+  // withCredentials: true,
   baseURL: server,
   headers: {
     Authorization: `${JSON.parse(sessionStorage.getItem("sessionId"))}`,

@@ -2,28 +2,15 @@ import {
   Box,
   Container,
   Text,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  Center,
   Accordion,
   AccordionItem,
   AccordionButton,
-  AccordionIcon,
   AccordionPanel,
   Icon,
 } from "@chakra-ui/react";
 import React from "react";
-import {
-  BiMinusCircle,
-  BiPlusCircle,
-  BiQuestionMark,
-  BiSearch,
-} from "react-icons/bi";
-import {
-  HiOutlineQuestionMarkCircle,
-  HiQuestionMarkCircle,
-} from "react-icons/hi";
+import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
+import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
 import SectionHeader from "./SectionHeader";
 
 function FAQs(props) {
