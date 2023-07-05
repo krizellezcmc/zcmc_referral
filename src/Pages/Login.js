@@ -16,11 +16,18 @@ import {
   Stack,
   Image,
   useToast,
+  Icon,
 } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import api from "../API/Api";
 import { HiEye, HiEyeOff, HiOutlineMail } from "react-icons/hi";
-import { BiLockAlt } from "react-icons/bi";
+import {
+  BiArrowBack,
+  BiChevronLeft,
+  BiChevronLeftCircle,
+  BiLeftArrowCircle,
+  BiLockAlt,
+} from "react-icons/bi";
 import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import zcmc from "../Assets/zcmc-building.png";
@@ -141,7 +148,7 @@ function Login() {
       >
         <Box
           height="80vh"
-          w={{ sm: "90vw", md: "65vw", lg: "50vw", xl: "65vw" }}
+          w={{ base: "90vw", sm: "90vw", md: "65vw", lg: "50vw", xl: "65vw" }}
           bg="white"
           borderRadius={"xl"}
         >
@@ -150,12 +157,18 @@ function Login() {
           >
             <GridItem
               // height={"100%"}
-              height={{ xs: 0, sm: 0, xl: "80vh" }}
+              height={{ base: 0, sm: 0, xl: "80vh" }}
               bg="blue.500"
               borderTopLeftRadius={"xl"}
               borderBottomLeftRadius={"xl"}
               colSpan={{ sm: 0, md: 0, lg: 5 }}
-              display={{ md: "none", lg: "none", xl: "inline" }}
+              display={{
+                base: "none",
+                sm: "none",
+                md: "none",
+                lg: "none",
+                xl: "inline",
+              }}
             >
               <Image
                 src={zcmc}
@@ -165,7 +178,16 @@ function Login() {
               />
             </GridItem>
             <GridItem colSpan={4} height={{ sm: 0, xl: "80vh" }}>
-              <Box p={{ sm: 10, md: 16, lg: 14, xl: 14 }} textAlign="center">
+              <Box p={5} display="flex" alignItems="center" gap={1}>
+                <BiChevronLeft size={20} color={"blue"} />
+                <Link fontSize={14} color={"blue.500"} href="/">
+                  Back to Home
+                </Link>
+              </Box>
+              <Box
+                p={{ base: 10, sm: 10, md: 16, lg: 14, xl: 14 }}
+                textAlign="center"
+              >
                 <Box lineHeight={10}>
                   <Heading color={"blue.500"}>Welcome</Heading>
                   <Text>Patient Navigation and Referral System</Text>
