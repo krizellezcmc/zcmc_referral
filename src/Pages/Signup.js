@@ -152,7 +152,7 @@ function Signup() {
       >
         <Box
           height="80vh"
-          w={{ sm: "90vw", md: "65vw", lg: "50vw", xl: "65vw" }}
+          w={{ base: "90vw", sm: "90vw", md: "65vw", lg: "50vw", xl: "65vw" }}
           bg="white"
           borderRadius={"xl"}
         >
@@ -165,7 +165,10 @@ function Signup() {
               colSpan={{ sm: 0, md: 0, lg: 5 }}
               // display={{ md: "none" }}
             >
-              <Box p={{ sm: 10, md: 16, lg: 14, xl: 16 }} textAlign="center">
+              <Box
+                p={{ base: 5, sm: 10, md: 16, lg: 14, xl: 16 }}
+                textAlign="center"
+              >
                 <Box lineHeight={10}>
                   <Heading color={"blue.500"}>Signup</Heading>
                   <Text>Patient Navigation and Referral System</Text>
@@ -174,11 +177,8 @@ function Signup() {
                 {/* FORM */}
                 <form onSubmit={register}>
                   <Box mt={14}>
-                    <Box
-                      display={{ lg: "", xl: "flex" }}
-                      justifyContent="center"
-                    >
-                      <FormControl isRequired m={2}>
+                    <Box textAlign="center">
+                      <FormControl isRequired mb={2}>
                         <InputGroup>
                           <InputLeftElement
                             pointerEvents="none"
@@ -198,7 +198,7 @@ function Signup() {
                         </InputGroup>
                       </FormControl>
 
-                      <FormControl isRequired m={2}>
+                      <FormControl isRequired mb={2}>
                         <InputGroup>
                           <InputLeftElement
                             pointerEvents="none"
@@ -219,7 +219,7 @@ function Signup() {
                       </FormControl>
                     </Box>
 
-                    <FormControl isRequired m={2}>
+                    <FormControl isRequired mb={2}>
                       <InputGroup>
                         <InputLeftElement
                           pointerEvents="none"
@@ -242,8 +242,9 @@ function Signup() {
                     <Box
                       display={{ lg: "", xl: "flex" }}
                       justifyContent="center"
+                      gap={2}
                     >
-                      <FormControl isRequired m={2}>
+                      <FormControl isRequired mb={2}>
                         <InputGroup>
                           <InputLeftElement
                             pointerEvents="none"
@@ -262,7 +263,7 @@ function Signup() {
                           />
                         </InputGroup>
                       </FormControl>
-                      <FormControl isRequired m={2}>
+                      <FormControl isRequired mb={2}>
                         <InputGroup>
                           <InputLeftElement
                             pointerEvents="none"
@@ -315,8 +316,9 @@ function Signup() {
                     <Box
                       display={{ lg: "", xl: "flex" }}
                       justifyContent="center"
+                      gap={2}
                     >
-                      <FormControl isRequired m={2}>
+                      <FormControl isRequired mb={2}>
                         <InputGroup>
                           {/* <InputLeftElement
                             pointerEvents="none"
@@ -345,7 +347,7 @@ function Signup() {
                         </InputGroup>
                       </FormControl>
 
-                      <FormControl isRequired m={2} w={{ xl: "40%" }}>
+                      <FormControl isRequired mb={2}>
                         <InputGroup>
                           <InputLeftElement
                             pointerEvents="none"
@@ -367,7 +369,7 @@ function Signup() {
                     </Box>
 
                     {hospitalCode == 147 ? (
-                      <FormControl isRequired m={2}>
+                      <FormControl isRequired mb={2}>
                         <InputGroup>
                           <Select
                             bg={"#F0F0F0"}
@@ -417,11 +419,18 @@ function Signup() {
               </Box>
             </GridItem>
             <GridItem
-              colSpan={4}
-              height={{ sm: 0, xl: "80vh" }}
+              colSpan={{ sm: 0, md: 0, lg: 4 }}
+              height={{ base: 0, sm: 0, xl: "80vh" }}
               bg="blue.500"
               borderTopRightRadius={"xl"}
               borderBottomRightRadius={"xl"}
+              display={{
+                base: "none",
+                sm: "none",
+                md: "none",
+                lg: "none",
+                xl: "inline",
+              }}
             >
               <Image
                 src={zcmc}
