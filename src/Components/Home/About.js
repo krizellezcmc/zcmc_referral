@@ -1,8 +1,5 @@
 import React from "react";
 import { Text, Box, Image, Container } from "@chakra-ui/react";
-import Partners from "./Partners";
-import Contributors from "./Contributors";
-import Developers from "./Developers";
 import SectionHeader from "./SectionHeader";
 
 function About(props) {
