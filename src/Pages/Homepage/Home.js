@@ -248,24 +248,19 @@ function Home(props) {
             </div>
           )}
 
-          <section id="header">
-            <Header />
-            <Box>
-              <Gallery />
-            </Box>
-          </section>
+          <section id="header" />
+          <Header />
 
-          <section id="services" style={{ height: "100vh" }}>
-            <Specialization />
-          </section>
+          <Gallery />
 
-          <section id="about">
-            <About />
-          </section>
+          <section id="services" />
+          <Specialization />
 
-          <section id="faqs" style={{ height: "100vh" }}>
-            <FAQs />
-          </section>
+          <section id="about" />
+          <About />
+
+          <section id="faqs" />
+          <FAQs />
         </div>
 
         <div className="copyright">
