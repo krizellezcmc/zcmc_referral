@@ -8,6 +8,8 @@ import MobilePartners from "../../Components/Home/Mobile/MobilePartners";
 import FAQs from "../../Components/Home/FAQs";
 import MobileNavbar from "../../Components/Home/Mobile/MobileNavbar";
 import Team from "../../Components/Home/Team";
+import MobileCopyright from "../../Components/Home/Mobile/MobileCopyright";
+import "../../Styles/Navbar.css";
 
 function MobileView(props) {
   const scrollToSection = (id) => {
@@ -38,6 +40,10 @@ function MobileView(props) {
 
         <section id="faqs" />
         <FAQs />
+
+        <div className="copyright">
+          <MobileCopyright />
+        </div>
       </Container>
     </>
   );
