@@ -29,7 +29,7 @@
 
 #progress li:before {
   content: "";
-  border-left: 25px solid #fff;
+  border-left: 25px solid #f0f8f8;
   border-top: 25px solid transparent;
   border-bottom: 25px solid transparent;
   position: absolute;

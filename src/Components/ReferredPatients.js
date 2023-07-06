@@ -113,32 +113,22 @@ const ReferredPatients = () => {
         </Heading>
         <TbUsers fontSize={30} />
       </Flex>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 10,
-        }}
-      >
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            children={<BiSearch color="gray.300" />}
-          />
-          <Input
-            fontSize="14px"
-            type="text"
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search User"
-            width="400px"
-            _hover={{ borderColor: "green" }}
-            _focus={{
-              boxShadow: "none",
-              outline: "none",
-              borderColor: "green",
-            }}
-          />
-        </InputGroup>
+      <Box display="flex" justifyContent="space-between" marginBottom={10}>
+        <Input
+          fontSize="14px"
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search User"
+          width="400px"
+          _hover={{ borderColor: "green" }}
+          _focus={{
+            boxShadow: "none",
+            outline: "none",
+            borderColor: "green",
+          }}
+          bgColor="white"
+        />
+
         <Button
           variant="solid"
           colorScheme="green"
@@ -148,14 +138,14 @@ const ReferredPatients = () => {
         >
           + Refer Patient
         </Button>
-      </div>
+      </Box>
       {isLoading ? (
         <Center my={20}>
           <Spinner />
         </Center>
       ) : (
         <>
-          <TableContainer>
+          <TableContainer bgColor="white">
             <Table cellSpacing={0}>
               <Thead>
                 <Tr>

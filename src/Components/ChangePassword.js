@@ -96,7 +96,7 @@ function ChangePassword(props) {
 
   return (
     <div>
-      <Box width="2xl" padding={8} className="table-container">
+      <Box width="2xl" padding={8} className="table-container" bgColor="white">
         <h1
           style={{
             display: "flex",

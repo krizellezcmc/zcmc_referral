@@ -102,7 +102,6 @@ function Home(props) {
         const sect = sectTop - sectHeight / 2;
         if (window.pageYOffset >= sect) {
           current = section.getAttribute("id");
-          console.log(current);
         }
       });
 

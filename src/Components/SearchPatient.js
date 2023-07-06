@@ -200,14 +200,14 @@ function SearchPatient(props) {
         // variant="flushed"
         selectedOptionStyle="check"
         closeMenuOnSelect={true}
-        focusBorderColor="black"
+        focusBorderColor="green.500"
         onChange={(e) => {
           selectedText(e.value);
         }}
         width="100%"
         required
         id="searchbar"
-        color="white"
+        variant="filled"
       />
 
       {patient
@@ -323,10 +323,11 @@ function SearchPatient(props) {
                           <Container p={5} maxW="1200px">
                             {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
                             <Box
-                              borderWidth="1px"
-                              borderColor="gray.300"
+                              // borderWidth="1px"
+                              // borderColor="gray.300"
                               borderRadius="lg"
                               p={5}
+                              bgColor="white"
                             >
                               <Text
                                 fontSize="xl"
@@ -474,11 +475,12 @@ function SearchPatient(props) {
                             </Box>
 
                             <Box
-                              borderWidth="1px"
-                              borderColor="gray.300"
+                              // borderWidth="1px"
+                              // borderColor="gray.300"
                               borderRadius="lg"
                               p={5}
                               mt={5}
+                              bgColor="white"
                             >
                               <Text
                                 fontSize="xl"
@@ -516,11 +518,12 @@ function SearchPatient(props) {
                             </Box>
 
                             <Box
-                              borderWidth="1px"
-                              borderColor="gray.300"
+                              // borderWidth="1px"
+                              // borderColor="gray.300"
                               borderRadius="lg"
                               p={5}
                               mt={5}
+                              bgColor="white"
                             >
                               <Text
                                 fontSize="xl"
@@ -962,11 +965,13 @@ function SearchPatient(props) {
                                     width: "100%",
                                     marginTop: "20px",
                                     height: "auto",
-                                    boxShadow:
-                                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                    // boxShadow:
+                                    //   "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                                     borderRadius: "5px",
                                     padding: "30px",
                                   }}
+                                  bgColor="white"
+                                  boxShadow="base"
                                 >
                                   <Text
                                     style={{
@@ -1190,11 +1195,13 @@ function SearchPatient(props) {
                                     width: "100%",
                                     marginTop: "20px",
                                     height: "auto",
-                                    boxShadow:
-                                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                    // boxShadow:
+                                    //   "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                                     borderRadius: "5px",
                                     padding: "30px",
                                   }}
+                                  bgColor="white"
+                                  boxShadow="base"
                                 >
                                   <Box
                                     p={3}
@@ -1223,11 +1230,13 @@ function SearchPatient(props) {
                                     width: "100%",
                                     marginTop: "20px",
                                     height: "auto",
-                                    boxShadow:
-                                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                    // boxShadow:
+                                    //   "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                                     borderRadius: "5px",
                                     padding: "30px",
                                   }}
+                                  bgColor="white"
+                                  boxShadow="base"
                                 >
                                   <Text
                                     style={{
@@ -1291,11 +1300,13 @@ function SearchPatient(props) {
                                     width: "100%",
                                     marginTop: "20px",
                                     height: "auto",
-                                    boxShadow:
-                                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                    // boxShadow:
+                                    //   "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                                     borderRadius: "5px",
                                     padding: "30px",
                                   }}
+                                  bgColor="white"
+                                  boxShadow="base"
                                 >
                                   <Text
                                     style={{
@@ -1342,16 +1353,18 @@ function SearchPatient(props) {
                             ) : (
                               <>
                                 <GridItem
-                                  p={3}
+                                  p={2}
                                   style={{
                                     width: "100%",
                                     marginTop: "20px",
                                     height: "auto",
-                                    boxShadow:
-                                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                                    // boxShadow:
+                                    //   "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                                     borderRadius: "5px",
                                     padding: "30px",
                                   }}
+                                  bgColor="white"
+                                  boxShadow="base"
                                 >
                                   <Text
                                     style={{

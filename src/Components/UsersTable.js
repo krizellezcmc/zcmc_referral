@@ -49,12 +49,30 @@ import "../Styles/Table.css";
 import Swal from "sweetalert2";
 import api from "../API/Api";
 import Spinner from "./Spinner";
+import moment from "moment";
+import TableComponent from "./Table/TableComponent";
+
+const header = [
+  {
+    title: "Name",
+  },
+  {
+    title: "Hospital",
+  },
+  { title: "Role" },
+  {
+    title: "Status",
+  },
+  {
+    title: "Actions",
+  },
+];
 
 const UsersTable = () => {
   const [userData, setUserData] = useState([]);
   const [userVerify, setUserVerify] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoadingModal, setIsLoadingModal] = useState(false);
   //get user data
   const [userId, setUserId] = useState("");
@@ -90,7 +108,6 @@ const UsersTable = () => {
   };
 
   const fetchData = async () => {
-    setIsLoading(true);
     let response = await api.get("/get_verified_users.php");
     setUserData(response.data);
 
@@ -102,18 +119,19 @@ const UsersTable = () => {
     }
   };
 
-  const handleVerifyuser = (userId) => {
+  const handleVerifyuser = async (userId) => {
     onClose(true);
-    Swal.fire({
+    const result = await Swal.fire({
       text: "Are you sure you want to verify this user?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Verify",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        let res = await api.post("/accept_user.php", {
+    });
+    if (result.isConfirmed) {
+      try {
+        const res = await api.post("/accept_user.php", {
           userId: userId,
         });
 
@@ -123,15 +141,17 @@ const UsersTable = () => {
             "You successfully verified the user.",
             "success"
           ).then(() => {
-            window.location.href = "/login";
+            fetchData();
           });
         } else {
           Swal.fire("Error!", "Something went wrong.", "error").then(() => {
             window.location.href = "/login";
           });
         }
+      } catch (error) {
+        console.log("Error verifying user:", error);
       }
-    });
+    }
   };
 
   const deleteUser = (id) => {
@@ -227,157 +247,159 @@ const UsersTable = () => {
 
   useEffect(() => {
     fetchData();
+    console.log(userVerify);
+
+    // const interval = setInterval(fetchData, 5000);
+
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   return (
     <div>
       <Grid templateColumns="repeat(8,1fr)" gap={4}>
-        <GridItem colSpan={5} mt={5}>
-          <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "20px",
+        <GridItem colSpan={6}>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            pb={5}
+          >
+            <Input
+              fontSize="13px"
+              type="text"
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search user"
+              width="400px"
+              _hover={{ borderColor: "green" }}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+                borderColor: "green",
               }}
-            >
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<BiSearch color="gray.300" />}
-                />
-                <Input
-                  fontSize="13px"
-                  type="text"
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search user"
-                  width="400px"
-                  _hover={{ borderColor: "green" }}
-                  _focus={{
-                    boxShadow: "none",
-                    outline: "none",
-                    borderColor: "green",
-                  }}
-                />
-              </InputGroup>
-            </div>
-            {isLoading ? (
-              <Center my={16}>
-                <Spinner />
-              </Center>
-            ) : (
-              <TableContainer>
-                <Table cellSpacing={0}>
-                  <Thead>
-                    <Tr>
-                      <Th className="border" width="30%">
-                        Name
-                      </Th>
-                      {/* <Th className="border" width="20%">
-                        Email
-                      </Th>
-                      <Th className="border" width="15%">
-                        Phone No.
-                      </Th> */}
-                      <Th className="border">Hospital</Th>
-                      <Th className="border">Role</Th>
-                      <Th className="border">Status</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {userData
-                      .filter((val) => {
-                        if (search === "") {
-                          return val;
-                        } else if (
-                          val.lastName
-                            .toLowerCase()
-                            .includes(search.toLowerCase()) ||
-                          val.firstName
-                            .toLowerCase()
-                            .includes(search.toLowerCase()) ||
-                          val.name.toLowerCase().includes(search.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      })
-                      .map((index) => {
-                        return (
-                          <>
-                            <Tr>
-                              <Td className="border">
-                                {index.firstName + " " + index.lastName}
-                              </Td>
-                              {/* <Td className="border">{index.email}</Td>
-                              <Td className="border">{index.contact}</Td> */}
-                              <Td className="border">{index.name}</Td>{" "}
-                              <Td className="border" textTransform="uppercase">
-                                {index.role === "triage"
-                                  ? "PRE-TRIAGE"
-                                  : index.role === "user"
-                                  ? "REFERRING"
-                                  : index.role}
-                              </Td>
-                              {/* <Td className="border">
-                                <Badge colorScheme="green">Verified</Badge>
-                              </Td> */}{" "}
-                              <Td className="border">
-                                <Badge
-                                  colorScheme={
-                                    index.validated === 1
-                                      ? "green"
-                                      : index.validated === 5
-                                      ? "red"
-                                      : "blue"
-                                  }
-                                >
-                                  {index.validated === 1
-                                    ? "Active"
-                                    : index.validated === 5
-                                    ? "Deactivated"
-                                    : "Pending"}
-                                </Badge>
-                              </Td>
-                              <Td border="0">
-                                {index.validated === 5 ? (
-                                  <IconButton
-                                    style={{ margin: 0, padding: 0 }}
-                                    size="sm"
-                                    variant="solid"
-                                    colorScheme="green"
-                                    onClick={() => {
-                                      activateUser(index.userId);
-                                    }}
-                                    icon={<BiUserCheck fontSize="15px" />}
-                                  />
-                                ) : (
-                                  <IconButton
-                                    style={{ margin: 0, padding: 0 }}
-                                    size="sm"
-                                    variant="solid"
-                                    colorScheme="red"
-                                    onClick={() => {
-                                      deleteUser(index.userId);
-                                    }}
-                                    icon={<BiUserX fontSize="15px" />}
-                                  />
-                                )}
-                              </Td>
-                            </Tr>
-                          </>
-                        );
-                      })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            )}
-          </div>
+              bgColor="white"
+            />
+          </Box>
+          {isLoading ? (
+            <Center my={16}>
+              <Spinner />
+            </Center>
+          ) : (
+            <Box>
+              <Flex borderRadius="sm" mb={5}>
+                {header.map((h) => {
+                  return (
+                    <>
+                      <Box bgColor="white" width="full" p={3}>
+                        <Text color="#B3B3B3" textAlign="center">
+                          {h.title}{" "}
+                        </Text>
+                      </Box>
+                    </>
+                  );
+                })}
+              </Flex>
+
+              {userData
+                .filter((val) => {
+                  if (search === "") {
+                    return val;
+                  } else if (
+                    val.lastName.toLowerCase().includes(search.toLowerCase()) ||
+                    val.firstName
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) ||
+                    val.name.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((index, i) => {
+                  const isEven = i % 2 === 0;
+                  const backgroundColor = isEven ? "white" : "#e9ffff";
+                  return (
+                    <>
+                      <Flex
+                        bgColor={backgroundColor}
+                        color="#3E9393"
+                        fontWeight={600}
+                        fontSize={13}
+                        alignItems="center"
+                      >
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>{index.firstName + " " + index.lastName}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>{index.name}</Text>{" "}
+                        </Box>
+                        <Box width="full" p={2}>
+                          <Text textTransform="uppercase" textAlign="center">
+                            {index.role === "triage"
+                              ? "PRE-TRIAGE"
+                              : index.role === "user"
+                              ? "REFERRING"
+                              : index.role}
+                          </Text>
+                        </Box>
+                        <Box width="full" p={2}>
+                          <Text textAlign="center">
+                            <Badge
+                              colorScheme={
+                                index.validated === 1
+                                  ? "green"
+                                  : index.validated === 5
+                                  ? "red"
+                                  : "blue"
+                              }
+                              borderRadius="lg"
+                              px={2}
+                            >
+                              {index.validated === 1
+                                ? "Active"
+                                : index.validated === 5
+                                ? "Deactivated"
+                                : "Pending"}
+                            </Badge>
+                          </Text>
+                        </Box>
+                        <Box width="full" p={2} align="center">
+                          {index.validated === 5 ? (
+                            <IconButton
+                              style={{ margin: 0, padding: 0 }}
+                              size="sm"
+                              variant="solid"
+                              colorScheme="green"
+                              onClick={() => {
+                                activateUser(index.userId);
+                              }}
+                              icon={<BiUserCheck fontSize="15px" />}
+                            />
+                          ) : (
+                            <IconButton
+                              style={{ margin: 0, padding: 0 }}
+                              size="sm"
+                              variant="solid"
+                              colorScheme="red"
+                              onClick={() => {
+                                deleteUser(index.userId);
+                              }}
+                              icon={<BiUserX fontSize="15px" />}
+                            />
+                          )}
+                        </Box>
+                      </Flex>
+                    </>
+                  );
+                })}
+            </Box>
+          )}
         </GridItem>
 
-        <GridItem colSpan={3}>
-          <div className="side-container" style={{ padding: "15px" }}>
-            <Text fontWeight={800} mb={10}>
-              FOR VERIFICATION
+        <GridItem colSpan={2}>
+          <Box bgColor="white" borderRadius={10} boxShadow="md" p={5}>
+            <Text fontWeight={600} mb={10} color="#1F8383">
+              Users for Verification
             </Text>
 
             <VStack spacing={2}>
@@ -386,20 +408,40 @@ const UsersTable = () => {
                   return (
                     <>
                       <Box
-                        width="100%"
-                        borderWidth="1px"
-                        borderRadius="xs"
+                        width="full"
+                        borderRadius="3xl"
                         padding={3}
+                        bgColor="#e3f8f8"
+                        p={4}
                       >
-                        <HStack>
-                          <p style={{ fontSize: "14px" }}>
-                            <b>{user.firstName + " " + user.lastName}</b>
-                            <Badge colorScheme="purple" ml="1" size="xs">
-                              New
-                            </Badge>
-                            <br />
-                            {user.name}
-                          </p>
+                        <Flex alignItems="center">
+                          <Box>
+                            <Flex gap={2}>
+                              <Text fontSize={14} fontWeight={700}>
+                                {user.firstName + " " + user.lastName}
+                              </Text>
+                              <Badge
+                                colorScheme="purple"
+                                size="xs"
+                                borderRadius="lg"
+                                px={2}
+                              >
+                                New
+                              </Badge>
+                            </Flex>
+                            <Text
+                              fontSize={13}
+                              fontWeight={400}
+                              fontStyle="italic"
+                            >
+                              {" "}
+                              {user.name}
+                            </Text>
+                            <Text fontSize={11} pt={3} fontWeight={500}>
+                              {" "}
+                              {moment(user.tstamp).calendar()}
+                            </Text>
+                          </Box>
 
                           <Spacer></Spacer>
                           <IconButton
@@ -412,7 +454,7 @@ const UsersTable = () => {
                             }}
                             icon={<BiUserCheck fontSize="17px" />}
                           />
-                        </HStack>
+                        </Flex>
                       </Box>
                     </>
                   );
@@ -421,7 +463,7 @@ const UsersTable = () => {
                 <Text mt={3}>Nothing to show</Text>
               )}
             </VStack>
-          </div>
+          </Box>
         </GridItem>
       </Grid>
 

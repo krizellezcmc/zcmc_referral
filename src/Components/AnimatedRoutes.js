@@ -48,6 +48,7 @@ import Main from "../Pages/Homepage/Main";
 const AnimatedRoutes = () => {
   const { user } = useAuth();
   const location = useLocation();
+  console.log(user);
 
   return (
     <AnimatePresence>

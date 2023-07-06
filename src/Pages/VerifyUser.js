@@ -8,29 +8,50 @@ import { BiRefresh } from "react-icons/bi";
 import { TbUsers } from "react-icons/tb";
 
 function VerifyUser() {
+  // localStorage.setItem("/verifyuser", window.location.href);
+
+  // const currentPage = localStorage.getItem("/verifyuser");
+
+  // if (currentPage) {
+  //   window.location.href = currentPage;
+  // } else {
+  //   window.location.href = "/";
+  // }
+
   return (
     <div className="container">
       <Sidebar />
       <div className="content">
         <Header />
-        <div className="content-wrapper">
-          <Flex alignItems="center" mb={10} pt={3}>
-            <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
-              Users
-            </Heading>
-            <TbUsers fontSize={30} />
-            <Spacer />{" "}
-            <Button
-              rightIcon={<BiRefresh />}
-              onClick={() => {
-                window.location.href = "/login";
-              }}
-            >
-              Refresh
-            </Button>
-          </Flex>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <div
+            style={{ backgroundColor: "#F0F8F8", flex: 1 }}
+            className="content-wrapper"
+          >
+            <Flex alignItems="center" mb={10} pt={3}>
+              <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
+                Users
+              </Heading>
+              <TbUsers fontSize={30} />
+              <Spacer />{" "}
+              <Button
+                rightIcon={<BiRefresh />}
+                onClick={() => {
+                  window.location.href = "/login";
+                }}
+              >
+                Refresh
+              </Button>
+            </Flex>
 
-          <UsersTable />
+            <UsersTable />
+          </div>
         </div>
       </div>
     </div>
