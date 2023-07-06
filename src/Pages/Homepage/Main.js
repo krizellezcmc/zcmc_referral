@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import Home from "./Home";
+import useAuth from "../../Hooks/useAuth";
 
 const Main = () => {
+  const { user } = useAuth();
+
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
 
   useEffect(() => {
+    if (user) {
+      window.location.href = "/login";
+    }
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,

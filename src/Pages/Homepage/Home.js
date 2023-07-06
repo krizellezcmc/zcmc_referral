@@ -195,8 +195,10 @@ function Home(props) {
             </div>
           )}
 
-          <section id="header" />
-          <Header />
+          <section id="header" style={{ height: "100vh" }}>
+            {" "}
+            <Header />
+          </section>
 
           <section id="about" />
           <About />

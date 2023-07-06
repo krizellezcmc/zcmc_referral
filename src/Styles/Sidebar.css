@@ -2,7 +2,7 @@
   width: 30%;
   min-width: 250px;
   max-width: 280px;
-  height: 100vh;
+  max-height: 100vh;
   overflow-y: auto;
   background: #4a7659;
   overflow-x: hidden;

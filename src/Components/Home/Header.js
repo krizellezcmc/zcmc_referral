@@ -10,8 +10,13 @@ function Header(props) {
     navigate("/login");
   }
   return (
-    <>
-      <Container maxW="container.xl" py={{ lg: 20, md: 10, xl: 32 }}>
+    <Container maxW="container.xl">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        py={{ lg: 20, md: 10, xl: 22 }}
+      >
         <Box display={{ md: "flex" }}>
           <Box
             mt={{ base: 10, lg: 20, md: 0, xl: 28 }}
@@ -92,8 +97,8 @@ function Header(props) {
             />
           </Box>
         </Box>
-      </Container>
-    </>
+      </Box>
+    </Container>
   );
 }
 

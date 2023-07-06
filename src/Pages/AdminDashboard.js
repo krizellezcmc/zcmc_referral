@@ -26,6 +26,7 @@ function AdminDashboard(props) {
         style={{ backgroundColor: "rgb(247, 252, 245)" }}
       >
         <Sidebar />
+
         <div className="content">
           <Header />
           <Box className="content-wrapper">
