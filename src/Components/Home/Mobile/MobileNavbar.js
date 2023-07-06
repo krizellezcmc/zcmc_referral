@@ -7,10 +7,12 @@ import {
   Image,
   Divider,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { BiMenu, BiX } from "react-icons/bi";
+import { BiArrowToRight, BiMenu, BiX } from "react-icons/bi";
 import logo from "../../../Assets/OHCC.png";
+import { useNavigate } from "react-router-dom";
 
 const navItem = [
   {
@@ -42,6 +44,8 @@ const navItem = [
 function MobileNavbar({ handleSelectionClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
+
+  let navigate = useNavigate();
 
   const handleClick = (item) => {
     setActiveItem(item.href);
@@ -134,6 +138,17 @@ function MobileNavbar({ handleSelectionClick }) {
                 </>
               );
             })}
+
+            <Button
+              size="sm"
+              rounded="full"
+              px={4}
+              colorScheme="green"
+              onClick={() => navigate("/login")}
+              rightIcon={<BiArrowToRight />}
+            >
+              Sign in
+            </Button>
           </VStack>
         )}
       </div>
