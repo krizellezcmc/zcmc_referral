@@ -23,6 +23,7 @@ function AdminDashboard(props) {
     <div>
       <div className="container">
         <Sidebar />
+
         <div className="content">
           <Header />
           <div
@@ -101,18 +102,19 @@ function AdminDashboard(props) {
                   <Reason />
                 </Box>
 
-                <Box
-                  bg="white"
-                  boxShadow="md"
-                  borderColor="white"
-                  width="100%"
-                  borderRadius={5}
-                >
-                  <SamplePie />
-                </Box>
-              </Box>
-            </div>
-          </div>
+
+              {/* <Box
+                bg="white"
+                boxShadow="md"
+                borderColor="white"
+                width="100%"
+                borderRadius={5}
+              >
+                <SamplePie />
+              </Box> */}
+            </Box>
+          </Box>
+
         </div>
       </div>
     </div>

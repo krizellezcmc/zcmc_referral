@@ -23,18 +23,18 @@ const Reason = () => {
     <Box h={500} w={780}>
       <Text
         textAlign="center"
-        mt={12}
+        mt={5}
         mb={5}
         textTransform="uppercase"
         fontWeight={700}
-        fontSize={20}
+        fontSize={17}
         color="teal.600"
       >
         Reason for Referral
       </Text>
       <ResponsivePie
         data={data}
-        margin={{ top: 40, right: 80, bottom: 100, left: 60 }}
+        margin={{ top: 5, right: 80, bottom: 100, left: 60 }}
         sortByValue={true}
         innerRadius={0.5}
         padAngle={0.7}
