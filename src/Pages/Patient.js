@@ -12,8 +12,19 @@ function Patient() {
       <Sidebar />
       <div className="content">
         <Header />
-        <div className="content-wrapper">
-          <PatientsList />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <div
+            style={{ backgroundColor: "#F0F8F8", flex: 1 }}
+            className="content-wrapper"
+          >
+            <PatientsList />
+          </div>
         </div>
       </div>
     </div>

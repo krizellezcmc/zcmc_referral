@@ -122,177 +122,176 @@ function TransferredRef(props) {
   };
   return (
     <div>
-      <Container maxW="92%" mt={5}>
-        <Flex alignItems="center" mb={7}>
-          <Heading
-            fontWeight={700}
-            fontSize={33}
-            color="teal.900"
-            mr={3}
-            textTransform="uppercase"
-          >
-            Transferred
-          </Heading>
-          <TbTransferIn fontSize={30} />
-        </Flex>
-        <Box pb={5} pt={3}>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<BiSearch color="gray.300" />}
-            />
-            <Input
-              fontSize="13px"
-              type="text"
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search patient"
-              width="400px"
-              _hover={{ borderColor: "green" }}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-                borderColor: "green",
-              }}
-              backgroundColor="white"
-            />
-          </InputGroup>
-        </Box>
-        <Box
-          w="100%"
-          bg="white"
-          borderRadius="lg"
-          border="1px"
-          borderColor="gray.100"
-          boxShadow="base"
-          py={3}
+      <Flex alignItems="center" mb={7}>
+        <Heading
+          fontWeight={700}
+          fontSize={33}
+          color="teal.900"
+          mr={3}
+          textTransform="uppercase"
         >
-          <HStack>
-            <Box w="100%" textAlign="center">
-              <Text fontWeight="800" fontSize="13.5px">
-                PATIENT
-              </Text>
-            </Box>
+          Transferred
+        </Heading>
+        <TbTransferIn fontSize={30} />
+      </Flex>
+      <Box pb={5} pt={3}>
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<BiSearch color="gray.300" />}
+          />
+          <Input
+            fontSize="13px"
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search patient"
+            width="400px"
+            _hover={{ borderColor: "green" }}
+            _focus={{
+              boxShadow: "none",
+              outline: "none",
+              borderColor: "green",
+            }}
+            backgroundColor="white"
+          />
+        </InputGroup>
+      </Box>
+      <Box
+        w="100%"
+        bg="white"
+        borderRadius="lg"
+        border="1px"
+        borderColor="gray.100"
+        boxShadow="base"
+        py={3}
+      >
+        <HStack>
+          <Box w="100%" textAlign="center">
+            <Text fontWeight="800" fontSize="13.5px">
+              PATIENT
+            </Text>
+          </Box>
 
-            <Box w="100%" textAlign="center">
-              <Text fontWeight="800" fontSize="13.5px">
-                REFERRED FROM
+          <Box w="100%" textAlign="center">
+            <Text fontWeight="800" fontSize="13.5px">
+              REFERRED FROM
+            </Text>
+          </Box>
+          <Box w="100%" textAlign="center">
+            <Text fontWeight="800" fontSize="13.5px">
+              REFERRED TO
+            </Text>
+          </Box>
+          <Box w="100%" textAlign="center">
+            <Text fontWeight="800" fontSize="13.5px">
+              STATUS
+            </Text>
+          </Box>
+        </HStack>
+      </Box>
+      <Box
+        w="100%"
+        bg="white"
+        borderRadius="md"
+        border="1px"
+        borderColor="gray.100"
+        boxShadow="base"
+        mt={2}
+      >
+        {isLoading ? (
+          <Center my={20}>
+            <Spinner />
+          </Center>
+        ) : (
+          <>
+            {patDetails.length === 0 ? (
+              <Text textAlign="center" fontSize={13} py={3}>
+                ---Nothing to Show---
               </Text>
-            </Box>
-            <Box w="100%" textAlign="center">
-              <Text fontWeight="800" fontSize="13.5px">
-                REFERRED TO
-              </Text>
-            </Box>
-            <Box w="100%" textAlign="center">
-              <Text fontWeight="800" fontSize="13.5px">
-                STATUS
-              </Text>
-            </Box>
-          </HStack>
-        </Box>
-        <Box
-          w="100%"
-          bg="white"
-          borderRadius="md"
-          border="1px"
-          borderColor="gray.100"
-          boxShadow="base"
-          mt={2}
-        >
-          {isLoading ? (
-            <Center my={20}>
-              <Spinner />
-            </Center>
-          ) : (
-            <>
-              {patDetails.length === 0 ? (
-                <Text textAlign="center" fontSize={13} py={3}>
-                  ---Nothing to Show---
-                </Text>
-              ) : (
-                <>
-                  {patDetails
-                    .filter((val) => {
-                      if (search === "") {
-                        return val;
-                      } else if (
-                        val.lastname
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        val.refFacility
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        val.status.toLowerCase().includes(search.toLowerCase())
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((e, k) => {
-                      return (
-                        <>
-                          <Box
-                            as="button"
-                            w="100%"
-                            _hover={{
-                              background: "green.50",
-                              color: "black",
-                              borderLeft: "2px",
-                              borderColor: "green",
-                              transform: "scale(1.01)",
-                            }}
-                            py={3}
-                            onClick={() => {
-                              getHistory(e.patientId);
-                            }}
-                          >
-                            <HStack>
-                              <Box w="100%" textAlign="center">
-                                <Text fontWeight="900" fontSize="13px">
-                                  {e.lastname +
-                                    ", " +
-                                    e.firstname +
-                                    " " +
-                                    e.middleName}
-                                </Text>
-                                <Text fontSize="12px" fontWeight={500}>
-                                  Gender: {e.sex}
-                                </Text>
-                                <Text fontSize="12px" fontWeight={500}>
-                                  Specialization: {e.specialization}
-                                </Text>
-                              </Box>
-                              <Box w="100%" textAlign="center">
-                                <Text fontWeight="500" fontSize="13px">
-                                  {e.refFacility}
-                                </Text>
-                              </Box>{" "}
-                              <Box w="100%" textAlign="center">
-                                <Text fontWeight="500" fontSize="13px">
-                                  {e.name}
-                                </Text>
-                              </Box>
-                              <Box w="100%" textAlign="center">
-                                <Badge
-                                  variant="subtle"
-                                  fontWeight="bolder"
-                                  fontSize="13px"
-                                  colorScheme="green"
-                                >
-                                  {e.r_status}
-                                </Badge>
-                              </Box>
-                            </HStack>
-                          </Box>
-                          <Divider />
-                        </>
-                      );
-                    })}
-                </>
-              )}
-            </>
-          )}
-        </Box>
-      </Container>
+            ) : (
+              <>
+                {patDetails
+                  .filter((val) => {
+                    if (search === "") {
+                      return val;
+                    } else if (
+                      val.lastname
+                        .toLowerCase()
+                        .includes(search.toLowerCase()) ||
+                      val.refFacility
+                        .toLowerCase()
+                        .includes(search.toLowerCase()) ||
+                      val.status.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  })
+                  .map((e, k) => {
+                    return (
+                      <>
+                        <Box
+                          as="button"
+                          w="100%"
+                          _hover={{
+                            background: "green.50",
+                            color: "black",
+                            borderLeft: "2px",
+                            borderColor: "green",
+                            transform: "scale(1.01)",
+                          }}
+                          py={3}
+                          onClick={() => {
+                            getHistory(e.patientId);
+                          }}
+                        >
+                          <HStack>
+                            <Box w="100%" textAlign="center">
+                              <Text fontWeight="900" fontSize="13px">
+                                {e.lastname +
+                                  ", " +
+                                  e.firstname +
+                                  " " +
+                                  e.middleName}
+                              </Text>
+                              <Text fontSize="12px" fontWeight={500}>
+                                Gender: {e.sex}
+                              </Text>
+                              <Text fontSize="12px" fontWeight={500}>
+                                Specialization: {e.specialization}
+                              </Text>
+                            </Box>
+                            <Box w="100%" textAlign="center">
+                              <Text fontWeight="500" fontSize="13px">
+                                {e.refFacility}
+                              </Text>
+                            </Box>{" "}
+                            <Box w="100%" textAlign="center">
+                              <Text fontWeight="500" fontSize="13px">
+                                {e.name}
+                              </Text>
+                            </Box>
+                            <Box w="100%" textAlign="center">
+                              <Badge
+                                variant="subtle"
+                                fontWeight="bolder"
+                                fontSize="13px"
+                                colorScheme="green"
+                              >
+                                {e.r_status}
+                              </Badge>
+                            </Box>
+                          </HStack>
+                        </Box>
+                        <Divider />
+                      </>
+                    );
+                  })}
+              </>
+            )}
+          </>
+        )}
+      </Box>
+
       <Modal isOpen={isViewOpen} onClose={onViewClose} size="2xl">
         <ModalOverlay />
         <ModalContent>

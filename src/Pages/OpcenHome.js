@@ -105,15 +105,21 @@ function OpcenHome() {
   }, [selected]);
 
   return (
-    <div
-      className="container"
-      style={{ backgroundColor: "rgb(247, 252, 245)" }}
-    >
+    <div className="container">
       <Sidebar />
       <div className="content">
         <Header />
-        <div className="">
-          <Container maxW="90%" mt={5}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <div
+            style={{ backgroundColor: "#F0F8F8", flex: 1 }}
+            className="content-wrapper"
+          >
             <Flex alignItems="center" mb={7} mt={10}>
               <Heading fontWeight={700} fontSize={33} color="teal.900" mr={3}>
                 REFERRALS
@@ -121,7 +127,7 @@ function OpcenHome() {
               <TbAmbulance fontSize={30} />
               <Spacer />
             </Flex>
-            <HStack mt={10} mb={6} pos="relative">
+            <Flex mt={10} mb={6} gap={2}>
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
@@ -174,13 +180,12 @@ function OpcenHome() {
                   }}
                   colorScheme="red"
                 >
-                  View Cancelled Referrals ({count.length})
+                  Cancelled Referrals ({count.length})
                 </Button>
               </Box>
-            </HStack>
+            </Flex>
 
             <Box
-              w="100%"
               bg="white"
               borderRadius="lg"
               border="1px"
@@ -276,31 +281,31 @@ function OpcenHome() {
                 </>
               )}
             </Box>
-          </Container>
 
-          {/* //Modal */}
+            {/* //Modal */}
 
-          <Modal
-            closeOnOverlayClick={false}
-            isOpen={isCancelledOpen}
-            onClose={onCancelledClose}
-            size="8xl"
-          >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Cancelled Referrals</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody p={5}>
-                <CancelledModal />
-              </ModalBody>
+            <Modal
+              closeOnOverlayClick={false}
+              isOpen={isCancelledOpen}
+              onClose={onCancelledClose}
+              size="8xl"
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Cancelled Referrals</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody p={5}>
+                  <CancelledModal />
+                </ModalBody>
 
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={onCancelledClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3} onClick={onCancelledClose}>
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+          </div>
         </div>
       </div>
     </div>

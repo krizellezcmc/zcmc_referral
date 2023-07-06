@@ -9,7 +9,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiArrowToRight, BiMenu, BiX } from "react-icons/bi";
 import logo from "../../../Assets/OHCC.png";
 import { useNavigate } from "react-router-dom";
@@ -44,8 +44,10 @@ const navItem = [
 function MobileNavbar({ handleSelectionClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
+  const [loggedIn, setLoggedIn] = useState(false);
 
   let navigate = useNavigate();
+  let checkLog = localStorage.getItem("user");
 
   const handleClick = (item) => {
     setActiveItem(item.href);
@@ -70,6 +72,11 @@ function MobileNavbar({ handleSelectionClick }) {
     // backgroundColor: "#f5fdfd",
     backgroundColor: "white",
   };
+  useEffect(() => {
+    if (checkLog !== null) {
+      setLoggedIn(true);
+    }
+  }, [checkLog]);
 
   return (
     <>
@@ -147,7 +154,7 @@ function MobileNavbar({ handleSelectionClick }) {
               onClick={() => navigate("/login")}
               rightIcon={<BiArrowToRight />}
             >
-              Sign in
+              {loggedIn ? "Go to Account" : "Sign in"}
             </Button>
           </VStack>
         )}

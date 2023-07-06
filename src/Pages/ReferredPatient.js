@@ -10,8 +10,19 @@ function ReferredPatient() {
       <Sidebar />
       <div className="content">
         <Header />
-        <div className="content-wrapper">
-          <ReferredPatients />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <div
+            style={{ backgroundColor: "#F0F8F8", flex: 1 }}
+            className="content-wrapper"
+          >
+            <ReferredPatients />
+          </div>
         </div>
       </div>
     </div>

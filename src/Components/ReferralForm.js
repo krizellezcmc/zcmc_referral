@@ -280,7 +280,13 @@ const ReferralForm = () => {
         <form onSubmit={postData}>
           {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
 
-          <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={5}>
+          <Box
+            borderWidth="1px"
+            borderColor="gray.300"
+            borderRadius="lg"
+            p={5}
+            bgColor="white"
+          >
             <Text fontSize="xl" textAlign="center" fontWeight={800}>
               PATIENT INFORMATION
             </Text>
@@ -472,6 +478,7 @@ const ReferralForm = () => {
             borderRadius="lg"
             p={5}
             mt={5}
+            bgColor="white"
           >
             <Text fontSize="xl" textAlign="center" fontWeight={800}>
               SIGNIFICANT WATCHERS
@@ -504,6 +511,7 @@ const ReferralForm = () => {
             borderRadius="lg"
             p={5}
             mt={5}
+            bgColor="white"
           >
             <Text fontSize="xl" textAlign="center" fontWeight={800}>
               ADMITTING DETAILS

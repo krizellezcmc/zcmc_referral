@@ -186,7 +186,7 @@ const Sidebar = () => {
               onClick={() => navigate("/transfer")}
             >
               <p>
-                {path.includes("/trasnfer") ? (
+                {path.includes("/transfer") ? (
                   <HiUserRemove />
                 ) : (
                   <HiOutlineUserRemove />

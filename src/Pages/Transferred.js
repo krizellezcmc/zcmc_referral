@@ -6,15 +6,23 @@ import Header from "../Components/Header";
 function Transfererd(props) {
   return (
     <div>
-      <div
-        className="container"
-        style={{ backgroundColor: "rgb(247, 252, 245)" }}
-      >
+      <div className="container">
         <Sidebar />
         <div className="content">
           <Header />
-          <div className="content-wrapper">
-            <TransferredRef />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100vh",
+            }}
+          >
+            <div
+              style={{ backgroundColor: "#F0F8F8", flex: 1 }}
+              className="content-wrapper"
+            >
+              <TransferredRef />
+            </div>
           </div>
         </div>
       </div>

@@ -162,172 +162,168 @@ const PatientsList = (props) => {
 
   return (
     <div>
-      <Container maxW="92%" mt={5}>
-        <Flex alignItems="center" mb={7}>
-          <Heading
-            fontWeight={700}
-            fontSize={33}
-            color="teal.900"
-            mr={3}
-            textTransform="uppercase"
-          >
-            Patients
-          </Heading>
-          <TbUsers fontSize={30} />
-          <Spacer />
-        </Flex>
-        <Alert
-          status="info"
-          variant="left-accent"
-          borderRadius="lg"
-          py={2}
-          width="40%"
-          mb={5}
+      <Flex alignItems="center" mb={7}>
+        <Heading
+          fontWeight={700}
+          fontSize={33}
+          color="teal.900"
+          mr={3}
+          textTransform="uppercase"
         >
-          <AlertIcon />
-          <AlertTitle fontSize={13}>Note:</AlertTitle>
-          <AlertDescription fontSize={13}>
-            The following patients are retrieved from Bizbox.
-          </AlertDescription>
-        </Alert>
+          Patients
+        </Heading>
+        <TbUsers fontSize={30} />
+        <Spacer />
+      </Flex>
+      <Alert
+        status="info"
+        variant="left-accent"
+        borderRadius="lg"
+        py={2}
+        width="40%"
+        mb={5}
+      >
+        <AlertIcon />
+        <AlertTitle fontSize={13}>Note:</AlertTitle>
+        <AlertDescription fontSize={13}>
+          The following patients are retrieved from Bizbox.
+        </AlertDescription>
+      </Alert>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: 10,
-          }}
-        >
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<BiSearch color="gray.300" />}
-            />
-            <Input
-              bg="white"
-              fontSize="13px"
-              type="text"
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search patient"
-              width="400px"
-              _hover={{ borderColor: "green" }}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-                borderColor: "green",
-              }}
-            />
-          </InputGroup>
-        </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: 10,
+        }}
+      >
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<BiSearch color="gray.300" />}
+          />
+          <Input
+            bg="white"
+            fontSize="13px"
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search patient"
+            width="400px"
+            _hover={{ borderColor: "green" }}
+            _focus={{
+              boxShadow: "none",
+              outline: "none",
+              borderColor: "green",
+            }}
+          />
+        </InputGroup>
+      </div>
 
-        {/* <Button onClick={hey}>Get Headers</Button> */}
+      {/* <Button onClick={hey}>Get Headers</Button> */}
 
-        {isLoading ? (
-          <Center my={20}>
-            <Spinner />
-          </Center>
-        ) : (
-          <TableContainer bg="white">
-            <Table cellSpacing={0}>
-              <Thead>
+      {isLoading ? (
+        <Center my={20}>
+          <Spinner />
+        </Center>
+      ) : (
+        <TableContainer bg="white">
+          <Table cellSpacing={0}>
+            <Thead>
+              <Tr>
+                <Th className="border" width="30%">
+                  Full name
+                </Th>
+                <Th className="border" width="10%">
+                  Referred Date
+                </Th>
+                <Th className="border" width="30%">
+                  Referred From
+                </Th>
+                <Th className="border" width="10%">
+                  Discharge Date
+                </Th>
+                <Th className="border" width="10%">
+                  Status
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {patients.length === 0 ? (
                 <Tr>
-                  <Th className="border" width="30%">
-                    Full name
-                  </Th>
-                  <Th className="border" width="10%">
-                    Referred Date
-                  </Th>
-                  <Th className="border" width="30%">
-                    Referred From
-                  </Th>
-                  <Th className="border" width="10%">
-                    Discharge Date
-                  </Th>
-                  <Th className="border" width="10%">
-                    Status
-                  </Th>
+                  <Td
+                    className="border"
+                    colSpan={7}
+                    textAlign="center"
+                    fontSize={13}
+                  >
+                    --- Nothing to show ---
+                  </Td>
                 </Tr>
-              </Thead>
-              <Tbody>
-                {patients.length === 0 ? (
-                  <Tr>
-                    <Td
-                      className="border"
-                      colSpan={7}
-                      textAlign="center"
-                      fontSize={13}
-                    >
-                      --- Nothing to show ---
-                    </Td>
-                  </Tr>
-                ) : (
-                  patients
-                    .filter((val) => {
-                      if (search === "") {
-                        return val;
-                      } else if (
-                        val.patientName
-                          .toLowerCase()
-                          .includes(search.toLowerCase())
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((pat) => {
-                      return (
-                        <>
-                          <Tr>
-                            <Td className="border">{pat.patientName}</Td>
-                            <Td className="border">
-                              {moment(pat.referredDate).format("LLL")}
-                            </Td>
-                            <Td className="border">{pat.referredFrom}</Td>
-                            <Td className="border">
-                              {pat.dischDate == null ? (
-                                <Badge colorScheme="yellow">
-                                  Not applicable
-                                </Badge>
-                              ) : (
-                                moment(pat.dischDate).format("LLL")
-                              )}
-                            </Td>
-                            <Td className="border">
-                              {pat.dischDate === null ? (
-                                <Badge colorScheme="blue">+ Admitted</Badge>
-                              ) : (
-                                <Badge colorScheme="red">- Discharged</Badge>
-                              )}
-                            </Td>
-                            <Td border="0" paddingTop="0" paddingBottom="0">
-                              <Tooltip
-                                label="View"
-                                aria-label="A tooltip"
-                                bg="blue.400"
-                                placement="right"
-                              >
-                                <IconButton
-                                  style={{ margin: 0, padding: 0 }}
-                                  size="sm"
-                                  variant="outline"
-                                  colorScheme="blue"
-                                  onClick={() => {
-                                    onReferredOpen();
-                                    getDetails(pat.PK_patientId);
-                                  }}
-                                  icon={<BsEye fontSize="15px" />}
-                                />
-                              </Tooltip>
-                            </Td>
-                          </Tr>
-                        </>
-                      );
-                    })
-                )}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        )}
-      </Container>
+              ) : (
+                patients
+                  .filter((val) => {
+                    if (search === "") {
+                      return val;
+                    } else if (
+                      val.patientName
+                        .toLowerCase()
+                        .includes(search.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  })
+                  .map((pat) => {
+                    return (
+                      <>
+                        <Tr>
+                          <Td className="border">{pat.patientName}</Td>
+                          <Td className="border">
+                            {moment(pat.referredDate).format("LLL")}
+                          </Td>
+                          <Td className="border">{pat.referredFrom}</Td>
+                          <Td className="border">
+                            {pat.dischDate == null ? (
+                              <Badge colorScheme="yellow">Not applicable</Badge>
+                            ) : (
+                              moment(pat.dischDate).format("LLL")
+                            )}
+                          </Td>
+                          <Td className="border">
+                            {pat.dischDate === null ? (
+                              <Badge colorScheme="blue">+ Admitted</Badge>
+                            ) : (
+                              <Badge colorScheme="red">- Discharged</Badge>
+                            )}
+                          </Td>
+                          <Td border="0" paddingTop="0" paddingBottom="0">
+                            <Tooltip
+                              label="View"
+                              aria-label="A tooltip"
+                              bg="blue.400"
+                              placement="right"
+                            >
+                              <IconButton
+                                style={{ margin: 0, padding: 0 }}
+                                size="sm"
+                                variant="outline"
+                                colorScheme="blue"
+                                onClick={() => {
+                                  onReferredOpen();
+                                  getDetails(pat.PK_patientId);
+                                }}
+                                icon={<BsEye fontSize="15px" />}
+                              />
+                            </Tooltip>
+                          </Td>
+                        </Tr>
+                      </>
+                    );
+                  })
+              )}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
 
       {/* MODAL VIEW DETAILS */}
       <Modal isOpen={isReferredOpen} onClose={onReferredClose} size="2xl">

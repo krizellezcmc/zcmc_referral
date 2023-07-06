@@ -21,79 +21,87 @@ import { BiBed, BiBuilding } from "react-icons/bi";
 function AdminDashboard(props) {
   return (
     <div>
-      <div
-        className="container"
-        style={{ backgroundColor: "rgb(247, 252, 245)" }}
-      >
+      <div className="container">
         <Sidebar />
 
         <div className="content">
           <Header />
-          <Box className="content-wrapper">
-            <Flex alignItems="center" mb={7}>
-              <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
-                DASHBOARD
-              </Heading>
-              <VscGraph fontSize={18} />
-              <Spacer />{" "}
-              <HStack align="center">
-                <Button
-                  as={Link}
-                  href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/8MeLC"
-                  fontSize={14}
-                  fontWeight={500}
-                  bgColor="blue.600"
-                  color="white"
-                  _hover={{ textDecoration: "none" }}
-                  // shadow="base"
-                  target="_blank"
-                  rightIcon={<BiBed />}
-                >
-                  OHC Bed Monitoring
-                </Button>
-                <Button
-                  as={Link}
-                  href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/p_58f3p0sqoc"
-                  bgColor="green.500"
-                  fontSize={14}
-                  fontWeight={500}
-                  color="white"
-                  _hover={{ textDecoration: "none" }}
-                  target="_blank"
-                  rightIcon={<BiBuilding />}
-                >
-                  ZCMC Bed Monitoring
-                </Button>
-              </HStack>
-            </Flex>
-
-            <DashboardTile />
-
-            <Box
-              display={{ xl: "flex" }}
-              width="100%"
-              // className="content"
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100vh",
+            }}
+          >
+            <div
+              style={{ backgroundColor: "#F0F8F8", flex: 1 }}
+              className="content-wrapper"
             >
+              <Flex alignItems="center" mb={7}>
+                <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
+                  DASHBOARD
+                </Heading>
+                <VscGraph fontSize={18} />
+                <Spacer />{" "}
+                <HStack align="center">
+                  <Button
+                    as={Link}
+                    href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/8MeLC"
+                    fontSize={14}
+                    fontWeight={500}
+                    bgColor="blue.600"
+                    color="white"
+                    _hover={{ textDecoration: "none" }}
+                    // shadow="base"
+                    target="_blank"
+                    rightIcon={<BiBed />}
+                  >
+                    OHC Bed Monitoring
+                  </Button>
+                  <Button
+                    as={Link}
+                    href="https://datastudio.google.com/embed/reporting/022ec084-5a9f-497d-8353-ab6f715bef8b/page/p_58f3p0sqoc"
+                    bgColor="green.500"
+                    fontSize={14}
+                    fontWeight={500}
+                    color="white"
+                    _hover={{ textDecoration: "none" }}
+                    target="_blank"
+                    rightIcon={<BiBuilding />}
+                  >
+                    ZCMC Bed Monitoring
+                  </Button>
+                </HStack>
+              </Flex>
+
+              <DashboardTile />
+
               <Box
+                display={{ xl: "flex" }}
                 width="100%"
-                boxShadow="md"
-                borderColor="white"
-                bg="white"
-                borderRadius={5}
-                mr={3}
+                // className="content"
               >
-                <TopReferrals />
-              </Box>
-              <Box
-                width="100%"
-                boxShadow="md"
-                borderColor="white"
-                bg="white"
-                borderRadius={5}
-                mr={3}
-              >
-                <Reason />
-              </Box>
+                <Box
+                  width="100%"
+                  boxShadow="md"
+                  borderColor="white"
+                  bg="white"
+                  borderRadius={5}
+                  mr={3}
+                >
+                  <TopReferrals />
+                </Box>
+                <Box
+                  width="100%"
+                  boxShadow="md"
+                  borderColor="white"
+                  bg="white"
+                  borderRadius={5}
+                  mr={3}
+                >
+                  <Reason />
+                </Box>
+
 
               {/* <Box
                 bg="white"
@@ -106,6 +114,7 @@ function AdminDashboard(props) {
               </Box> */}
             </Box>
           </Box>
+
         </div>
       </div>
     </div>
