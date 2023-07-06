@@ -13,7 +13,7 @@ function Team(props) {
         <Center>
           <ContributorsTile
             image={doc}
-            name="Dr. Afdal B. Kunting"
+            name="Dr. Afdal B. Kunting, MPH, FPCP"
             position="Medical Center Chief II"
             nameFontSize={{ lg: 15, md: 13, sm: 11.5 }}
             width={{ sm: 200, lg: 250 }}
