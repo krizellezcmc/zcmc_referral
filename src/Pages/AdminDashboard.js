@@ -102,15 +102,15 @@ function AdminDashboard(props) {
                   <Reason />
                 </Box>
 
-                <Box
-                  bg="white"
-                  boxShadow="md"
-                  borderColor="white"
-                  width="100%"
-                  borderRadius={5}
-                >
-                  <SamplePie />
-                </Box>
+                {/* <Box
+                bg="white"
+                boxShadow="md"
+                borderColor="white"
+                width="100%"
+                borderRadius={5}
+              >
+                <SamplePie />
+              </Box> */}
               </Box>
             </div>
           </div>
