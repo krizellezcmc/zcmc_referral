@@ -102,8 +102,7 @@ function AdminDashboard(props) {
                   <Reason />
                 </Box>
 
-
-              {/* <Box
+                {/* <Box
                 bg="white"
                 boxShadow="md"
                 borderColor="white"
@@ -112,9 +111,9 @@ function AdminDashboard(props) {
               >
                 <SamplePie />
               </Box> */}
-            </Box>
-          </Box>
-
+              </Box>
+            </div>
+          </div>
         </div>
       </div>
     </div>

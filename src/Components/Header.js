@@ -34,7 +34,7 @@ function Header(props) {
       if (result.isConfirmed) {
         sessionStorage.removeItem("sessionId");
         localStorage.removeItem("user");
-        navigate("/");
+        navigate("/login");
         window.location.reload();
 
         // navigate("/");
