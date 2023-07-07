@@ -59,7 +59,7 @@ function CancelledModal(props) {
               </Thead>
               <Tbody>
                 {list.length === 0 ? (
-                  <Td className="border" colSpan={4} textAlign="center">
+                  <Td className="border" colSpan={7} textAlign="center">
                     No cancelled referrals
                   </Td>
                 ) : (
