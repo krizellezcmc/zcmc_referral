@@ -12,9 +12,6 @@ const Main = () => {
   });
 
   useEffect(() => {
-    if (user) {
-      window.location.href = "/login";
-    }
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
