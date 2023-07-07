@@ -36,10 +36,6 @@ function Header(props) {
         localStorage.removeItem("user");
         navigate("/login");
         window.location.reload();
-
-        // navigate("/");
-        // window.location.reload();
-        // console.log(response);
       }
     });
   };
