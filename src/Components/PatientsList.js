@@ -59,6 +59,23 @@ import { BiCalendarEvent, BiSearch, BiStats, BiUser } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { TbCheckupList, TbUsers } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
+import inbox from "../Assets/inbox.png";
+
+const header = [
+  {
+    title: "Full Name",
+  },
+  {
+    title: "Referred Date",
+  },
+  { title: "Referred From" },
+  {
+    title: "Discharge Date",
+  },
+  {
+    title: "Status",
+  },
+];
 
 const PatientsList = (props) => {
   let navigate = useNavigate();
@@ -162,7 +179,7 @@ const PatientsList = (props) => {
 
   return (
     <div>
-      <Flex alignItems="center" mb={7}>
+      <Flex alignItems="center" mb={7} px={10} mt={10}>
         <Heading
           fontWeight={700}
           fontSize={33}
@@ -172,32 +189,12 @@ const PatientsList = (props) => {
         >
           Patients
         </Heading>
-        <TbUsers fontSize={30} />
+        <TbUsers fontSize={30} style={{ color: "teal" }} />
         <Spacer />
       </Flex>
-      <Alert
-        status="info"
-        variant="left-accent"
-        borderRadius="lg"
-        py={2}
-        width="40%"
-        mb={5}
-      >
-        <AlertIcon />
-        <AlertTitle fontSize={13}>Note:</AlertTitle>
-        <AlertDescription fontSize={13}>
-          The following patients are retrieved from Bizbox.
-        </AlertDescription>
-      </Alert>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 10,
-        }}
-      >
-        <InputGroup>
+      <Box py={2} px={10}>
+        <InputGroup mb={8}>
           <InputLeftElement
             pointerEvents="none"
             children={<BiSearch color="gray.300" />}
@@ -217,7 +214,21 @@ const PatientsList = (props) => {
             }}
           />
         </InputGroup>
-      </div>
+
+        <Alert
+          status="info"
+          variant="left-accent"
+          borderRadius="lg"
+          my={1}
+          width="50%"
+        >
+          <AlertIcon />
+          <AlertTitle fontSize={13}>Note:</AlertTitle>
+          <AlertDescription fontSize={13}>
+            The following patients are retrieved from Bizbox.
+          </AlertDescription>
+        </Alert>
+      </Box>
 
       {/* <Button onClick={hey}>Get Headers</Button> */}
 
@@ -226,103 +237,116 @@ const PatientsList = (props) => {
           <Spinner />
         </Center>
       ) : (
-        <TableContainer bg="white">
-          <Table cellSpacing={0}>
-            <Thead>
-              <Tr>
-                <Th className="border" width="30%">
-                  Full name
-                </Th>
-                <Th className="border" width="10%">
-                  Referred Date
-                </Th>
-                <Th className="border" width="30%">
-                  Referred From
-                </Th>
-                <Th className="border" width="10%">
-                  Discharge Date
-                </Th>
-                <Th className="border" width="10%">
-                  Status
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {patients.length === 0 ? (
-                <Tr>
-                  <Td
-                    className="border"
-                    colSpan={7}
-                    textAlign="center"
-                    fontSize={13}
-                  >
-                    --- Nothing to show ---
-                  </Td>
-                </Tr>
-              ) : (
-                patients
-                  .filter((val) => {
-                    if (search === "") {
-                      return val;
-                    } else if (
-                      val.patientName
-                        .toLowerCase()
-                        .includes(search.toLowerCase())
-                    ) {
-                      return val;
-                    }
-                  })
-                  .map((pat) => {
-                    return (
-                      <>
-                        <Tr>
-                          <Td className="border">{pat.patientName}</Td>
-                          <Td className="border">
-                            {moment(pat.referredDate).format("LLL")}
-                          </Td>
-                          <Td className="border">{pat.referredFrom}</Td>
-                          <Td className="border">
+        <>
+          <Box px={10}>
+            <Flex borderRadius="sm" mb={5} boxShadow="sm">
+              {header.map((h) => {
+                return (
+                  <>
+                    <Box bgColor="white" width="full" p={2}>
+                      <Text color="#4C4C4C" textAlign="center" fontWeight={600}>
+                        {h.title}{" "}
+                      </Text>
+                    </Box>
+                  </>
+                );
+              })}
+            </Flex>
+
+            {patients.length === 0 ? (
+              <Box
+                width="full"
+                bgColor="white"
+                align="center"
+                p={5}
+                boxShadow="sm"
+                borderRadius="sm"
+              >
+                <img src={inbox} style={{ marginBottom: 5 }} />
+                <Text fontSize={13} color="#9DB2BF">
+                  Nothing to show
+                </Text>
+              </Box>
+            ) : (
+              patients
+                .filter((val) => {
+                  if (search === "") {
+                    return val;
+                  } else if (
+                    val.patientName.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((pat, p) => {
+                  const isEven = p % 2 === 0;
+                  const backgroundColor = isEven ? "white" : "#e9ffff";
+                  return (
+                    <>
+                      <Flex
+                        bgColor={backgroundColor}
+                        color="#3E9393"
+                        fontWeight={600}
+                        fontSize={13}
+                        alignItems="center"
+                        boxShadow="sm"
+                      >
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>{pat.patientName}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text> {moment(pat.referredDate).format("LLL")}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>{pat.referredFrom}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>
+                            {" "}
                             {pat.dischDate == null ? (
                               <Badge colorScheme="yellow">Not applicable</Badge>
                             ) : (
                               moment(pat.dischDate).format("LLL")
                             )}
-                          </Td>
-                          <Td className="border">
+                          </Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>
+                            {" "}
                             {pat.dischDate === null ? (
                               <Badge colorScheme="blue">+ Admitted</Badge>
                             ) : (
                               <Badge colorScheme="red">- Discharged</Badge>
                             )}
-                          </Td>
-                          <Td border="0" paddingTop="0" paddingBottom="0">
-                            <Tooltip
-                              label="View"
-                              aria-label="A tooltip"
-                              bg="blue.400"
-                              placement="right"
-                            >
-                              <IconButton
-                                style={{ margin: 0, padding: 0 }}
-                                size="sm"
-                                variant="outline"
-                                colorScheme="blue"
-                                onClick={() => {
-                                  onReferredOpen();
-                                  getDetails(pat.PK_patientId);
-                                }}
-                                icon={<BsEye fontSize="15px" />}
-                              />
-                            </Tooltip>
-                          </Td>
-                        </Tr>
-                      </>
-                    );
-                  })
-              )}
-            </Tbody>
-          </Table>
-        </TableContainer>
+                          </Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Tooltip
+                            label="View"
+                            aria-label="A tooltip"
+                            bg="blue.400"
+                            placement="right"
+                          >
+                            <IconButton
+                              style={{ margin: 0, padding: 0 }}
+                              size="sm"
+                              variant="outline"
+                              colorScheme="blue"
+                              onClick={() => {
+                                onReferredOpen();
+                                getDetails(pat.PK_patientId);
+                              }}
+                              icon={<BsEye fontSize="15px" />}
+                            />
+                          </Tooltip>
+                        </Box>
+                      </Flex>
+                    </>
+                  );
+                })
+            )}
+          </Box>
+        </>
       )}
 
       {/* MODAL VIEW DETAILS */}

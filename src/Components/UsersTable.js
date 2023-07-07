@@ -145,17 +145,18 @@ const UsersTable = () => {
     }
   };
 
-  const deleteUser = (id) => {
-    Swal.fire({
+  const deleteUser = async (id) => {
+    const result = await Swal.fire({
       text: "Are you sure you want to deactivate this user? ",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, deactivate it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        let res = await api.post("/remove_user.php", {
+    });
+    if (result.isConfirmed) {
+      try {
+        const res = await api.post("/remove_user.php", {
           userId: id,
         });
 
@@ -165,27 +166,30 @@ const UsersTable = () => {
             "The user has been deactivated.",
             "success"
           ).then(() => {
-            window.location.href = "/login";
+            fetchData();
           });
         } else {
           Swal.fire("Error!", "Something went wrong.", "error");
         }
+      } catch (error) {
+        console.log("Error deactivating user:", error);
       }
-    });
+    }
   };
 
   // Activate user
-  const activateUser = (id) => {
-    Swal.fire({
+  const activateUser = async (id) => {
+    const result = await Swal.fire({
       text: "Are you sure you want to activate this user? ",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, activate it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        let res = await api.post("/activate_user.php", {
+    });
+    if (result.isConfirmed) {
+      try {
+        const res = await api.post("/activate_user.php", {
           userId: id,
         });
 
@@ -195,27 +199,31 @@ const UsersTable = () => {
             "The user has been activated.",
             "success"
           ).then(() => {
-            window.location.href = "/login";
+            fetchData();
           });
         } else {
           Swal.fire("Error!", "Something went wrong.", "error");
         }
+      } catch (error) {
+        console.log("Error activating user:", error);
       }
-    });
+    }
   };
 
-  const declineUser = (id) => {
+  const declineUser = async (id) => {
     onClose(true);
-    Swal.fire({
+
+    const result = await Swal.fire({
       text: "Are you sure you want to decline?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Decline",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        let response = await api.post("/decline_user.php", {
+    });
+    if (result.isConfirmed) {
+      try {
+        const response = await api.post("/decline_user.php", {
           userId: id,
         });
 
@@ -232,8 +240,10 @@ const UsersTable = () => {
             window.location.href = "/login";
           });
         }
+      } catch (error) {
+        console.log("Error activating user:", error);
       }
-    });
+    }
   };
 
   useEffect(() => {
@@ -278,7 +288,7 @@ const UsersTable = () => {
             </Center>
           ) : (
             <Box>
-              <Flex borderRadius="sm" mb={5}>
+              <Flex borderRadius="sm" mb={5} boxShadow="sm">
                 {header.map((h) => {
                   return (
                     <>
@@ -317,6 +327,7 @@ const UsersTable = () => {
                         fontWeight={600}
                         fontSize={13}
                         alignItems="center"
+                        boxShadow="sm"
                       >
                         <Box width="full" p={2} textAlign="center">
                           <Text>{index.firstName + " " + index.lastName}</Text>
@@ -388,7 +399,7 @@ const UsersTable = () => {
         </GridItem>
 
         <GridItem colSpan={2}>
-          <Box bgColor="white" borderRadius={10} boxShadow="md" p={5}>
+          <Box bgColor="white" borderRadius={10} boxShadow="sm" p={5}>
             <Text fontWeight={600} mb={10} color="#1F8383">
               Users for Verification
             </Text>
@@ -452,8 +463,12 @@ const UsersTable = () => {
                 })
               ) : (
                 <>
-                  <img src={inbox} />
-                  <Text mt={3}>Nothing to show</Text>
+                  <Box pb={3} align="center">
+                    <img src={inbox} />
+                    <Text color="#4C4C4C" mt={3} fontSize={13} fontWeight={600}>
+                      Nothing to show
+                    </Text>
+                  </Box>
                 </>
               )}
             </VStack>

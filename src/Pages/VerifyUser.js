@@ -34,7 +34,7 @@ function VerifyUser() {
             style={{ backgroundColor: "#F0F8F8", flex: 1 }}
             className="content-wrapper"
           >
-            <Flex alignItems="center" mb={10} pt={3}>
+            <Flex alignItems="center" mb={10} pt={3} px={10}>
               <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
                 Users
               </Heading>

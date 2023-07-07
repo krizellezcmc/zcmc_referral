@@ -114,7 +114,7 @@ const AddHospiForm = () => {
   return (
     <>
       <div className="">
-        <Flex alignItems="center" mb={10} p={3}>
+        <Flex alignItems="center" mb={10} p={3} px={10}>
           <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
             Hospitals
           </Heading>
@@ -152,13 +152,13 @@ const AddHospiForm = () => {
           </Center>
         ) : (
           <>
-            <Box p={10}>
+            <Box px={10} pt={5}>
               <Flex borderRadius="sm" mb={5}>
                 {header.map((h) => {
                   return (
                     <>
-                      <Box bgColor="white" width="full" p={3}>
-                        <Text color="#B3B3B3" textAlign="center">
+                      <Box bgColor="white" width="full" p={2}>
+                        <Text color="#4C4C4C" textAlign="center">
                           {h.title}{" "}
                         </Text>
                       </Box>

@@ -14,6 +14,7 @@ import {
   Flex,
   Spacer,
   Button,
+  Box,
 } from "@chakra-ui/react";
 
 import moment from "moment";
@@ -102,45 +103,62 @@ function RequestTable(props) {
     getLockList();
   }, [list, lockList]);
   return (
-    <Container maxW="container.4xl" bg="white">
-      <TableContainer>
-        <Flex alignItems="center" mb={10} pt={3}>
-          <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
-            Edit Requests
-          </Heading>
-          <TbEdit fontSize={30} />
-          <Spacer />{" "}
-          <Button
-            rightIcon={<BiRefresh />}
-            onClick={() => {
-              window.location.href = "/login";
-            }}
-          >
-            Refresh
-          </Button>
-        </Flex>
-        <Table variant="striped" size="sm">
-          <TableCaption>Request to edit Patient Referral Form</TableCaption>
-          <Thead border="1px solid #eee">
-            <Th py={4}>Request Date</Th>
-            <Th>Patient Name</Th>
-            <Th>Patient Status</Th>
-            <Th>Action </Th>
-          </Thead>
-          <Tbody border="1px solid #eee">
-            {list.length !== 0 ? (
-              <>
-                {list.map((val) => {
-                  return (
-                    <Tr>
-                      <Td py={0}> {moment(val.requestTime).format("LLL")}</Td>
-                      <Td>{val.firstname + "  " + val.lastname}</Td>
-                      <Td>
-                        <Badge colorScheme="blue">{val.status}</Badge>
-                      </Td>
-                      <Td>
-                        {val.requestTime !== null && val.requestEdit === 0 ? (
-                          <>
+    <>
+      <Flex alignItems="center" mb={10} pt={3} px={10}>
+        <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
+          Edit Requests
+        </Heading>
+        <TbEdit fontSize={30} />
+        <Spacer />{" "}
+        <Button
+          rightIcon={<BiRefresh />}
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
+          Refresh
+        </Button>
+      </Flex>
+      <Box p={10}>
+        <TableContainer bgColor="white">
+          <Table variant="striped" size="sm">
+            <TableCaption>Request to edit Patient Referral Form</TableCaption>
+            <Thead border="1px solid #eee">
+              <Th py={4}>Request Date</Th>
+              <Th>Patient Name</Th>
+              <Th>Patient Status</Th>
+              <Th>Action </Th>
+            </Thead>
+            <Tbody border="1px solid #eee">
+              {list.length !== 0 ? (
+                <>
+                  {list.map((val) => {
+                    return (
+                      <Tr>
+                        <Td py={0}> {moment(val.requestTime).format("LLL")}</Td>
+                        <Td>{val.firstname + "  " + val.lastname}</Td>
+                        <Td>
+                          <Badge colorScheme="blue">{val.status}</Badge>
+                        </Td>
+                        <Td>
+                          {val.requestTime !== null && val.requestEdit === 0 ? (
+                            <>
+                              <IconButton
+                                colorScheme="blue"
+                                icon={<BiCheck />}
+                                onClick={() => {
+                                  acceptRequest(val.patientId);
+                                }}
+                              ></IconButton>
+                              <IconButton
+                                colorScheme="blue"
+                                icon={<BiCheck />}
+                                onClick={() => {
+                                  acceptRequest(val.patientId);
+                                }}
+                              ></IconButton>
+                            </>
+                          ) : (
                             <IconButton
                               colorScheme="blue"
                               icon={<BiCheck />}
@@ -148,94 +166,78 @@ function RequestTable(props) {
                                 acceptRequest(val.patientId);
                               }}
                             ></IconButton>
-                            <IconButton
-                              colorScheme="blue"
-                              icon={<BiCheck />}
-                              onClick={() => {
-                                acceptRequest(val.patientId);
-                              }}
-                            ></IconButton>
-                          </>
-                        ) : (
-                          <IconButton
-                            colorScheme="blue"
-                            icon={<BiCheck />}
-                            onClick={() => {
-                              acceptRequest(val.patientId);
-                            }}
-                          ></IconButton>
-                        )}
-                      </Td>
-                    </Tr>
-                  );
-                })}
-              </>
-            ) : (
-              <Tr>
-                <Td py={4} colSpan={4} textAlign="center" fontStyle="italic">
-                  -- No data available --
-                </Td>
-              </Tr>
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
+                          )}
+                        </Td>
+                      </Tr>
+                    );
+                  })}
+                </>
+              ) : (
+                <Tr>
+                  <Td py={4} colSpan={4} textAlign="center" fontStyle="italic">
+                    -- No data available --
+                  </Td>
+                </Tr>
+              )}
+            </Tbody>
+          </Table>
+        </TableContainer>
 
-      {/* LOCK FORM EDIT */}
-      <TableContainer mt={20}>
-        <Table variant="striped" size="sm">
-          <TableCaption>Lock Patient Referral Form</TableCaption>
-          <Thead border="1px solid #eee">
-            <Th py={4}>Request Date</Th>
-            <Th>Patient Name</Th>
-            <Th>Editable</Th>
-            <Th>Action </Th>
-          </Thead>
-          <Tbody border="1px solid #eee">
-            {!lockList.length !== 0 ? (
-              <>
-                {lockList.map((val) => {
-                  return (
-                    <Tr>
-                      <Td py={0}> {moment(val.requestTime).format("LLL")}</Td>
-                      <Td>{val.firstname + "  " + val.lastname}</Td>
-                      <Td>
-                        <Badge
-                          colorScheme={val.editable === 1 ? "green" : "red"}
-                        >
-                          {val.editable === 1 ? "YES" : "NO"}
-                        </Badge>
-                      </Td>
-                      <Td>
-                        {val.editable === 1 ? (
-                          <IconButton
-                            colorScheme="orange"
-                            icon={<BiLock />}
-                            size="sm"
-                            onClick={() => {
-                              // acceptRequest();
-                              lockEdit(val.patientId);
-                            }}
-                          />
-                        ) : (
-                          "---"
-                        )}
-                      </Td>
-                    </Tr>
-                  );
-                })}
-              </>
-            ) : (
-              <Tr>
-                <Td py={4} colSpan={4} textAlign="center" fontStyle="italic">
-                  -- No data available --
-                </Td>
-              </Tr>
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Container>
+        <TableContainer mt={20} bgColor="white">
+          <Table variant="striped" size="sm">
+            <TableCaption>Lock Patient Referral Form</TableCaption>
+            <Thead border="1px solid #eee">
+              <Th py={4}>Request Date</Th>
+              <Th>Patient Name</Th>
+              <Th>Editable</Th>
+              <Th>Action </Th>
+            </Thead>
+            <Tbody border="1px solid #eee">
+              {!lockList.length !== 0 ? (
+                <>
+                  {lockList.map((val) => {
+                    return (
+                      <Tr>
+                        <Td py={0}> {moment(val.requestTime).format("LLL")}</Td>
+                        <Td>{val.firstname + "  " + val.lastname}</Td>
+                        <Td>
+                          <Badge
+                            colorScheme={val.editable === 1 ? "green" : "red"}
+                          >
+                            {val.editable === 1 ? "YES" : "NO"}
+                          </Badge>
+                        </Td>
+                        <Td>
+                          {val.editable === 1 ? (
+                            <IconButton
+                              colorScheme="orange"
+                              icon={<BiLock />}
+                              size="sm"
+                              onClick={() => {
+                                // acceptRequest();
+                                lockEdit(val.patientId);
+                              }}
+                            />
+                          ) : (
+                            "---"
+                          )}
+                        </Td>
+                      </Tr>
+                    );
+                  })}
+                </>
+              ) : (
+                <Tr>
+                  <Td py={4} colSpan={4} textAlign="center" fontStyle="italic">
+                    -- No data available --
+                  </Td>
+                </Tr>
+              )}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   );
 }
 
