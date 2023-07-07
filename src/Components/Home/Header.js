@@ -15,7 +15,7 @@ function Header(props) {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        py={{ lg: 40, md: 10 }}
+        py={{ xl: 20, lg: 20, md: 10 }}
       >
         <Box display={{ md: "flex" }}>
           <Box mt={{ base: 10, lg: 20, md: 0 }} mr={{ md: 10, lg: 10 }}>
