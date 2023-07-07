@@ -21,7 +21,7 @@ import {
   HiPencil,
 } from "react-icons/hi";
 import Nouser from "../Assets/nouser.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BiWrench } from "react-icons/bi";
 import useAuth from "../Hooks/useAuth";
 
@@ -31,10 +31,13 @@ const Sidebar = () => {
   const [role, setRole] = useState("");
   const [open, setOpen] = useState(false);
 
+  const [previousPath, setPreviousPath] = useState("");
   let navigate = useNavigate();
 
   const path = window.location.pathname;
   const { user } = useAuth();
+  const location = useLocation();
+
   useEffect(() => {
     const userr = JSON.parse(localStorage.getItem("user"));
     setReferringFacility(userr.mscReferringCenters);
@@ -44,6 +47,7 @@ const Sidebar = () => {
 
   return (
     <div className={open ? "sidebar" : "sidebar close"}>
+      {console.log(location)}
       <div className="sidebar-header">
         <div onClick={() => setOpen(!open)} className="menu-burger">
           {open ? (

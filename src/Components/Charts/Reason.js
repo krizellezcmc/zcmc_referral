@@ -20,7 +20,7 @@ const Reason = () => {
   }, [data]);
 
   return (
-    <Box h={500} w={780}>
+    <div style={{ height: 400, width: 1000 }}>
       <Text
         textAlign="center"
         mt={5}
@@ -32,9 +32,10 @@ const Reason = () => {
       >
         Reason for Referral
       </Text>
+
       <ResponsivePie
         data={data}
-        margin={{ top: 5, right: 80, bottom: 100, left: 60 }}
+        margin={{ top: 5, right: 0, bottom: 100, left: 0 }}
         sortByValue={true}
         innerRadius={0.5}
         padAngle={0.7}
@@ -44,31 +45,10 @@ const Reason = () => {
         borderColor={{
           from: "color",
         }}
-        // arcLinkLabelsSkipAngle={10}
-        // arcLinkLabelsTextColor="#333333" arcLabel={function(e){return e.id+" ("+e.value+")"}}
         arcLinkLabelsThickness={3}
         arcLinkLabelsColor={{ from: "color" }}
-        // arcLabelsSkipAngle={4}
-        // arcLabelsTextColor={{
-        //   from: "color",
-        //   modifiers: [["darker", 2]],s
-        // }}
-        // legends={[
-        //   {
-        //     anchor: "right",
-        //     direction: "column",
-        //     justify: false,
-        //     translateX: -17,
-        //     translateY: -28,
-        //     itemWidth: 97,
-        //     itemHeight: 23,
-        //     itemsSpacing: 4,
-        //     symbolSize: 16,
-        //     itemDirection: "left-to-right",
-        //   },
-        // ]}
       />
-    </Box>
+    </div>
   );
 };
 

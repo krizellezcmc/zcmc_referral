@@ -158,21 +158,31 @@ function OpcenHome2(props) {
   };
 
   const submit = async () => {
-    let decline = await api.post("/transfer.php", {
-      patientId: id,
-      referredTo: selectRef,
-      reason: reason,
-    });
-    if (decline.data.status === 1) {
+    if (selectRef == "") {
       toast({
         position: "top",
-        title: decline.data.message,
-        status: "success",
+        title: "Kindly select hospital to proceed.",
+        status: "warning",
         duration: 2000,
         isClosable: true,
       });
-      setReason("");
-      onDeclinedClose();
+    } else {
+      let decline = await api.post("/transfer.php", {
+        patientId: id,
+        referredTo: selectRef,
+        reason: reason,
+      });
+      if (decline.data.status === 1) {
+        toast({
+          position: "top",
+          title: decline.data.message,
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        setReason("");
+        onDeclinedClose();
+      }
     }
   };
 
@@ -183,7 +193,6 @@ function OpcenHome2(props) {
     if (details) {
       setPatientStat(details.data.status);
       setArrivalTime(details.data.arrival_time);
-
       setUserName(details.data.username);
       setReferringFacility(details.data.refFacility);
       setLastName(details.data.lastname);

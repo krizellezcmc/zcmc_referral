@@ -2,16 +2,24 @@ import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import Home from "./Home";
 import useAuth from "../../Hooks/useAuth";
+import { useLocation } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const { user } = useAuth();
-
+  let navigate = useNavigate();
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
 
   useEffect(() => {
+    const previousPath = localStorage.getItem("previousPath");
+
+    if (previousPath) {
+      navigate(previousPath);
+    }
+
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
