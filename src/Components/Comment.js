@@ -14,7 +14,7 @@ import React from "react";
 function Comment(props) {
   return (
     <div>
-      <Box my={8} w="100%">
+      <Box my={5} w="100%" bgColor="white" p={3} borderRadius="2xl">
         <HStack>
           <Avatar
             name={props.user}

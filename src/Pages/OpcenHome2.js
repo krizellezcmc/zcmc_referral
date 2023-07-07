@@ -29,6 +29,7 @@ import {
   useToast,
   Center,
   GridItem,
+  Flex,
 } from "@chakra-ui/react";
 import Spinner from "../Components/Spinner";
 import AddComment from "../Components/AddComment";
@@ -394,118 +395,126 @@ function OpcenHome2(props) {
       <Sidebar />
       <div className="content">
         <Header />
-        <Box px={20} pt={10}>
-          <Button
-            onClick={homeOpcen}
-            variant="outline"
-            colorScheme="green"
-            leftIcon={<BiArrowBack />}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          {/* </Box> */}
+          <div
+            style={{ backgroundColor: "#F0F8F8", flex: 1 }}
+            className="content-wrapper"
           >
-            Back
-          </Button>
-          {/* <Box float="right" p={10}> */}
-
-          <Box float="right">
-            {patientStat === "pending" ? (
-              <>
-                <Button
-                  colorScheme="green"
-                  mr={3}
-                  leftIcon={<GoCheck fontSize="20px" />}
-                  onClick={() => {
-                    handleAcceptPatient(id);
-                  }}
-                >
-                  Accept
-                </Button>
-                <Button
-                  colorScheme="red"
-                  leftIcon={<GoArrowUp fontSize="20px" />}
-                  onClick={onDeclinedOpen}
-                >
-                  Transfer
-                </Button>
-              </>
-            ) : patientStat === "arrived" ? (
-              <>
-                <HStack>
-                  <Button
-                    colorScheme="green"
-                    variant="ghost"
-                    rightIcon={<BiDownload />}
-                    onClick={exportPDF}
-                  >
-                    Download
-                  </Button>
-                  <Box
-                    width="100%"
-                    padding={3}
-                    borderRadius="lg"
-                    border="1px"
-                    borderColor="green.500"
-                  >
-                    <HStack>
-                      <Text fontSize="13px">Status:</Text>
-                      <Text color="green" fontSize="13px" fontWeight={500}>
-                        ARRIVED
-                      </Text>
-                    </HStack>
-                    <HStack>
-                      <Text fontSize="13px">Date and Time:</Text>
-                      <Text fontSize="13px" color="green" fontWeight={400}>
-                        {moment(arrivalTime).format("LLL")}
-                      </Text>
-                    </HStack>
-                  </Box>
-                </HStack>
-              </>
-            ) : patientStat === "accepted" ? (
-              <Button
-                // size="sm"
-                colorScheme="red"
-                variant="solid"
-                onClick={() => cancelReferral(id)}
-              >
-                Cancel Referral
-              </Button>
-            ) : (
-              ""
-            )}
-          </Box>
-        </Box>
-        {/* </Box> */}
-        <div className="">
-          {/* {isLoading ? (
+            {/* {isLoading ? (
               <Container>
                 <Loading />
               </Container>
             ) : ( */}
+            <Flex px={40} pt={10} justifyContent="space-between">
+              <Button
+                onClick={homeOpcen}
+                variant="outline"
+                colorScheme="green"
+                leftIcon={<BiArrowBack />}
+              >
+                Back
+              </Button>
+              {/* <Box float="right" p={10}> */}
 
-          <Container mt={10} maxW="container.xl">
-            <Tabs variant="enclosed">
-              <TabList mb="1em">
-                <Tab>
-                  <Text>Patient Referral</Text>
-                </Tab>
-                <Tab>
-                  <Text>
-                    Remarks
-                    <Badge ml="1.5" colorScheme="blue">
-                      {remarks.length}
-                    </Badge>
-                  </Text>
-                </Tab>
-              </TabList>
+              <Box>
+                {patientStat === "pending" ? (
+                  <>
+                    <Button
+                      colorScheme="green"
+                      mr={3}
+                      leftIcon={<GoCheck fontSize="20px" />}
+                      onClick={() => {
+                        handleAcceptPatient(id);
+                      }}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      colorScheme="red"
+                      leftIcon={<GoArrowUp fontSize="20px" />}
+                      onClick={onDeclinedOpen}
+                    >
+                      Transfer
+                    </Button>
+                  </>
+                ) : patientStat === "arrived" ? (
+                  <>
+                    <HStack>
+                      <Button
+                        colorScheme="green"
+                        variant="ghost"
+                        rightIcon={<BiDownload />}
+                        onClick={exportPDF}
+                      >
+                        Download
+                      </Button>
+                      <Box
+                        width="100%"
+                        padding={3}
+                        borderRadius="lg"
+                        border="1px"
+                        borderColor="green.500"
+                      >
+                        <HStack>
+                          <Text fontSize="13px">Status:</Text>
+                          <Text color="green" fontSize="13px" fontWeight={500}>
+                            ARRIVED
+                          </Text>
+                        </HStack>
+                        <HStack>
+                          <Text fontSize="13px">Date and Time:</Text>
+                          <Text fontSize="13px" color="green" fontWeight={400}>
+                            {moment(arrivalTime).format("LLL")}
+                          </Text>
+                        </HStack>
+                      </Box>
+                    </HStack>
+                  </>
+                ) : patientStat === "accepted" ? (
+                  <Button
+                    // size="sm"
+                    colorScheme="red"
+                    variant="solid"
+                    onClick={() => cancelReferral(id)}
+                  >
+                    Cancel Referral
+                  </Button>
+                ) : (
+                  ""
+                )}
+              </Box>
+            </Flex>
+            <Box py={5} px={40}>
+              <Tabs variant="enclosed">
+                <TabList mb="1em">
+                  <Tab>
+                    <Text>Patient Referral</Text>
+                  </Tab>
+                  <Tab>
+                    <Text>
+                      Remarks
+                      <Badge ml="1.5" colorScheme="blue">
+                        {remarks.length}
+                      </Badge>
+                    </Text>
+                  </Tab>
+                </TabList>
 
-              <TabPanels>
-                <TabPanel>
-                  <Box px={20}>
-                    <OpcenReferral patientId={id} status={patientStat} />
-                    {/* <ReferralDownload patientId={id} /> */}
-                  </Box>
-                </TabPanel>
-                <TabPanel>
-                  <Container maxW="container.lg" px={20}>
+                <TabPanels>
+                  <TabPanel>
+                    <Box>
+                      <OpcenReferral patientId={id} status={patientStat} />
+                      {/* <ReferralDownload patientId={id} /> */}
+                    </Box>
+                  </TabPanel>
+                  <TabPanel>
                     <AddComment patientId={id} user={user?.userId} />
 
                     <Box>
@@ -543,62 +552,63 @@ function OpcenHome2(props) {
                         </>
                       )}
                     </Box>
-                  </Container>
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </Container>
-          <Modal
-            closeOnOverlayClick={false}
-            isOpen={isDeclinedOpen}
-            onClose={onDeclinedClose}
-            size="2xl"
-          >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Transfer Referral</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <FormControl isRequired>
-                  <FormLabel>Reason</FormLabel>
-                  <Textarea
-                    type="text"
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl mt={5} isRequired>
-                  <FormLabel>Refer to</FormLabel>
-                  <Select
-                    options={hospitals}
-                    placeholder="Select Hospital"
-                    variant="outline"
-                    selectedOptionStyle="check"
-                    closeMenuOnSelect={true}
-                    focusBorderColor="#058e46"
-                    onChange={(e) => {
-                      setSelectedRef(e.value);
-                    }}
-                    required
-                  />
-                </FormControl>
-              </ModalBody>
-              <ModalFooter>
-                <Button colorScheme="green" size="sm" onClick={submit}>
-                  Submit
-                </Button>
-                <Button
-                  colorScheme="blue"
-                  size="sm"
-                  ml={3}
-                  onClick={onDeclinedClose}
-                >
-                  Close
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-          {/* )} */}
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </Box>
+
+            <Modal
+              closeOnOverlayClick={false}
+              isOpen={isDeclinedOpen}
+              onClose={onDeclinedClose}
+              size="2xl"
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Transfer Referral</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <FormControl isRequired>
+                    <FormLabel>Reason</FormLabel>
+                    <Textarea
+                      type="text"
+                      value={reason}
+                      onChange={(e) => setReason(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl mt={5} isRequired>
+                    <FormLabel>Refer to</FormLabel>
+                    <Select
+                      options={hospitals}
+                      placeholder="Select Hospital"
+                      variant="outline"
+                      selectedOptionStyle="check"
+                      closeMenuOnSelect={true}
+                      focusBorderColor="#058e46"
+                      onChange={(e) => {
+                        setSelectedRef(e.value);
+                      }}
+                      required
+                    />
+                  </FormControl>
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="green" size="sm" onClick={submit}>
+                    Submit
+                  </Button>
+                  <Button
+                    colorScheme="blue"
+                    size="sm"
+                    ml={3}
+                    onClick={onDeclinedClose}
+                  >
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+            {/* )} */}
+          </div>
         </div>
       </div>
     </div>

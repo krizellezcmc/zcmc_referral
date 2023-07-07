@@ -287,9 +287,9 @@ function OpcenReferral(props) {
           <Loading />
         </Center>
       ) : (
-        <Container p={5} maxW="1200px">
+        <>
           {/* <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={3}> */}
-          <Box borderWidth="1px" borderColor="gray.300" borderRadius="lg" p={5}>
+          <Box borderRadius="lg" p={5} bgColor="white" boxShadow="sm">
             <Text fontSize="xl" textAlign="center" fontWeight={800}>
               PATIENT INFORMATION
             </Text>
@@ -440,13 +440,7 @@ function OpcenReferral(props) {
             </FormControl>
           </Box>
 
-          <Box
-            borderWidth="1px"
-            borderColor="gray.300"
-            borderRadius="lg"
-            p={5}
-            mt={5}
-          >
+          <Box borderRadius="lg" p={5} mt={5} bgColor="white" boxShadow="sm">
             <Text fontSize="xl" textAlign="center" fontWeight={800}>
               SIGNIFICANT WATCHERS
             </Text>
@@ -472,13 +466,7 @@ function OpcenReferral(props) {
             </HStack>
           </Box>
 
-          <Box
-            borderWidth="1px"
-            borderColor="gray.300"
-            borderRadius="lg"
-            p={5}
-            mt={5}
-          >
+          <Box borderRadius="lg" p={5} mt={5} bgColor="white" boxShadow="sm">
             <Text fontSize="xl" textAlign="center" fontWeight={800}>
               ADMITTING DETAILS
             </Text>
@@ -951,7 +939,7 @@ function OpcenReferral(props) {
               </Flex>
             </>
           )}
-        </Container>
+        </>
       )}
       <Modal
         isOpen={isOpen}
