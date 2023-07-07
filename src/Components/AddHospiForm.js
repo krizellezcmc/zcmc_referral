@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/ReferralForm.css";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   Button,
   Input,
   Box,
@@ -32,6 +25,15 @@ import api from "../API/Api";
 import { BiRefresh, BiSave, BiSearch } from "react-icons/bi";
 import Loading from "./Spinner";
 import { TbBuildingHospital } from "react-icons/tb";
+
+const header = [
+  {
+    title: "Access Code",
+  },
+  {
+    title: "Hospital",
+  },
+];
 
 const AddHospiForm = () => {
   const [hospiName, setHospiName] = useState("");
@@ -112,7 +114,7 @@ const AddHospiForm = () => {
   return (
     <>
       <div className="">
-        <Flex alignItems="center" mb={10} pt={3}>
+        <Flex alignItems="center" mb={10} p={3}>
           <Heading fontWeight={700} fontSize={31} color="teal.900" mr={3}>
             Hospitals
           </Heading>
@@ -128,68 +130,77 @@ const AddHospiForm = () => {
           </Button>
         </Flex>
 
-        <div className="add-hospital-btn" style={{ marginBottom: "25px" }}>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<BiSearch color="gray.300" />}
-            />
-            <Input
-              fontSize="13px"
-              type="text"
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search hospital"
-              width="400px"
-              _hover={{ borderColor: "green" }}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-                borderColor: "green",
-              }}
-            />
-          </InputGroup>
-        </div>
+        <Box px={10}>
+          <Input
+            fontSize="13px"
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search hospital"
+            width="400px"
+            _hover={{ borderColor: "green" }}
+            _focus={{
+              boxShadow: "none",
+              outline: "none",
+              borderColor: "green",
+            }}
+            bgColor="white"
+          />
+        </Box>
         {isLoading ? (
           <Center my={20}>
             <Loading />
           </Center>
         ) : (
-          <TableContainer w={1000}>
-            <Table cellSpacing={0} variant="striped">
-              <Thead>
-                <Tr>
-                  <Th className="border" width="30%">
-                    Access Code
-                  </Th>
-                  <Th className="border">Hospital name</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {hospitals
-                  .filter((val) => {
-                    if (search === "") {
-                      return val;
-                    } else if (
-                      val.label.toLowerCase().includes(search.toLowerCase())
-                    ) {
-                      return val;
-                    }
-                  })
-                  .map((index) => {
-                    return (
-                      <>
-                        <Tr>
-                          <Td className="border">
-                            <b>{index.code}</b>
-                          </Td>
-                          <Td className="border">{index.label}</Td>
-                        </Tr>
-                      </>
-                    );
-                  })}
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <>
+            <Box p={10}>
+              <Flex borderRadius="sm" mb={5}>
+                {header.map((h) => {
+                  return (
+                    <>
+                      <Box bgColor="white" width="full" p={3}>
+                        <Text color="#B3B3B3" textAlign="center">
+                          {h.title}{" "}
+                        </Text>
+                      </Box>
+                    </>
+                  );
+                })}
+              </Flex>
+
+              {hospitals
+                .filter((val) => {
+                  if (search === "") {
+                    return val;
+                  } else if (
+                    val.label.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((index, i) => {
+                  const isEven = i % 2 === 0;
+                  const backgroundColor = isEven ? "white" : "#e9ffff";
+                  return (
+                    <>
+                      <Flex
+                        bgColor={backgroundColor}
+                        color="#3E9393"
+                        fontWeight={600}
+                        fontSize={14}
+                        alignItems="center"
+                      >
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>{index.code}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>{index.label}</Text>
+                        </Box>
+                      </Flex>
+                    </>
+                  );
+                })}
+            </Box>
+          </>
         )}
       </div>
 
