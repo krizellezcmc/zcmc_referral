@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import { AnimatePresence } from "framer-motion";
@@ -48,7 +48,20 @@ import Main from "../Pages/Homepage/Main";
 const AnimatedRoutes = () => {
   const { user } = useAuth();
   const location = useLocation();
-  console.log(user);
+  const [previousPath, setPreviousPath] = useState("");
+
+  useEffect(() => {
+    const storedPath = localStorage.getItem("previousPath");
+    if (storedPath) {
+      setPreviousPath(storedPath);
+
+      // localStorage.removeItem("previousPath");
+    }
+
+    return () => {
+      localStorage.setItem("previousPath", location.pathname);
+    };
+  }, []);
 
   return (
     <AnimatePresence>

@@ -82,7 +82,6 @@ function AdminDashboard(props) {
                 // className="content"
               >
                 <Box
-                  width="100%"
                   boxShadow="md"
                   borderColor="white"
                   bg="white"
@@ -92,12 +91,13 @@ function AdminDashboard(props) {
                   <TopReferrals />
                 </Box>
                 <Box
+                  display="flex"
+                  justifyContent="center"
                   width="100%"
                   boxShadow="md"
                   borderColor="white"
                   bg="white"
                   borderRadius={5}
-                  mr={3}
                 >
                   <Reason />
                 </Box>
