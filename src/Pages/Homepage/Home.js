@@ -10,7 +10,6 @@ import {
   Button,
   Container,
   Flex,
-  Link,
   Spacer,
   Text,
   IconButton,
@@ -19,8 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
-// import GalleryTile from "../../Components/Home/GalleryTile";
-import Gallery from "../../Components/Home/Gallery";
 import logo from "../../Assets/OHCC.png";
 import { BsArrowRight } from "react-icons/bs";
 import Partners from "../../Components/Home/Partners";
@@ -99,7 +96,7 @@ function Home(props) {
       sections.forEach((section) => {
         const sectTop = section.offsetTop;
         const sectHeight = section.clientHeight;
-        const sect = sectTop - sectHeight / 2;
+        const sect = sectTop - sectHeight / 3;
         if (window.pageYOffset >= sect) {
           current = section.getAttribute("id");
         }
@@ -195,24 +192,28 @@ function Home(props) {
           )}
 
           <section id="header" style={{ height: "100vh" }}>
-            {" "}
             <Header />
           </section>
 
-          <section id="about" />
-          <About />
+          <section id="about">
+            <About />
+          </section>
 
-          <section id="facilities" />
-          <Partners />
+          <section id="facilities">
+            <Partners />
+          </section>
 
-          <section id="services" />
-          <Specialization />
+          <section id="services" style={{ height: "100vh" }}>
+            <Specialization />
+          </section>
 
-          <section id="team" />
-          <Team />
+          <section id="team">
+            <Team />
+          </section>
 
-          <section id="faqs" />
-          <FAQs />
+          <section id="faqs">
+            <FAQs />
+          </section>
         </div>
 
         <div className="copyright">

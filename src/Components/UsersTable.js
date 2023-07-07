@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   Button,
   Grid,
   GridItem,
@@ -28,8 +21,6 @@ import {
   IconButton,
   Flex,
   Text,
-  InputGroup,
-  InputLeftElement,
   Input,
   Center,
 } from "@chakra-ui/react";
@@ -50,7 +41,7 @@ import Swal from "sweetalert2";
 import api from "../API/Api";
 import Spinner from "./Spinner";
 import moment from "moment";
-import TableComponent from "./Table/TableComponent";
+import inbox from "../Assets/inbox.png";
 
 const header = [
   {
@@ -258,7 +249,7 @@ const UsersTable = () => {
 
   return (
     <div>
-      <Grid templateColumns="repeat(8,1fr)" gap={4}>
+      <Grid templateColumns="repeat(8,1fr)" gap={4} px={10}>
         <GridItem colSpan={6}>
           <Box
             display="flex"
@@ -291,8 +282,8 @@ const UsersTable = () => {
                 {header.map((h) => {
                   return (
                     <>
-                      <Box bgColor="white" width="full" p={3}>
-                        <Text color="#B3B3B3" textAlign="center">
+                      <Box bgColor="white" width="full" p={2}>
+                        <Text color="#4C4C4C" textAlign="center">
                           {h.title}{" "}
                         </Text>
                       </Box>
@@ -460,7 +451,10 @@ const UsersTable = () => {
                   );
                 })
               ) : (
-                <Text mt={3}>Nothing to show</Text>
+                <>
+                  <img src={inbox} />
+                  <Text mt={3}>Nothing to show</Text>
+                </>
               )}
             </VStack>
           </Box>

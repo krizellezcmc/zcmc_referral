@@ -79,7 +79,7 @@ function FAQs(props) {
   return (
     <div>
       <Box bgColor="white" py={40}>
-        <Container maxW="container.lg">
+        <Container maxW="container.xl">
           <SectionHeader
             title="Frequently Asked Questions"
             description="Have any questions? We're here to help."

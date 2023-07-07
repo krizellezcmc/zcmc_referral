@@ -44,7 +44,7 @@ function Contributors(props) {
             return (
               <>
                 <WrapItem alignItems="flex-end">
-                  <Center width={200}>
+                  <Center width={220}>
                     <ProfileTile
                       image={p.image}
                       name={p.name}
