@@ -49,6 +49,26 @@ import { TbCheckupList, TbUsers } from "react-icons/tb";
 import { TbBuildingHospital } from "react-icons/tb";
 import api from "../API/Api";
 import Spinner from "./Spinner";
+import inbox from "../Assets/inbox.png";
+
+const header = [
+  {
+    title: "Patient ID",
+  },
+  {
+    title: "Fullname",
+  },
+  { title: "Referred Date" },
+  {
+    title: "Discharge Date",
+  },
+  {
+    title: "Status",
+  },
+  {
+    title: "Action",
+  },
+];
 
 const ReferredPatients = () => {
   let navigate = useNavigate();
@@ -100,182 +120,181 @@ const ReferredPatients = () => {
   }, []);
 
   return (
-    <Container maxW="95%" mt={5}>
-      <Flex alignItems="center" mb={7}>
-        <Heading
-          fontWeight={700}
-          fontSize={33}
-          color="teal.900"
-          mr={3}
-          textTransform="uppercase"
-        >
-          Referred Patients
-        </Heading>
-        <TbUsers fontSize={30} />
-      </Flex>
-      <Box display="flex" justifyContent="space-between" marginBottom={10}>
-        <Input
-          fontSize="14px"
-          type="text"
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search User"
-          width="400px"
-          _hover={{ borderColor: "green" }}
-          _focus={{
-            boxShadow: "none",
-            outline: "none",
-            borderColor: "green",
-          }}
-          bgColor="white"
-        />
+    <>
+      <Box px={10}>
+        <Flex alignItems="center" my={7}>
+          <Heading
+            fontWeight={700}
+            fontSize={33}
+            color="teal.900"
+            mr={3}
+            textTransform="uppercase"
+          >
+            Referred Patients
+          </Heading>
+          <TbUsers fontSize={30} />
+        </Flex>
+        <Box display="flex" justifyContent="space-between" marginBottom={10}>
+          <Input
+            fontSize="14px"
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search User"
+            width="400px"
+            _hover={{ borderColor: "green" }}
+            _focus={{
+              boxShadow: "none",
+              outline: "none",
+              borderColor: "green",
+            }}
+            bgColor="white"
+          />
 
-        <Button
-          variant="solid"
-          colorScheme="green"
-          onClick={() => {
-            navigate("/home");
-          }}
-        >
-          + Refer Patient
-        </Button>
-      </Box>
-      {isLoading ? (
-        <Center my={20}>
-          <Spinner />
-        </Center>
-      ) : (
-        <>
-          <TableContainer bgColor="white">
-            <Table cellSpacing={0}>
-              <Thead>
-                <Tr>
-                  <Th className="border" width="10%">
-                    Patient ID
-                  </Th>
-                  <Th className="border" width="30%">
-                    Full name
-                  </Th>
-                  <Th className="border" width="20%">
-                    Referred Date
-                  </Th>
-
-                  <Th className="border" width="20%">
-                    Discharge Date
-                  </Th>
-                  <Th className="border">Status</Th>
-                  <Th className="border">Action</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {patients.length === 0 ? (
-                  <Tr>
-                    <Td colSpan={7} textAlign="center" className="border">
-                      <Text fontSize={13} fontWeight="300">
-                        --- Nothing to show ---
+          <Button
+            variant="solid"
+            colorScheme="green"
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            + Refer Patient
+          </Button>
+        </Box>
+        {isLoading ? (
+          <Center my={20}>
+            <Spinner />
+          </Center>
+        ) : (
+          <>
+            <Flex borderRadius="sm" mb={5} boxShadow="sm">
+              {header.map((h) => {
+                return (
+                  <>
+                    <Box bgColor="white" width="full" p={2}>
+                      <Text color="#4C4C4C" textAlign="center">
+                        {h.title}{" "}
                       </Text>
-                    </Td>
-                  </Tr>
-                ) : (
-                  patients
-                    .filter((val, key) => {
-                      if (search === "") {
-                        return val;
-                      } else if (
-                        val.patientName
-                          .toLowerCase()
-                          .includes(search.toLowerCase())
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((pat, key) => {
-                      return pat.referredFrom.toUpperCase() ===
-                        hospital.toUpperCase() ? (
-                        <>
-                          <Tr key={key}>
-                            <Td className="border">
-                              <b>{pat.patId}</b>
-                            </Td>
-                            <Td className="border">{pat.patientName}</Td>
-                            <Td className="border">
-                              {moment(pat.referredDate).format("LLL")}
-                            </Td>
+                    </Box>
+                  </>
+                );
+              })}
+            </Flex>
 
-                            <Td className="border">
-                              {pat.dischDate == null ? (
-                                <Badge colorScheme="yellow">
-                                  {" "}
-                                  Not applicable
-                                </Badge>
-                              ) : (
-                                moment(pat.dischDate).format("LLL")
-                              )}
-                            </Td>
-                            <Td className="border">
-                              {pat.dischDate === null ? (
-                                <Badge colorScheme="blue">+ Admitted</Badge>
-                              ) : (
-                                <Badge colorScheme="red">- Discharged</Badge>
-                              )}
-                            </Td>
-                            <Td paddingTop="0" paddingBottom="0 ">
-                              <Menu>
-                                <MenuButton
-                                  as={Button}
-                                  rightIcon={<BiChevronDown />}
-                                  colorScheme="blue"
-                                  size="sm"
-                                >
-                                  Action
-                                </MenuButton>
-                                <MenuList size="sm" borderColor="blue.500">
+            {patients.length === 0 ? (
+              <Box align="center" p={5} bgColor="white">
+                <img src={inbox} style={{ marginBottom: 5 }} />
+                <Text textAlign="center" fontSize={13} color="#9DB2BF">
+                  Nothing to show
+                </Text>
+              </Box>
+            ) : (
+              patients
+                .filter((val, key) => {
+                  if (search === "") {
+                    return val;
+                  } else if (
+                    val.patientName.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((pat, key) => {
+                  const isEven = key % 2 === 0;
+                  const backgroundColor = isEven ? "white" : "#e9ffff";
+                  return pat.referredFrom.toUpperCase() ===
+                    hospital.toUpperCase() ? (
+                    <>
+                      <Flex
+                        bgColor={backgroundColor}
+                        color="#3E9393"
+                        fontWeight={600}
+                        fontSize={13}
+                        alignItems="center"
+                        boxShadow="sm"
+                      >
+                        <Box width="full" p={2} textAlign="center">
+                          <Text fontWeight={600}>{pat.patId}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text>{pat.patientName}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text> {moment(pat.referredDate).format("LLL")}</Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          {pat.dischDate == null ? (
+                            <Badge colorScheme="yellow"> Not applicable</Badge>
+                          ) : (
+                            moment(pat.dischDate).format("LLL")
+                          )}
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Text fontWeight={600}>
+                            {" "}
+                            {pat.dischDate === null ? (
+                              <Badge colorScheme="blue">+ Admitted</Badge>
+                            ) : (
+                              <Badge colorScheme="red">- Discharged</Badge>
+                            )}
+                          </Text>
+                        </Box>
+                        <Box width="full" p={2} textAlign="center">
+                          <Menu>
+                            <MenuButton
+                              as={Button}
+                              rightIcon={<BiChevronDown />}
+                              colorScheme="blue"
+                              size="sm"
+                            >
+                              Action
+                            </MenuButton>
+                            <MenuList size="sm" borderColor="blue.500">
+                              <MenuItem
+                                minH="40px"
+                                fontSize="15px"
+                                onClick={() => {
+                                  onOpen();
+                                  getDetails(pat.PK_patientId);
+                                }}
+                                icon={<BsEye />}
+                              >
+                                View Details
+                              </MenuItem>
+
+                              {taguId.map((t, k) => {
+                                return t.PK_tagubilinId ===
+                                  pat.FK_psPatRegisters ? (
                                   <MenuItem
+                                    key={k}
                                     minH="40px"
                                     fontSize="15px"
                                     onClick={() => {
-                                      onOpen();
-                                      getDetails(pat.PK_patientId);
+                                      navigateTagubilin(pat.FK_psPatRegisters);
                                     }}
-                                    icon={<BsEye />}
+                                    icon={<BiFile />}
                                   >
-                                    View Details
+                                    View Tagubilin
                                   </MenuItem>
-
-                                  {taguId.map((t, k) => {
-                                    return t.PK_tagubilinId ===
-                                      pat.FK_psPatRegisters ? (
-                                      <MenuItem
-                                        key={k}
-                                        minH="40px"
-                                        fontSize="15px"
-                                        onClick={() => {
-                                          navigateTagubilin(
-                                            pat.FK_psPatRegisters
-                                          );
-                                        }}
-                                        icon={<BiFile />}
-                                      >
-                                        View Tagubilin
-                                      </MenuItem>
-                                    ) : (
-                                      ""
-                                    );
-                                  })}
-                                </MenuList>
-                              </Menu>
-                            </Td>
-                          </Tr>
-                        </>
-                      ) : (
-                        ""
-                      );
-                    })
-                )}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </>
-      )}
+                                ) : (
+                                  ""
+                                );
+                              })}
+                            </MenuList>
+                          </Menu>
+                        </Box>
+                      </Flex>
+                      <Tr key={key}>
+                        <Td paddingTop="0" paddingBottom="0 "></Td>
+                      </Tr>
+                    </>
+                  ) : (
+                    ""
+                  );
+                })
+            )}
+          </>
+        )}
+      </Box>
 
       {/* MODAL VIEW DETAILS */}
       <Modal isOpen={isOpen} onClose={onClose} size="2xl">
@@ -446,7 +465,7 @@ const ReferredPatients = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </Container>
+    </>
   );
 };
 

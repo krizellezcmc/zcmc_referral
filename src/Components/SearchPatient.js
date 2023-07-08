@@ -38,7 +38,6 @@ import Swal from "sweetalert2";
 import api from "../API/Api";
 import Loading from "./Spinner";
 import useAuth from "../Hooks/useAuth";
-import axios from "axios";
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
 
@@ -126,67 +125,111 @@ function SearchPatient(props) {
   };
 
   // SELECTED
+  // const selectedText = async (e) => {
+  //   const [selectedId, name, refDate, status] = e.split("/");
+
+  //   setId(selectedId);
+  //   setStatus(status);
+  //   console.log(id);
+  //   console.log(name);
+
+  //   const formattedRefDate = moment(refDate).format("YYYY-MM-DD hh:mm");
+
+  //   try {
+  //     setIsLoading(true);
+
+  //     const [covidData, bizboxData] = await Promise.all([
+  //       api.get("/get_covid.php", { params: { id: id } }),
+  //       api.get("/get_patient_data.php", {
+  //         params: { patientName: name, referredDate: formattedRefDate },
+  //       }),
+  //     ]);
+
+  //     setCovid(covidData.data);
+  //     setBizbox(bizboxData.data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const selectedText = async (e) => {
-    let data = e.split("/");
-    let name = data[1];
-    let selectedId = data[0];
-    setId(data[0]);
+    const data = e.split("/");
+    const name = data[1];
+    const selectedId = data[0];
+    setId(selectedId);
     setStatus(data[3]);
+    console.log(selectedId);
+
     const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
-    // setSelected(e);
 
     setIsLoading(true);
 
-    let covidData = await api.get("/get_covid.php", {
-      params: { id: selectedId },
-    });
+    try {
+      const [covidData, bizboxData] = await Promise.all([
+        api.get("/get_covid.php", { params: { id: selectedId } }),
+        api.get("/get_patient_data.php", {
+          params: { patientName: name, referredDate: refDate },
+        }),
+      ]);
 
-    setCovid(covidData.data);
-
-    let bizboxData = await api.get("/get_patient_data.php", {
-      params: { patientName: name, referredDate: refDate },
-    });
-    setBizbox(bizboxData.data);
-
-    if (covidData) {
+      setCovid(covidData.data);
+      setBizbox(bizboxData.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
       setIsLoading(false);
     }
   };
 
   const comments = async () => {
-    // setIsLoading(true);
-    let comment = await api.get(`/get_comment.php/${id}`);
-    if (comment) {
+    try {
+      const comment = await api.get(`/get_comment.php/${id}`);
       setRemarks(comment.data);
-      //  setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
     }
   };
 
   const fetchPatData = async () => {
-    let pat = await api.get("/get_sheets.php", {
-      params: { hospital: hospital },
-    });
-    if (pat) {
+    try {
+      const pat = await api.get("/get_sheets.php", {
+        params: { hospital: hospital },
+      });
       setPatient(pat.data);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
     }
   };
+
+  // const fetchPatData = async () => {
+  //   try {
+  //     const response = await api.get("/get_sheets.php", {
+  //       params: { hospital: hospital },
+  //     });
+  //     const patData = response.data;
+
+  //     const filteredPatients = patData
+  //       .filter((patient) => patient.refFacility === hospital.toUpperCase())
+  //       .map((patient) => ({
+  //         label: `${patient.lastname}, ${patient.firstname} ${patient.middleName} (${patient.tstamp})`,
+  //         value: `${patient.patientId}/${patient.lastname}, ${patient.firstname} ${patient.middleName}/${patient.tstamp}/${patient.status}`,
+  //       }));
+
+  //     setPatient(filteredPatients);
+  //   } catch (error) {
+  //     console.error("Error fetching patient data:", error);
+  //   }
+  // };
 
   useEffect(() => {
     const userr = JSON.parse(localStorage.getItem("user"));
     setHospital(userr.name);
     fetchPatData();
 
-    // axios
-    //   .get(`http://192.168.3.135/zcmc_referral_api/api/get_comment.php/${id}`)
-    //   .then((response) => {
-    //     setRemarks(response.data);
-    //     // setIsLoading(false);
-    //   });
-
     comments();
   }, [id, remarks, hospital]);
-
-  // useEffect(() => {}, []);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -208,6 +251,7 @@ function SearchPatient(props) {
         required
         id="searchbar"
         variant="filled"
+        isSearchable={false}
       />
 
       {patient
@@ -290,7 +334,7 @@ function SearchPatient(props) {
                 </Box>
               </Center>
 
-              <Container mt={10} maxW="100%">
+              <Box py={10} px={20}>
                 <Tabs variant="enclosed">
                   <TabList mb="1em">
                     <Tab>
@@ -1412,7 +1456,7 @@ function SearchPatient(props) {
                       </Grid>
                     </TabPanel>
                     <TabPanel>
-                      <Container maxW="container.lg" px={20}>
+                      <Box px={40}>
                         <AddComment patientId={id} user={user?.userId} />
 
                         <Box>
@@ -1440,11 +1484,11 @@ function SearchPatient(props) {
                             );
                           })}
                         </Box>
-                      </Container>
+                      </Box>
                     </TabPanel>
                   </TabPanels>
                 </Tabs>
-              </Container>
+              </Box>
             </>
           );
         })}
