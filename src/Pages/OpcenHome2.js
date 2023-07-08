@@ -135,17 +135,18 @@ function OpcenHome2(props) {
   function homeOpcen() {
     navigate("/opcen");
   }
-  const handleAcceptPatient = (patId) => {
-    Swal.fire({
+  const handleAcceptPatient = async (patId) => {
+    const result = await Swal.fire({
       text: "Are you sure you want to accept this patient?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Accept",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        let response = await api.post("/accept_referred_patient.php", {
+    });
+    if (result.isConfirmed) {
+      try {
+        const response = await api.post("/accept_referred_patient.php", {
           patId: patId,
         });
 
@@ -154,8 +155,10 @@ function OpcenHome2(props) {
         } else {
           Swal.fire("Error!", "Something went wrong. Try again!", "error");
         }
+      } catch (error) {
+        Swal.fire("Error!", "Something went wrong. Try again!", "error");
       }
-    });
+    }
   };
 
   const submit = async () => {
@@ -262,8 +265,8 @@ function OpcenHome2(props) {
     }
   };
 
-  const cancelReferral = (id) => {
-    Swal.fire({
+  const cancelReferral = async (id) => {
+    const result = await Swal.fire({
       text: "Please indicate reason for cancelling the referral",
       icon: "warning",
       input: "textarea",
@@ -276,9 +279,11 @@ function OpcenHome2(props) {
           Swal.showValidationMessage(`Request failed`);
         }
       },
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        let res = await api.post("/cancel_referred_patient.php", {
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const res = await api.post("/cancel_referred_patient.php", {
           id: id,
           reason: result.value,
         });
@@ -288,13 +293,18 @@ function OpcenHome2(props) {
             "Cancelled!",
             "You successfully cancelled the referral.",
             "success"
-          );
+          ).then(() => {
+            navigate("/opcen");
+          });
         } else {
           Swal.fire("Error!", "Something went wrong.", "error");
         }
+      } catch (error) {
+        Swal.fire("Error!", "Something went wrong.", "error");
       }
-    });
+    }
   };
+
   useEffect(() => {
     const getHospitals = async () => {
       let response = await api.get("/get_local_hospitals.php");
@@ -524,15 +534,14 @@ function OpcenHome2(props) {
                     </Box>
                   </TabPanel>
                   <TabPanel>
-                    <AddComment patientId={id} user={user?.userId} />
-
-                    <Box>
+                    <Box px={40}>
                       {isLoading ? (
                         <Center>
                           <Spinner />
                         </Center>
                       ) : (
                         <>
+                          <AddComment patientId={id} user={user?.userId} />
                           {remarks.map((el, key) => {
                             return (
                               <>

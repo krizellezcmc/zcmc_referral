@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import { AnimatePresence } from "framer-motion";
 import Layout from "../Components/Layout";
@@ -48,20 +48,20 @@ import Main from "../Pages/Homepage/Main";
 const AnimatedRoutes = () => {
   const { user } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [previousPath, setPreviousPath] = useState("");
 
   useEffect(() => {
     const storedPath = localStorage.getItem("previousPath");
     if (storedPath) {
       setPreviousPath(storedPath);
-
-      // localStorage.removeItem("previousPath");
+      localStorage.removeItem("previousPath");
     }
 
     return () => {
       localStorage.setItem("previousPath", location.pathname);
     };
-  }, []);
+  }, [location.pathname]);
 
   return (
     <AnimatePresence>
@@ -111,6 +111,7 @@ const AnimatedRoutes = () => {
             <Route path="/hospitagubilin/:id" element={<HospiTagubilin />} />
             <Route path="/referrals" element={<Referrals />} />
             <Route path="/referrals/:id" element={<ReferralHome />}></Route>
+            <Route path="/newreferral" element={<ReferralForm />}></Route>
           </Route>
           {/* IPCC Routes */}
           <Route element={<ProtectedRoutes user={user} role="ipcc" />}>
