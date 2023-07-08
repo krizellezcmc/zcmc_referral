@@ -132,7 +132,7 @@ const ReferredPatients = () => {
           >
             Referred Patients
           </Heading>
-          <TbUsers fontSize={30} />
+          <TbUsers fontSize={30} color="teal" />
         </Flex>
         <Box display="flex" justifyContent="space-between" marginBottom={10}>
           <Input
