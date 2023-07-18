@@ -77,16 +77,21 @@ function OpcenHome() {
   // };
 
   let navigate = useNavigate();
-
   const fetchPatients = async (e) => {
-    setIsLoading(true);
-    let pat = await api.get("/get_list.php");
-    setList(pat.data);
+    try {
+      setIsLoading(true);
 
-    let count = await api.get("/get_cancelled.php");
-    setCount(count.data);
+      const [pat, count] = await Promise.all([
+        api.get("/get_list.php"),
+        api.get("/get_cancelled.php"),
+      ]);
 
-    if (pat) {
+      setList(pat.data);
+      setCount(count.data);
+      setIsLoading(false);
+    } catch (error) {
+      // Handle any errors that occurred during the fetch
+      console.error("Error fetching patients:", error);
       setIsLoading(false);
     }
   };

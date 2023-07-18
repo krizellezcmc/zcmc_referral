@@ -29,61 +29,39 @@ function PreTriageHome(props) {
   const [search, setSearch] = useState("");
 
   const patientArrival = async (id) => {
-    Swal.fire({
-      text: "Are you sure?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Confirm",
-    }).then(async (result) => {
+    try {
+      const result = await Swal.fire({
+        text: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm",
+      });
+
       if (result.isConfirmed) {
         setLoad(true);
-        let res = await api.post("/arrived_referred_patient.php", {
+        const res = await api.post("/arrived_referred_patient.php", {
           patId: id,
         });
 
-        if (res) {
-          //   console.log(res.data, data);
-          if (res.data.status === 1) {
-            let details = await api.get("/get_pending_ref.php", {
-              params: { id: id },
-            });
-            if (details) {
-              fetch(
-                "https://script.google.com/macros/s/AKfycbyxewj4ORHUXIxYuxtkxwnapk8DfQjczGG-iX331VhUe3DEBPWdJXOxqwpaOggRGVzITg/exec?action=postData",
-                {
-                  method: "POST",
-                  body: JSON.stringify(details.data),
-                }
-              ).then((response) => {
-                if (response) {
-                  setLoad(false);
-                  Swal.fire("Success!", "Record Successfully.", "success").then(
-                    () => {
-                      window.location.href = "/login";
-                    }
-                  );
-                } else {
-                  Swal.fire("Error!", "Something went wrong.", "error").then(
-                    () => {
-                      window.location.href = "/login";
-                    }
-                  );
-                }
-              });
+        if (res.data && res.data.status === 1) {
+          Swal.fire("Arrived!", "Patient referral arrived.", "success").then(
+            () => {
+              getList();
             }
-          } else {
-            Swal.fire("Error!", "Something went wrong.", "error");
-          }
+          );
+          // Use the 'details' data as needed
         } else {
-          console.log("Something went wrong!");
+          Swal.fire("Error!", "Something went wrong.", "error");
         }
       }
-    });
+    } catch (error) {
+      console.error("Error processing patient arrival:", error);
+    }
   };
+
   const getList = async () => {
-    setIsLoading(true);
     let response = await api.get("/get_accepted_triage.php");
     if (response) {
       setList(response.data);

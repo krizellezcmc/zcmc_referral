@@ -237,6 +237,7 @@ const ReferralForm = () => {
         meds: meds,
         lab: lab,
       });
+      console.log(response);
 
       if (response.data.status === 1) {
         setLastName("");
