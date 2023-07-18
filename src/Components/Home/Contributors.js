@@ -23,16 +23,16 @@ const profile = [
     name: "Krizelle Mae B. Falcasantos",
     posiiton: "Software Developer",
   },
-  {
-    image: doc_ori,
-    name: "Dr. Orissa Alpuerto",
-    posiiton: "Medical Officer III",
-  },
-  {
-    image: doc_kathy,
-    name: "Dr. Katherine Lim-Eisma",
-    posiiton: "Medical Officer III",
-  },
+  // {
+  //   image: doc_ori,
+  //   name: "Dr. Orissa Alpuerto",
+  //   posiiton: "Medical Officer III",
+  // },
+  // {
+  //   image: doc_kathy,
+  //   name: "Dr. Katherine Lim-Eisma",
+  //   posiiton: "Medical Officer III",
+  // },
 ];
 
 function Contributors(props) {

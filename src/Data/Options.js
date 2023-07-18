@@ -49,6 +49,7 @@ export const specializationList = [
 ];
 
 export const reasonList = [
+  { value: "Patient's Choice", label: "Patient's Choice" },
   { value: "Financially Constrained", label: "Financially Constrained" },
   {
     value: "No specialist/procedure available",

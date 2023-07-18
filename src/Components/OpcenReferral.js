@@ -48,6 +48,8 @@ function OpcenReferral(props) {
   const [age, setAge] = useState("");
 
   const [civilStatus, setCivilStatus] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   const [nationality, setNationality] = useState("");
   const [religion, setReligion] = useState("");
   const [occupation, setOccupation] = useState("");
@@ -223,6 +225,8 @@ function OpcenReferral(props) {
           age: getAge(birthdate),
           civilStatus: civilStatus,
           nationality: nationality,
+          height: height,
+          weight: weight,
           religion: religion,
           occupation: occupation,
           philhealth: philhealth,
@@ -397,6 +401,38 @@ function OpcenReferral(props) {
               </FormControl>
             </HStack>
             <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>
+                  Height{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in cm)
+                  </span>
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={occupation}
+                  onChange={(e) => setHeight(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>
+                  Weight{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in kg)
+                  </span>
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={occupation}
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+              </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Religion</FormLabel>
                 <Select

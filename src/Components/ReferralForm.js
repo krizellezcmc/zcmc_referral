@@ -28,6 +28,15 @@ import "../Styles/ReferralForm.css";
 import moment from "moment";
 import uniqid from "uniqid";
 import api from "../API/Api";
+import {
+  sexList,
+  religionList,
+  civilStatusList,
+  refTypeList,
+  specializationList,
+  dispositionList,
+  reasonList,
+} from "../Data/Options";
 
 const ReferralForm = () => {
   const newDate = moment().format("LLL");
@@ -41,6 +50,8 @@ const ReferralForm = () => {
   const [sex, setSex] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [age, setAge] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   // const [newAge, setNewAge] = useState(getAge(age));
 
   const [civilStatus, setCivilStatus] = useState("");
@@ -70,6 +81,12 @@ const ReferralForm = () => {
   const [bowList, setBowList] = useState([]);
 
   const [choose, setChoose] = useState("");
+
+  const [hpi, setHPI] = useState("");
+  const [ppf, setPPF] = useState("");
+  const [ivf, setIVF] = useState("");
+  const [meds, setMeds] = useState("");
+  const [lab, setLab] = useState("");
 
   // FOR OB CASES
   const [lmp, setLmp] = useState("");
@@ -178,10 +195,12 @@ const ReferralForm = () => {
         middlename: middlename,
         extendedName: extendedName,
         sex: sex,
-        birthdate: !birthdate ? "no bday" : birthdate,
+        birthdate: !birthdate ? "No Birthdate" : birthdate,
         age: !birthdate ? age : getAge(birthdate),
         civilStatus: civilStatus,
         nationality: nationality,
+        height: height,
+        weight: weight,
         religion: religion,
         occupation: occupation,
         philhealth: philhealth,
@@ -212,6 +231,11 @@ const ReferralForm = () => {
         apgar: apgar,
         newIe: JSON.stringify(ie),
         newBowList: JSON.stringify(bowList),
+        hpi: hpi,
+        ppf: ppf,
+        ivf: ivf,
+        meds: meds,
+        lab: lab,
       });
 
       if (response.data.status === 1) {
@@ -224,6 +248,8 @@ const ReferralForm = () => {
         setAge("");
         setCivilStatus("");
         setNationality("");
+        setHeight("");
+        setWeight("");
         setReligion("");
         setOccupation("");
         setPhilhealth("");
@@ -253,6 +279,11 @@ const ReferralForm = () => {
         setFh("");
         setIe("");
         setBowList("");
+        setHPI("");
+        setPPF("");
+        setIVF("");
+        setMeds("");
+        setLab("");
         toast({
           position: "top",
           title: "Record successfully.",
@@ -393,9 +424,11 @@ const ReferralForm = () => {
                   <option value="" selected disabled>
                     Please Select
                   </option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
+                  {sexList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
               <FormControl isRequired>
@@ -408,11 +441,11 @@ const ReferralForm = () => {
                   <option value="" selected disabled>
                     Please Select
                   </option>
-                  <option value="Single">Single</option>
-                  <option value="Married">Married</option>
-                  <option value="Separated">Separated</option>
-                  <option value="Widow(er)">Widow(er)</option>
-                  <option value="Other">Other</option>
+                  {civilStatusList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
               <FormControl>
@@ -427,6 +460,38 @@ const ReferralForm = () => {
             </HStack>
             <HStack mt={5}>
               <FormControl>
+                <FormLabel fontSize={14}>
+                  Height{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in cm)
+                  </span>
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={occupation}
+                  onChange={(e) => setHeight(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>
+                  Weight{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in kg)
+                  </span>
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={occupation}
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
                 <FormLabel fontSize={14}>Religion</FormLabel>
                 <Select
                   variant="filled"
@@ -436,10 +501,11 @@ const ReferralForm = () => {
                   <option value="" selected disabled>
                     Please Select
                   </option>
-                  <option value="Roman Catholic">Roman Catholic</option>
-                  <option value="Islam">Islam</option>
-                  <option value="Protestant">Protestant</option>
-                  <option value="Other">Other</option>
+                  {religionList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
               <FormControl>
@@ -536,9 +602,11 @@ const ReferralForm = () => {
                   <option value="" selected disabled>
                     Please Select
                   </option>
-                  <option value="COVID">COVID</option>
-                  <option value="NON-COVID">NON-COVID</option>
-                  <option value="COVID-SUSPECT">COVID-SUSPECT</option>
+                  {refTypeList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
               {referralType === "COVID" ? (
@@ -552,10 +620,11 @@ const ReferralForm = () => {
                     <option value="" selected disabled>
                       Please Select
                     </option>
-                    <option value="Moderate">Moderate</option>
-                    <option value="Mild">Mild</option>
-                    <option value="Severe">Severe</option>
-                    <option value="Critical">Critical</option>
+                    {dispositionList.map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.label}
+                      </option>
+                    ))}
                   </Select>
                 </FormControl>
               ) : (
@@ -572,13 +641,11 @@ const ReferralForm = () => {
                   <option value="" disabled selected>
                     Please Select
                   </option>
-                  <option value="Internal Medicine">Internal Medicine</option>
-                  <option value="Pediatrics">Pediatrics</option>
-                  <option value="Surgery">Surgery</option>
-                  <option value="Obstetrics And Gynecology">
-                    Obstetrics And Gynecology
-                  </option>
-                  <option value="Psychiatry">Psychiatry</option>
+                  {specializationList.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
             </HStack>
@@ -865,17 +932,61 @@ const ReferralForm = () => {
                 <option value="" disabled selected>
                   Please Select
                 </option>
-                <option value="Financially Constrained">
-                  Financially Constrained
-                </option>
-                <option value="No specialist/procedure available">
-                  No specialist/procedure available
-                </option>
-                <option value="Further evaluation and management">
-                  Further evaluation and management
-                </option>
-                <option value="For Tertiary Care">For Tertiary Care</option>
+                {reasonList.map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
               </Select>
+            </FormControl>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>History Present Illness</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={hpi}
+                  onChange={(e) => setHPI(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Pertinent PE Findings</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={ppf}
+                  onChange={(e) => setPPF(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>IVF</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={ivf}
+                  onChange={(e) => setIVF(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>Medications</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="filled"
+                  value={meds}
+                  onChange={(e) => setMeds(e.target.value)}
+                />
+              </FormControl>
+            </HStack>
+            <FormControl mt={5}>
+              <FormLabel fontSize={14}>Laboratory</FormLabel>
+              <Textarea
+                type="text"
+                variant="filled"
+                value={lab}
+                onChange={(e) => setLab(e.target.value)}
+              />
             </FormControl>
             <FormControl isRequired mt={5}>
               <FormLabel fontSize={14}>Please indicate your FULLNAME</FormLabel>

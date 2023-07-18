@@ -57,6 +57,8 @@ const AddReferral = () => {
   const [birthdate, setBirthdate] = useState("");
   const [age, setAge] = useState("");
   const [hospitals, setHospitals] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
 
   const [civilStatus, setCivilStatus] = useState("");
   const [nationality, setNationality] = useState("");
@@ -221,6 +223,8 @@ const AddReferral = () => {
             age: !birthdate ? age : getAge(birthdate),
             civilStatus: civilStatus,
             nationality: nationality,
+            height: height,
+            weight: weight,
             religion: religion,
             occupation: occupation,
             philhealth: philhealth,
@@ -463,6 +467,38 @@ const AddReferral = () => {
               </FormControl>
             </HStack>
             <HStack mt={5}>
+              <FormControl>
+                <FormLabel fontSize={14}>
+                  Height{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in cm)
+                  </span>
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={occupation}
+                  onChange={(e) => setHeight(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>
+                  Weight{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in kg)
+                  </span>
+                </FormLabel>
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={occupation}
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+              </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Religion</FormLabel>
                 <Select
