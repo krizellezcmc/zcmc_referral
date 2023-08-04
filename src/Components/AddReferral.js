@@ -41,7 +41,7 @@ import {
 import api from "../API/Api";
 
 import { Select } from "chakra-react-select";
-import { BiArrowBack, BiSend } from "react-icons/bi";
+import { BiSend } from "react-icons/bi";
 import Swal from "sweetalert2";
 
 const AddReferral = () => {
@@ -391,7 +391,7 @@ const AddReferral = () => {
                   useBasicStyles
                 />
               </FormControl>
-              {choose == 1 ? (
+              {choose === 1 ? (
                 <>
                   <FormControl isRequired>
                     <FormLabel fontSize={14}>Birthday</FormLabel>
@@ -477,9 +477,9 @@ const AddReferral = () => {
                   </span>
                 </FormLabel>
                 <Input
-                  type="text"
+                  type="number"
                   variant="filled"
-                  value={occupation}
+                  value={height}
                   onChange={(e) => setHeight(e.target.value)}
                 />
               </FormControl>
@@ -493,9 +493,9 @@ const AddReferral = () => {
                   </span>
                 </FormLabel>
                 <Input
-                  type="text"
+                  type="number"
                   variant="filled"
-                  value={occupation}
+                  value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                 />
               </FormControl>

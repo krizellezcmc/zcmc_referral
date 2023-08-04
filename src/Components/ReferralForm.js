@@ -378,7 +378,7 @@ const ReferralForm = () => {
                   <option value="0">No birthdate</option>
                 </Select>
               </FormControl>
-              {choose == 1 ? (
+              {choose === 1 ? (
                 <>
                   <FormControl isRequired>
                     <FormLabel fontSize={14}>Birthday</FormLabel>
@@ -470,9 +470,9 @@ const ReferralForm = () => {
                   </span>
                 </FormLabel>
                 <Input
-                  type="text"
+                  type="number"
                   variant="filled"
-                  value={occupation}
+                  value={height}
                   onChange={(e) => setHeight(e.target.value)}
                 />
               </FormControl>
@@ -486,9 +486,9 @@ const ReferralForm = () => {
                   </span>
                 </FormLabel>
                 <Input
-                  type="text"
+                  type="number"
                   variant="filled"
-                  value={occupation}
+                  value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                 />
               </FormControl>

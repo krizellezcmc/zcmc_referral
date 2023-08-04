@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   Badge,
   Button,
-  InputGroup,
-  InputLeftElement,
   Input,
   useDisclosure,
   Modal,
@@ -30,7 +21,6 @@ import {
   MenuItem,
   MenuList,
   Center,
-  Container,
   Flex,
   Heading,
 } from "@chakra-ui/react";
@@ -40,7 +30,6 @@ import {
   BiCalendarEvent,
   BiChevronDown,
   BiFile,
-  BiSearch,
   BiStats,
   BiUser,
 } from "react-icons/bi";
@@ -74,7 +63,6 @@ const ReferredPatients = () => {
   let navigate = useNavigate();
   const [isLoadingDetails, setIsLoadingDetails] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [refpatients, setRefPatients] = useState([]);
   const [hospital, setHospital] = useState("");
   const [patients, setPatients] = useState([]);
   const [details, setDetails] = useState([]);
@@ -182,7 +170,11 @@ const ReferredPatients = () => {
 
             {patients.length === 0 ? (
               <Box align="center" p={5} bgColor="white">
-                <img src={inbox} style={{ marginBottom: 5 }} />
+                <img
+                  src={inbox}
+                  style={{ marginBottom: 5 }}
+                  alt="nothing to show"
+                />
                 <Text textAlign="center" fontSize={13} color="#9DB2BF">
                   Nothing to show
                 </Text>
@@ -283,9 +275,6 @@ const ReferredPatients = () => {
                           </Menu>
                         </Box>
                       </Flex>
-                      <Tr key={key}>
-                        <Td paddingTop="0" paddingBottom="0 "></Td>
-                      </Tr>
                     </>
                   ) : (
                     ""

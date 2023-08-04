@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Text,
-  Container,
   Box,
   FormControl,
   FormLabel,
@@ -82,7 +81,6 @@ function OpcenReferral(props) {
   const [fh, setFh] = useState("");
   const [apgar, setApgar] = useState("");
   const [bowList, setBowList] = useState([]);
-  const [gp, setGp] = useState(["", "", ""]);
   const [getGp, setGetGP] = useState(["", "", ""]);
   const [ie, setIe] = useState([
     {
@@ -97,10 +95,7 @@ function OpcenReferral(props) {
   const [ivf, setIVF] = useState("");
   const [meds, setMeds] = useState("");
   const [lab, setLab] = useState("");
-  // const [newIe, setNewIe] = useState("");
-  // const [newBowList, setNewBowList] = useState("");
-  // const [newGp, setNewGp] = useState("");
-  const toast = useToast();
+
   const [load, setLoad] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
@@ -411,9 +406,9 @@ function OpcenReferral(props) {
                   </span>
                 </FormLabel>
                 <Input
-                  type="text"
+                  type="number"
                   variant="filled"
-                  value={occupation}
+                  value={height}
                   onChange={(e) => setHeight(e.target.value)}
                 />
               </FormControl>
@@ -427,9 +422,9 @@ function OpcenReferral(props) {
                   </span>
                 </FormLabel>
                 <Input
-                  type="text"
+                  type="number"
                   variant="filled"
-                  value={occupation}
+                  value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                 />
               </FormControl>
