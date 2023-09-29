@@ -1,5 +1,4 @@
 import {
-  AspectRatio,
   Box,
   Button,
   Flex,
@@ -13,7 +12,6 @@ import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import DashboardTile from "../Components/DashboardTile";
 import Reason from "../Components/Charts/Reason";
-import SamplePie from "../Components/Charts/SpecializationChart";
 import TopReferrals from "../Components/Charts/TopReferrals";
 import { VscGraph } from "react-icons/vsc";
 import { BiBed, BiBuilding } from "react-icons/bi";

@@ -4,7 +4,7 @@ import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import ReferralForm from "../Components/ReferralForm";
 import SearchPatient from "../Components/SearchPatient";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { BiRefresh, BiSearch } from "react-icons/bi";
 
 function Home() {

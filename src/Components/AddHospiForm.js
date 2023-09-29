@@ -13,8 +13,6 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  InputGroup,
-  InputLeftElement,
   Center,
   Text,
   Heading,
@@ -22,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import "../Styles/Table.css";
 import api from "../API/Api";
-import { BiRefresh, BiSave, BiSearch } from "react-icons/bi";
+import { BiRefresh, BiSave } from "react-icons/bi";
 import Loading from "./Spinner";
 import { TbBuildingHospital } from "react-icons/tb";
 

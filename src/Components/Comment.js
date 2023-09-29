@@ -14,77 +14,79 @@ import React from "react";
 function Comment(props) {
   return (
     <div>
-      <Box my={5} w="100%" bgColor="white" p={3} borderRadius="2xl">
-        <HStack>
-          <Avatar
-            name={props.user}
-            src="https://bit.ly/broken-link"
-            size="md"
-          />
-          <Stack textAlign="start">
-            <div>
-              <HStack>
-                <Text fontSize="14px" fontWeight="600">
-                  {props.user}
+      <>
+        <Box my={5} w="100%" bgColor="white" p={3} borderRadius="2xl">
+          <HStack>
+            <Avatar
+              name={props.user}
+              src="https://bit.ly/broken-link"
+              size="md"
+            />
+            <Stack textAlign="start">
+              <div>
+                <HStack>
+                  <Text fontSize="14px" fontWeight="600">
+                    {props.user}
+                  </Text>
+                  <Circle size="5px" bg="gray.600" />
+                  <Text fontSize="12px">
+                    {moment(props.date).startOf().fromNow()}
+                  </Text>
+                </HStack>
+                <Text fontSize="12px" color="gray.600">
+                  {props.dept}
                 </Text>
-                <Circle size="5px" bg="gray.600" />
-                <Text fontSize="12px">
-                  {moment(props.date).startOf().fromNow()}
-                </Text>
-              </HStack>
-              <Text fontSize="12px" color="gray.600">
-                {props.dept}
-              </Text>
-            </div>
-          </Stack>
-          <Spacer />
-          <Text
-            fontSize="12px"
-            fontStyle="italic"
-            fontWeight="500"
-            color="gray.600"
-          >
-            {/* {props.date} */}
-            {moment(props.date).format("LLL")}
-          </Text>
-        </HStack>
-
-        <Box>
-          <span style={{ whiteSpace: "pre-wrap" }}>
-            <Text mt={5} ml={14} fontSize="14px" textAlign="justify">
-              {props.remark}
-            </Text>
-          </span>
-        </Box>
-
-        {/* {props.file !== null ? (
-          <Box
-            ml={14}
-            mt={5}
-            display="flex"
-            alignItems="center"
-            bg="blue.100"
-            w="fit-content"
-            p={1.5}
-            pr={4}
-            rounded="3"
-            shadow="sm"
-          >
-            <Link
-              fontSize={13}
-              pl={3}
-              href={props.file}
-              target="_blank"
-              _hover={{ textDecoration: "none" }}
-              fontWeight={600}
+              </div>
+            </Stack>
+            <Spacer />
+            <Text
+              fontSize="12px"
+              fontStyle="italic"
+              fontWeight="500"
+              color="gray.600"
             >
-              View attachment
-            </Link>
+              {/* {props.date} */}
+              {moment(props.date).format("LLL")}
+            </Text>
+          </HStack>
+
+          <Box>
+            <span style={{ whiteSpace: "pre-wrap" }}>
+              <Text mt={5} ml={14} fontSize="14px" textAlign="justify">
+                {props.remark}
+              </Text>
+            </span>
           </Box>
-        ) : (
-          ""
-        )} */}
-      </Box>
+          {props.file !== null ? (
+            <Box
+              ml={14}
+              mt={5}
+              display="flex"
+              alignItems="center"
+              bg="green.100"
+              w="fit-content"
+              p={1.5}
+              pr={4}
+              rounded="5"
+              shadow="sm"
+            >
+              <Link
+                fontSize={13}
+                pl={3}
+                href={props.file}
+                target="_blank"
+                _hover={{ textDecoration: "none" }}
+                fontWeight={600}
+              >
+                {props.filename}
+              </Link>
+            </Box>
+          ) : (
+            ""
+          )}
+        </Box>
+      </>
+
       <hr />
     </div>
   );

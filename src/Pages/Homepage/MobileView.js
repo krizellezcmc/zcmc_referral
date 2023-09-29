@@ -35,8 +35,8 @@ function MobileView(props) {
         <section id="services" />
         <Specialization />
 
-        <section id="team" />
-        <Team />
+        {/* <section id="team" />
+        <Team /> */}
 
         <section id="faqs" />
         <FAQs />

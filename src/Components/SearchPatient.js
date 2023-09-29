@@ -160,7 +160,6 @@ function SearchPatient(props) {
     const selectedId = data[0];
     setId(selectedId);
     setStatus(data[3]);
-    console.log(selectedId);
 
     const refDate = moment(data[2]).format("YYYY-MM-DD hh:mm");
 
@@ -1554,6 +1553,8 @@ function SearchPatient(props) {
                                     dept={
                                       "Zamboanga City Medical Center (OPCEN)"
                                     }
+                                    file={el.path}
+                                    filename={el.fileName}
                                   />
                                 ) : (
                                   <Comment
@@ -1561,6 +1562,8 @@ function SearchPatient(props) {
                                     date={el.remark_tstamp}
                                     user={el.firstName + " " + el.lastName}
                                     dept={el.name}
+                                    file={el.path}
+                                    filename={el.fileName}
                                   />
                                 )}
                               </>

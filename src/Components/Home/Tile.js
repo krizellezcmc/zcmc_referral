@@ -1,4 +1,4 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 
 function Tile({ bgColor, image, name }) {
@@ -15,7 +15,7 @@ function Tile({ bgColor, image, name }) {
           p={7}
           align="center"
         >
-          <img src={image} width={{ xs: "40px", lg: "64px" }} />
+          <img src={image} width={{ xs: "40px", lg: "64px" }} alt="tile" />
         </Box>
         <Text
           mt={4}

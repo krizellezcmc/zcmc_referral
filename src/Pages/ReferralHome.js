@@ -17,10 +17,7 @@ import {
 } from "@chakra-ui/react";
 import AddComment from "../Components/AddComment";
 import Comment from "../Components/Comment";
-
 import useAuth from "../Hooks/useAuth";
-
-import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 import { useParams, useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";

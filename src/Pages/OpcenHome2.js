@@ -6,7 +6,6 @@ import OpcenReferral from "../Components/OpcenReferral";
 import {
   Badge,
   Box,
-  Container,
   Tab,
   TabList,
   TabPanel,
@@ -28,7 +27,6 @@ import {
   Textarea,
   useToast,
   Center,
-  GridItem,
   Flex,
 } from "@chakra-ui/react";
 import Spinner from "../Components/Spinner";
@@ -162,7 +160,7 @@ function OpcenHome2(props) {
   };
 
   const submit = async () => {
-    if (selectRef == "") {
+    if (selectRef === "") {
       toast({
         position: "top",
         title: "Kindly select hospital to proceed.",
@@ -542,31 +540,36 @@ function OpcenHome2(props) {
                       ) : (
                         <>
                           <AddComment patientId={id} user={user?.userId} />
-                          {remarks.map((el, key) => {
-                            return (
-                              <>
-                                {el.role === "opcen" ? (
-                                  <Comment
-                                    remark={el.remark}
-                                    date={el.remark_tstamp}
-                                    user={el.firstName + " " + el.lastName}
-                                    dept={
-                                      "Zamboanga City Medical Center (OPCEN)"
-                                    }
-                                    file={el.attachment}
-                                  />
-                                ) : (
-                                  <Comment
-                                    remark={el.remark}
-                                    date={el.remark_tstamp}
-                                    user={el.firstName + " " + el.lastName}
-                                    dept={el.name}
-                                    file={el.attachment}
-                                  />
-                                )}
-                              </>
-                            );
-                          })}
+
+                          {remarks
+                            ? remarks.map((el, key) => {
+                                return (
+                                  <>
+                                    {el.role === "opcen" ? (
+                                      <Comment
+                                        remark={el.remark}
+                                        date={el.remark_tstamp}
+                                        user={el.firstName + " " + el.lastName}
+                                        dept={
+                                          "Zamboanga City Medical Center (OPCEN)"
+                                        }
+                                        file={el.path}
+                                        filename={el.fileName}
+                                      />
+                                    ) : (
+                                      <Comment
+                                        remark={el.remark}
+                                        date={el.remark_tstamp}
+                                        user={el.firstName + " " + el.lastName}
+                                        dept={el.name}
+                                        file={el.path}
+                                        filename={el.fileName}
+                                      />
+                                    )}
+                                  </>
+                                );
+                              })
+                            : ""}
                         </>
                       )}
                     </Box>

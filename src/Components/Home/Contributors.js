@@ -4,8 +4,6 @@ import ProfileTile from "./ProfileTile";
 import sir_john from "../../Assets/Profile/sir_john.png";
 import yana from "../../Assets/Profile/yana.png";
 import kriz from "../../Assets/Profile/kriz.png";
-import doc_kathy from "../../Assets/Profile/doc_kathy.png";
-import doc_ori from "../../Assets/Profile/doc_ori.png";
 
 const profile = [
   {

@@ -39,7 +39,6 @@ import Loading from "../Components/Spinner";
 import {
   TbBuildingHospital,
   TbCheckupList,
-  TbTransferIn,
   TbTransferOut,
 } from "react-icons/tb";
 import moment from "moment";

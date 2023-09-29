@@ -31,8 +31,6 @@ import {
   BiLock,
   BiClinic,
   BiUserCheck,
-  BiTrash,
-  BiSearch,
   BiUserX,
 } from "react-icons/bi";
 import { GoCheck, GoX } from "react-icons/go";

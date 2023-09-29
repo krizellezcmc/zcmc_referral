@@ -1,12 +1,19 @@
 import React from "react";
-import { Box, HStack, Text, Badge, Divider, Flex } from "@chakra-ui/react";
+import { Box, Text, Badge, Divider, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { BsFillCircleFill, BsFlag, BsFlagFill } from "react-icons/bs";
+import api from "../API/Api";
 
 function OpcenTable(props) {
   let navigate = useNavigate();
-  const naviOpcenH2 = (id) => {
-    navigate({ pathname: "/opcenhome/" + id });
+  const naviOpcenH2 = async (id) => {
+    let response = await api.post("/remove_flag.php", { id: id });
+    if (response.data.status === 1) {
+      navigate({ pathname: "/opcenhome/" + id });
+    } else {
+      console.log(response.data);
+    }
   };
 
   return (
@@ -27,7 +34,16 @@ function OpcenTable(props) {
           naviOpcenH2(props.value);
         }}
         py={3}
+        backgroundColor={props.isFlag === 1 ? "green.50" : "white"}
       >
+        {props.isFlag === 1 ? (
+          <Box pl={5}>
+            <BsFillCircleFill color="green" size={15} />
+          </Box>
+        ) : (
+          ""
+        )}
+
         <Box w="full" textAlign="center">
           <Text fontWeight="900" fontSize="13px">
             {props.name}

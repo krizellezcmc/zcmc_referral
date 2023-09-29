@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -16,18 +16,11 @@ import {
   Stack,
   Image,
   useToast,
-  Icon,
 } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import api from "../API/Api";
 import { HiEye, HiEyeOff, HiOutlineMail } from "react-icons/hi";
-import {
-  BiArrowBack,
-  BiChevronLeft,
-  BiChevronLeftCircle,
-  BiLeftArrowCircle,
-  BiLockAlt,
-} from "react-icons/bi";
+import { BiChevronLeft, BiLockAlt } from "react-icons/bi";
 import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import zcmc from "../Assets/zcmc-building.png";

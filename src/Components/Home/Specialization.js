@@ -1,11 +1,4 @@
-import {
-  Box,
-  Center,
-  Container,
-  SimpleGrid,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Box, Center, Container, Wrap, WrapItem } from "@chakra-ui/react";
 import React from "react";
 import Tile from "./Tile";
 import im from "../../Assets/Services/im.png";

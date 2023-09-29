@@ -1,7 +1,6 @@
 import React from "react";
 import "../Styles/Report.css";
 import "../Styles/DisplayReport.css";
-import { width } from "@mui/system";
 
 function TagubilinDownload(props) {
   return (

@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import api from "../API/Api";
 import { useNavigate } from "react-router-dom";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   Badge,
   IconButton,
   InputLeftElement,
@@ -28,18 +21,12 @@ import {
   Box,
   GridItem,
   Grid,
-  VStack,
-  HStack,
   Spacer,
-  Link,
   Center,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Textarea,
   useToast,
-  Container,
   Alert,
   AlertTitle,
   AlertIcon,
@@ -48,7 +35,6 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import moment from "moment";
-import axios from "axios";
 import "../Styles/Patients.css";
 import "../Styles/Table.css";
 import { Select } from "chakra-react-select";
@@ -262,7 +248,7 @@ const PatientsList = (props) => {
                 boxShadow="sm"
                 borderRadius="sm"
               >
-                <img src={inbox} style={{ marginBottom: 5 }} />
+                <img src={inbox} alt="inbox" style={{ marginBottom: 5 }} />
                 <Text fontSize={13} color="#9DB2BF">
                   Nothing to show
                 </Text>

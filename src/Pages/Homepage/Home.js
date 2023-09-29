@@ -17,11 +17,10 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { BiX, BiMenu, BiUpArrowAlt } from "react-icons/bi";
+import { BiMenu, BiUpArrowAlt } from "react-icons/bi";
 import logo from "../../Assets/OHCC.png";
 import { BsArrowRight } from "react-icons/bs";
 import Partners from "../../Components/Home/Partners";
-import Team from "../../Components/Home/Team";
 
 const navItem = [
   {
@@ -40,10 +39,10 @@ const navItem = [
     name: "Services",
     href: "services",
   },
-  {
-    name: "Team",
-    href: "team",
-  },
+  // {
+  //   name: "Team",
+  //   href: "team",
+  // },
   {
     name: "FAQs",
     href: "faqs",
@@ -203,13 +202,13 @@ function Home(props) {
             <Partners />
           </section>
 
-          <section id="services" style={{ height: "100vh" }}>
+          <section id="services">
             <Specialization />
           </section>
 
-          <section id="team">
+          {/* <section id="team">
             <Team />
-          </section>
+          </section> */}
 
           <section id="faqs">
             <FAQs />

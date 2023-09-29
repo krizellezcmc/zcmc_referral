@@ -9,15 +9,11 @@ import {
   HStack,
   Button,
   Textarea,
-  Select,
   useToast,
   Checkbox,
-  Flex,
   Spacer,
-  Link,
   useDisclosure,
   Center,
-  IconButton,
   Badge,
 } from "@chakra-ui/react";
 import api from "../API/Api";
@@ -45,6 +41,8 @@ function AdmissionReferral(props) {
 
   const [civilStatus, setCivilStatus] = useState("");
   const [nationality, setNationality] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   const [religion, setReligion] = useState("");
   const [occupation, setOccupation] = useState("");
   const [philhealth, setPhilhealth] = useState("");
@@ -97,17 +95,6 @@ function AdmissionReferral(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
 
-  function getAge(dateString) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  }
-
   const refData = async () => {
     setIsLoading(true);
     let response = await api.get("/get_pending_ref.php", {
@@ -124,8 +111,11 @@ function AdmissionReferral(props) {
       setExtendedName(response.data.extended);
       setSex(response.data.sex);
       setBirthdate(response.data.birthdate);
+      setAge(response.data.age);
       setCivilStatus(response.data.civilStatus);
       setNationality(response.data.nationality);
+      setWeight(response.data.weight);
+      setHeight(response.data.height);
       setReligion(response.data.religion);
       setOccupation(response.data.occupation);
       setPhilhealth(response.data.philhealth);
@@ -281,13 +271,22 @@ function AdmissionReferral(props) {
             <HStack mt={5}>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Birthday</FormLabel>
-                <HStack>
-                  <Input
-                    isReadOnly
-                    variant="filled"
-                    value={moment(birthdate).format("ll")}
-                  />
-                </HStack>
+
+                <Input
+                  isReadOnly
+                  variant="filled"
+                  value={moment(birthdate).format("ll")}
+                />
+              </FormControl>
+              <FormControl isRequired width={60}>
+                <FormLabel fontSize={14}>Age</FormLabel>
+
+                <Input
+                  type="text"
+                  variant="filled"
+                  value={age}
+                  // onChange={(e) => setBirthdate(e.target.value)}
+                />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>Sex</FormLabel>
@@ -304,41 +303,43 @@ function AdmissionReferral(props) {
             </HStack>
             <HStack mt={5}>
               <FormControl>
+                <FormLabel fontSize={14}>
+                  Height{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in cm)
+                  </span>
+                </FormLabel>
+                <Input type="number" variant="filled" value={height} />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize={14}>
+                  Weight{" "}
+                  <span
+                    style={{ color: "red", fontStyle: "italic", fontSize: 11 }}
+                  >
+                    (in kg)
+                  </span>
+                </FormLabel>
+                <Input type="number" variant="filled" value={weight} />
+              </FormControl>
+              <FormControl>
                 <FormLabel fontSize={14}>Religion</FormLabel>
-                <Input
-                  isReadOnly
-                  variant="filled"
-                  value={religion}
-                  onChange={(e) => setReligion(e.target.value)}
-                />
+                <Input isReadOnly variant="filled" value={religion} />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Occupation</FormLabel>
-                <Input
-                  isReadOnly
-                  variant="filled"
-                  value={occupation}
-                  onChange={(e) => setOccupation(e.target.value)}
-                />
+                <Input isReadOnly variant="filled" value={occupation} />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>PhilHealth</FormLabel>
-                <Input
-                  isReadOnly
-                  variant="filled"
-                  value={philhealth}
-                  onChange={(e) => setPhilhealth(e.target.value)}
-                />
+                <Input isReadOnly variant="filled" value={philhealth} />
               </FormControl>
             </HStack>
             <FormControl mt={5}>
               <FormLabel fontSize={14}>Address</FormLabel>
-              <Textarea
-                isReadOnly
-                variant="filled"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
+              <Textarea isReadOnly variant="filled" value={address} />
             </FormControl>
           </Box>
           <Box
@@ -406,12 +407,7 @@ function AdmissionReferral(props) {
 
               <FormControl>
                 <FormLabel fontSize={14}>Specialization</FormLabel>
-                <Input
-                  isReadOnly
-                  variant="filled"
-                  value={specialization}
-                  onChange={(e) => setSpecialization(e.target.value)}
-                />
+                <Input isReadOnly variant="filled" value={specialization} />
               </FormControl>
             </HStack>
             {specialization === "Obstetrics And Gynecology" ? (
@@ -474,63 +470,29 @@ function AdmissionReferral(props) {
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Last Menstrual Period</FormLabel>
-                      <Input
-                        isReadOnly
-                        type="text"
-                        value={lmp}
-                        onChange={(e) => {
-                          setLmp(e.target.value);
-                        }}
-                      />
+                      <Input isReadOnly type="text" value={lmp} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>AOG</FormLabel>
-                      <Input
-                        isReadOnly
-                        type="text"
-                        value={aog}
-                        onChange={(e) => {
-                          setAog(e.target.value);
-                        }}
-                      />
+                      <Input isReadOnly type="text" value={aog} />
                     </FormControl>
                   </HStack>
                   <HStack mt={5}>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>EDC</FormLabel>
-                      <Input
-                        isReadOnly
-                        type="text"
-                        value={edc}
-                        onChange={(e) => setEdc(e.target.value)}
-                      />
+                      <Input isReadOnly type="text" value={edc} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Fetal Heart Tones</FormLabel>
-                      <Input
-                        isReadOnly
-                        type="text"
-                        value={fht}
-                        onChange={(e) => setFht(e.target.value)}
-                      />
+                      <Input isReadOnly type="text" value={fht} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Fundal Height</FormLabel>
-                      <Input
-                        isReadOnly
-                        type="text"
-                        value={fh}
-                        onChange={(e) => setFh(e.target.value)}
-                      />
+                      <Input isReadOnly type="text" value={fh} />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel fontSize={14}>Baby APGAR</FormLabel>
-                      <Input
-                        isReadOnly
-                        type="text"
-                        value={apgar}
-                        onChange={(e) => setApgar(e.target.value)}
-                      />
+                      <Input isReadOnly type="text" value={apgar} />
                     </FormControl>
                   </HStack>
                   <HStack mt={5}>
@@ -611,7 +573,6 @@ function AdmissionReferral(props) {
                   type="text"
                   variant="filled"
                   value={temperature}
-                  onChange={(e) => setTemperature(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired>
@@ -621,7 +582,6 @@ function AdmissionReferral(props) {
                   type="text"
                   variant="filled"
                   value={bloodPressure}
-                  onChange={(e) => setBloodPressure(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired>
@@ -631,7 +591,6 @@ function AdmissionReferral(props) {
                   type="text"
                   variant="filled"
                   value={respiRate}
-                  onChange={(e) => setRespiRate(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired>
@@ -641,20 +600,13 @@ function AdmissionReferral(props) {
                   type="text"
                   variant="filled"
                   value={pulseRate}
-                  onChange={(e) => setPulseRate(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontSize={14}>
                   Latest V/S-Oxygen Saturation
                 </FormLabel>
-                <Input
-                  isReadOnly
-                  type="text"
-                  variant="filled"
-                  value={oxygen}
-                  onChange={(e) => setOxygen(e.target.value)}
-                />
+                <Input isReadOnly type="text" variant="filled" value={oxygen} />
               </FormControl>
             </HStack>
             <HStack mt={5}>
@@ -665,7 +617,6 @@ function AdmissionReferral(props) {
                   type="text"
                   variant="filled"
                   value={glasgow}
-                  onChange={(e) => setGlasgow(e.target.value)}
                 />
               </FormControl>
 
@@ -676,7 +627,6 @@ function AdmissionReferral(props) {
                   type="text"
                   variant="filled"
                   value={userContact}
-                  onChange={(e) => setUserContact(e.target.value)}
                 />
               </FormControl>
             </HStack>
@@ -687,70 +637,36 @@ function AdmissionReferral(props) {
                 type="text"
                 variant="filled"
                 value={endorsement}
-                onChange={(e) => setEndorsement(e.target.value)}
               />
             </FormControl>
             <HStack mt={5}>
               <FormControl>
                 <FormLabel fontSize={14}>Chief Complaints</FormLabel>
-                <Textarea
-                  isReadOnly
-                  variant="filled"
-                  value={chiefComplaints}
-                  onChange={(e) => setChiefComplaints(e.target.value)}
-                />
+                <Textarea isReadOnly variant="filled" value={chiefComplaints} />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Diagnosis</FormLabel>
-                <Textarea
-                  isReadOnly
-                  variant="filled"
-                  value={diagnosis}
-                  onChange={(e) => setDiagnosis(e.target.value)}
-                />
+                <Textarea isReadOnly variant="filled" value={diagnosis} />
               </FormControl>
             </HStack>
             <FormControl mt={5} isRequired>
               <FormLabel fontSize={14}> Reason for Referral</FormLabel>
-              <Input
-                isReadOnly
-                variant="filled"
-                onChange={(e) => setReason(e.target.value)}
-                value={reason}
-              />
+              <Input isReadOnly variant="filled" value={reason} />
             </FormControl>
             <HStack mt={5}>
               <FormControl>
                 <FormLabel fontSize={14}>History Present Illness</FormLabel>
-                <Textarea
-                  isReadOnly
-                  type="text"
-                  variant="filled"
-                  value={hpi}
-                  onChange={(e) => setHPI(e.target.value)}
-                />
+                <Textarea isReadOnly type="text" variant="filled" value={hpi} />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Pertinent PE Findings</FormLabel>
-                <Textarea
-                  isReadOnly
-                  type="text"
-                  variant="filled"
-                  value={ppf}
-                  onChange={(e) => setPPF(e.target.value)}
-                />
+                <Textarea isReadOnly type="text" variant="filled" value={ppf} />
               </FormControl>
             </HStack>
             <HStack mt={5}>
               <FormControl>
                 <FormLabel fontSize={14}>IVF</FormLabel>
-                <Textarea
-                  isReadOnly
-                  type="text"
-                  variant="filled"
-                  value={ivf}
-                  onChange={(e) => setIVF(e.target.value)}
-                />
+                <Textarea isReadOnly type="text" variant="filled" value={ivf} />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={14}>Medications</FormLabel>
@@ -759,19 +675,12 @@ function AdmissionReferral(props) {
                   type="text"
                   variant="filled"
                   value={meds}
-                  onChange={(e) => setMeds(e.target.value)}
                 />
               </FormControl>
             </HStack>
             <FormControl mt={5}>
               <FormLabel fontSize={14}>Laboratory</FormLabel>
-              <Textarea
-                isReadOnly
-                type="text"
-                variant="filled"
-                value={lab}
-                onChange={(e) => setLab(e.target.value)}
-              />
+              <Textarea isReadOnly type="text" variant="filled" value={lab} />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel fontSize={14}> Data inputted by:</FormLabel>

@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  HStack,
-  Icon,
-  Link,
-  Spacer,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Icon, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { SiGmail, SiFacebook } from "react-icons/si";
 import { BiCopyright } from "react-icons/bi";

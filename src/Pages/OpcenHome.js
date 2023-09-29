@@ -31,7 +31,7 @@ import Spinner from "../Components/Spinner";
 import useAuth from "../Hooks/useAuth";
 import Sidebar from "../Components/Sidebar";
 import OpcenTable from "../Components/OpcenTable";
-import { BiArrowFromLeft, BiRefresh, BiSearch } from "react-icons/bi";
+import { BiRefresh, BiSearch } from "react-icons/bi";
 import { BsArrowRightShort } from "react-icons/bs";
 import { TbAmbulance } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
@@ -104,7 +104,7 @@ function OpcenHome() {
   };
 
   const comments = async () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     let comment = await api.get(`/get_comment.php/${selected}`);
     if (comment) {
       setRemarks(comment.data);
@@ -240,7 +240,11 @@ function OpcenHome() {
                             borderRadius="sm"
                             boxShadow="sm"
                           >
-                            <img src={inbox} style={{ marginBottom: 5 }} />
+                            <img
+                              src={inbox}
+                              alt="inbox"
+                              style={{ marginBottom: 5 }}
+                            />
                             <Text
                               textAlign="center"
                               fontSize={13}
@@ -281,6 +285,7 @@ function OpcenHome() {
                                       status={e.status}
                                       service={e.specialization}
                                       age={e.age}
+                                      isFlag={e.flags}
                                     />
                                   </>
                                 );
@@ -311,7 +316,11 @@ function OpcenHome() {
                                 p={4}
                               >
                                 <Flex alignItems="center" gap={5} px={1}>
-                                  <img src={patient} width="35px" />
+                                  <img
+                                    src={patient}
+                                    alt="patient"
+                                    width="35px"
+                                  />
                                   <Box>
                                     <Text fontSize={13} fontWeight={700}>
                                       {ref.label + ", " + ref.age} yr/s old
@@ -348,7 +357,7 @@ function OpcenHome() {
                       ) : (
                         <>
                           <Box pb={3} align="center">
-                            <img src={inbox} />
+                            <img src={inbox} alt="inbox" />
                             <Text
                               color="#4C4C4C"
                               mt={3}

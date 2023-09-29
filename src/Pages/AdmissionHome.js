@@ -10,9 +10,6 @@ import {
   Center,
   Button,
   Spinner,
-  Alert,
-  AlertIcon,
-  Spacer,
   Flex,
   Heading,
 } from "@chakra-ui/react";

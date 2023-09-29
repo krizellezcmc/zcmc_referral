@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import {
   Text,
   Flex,
   Box,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Button,
-  useToast,
   Link,
   Center,
-  Stack,
   HStack,
   Kbd,
 } from "@chakra-ui/react";

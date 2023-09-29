@@ -31,7 +31,6 @@ const Sidebar = () => {
   const [role, setRole] = useState("");
   const [open, setOpen] = useState(false);
 
-  const [previousPath, setPreviousPath] = useState("");
   let navigate = useNavigate();
 
   const path = window.location.pathname;
@@ -47,7 +46,6 @@ const Sidebar = () => {
 
   return (
     <div className={open ? "sidebar" : "sidebar close"}>
-      {console.log(location)}
       <div className="sidebar-header">
         <div onClick={() => setOpen(!open)} className="menu-burger">
           {open ? (

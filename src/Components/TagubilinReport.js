@@ -11,15 +11,12 @@ import {
   Container,
   Text,
   Heading,
-  TableContainer,
   Table,
   Tr,
   Td,
   VStack,
   Checkbox,
-  Flex,
   Divider,
-  Spacer,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Prescription from "./Prescription";

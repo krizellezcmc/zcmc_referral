@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardTile from "../Components/DashboardTile";
 import Sidebar from "../Components/Sidebar";
 import Header from "../Components/Header";
-import { Button, HStack, Spacer } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
 import Graphs from "../Components/Graphs";
 import LineChart from "../Components/LineChart";
 

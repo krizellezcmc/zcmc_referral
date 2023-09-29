@@ -1,12 +1,4 @@
-import {
-  Center,
-  VStack,
-  Image,
-  Text,
-  Container,
-  Link,
-  Spacer,
-} from "@chakra-ui/react";
+import { VStack, Image, Text, Container, Link, Spacer } from "@chakra-ui/react";
 import React from "react";
 import successImg from "../Assets/success.png";
 

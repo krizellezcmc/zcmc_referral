@@ -1,9 +1,7 @@
 import {
   Box,
-  Button,
   Circle,
   Flex,
-  Heading,
   HStack,
   Link,
   Spacer,
@@ -14,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { BiBed, BiBuilding, BiChevronRightCircle } from "react-icons/bi";
+import { BiChevronRightCircle } from "react-icons/bi";
 import api from "../API/Api.js";
 
 function DashboardTile(props) {

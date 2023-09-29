@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -26,9 +25,6 @@ import {
   HiOutlineUser,
   HiPhone,
 } from "react-icons/hi";
-
-import { BsHospital } from "react-icons/bs";
-// import { Select } from "chakra-react-select";
 import useAuth from "../Hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import api from "../API/Api";

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import Home from "./Home";
 import useAuth from "../../Hooks/useAuth";
-import { useLocation } from "@reach/router";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {

@@ -3,10 +3,8 @@ import {
   Link,
   VStack,
   Text,
-  Container,
   Image,
   Divider,
-  Box,
   Button,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -31,10 +29,10 @@ const navItem = [
     name: "Services",
     href: "services",
   },
-  {
-    name: "Team",
-    href: "team",
-  },
+  // {
+  //   name: "Team",
+  //   href: "team",
+  // },
   {
     name: "FAQs",
     href: "faqs",

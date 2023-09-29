@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Center,
@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import "../App.css";
 
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import api from "../API/Api";
 import { BiLockAlt } from "react-icons/bi";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
